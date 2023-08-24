@@ -1,4 +1,20 @@
+let users=[
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "age": 30,
+        "email": "john@example.com",
+        "password":"62372"
+    },
+    {
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "age": 25,
+        "email": "jane@example.com"
+    }
+];
 
+let tasks=[];
 ///************INCLUDE HTML-TEMPLATES*************///
 
 /**
