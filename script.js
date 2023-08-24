@@ -3,7 +3,7 @@
 
 /**
  * Searches for the "w3-include-html" attribute in the HTML file 
- * and replaces it with the value of this attribute
+ * and replaces it with the value of this attribute.
  */
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
