@@ -27,7 +27,7 @@ async function setItem(key, value) {
         // Parse the response as JSON.
         const res = await response.json();
         return res;
-       
+
     } catch (error) {
         throw new Error(`Error setting item: ${error.message}`);
     }
@@ -52,9 +52,9 @@ async function getItem(key) {
         // Perform a fetch request to retrieve the item. And parses the response as JSON
         const response = await fetch(url).then(res => res.json());
 
-        if(response['status']=="success"){
+        if (response['status'] == "success") {
             return (response['data']['value']);
-        }else{
+        } else {
             return null;
         }
     } catch (error) {
@@ -62,6 +62,13 @@ async function getItem(key) {
     }
 }
 
-async function loadUsers(){
-    users=await getItem('users');
+
+/**
+ * Asynchronously loads user data from storage and assigns it to the global variable 'users'.
+ * @async
+ * @function
+ * @returns {Promise<void>} A Promise that resolves when the user data is loaded and assigned.
+ */
+async function loadUsers() {
+    users = await getItem('users');
 }
