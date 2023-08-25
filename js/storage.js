@@ -1,5 +1,5 @@
 const STORAGE_TOKEN = '4QJ34MWA1MFP5EYJA33ASIAAU5L1A0CMTFMYVZI5';
-const STORAGE_URL = 'https://remote-storage.developerakademie.orga/item';
+const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 /**
  * Sets an item in the storage using a key-value pair.
@@ -60,4 +60,8 @@ async function getItem(key) {
     } catch (error) {
         throw new Error(`Error getting item: ${error.message}`);
     }
+}
+
+async function loadUsers(){
+    users=await getItem('users');
 }

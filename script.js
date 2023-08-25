@@ -1,20 +1,33 @@
-let users=[
-    {
-        "firstName": "John",
-        "lastName": "Doe",
-        "age": 30,
-        "email": "john@example.com",
-        "password":"62372"
-    },
-    {
-        "firstName": "Jane",
-        "lastName": "Smith",
-        "age": 25,
-        "email": "jane@example.com"
-    }
-];
+let users = [];
 
-let tasks=[];
+let tasks = [];
+
+
+async function init() {
+    await getStorageData();
+}
+
+
+/**
+ * Asynchronously loads user,tasks data from storage and assigns it to the global variables 'users','tasks'.
+ * @async
+ * @function
+ * @returns {Promise<void>} A Promise that resolves when the user data is loaded and assigned.
+ */
+async function getStorageData() {
+    users = getItem("users");
+    tasks = getItem("tasks");
+}
+
+
+
+
+
+
+
+
+
+
 ///************INCLUDE HTML-TEMPLATES*************///
 
 /**
