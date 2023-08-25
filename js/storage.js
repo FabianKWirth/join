@@ -33,6 +33,7 @@ async function setItem(key, value) {
     }
 }
 
+
 /**
  * Retrieves an item from the storage using a key.
  *
@@ -62,13 +63,3 @@ async function getItem(key) {
     }
 }
 
-
-/**
- * Asynchronously loads user data from storage and assigns it to the global variable 'users'.
- * @async
- * @function
- * @returns {Promise<void>} A Promise that resolves when the user data is loaded and assigned.
- */
-async function loadUsers() {
-    users = await getItem('users');
-}
