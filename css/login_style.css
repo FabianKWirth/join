@@ -1,0 +1,242 @@
+#homepage {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    font-family: inter;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: moveLogo 500ms ease-in-out 1s forwards;
+    z-index: 2;
+}
+
+@keyframes moveLogo {
+    0% {
+        transform: scale(1);
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        transform: scale(0.4);
+        top: -50px;
+        left: -30px;
+    }
+}
+
+#login-field {
+    background-color: white;
+    height: 505px;
+    width: 652px;
+    border-radius: 30px;
+    opacity: 0;
+    animation: appearField 0.5s ease-in-out 1s forwards;
+    box-shadow: 0px 0px 14px 3px #0000000A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes appearField {
+    to {
+        opacity: 1;
+    }
+}
+
+.login-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+}
+
+.login-heading {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73px;
+    letter-spacing: 0em;
+    margin-block-start: 0;
+    margin-block-end: 16px;
+}
+
+.heading-seperator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seperator {
+    height: 3px;
+    width: 150px;
+    background: #29ABE2;
+    border-radius: 1.5px;
+}
+
+.input-login {
+    width: 422px;
+    height: 24px;
+    padding: 12px 21px 12px 21px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    cursor: pointer;
+}
+
+.input-login:focus {
+    border-color: #29ABE2;
+    outline: none;
+}
+
+.password {
+    background: url(../assets/image/lock.png) no-repeat;
+    background-position: right 21px center;
+}
+
+.email {
+    background: url(../assets/image/mail.png) no-repeat;
+    background-position: right 21px center;
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
+
+.login-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+.forgot-password-span {
+    color: #29ABE2;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.forgot-password-span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.login-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-label {
+    color: black;
+    cursor: pointer;
+}
+
+.login-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.login-button {
+    font-size: 21px;
+    width: Hug (110px);
+    height: Fixed (48px);
+    padding: 15px 24px 15px 24px;
+    border-radius: 8px;
+    background: #2A3647;
+    color: white;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
+}
+
+.guest-button {
+    width: Hug (177px);
+    height: Fixed (48px);
+    padding: 15px 24px 15px 24px;
+    border-radius: 8px;
+    border: 1px solid #2A3647;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+}
+
+.guest-button:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
+}
+
+.sign-up-text {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+}
+
+.sign-up-btn {
+    width: Hug (91px);
+    height: Hug (49px);
+    padding: 15px 16px 15px 16px;
+    border-radius: 8px;
+    gap: 10px;
+    background-color: #2A3647;
+    color: white;
+}
+
+.sign-up-btn-container {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.sign-up-btn:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.privacy-policy-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 24px;
+    text-decoration: none;
+    position: absolute;
+    bottom: 32px;
+    opacity: 0;
+    animation: appearField 0.5s ease-in-out 1s forwards;
+}
+
+a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.4);
+}

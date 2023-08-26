@@ -28,6 +28,18 @@ async function getStorageData() {
 
 
 
+<<<<<<< Updated upstream
+=======
+let tasks=[];
+
+
+function init(){
+    includeHTML();
+    renderLoginContainer();
+}
+
+
+>>>>>>> Stashed changes
 ///************INCLUDE HTML-TEMPLATES*************///
 
 /**
