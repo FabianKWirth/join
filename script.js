@@ -5,6 +5,7 @@ let tasks = [];
 
 async function init() {
     await getStorageData();
+    renderLoginContainer();
 }
 
 
@@ -28,18 +29,6 @@ async function getStorageData() {
 
 
 
-<<<<<<< Updated upstream
-=======
-let tasks=[];
-
-
-function init(){
-    includeHTML();
-    renderLoginContainer();
-}
-
-
->>>>>>> Stashed changes
 ///************INCLUDE HTML-TEMPLATES*************///
 
 /**
