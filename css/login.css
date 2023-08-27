@@ -46,7 +46,7 @@
 
 .animation {
     opacity: 0;
-    animation: appearField 0.5s ease-in-out 1s forwards;
+    animation: appearField 0.5s ease-in-out 500ms forwards;
 }
 
 @keyframes appearField {
@@ -362,4 +362,8 @@ a:hover {
     background-color: #2A3647;
     color: white;
     border-radius: 16px;
+}
+
+.d-none {
+    display: none;
 }
