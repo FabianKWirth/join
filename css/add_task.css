@@ -1,0 +1,91 @@
+#addTaskContainer {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    margin: 110px 96px;
+    font-family: inter;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+#addTaskContainer h1 {
+    font-weight: 700;
+    font-size: 61px;
+}
+
+#addTaskContainerer label {
+    color: #2A3647;
+}
+
+.task-input-container {
+    display: flex;
+    width: 976.25px;
+    height: 424px;
+}
+
+.task-input-cell {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    
+
+
+    padding-right: 32px;
+}
+
+.task-input-not-first-cell {
+    border-left: 1px solid #D1D1D1;
+    padding-right: 0px;
+    padding-left: 32px;
+}
+
+#newTaskTitle,
+#newTaskAssignedUser,
+#newTaskDate,
+#newTaskCategory,
+#newTaskSubTask {
+    height: 48px;
+    width: 440px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin: 12px 0;
+}
+
+#newTaskDescription {
+    height: 120px;
+    width: 440px;
+    font-size: 20px;
+    margin: 12px 0;
+}
+
+
+
+
+#newTaskCategory {
+    display: flex;
+    flex-direction: row;
+}
+
+#newTaskPriority {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.priority-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 56px;
+    width: 136px;
+    gap: 8px;
+    font-size: 20px;
+    background-color: white;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+}

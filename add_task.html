@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/add_task.css">
+    <link rel="icon" type="image/x-icon" href="../assets\image\join-logo.svg">
+    
+</head>
+
+<body>
+
+    <form id="addTaskContainer">
+        <h1>Add Task</h1>
+        <div class="task-input-container">
+            <div class="task-input-cell">
+                <div>
+                    <label for="newTaskTitle">Title</label>
+                    <input type="text" id="newTaskTitle" required>
+                </div>
+
+                <div>
+                    <label for="newTaskDescription">Description</label>
+                    <textarea id="newTaskDescription"></textarea>
+                </div>
+
+                <div>
+                    <label for="newTaskAssignedUser">Assigned to</label>
+                    <select id="newTaskAssignedUser">
+                        <option id="1">KontaktName</option><!-- contactId, contactName-->
+                        <option id="2">KontaktName</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="task-input-cell task-input-not-first-cell">
+                <div>
+                    <label for="newTaskDate">Due Date</label>
+                    <input type="date" id="newTaskDate">
+                </div>
+                <div>
+                    <label for="newTaskPriority">Prio</label>
+                    <div id='newTaskPriority'>
+                        <button type="button" class="priority-button">Urgent<img class='prio-icon'
+                                src="./assets/icons/prio-urgent.svg"></button>
+                        <button type="button" class="priority-button">Medium<img class='prio-icon'
+                                src="./assets/icons/prio-medium.svg"></button>
+                        <button type="button" class="priority-button">Low<img class='prio-icon'
+                                src="./assets/icons/prio-low.svg"></button>
+                    </div>
+                </div>
+                <div>
+                    <label for="newTaskCategory">Category</label>
+                    <select id="newTaskCategory">
+                        <option id="1">categoryName</option><!-- categoryId, categoryName-->
+                        <option id="2">categoryName</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="newTaskSubTask">Subtasks</label>
+                    <select id="newTaskSubTask">
+                        <!-- taskId, taskName-->
+                        <!-- taskId, taskName-->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-options">
+            <button onclick="emptyAddTaskForm()">Clear</button><button onclick="createTask()">Create Task</button>
+        </div>
+
+
+
+    </form>
+
+    <script src="./script.js"></script>
+    <script src="./js/add_task.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/login.js"></script>
+</body>
