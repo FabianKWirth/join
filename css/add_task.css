@@ -94,3 +94,13 @@
     border: 1px solid #D1D1D1;
     border-radius: 10px;
 }
+
+.priority-button:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.166);
+}
+
+
+
+.priority-button-selected{
+    border: solid 3px green;
+}

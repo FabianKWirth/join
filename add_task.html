@@ -16,7 +16,7 @@
     <div w3-include-html="./assets/templates/header.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
     
-    <form id="addTaskContainer">
+    <form onsubmit="return false;" id="addTaskContainer">
         <div class="add-task">
         <h1>Add Task</h1>
         <div class="task-input-container">
@@ -34,8 +34,6 @@
                 <div>
                     <label for="newTaskAssignedUser">Assigned to</label>
                     <select id="newTaskAssignedUser">
-                        <option id="1">KontaktName</option><!-- contactId, contactName-->
-                        <option id="2">KontaktName</option>
                     </select>
                 </div>
             </div>
@@ -48,26 +46,24 @@
                 <div>
                     <label for="newTaskPriority">Prio</label>
                     <div id='newTaskPriority'>
-                        <button type="button" class="priority-button">Urgent<img class='prio-icon'
-                                src="./assets/icons/prio-urgent.svg"></button>
-                        <button type="button" class="priority-button">Medium<img class='prio-icon'
+                        <button type="button" class="priority-button" value="urgent" onclick="setButtonSelected(this)">Urgent<img class='prio-icon'
+                                src="./assets/icons/prio-urgent.svg" ></button>
+                        <button type="button" class="priority-button" value="medium" onclick="setButtonSelected(this)">Medium<img class='prio-icon'
                                 src="./assets/icons/prio-medium.svg"></button>
-                        <button type="button" class="priority-button">Low<img class='prio-icon'
+                        <button type="button" class="priority-button" value="low" onclick="setButtonSelected(this)">Low<img class='prio-icon'
                                 src="./assets/icons/prio-low.svg"></button>
                     </div>
                 </div>
                 <div>
                     <label for="newTaskCategory">Category</label>
                     <select id="newTaskCategory">
-                        <option id="1">categoryName</option><!-- categoryId, categoryName-->
-                        <option id="2">categoryName</option>
+                        <option value="technicalTask">Technical Task</option><!-- categoryId, categoryName-->
+                        <option value="userStory">User Story</option>
                     </select>
                 </div>
                 <div>
                     <label for="newTaskSubTask">Subtasks</label>
                     <select id="newTaskSubTask">
-                        <!-- taskId, taskName-->
-                        <!-- taskId, taskName-->
                     </select>
                 </div>
             </div>
