@@ -26,7 +26,7 @@ function renderLoginContainerTemplate() {
 
 function renderSignUpForm() {
   container.innerHTML = /*html*/ ` 
-  <form onsubmit=" return checkPassword();" class="sign-up-form">
+  <form onsubmit="" return checkPassword(); return false;"" class="sign-up-form">
   <img onclick="renderLoginContainer()" class="sign-up-arrow arrow" src="../assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">Sign up</h2>
   <div class="seperator"></div></div><div class="input-container">
@@ -37,7 +37,7 @@ function renderSignUpForm() {
   <span id="info"></span>
   <div class="accept-terms-checkbox"><input required class="login-checkbox" id="checkbox" type="checkbox">
   <span>I accept the <a href="" class="forgot-password-span">Privacy policy</a></span></div>
-  <button id="sign-up-btn-form">Sign up</button>
+  <button id="sign-up-btn-form" onclick="return checkPassword()" type='button'>Sign up</button>
   </form>`;
 }
 
