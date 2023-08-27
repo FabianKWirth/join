@@ -156,8 +156,6 @@
 
 .login-button {
     font-size: 21px;
-    width: Hug (110px);
-    height: Fixed (48px);
     padding: 15px 24px 15px 24px;
     border-radius: 8px;
     background: #2A3647;
@@ -177,8 +175,6 @@
 }
 
 .guest-button {
-    width: Hug (177px);
-    height: Fixed (48px);
     padding: 15px 24px 15px 24px;
     border-radius: 8px;
     border: 1px solid #2A3647;
@@ -188,7 +184,7 @@
     letter-spacing: 0em;
     text-align: left;
     cursor: pointer;
-    border: unset;
+    background-color: white;
 }
 
 .guest-button:hover {
@@ -205,8 +201,6 @@
 }
 
 .sign-up-btn {
-    width: Hug (91px);
-    height: Hug (49px);
     padding: 15px 16px 15px 16px;
     border-radius: 8px;
     gap: 10px;
