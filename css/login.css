@@ -168,6 +168,7 @@
     text-align: left;
     cursor: pointer;
     text-align: center;
+    border: unset;
 }
 
 .login-button:hover {
@@ -187,6 +188,7 @@
     letter-spacing: 0em;
     text-align: left;
     cursor: pointer;
+    border: unset;
 }
 
 .guest-button:hover {
@@ -261,9 +263,8 @@ a:hover {
     gap: 32px;
 }
 
-.sign-up-btn-form {
-    width: 100px;
-    height: 30px;
+#sign-up-btn-form {
+    width: 160px;
     padding: 15px 24px 15px 24px;
     border-radius: 8px;
     gap: 10px;
@@ -275,9 +276,10 @@ a:hover {
     line-height: 25px;
     letter-spacing: 0em;
     text-align: center;
+    border: unset;
 }
 
-.sign-up-btn-form:hover {
+#sign-up-btn-form:hover {
     background-color: #29ABE2;
     box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
     cursor: pointer;
@@ -348,10 +350,22 @@ a:hover {
     font-weight: 700;
     line-height: 25px;
     letter-spacing: 0em;
+    border: unset;
 }
 
 .send-email-btn:hover {
     background-color: #29ABE2;
     box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
     cursor: pointer;
+}
+
+.signed-up-message {
+    position: absolute;
+    bottom: 140px;
+    width: fit-content;
+    height: fit-content;
+    padding: 16px;
+    background-color: #2A3647;
+    color: white;
+    border-radius: 16px;
 }

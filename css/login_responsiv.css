@@ -103,6 +103,12 @@
         flex-direction: column-reverse;
         gap: 12px;
     }
+
+    .signed-up-message {
+        top: 54px;
+        width: 116px;
+        text-align: center;
+    }
 }
 
 @media(max-width: 600px) {
