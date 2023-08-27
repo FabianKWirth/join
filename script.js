@@ -13,11 +13,16 @@ async function init() {
  * Asynchronously loads user,tasks data from storage and assigns it to the global variables 'users','tasks'.
  * @async
  * @function
- * @returns {Promise<void>} A Promise that resolves when the user data is loaded and assigned.
+ * @returns {<void>} User data and tasks data is loaded and assigned.
  */
 async function getStorageData() {
-    users = getItem("users");
-    tasks = getItem("tasks");
+    //fetches both arrays simoultaneously
+    usersFetch = getItem("users");
+    tasksFetch = getItem("tasks");
+
+    //resolves values to global array while promise is completed
+    users= await usersFetch;
+    tasks = await usersFetch;
 }
 
 
