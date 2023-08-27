@@ -52,7 +52,15 @@ let users=[
     }
 ];
 
-let tasks = [];
+let tasks = [{
+    title: "Task 1",
+    description: "Description for Task 1",
+    assignedUser: "1", // Example user ID
+    dueDate: "2023-08-31",
+    priority: "Urgent",
+    category: "1", // Example category ID
+    subTask: "1" // Example subtask ID
+}];
 
 async function init() {
     await getStorageData();
