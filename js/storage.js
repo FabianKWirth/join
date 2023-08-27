@@ -54,7 +54,7 @@ async function getItem(key) {
         const response = await fetch(url).then(res => res.json());
 
         if (response['status'] == "success") {
-            return (response['data']['value']);
+            return (response['data']['value'].json());
         } else {
             return null;
         }
