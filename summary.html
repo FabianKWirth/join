@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Summary | Join</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary | Join</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-    <script src="./js/add_task.js"></script>
-</head>
+    <body onload="includeHTML(0)">
+        <div w3-include-html="assets/templates/header.html"></div>
 
-<body onload="includeHTML(0)">
+        <div
+            class="sidebar"
+            w3-include-html="assets/templates/sidebar.html"
+        ></div>
 
-    <div w3-include-html="assets/templates/header.html"></div>
+        <script src="script.js"></script>
+        <script src="./js/storage.js"></script>
+        <script src="./js/add_task.js"></script>
+        <!-- <script src="./js/register.js"></script> -->
+        <!-- <script src="./js/login.js"></script> -->
 
-    <div class="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
+        <div class="body">
+            <div class="headline-h1">
+                <h1>Summary</h1>
+                <img src="assets/image/sidebar/Summary/blue-line.svg" alt="blue line"/>
+                <span>Everything in a nutshell!</span>
+            </div>
 
-
-
-
-</body>
+            <div class="summary-content">
+                <div class="summery-elements">
+                    <div class="summery-container">
+                        <a class="tasks" href="#">
+                            <h2>5</h2>
+                            <div class="task-text">
+                                Tasks in
+                                <br />
+                                Board
+                            </div>
+                        </a>
+                        <a class="tasks" href="#">
+                            <h2>2</h2>
+                            <div class="task-text">
+                                Tasks in
+                                <br />
+                                Progress
+                            </div>
+                        </a>
+                        <a class="tasks" href="#">
+                            <h2>2</h2>
+                            <div class="task-text">
+                                Awaiting
+                                <br />
+                                Feedback
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="greet-section"></div>
+            </div>
+        </div>
+    </body>
 </html>
