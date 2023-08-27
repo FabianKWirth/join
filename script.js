@@ -40,7 +40,7 @@ async function getStorageData() {
  * Searches for the "w3-include-html" attribute in the HTML file 
  * and replaces it with the value of this attribute.
  */
-async function includeHTML() {
+async function includeHTML(x) {
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
         const element = includeElements[i];
@@ -52,4 +52,7 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
+    bgDark(x);
+    bgDarkLegalNotice(x);
+    setInitials();
 }
