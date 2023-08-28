@@ -8,6 +8,8 @@ h1 {
     font-size: 61px;
     font-weight: 700;
     font-family: 'Inter', sans-serif;
+    /* margin: 0 0 40px 0; */
+    margin: 0;
 }
 
 h2 {
@@ -256,6 +258,7 @@ header {
     gap: 30px;
     margin: 60px 0 0 0px;
     background-color: #F6F7F8;
+    margin-bottom: 40px;
 }
 
 .headline-h1 span {
@@ -266,8 +269,6 @@ header {
 
 .summary-content {
     display: flex;
-    flex-direction: row;
-    width: 560px;
 }
 
 .summery-elements {
@@ -296,6 +297,18 @@ header {
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
 }
 
+/* .summery-container a:hover {
+    background-color: #2D3849;
+    color: white !important;
+} */
+
+/* Füge diesen CSS-Code zu deinem Stylesheet hinzu */
+/* .tasks-top:hover .task-text {
+    background-color: #2D3849;
+    color: white;
+} */
+
+
 .task-text {
     font-size: 20px;
     font-weight: 400;
@@ -323,7 +336,9 @@ header {
     gap: 18px;
     margin-left: 65px;
     text-align: center;
+
 }
+
 
 .font-16 {
     font-size: 16px;
@@ -343,4 +358,92 @@ header {
     margin: 10px;
     background-color: #FFFFFF;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+.greet-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;    
+}
+
+.greeting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.greeting-time {
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.blue-text {
+    color:#29ABE2;
+}
+
+
+/* Füge diesen CSS-Code zu deinem Stylesheet hinzu */
+.tasks-top:hover {
+    background-color: #2A3647;
+}
+
+.task-middle:hover {
+    background-color: #2A3647;
+}
+
+.task-bottom:hover {
+    background-color: #2A3647;
+}
+
+.tasks-top:hover h2 {
+    color: white;
+}
+
+.tasks-top:hover .task-text {
+    color: white;
+}
+
+.task-middle:hover h2 {
+    color: white;
+}
+
+.task-middle:hover h3 {
+    color: white;
+}
+
+.task-middle:hover .font-16 {
+    color: white;
+}
+
+.task-bottom:hover h2 {
+    color: white;
+}
+
+.task-bottom:hover .font-16 {
+    color: white;
+}
+
+.box-left {
+    transform-origin: right center;
+    transition: 0.1s ease-in-out;
+}
+
+.box-left:hover {
+    transform: scaleX(1.05) scaleY(1.05) translateX(5%);
+}
+
+.box-middle:hover {
+    transform: scale(1.05);
+    transition: 0.1s ease-in-out;
+}
+
+.box-right {
+    transform-origin: left center;
+    transition: 0.1s ease-in-out;
+}
+
+.box-right:hover {
+    transform: scaleX(1.05) scaleY(1.05) translateX(-5%);
 }
