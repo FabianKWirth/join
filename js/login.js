@@ -10,13 +10,13 @@ function renderLoginContainerTemplate() {
   return /*html*/ `
   <div id="sign-up-btn-container" class=" animation"><span class="sign-up-text">Not a Join user?</span>
   <span onclick="renderSignUpForm()" class=sign-up-btn>Sign up</span></div>
-  <form id="login-form" class="animation" onsubmit="checkUser()">
+  <form id="login-form" class="animation" onsubmit="login(); return false">
   <div class="heading-seperator">
   <h2 class="login-heading">Log in</h2>
   <div class="seperator"></div></div>
-  <input required class="input-login email" type="email" placeholder="Email">
-  <input required class="input-login password" type="password" placeholder="Password">
-  <div class="checkbox-container">
+  <input required id="login-email" class="input-login email" type="email" placeholder="Email">
+  <input required id="login-password" class="input-login password" type="password" placeholder="Password">
+  <span style="color: red" id="login-message"></span><div class="checkbox-container">
   <div class="login-checkbox-container"><input class="login-checkbox" id="checkbox" type="checkbox">
   <label class="checkbox-label" for="checkbox">Remember me</label></div>
   <span onclick="renderForgotPasswordForm()" class="forgot-password-span">I forgot my Password</span></div> 
@@ -26,7 +26,7 @@ function renderLoginContainerTemplate() {
 
 function renderSignUpForm() {
   container.innerHTML = /*html*/ ` 
-  <form onsubmit="" class="sign-up-form">
+  <form onsubmit="return false" class="sign-up-form">
   <img onclick="renderLoginContainer()" class="sign-up-arrow arrow" src="../assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">Sign up</h2>
   <div class="seperator"></div></div><div class="input-container">
@@ -83,4 +83,24 @@ function checkPassword() {
     info.innerHTML = "<span style='color: red'>Your password don't match</span>";
     return false;
   }
+}
+
+/**
+ * Check's if the user is registred, if not a message is displayed.
+ */
+function login (){
+  let message = document.getElementById('login-message');
+  let email = document.getElementById('login-email');
+  let password = document.getElementById('login-password');
+  let user = users.find(u => u.email == email.value && u.password == password.value);
+
+  if(user){
+    window.location.href = "summary.html";
+  } else (
+    message.innerHTML = 'Wrong password or email! Try again.'
+  )
+}
+
+function resetPassword(){
+  
 }
