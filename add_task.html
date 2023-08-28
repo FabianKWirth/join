@@ -39,11 +39,10 @@
                             <img class='dropdown-field-icon' src="./assets/icons/arrow-drop.svg">
                         </div>
                         <div class="dropdown-content hide" id="dropDownContent">
-                            <div id="assignUserFrom">
-                                <table id="assignedUserList">
-                                    <!-- User data checkboxes will be added here dynamically -->
-                                </table>
-                                <button type="submit">Add new contact</button>
+                            <div id="assignUserContent">
+                                <div id="selectAssignedUserList">
+                                </div>
+                                <button type="button" class="add-new-contact-button">Add new contact</button>
                             </div>
                         </div>
                         <div id='assignedUserList'></div>
@@ -59,11 +58,11 @@
                 <div>
                     <label for="newTaskPriority">Prio</label>
                     <div id='newTaskPriority'>
-                        <button id='urgentButton' type="button" class="priority-button" value="urgent" onclick="setButtonSelected(this)">Urgent<img id='urgentIcon' class='prio-icon'
+                        <button id='urgentButton' type="button" class="priority-button" value="urgent" onclick="setPrioButtonSelected(this)">Urgent<img id='urgentIcon' class='prio-icon'
                                 src="./assets/icons/prio-urgent.svg" ></button>
-                        <button id='mediumButton' type="button" class="priority-button" value="medium" onclick="setButtonSelected(this)">Medium<img id='mediumIcon' class='prio-icon'
+                        <button id='mediumButton' type="button" class="priority-button" value="medium" onclick="setPrioButtonSelected(this)">Medium<img id='mediumIcon' class='prio-icon'
                                 src="./assets/icons/prio-medium.svg"></button>
-                        <button id='lowButton' type="button" class="priority-button" value="low" onclick="setButtonSelected(this)">Low<img id='lowIcon' class='prio-icon'
+                        <button id='lowButton' type="button" class="priority-button" value="low" onclick="setPrioButtonSelected(this)">Low<img id='lowIcon' class='prio-icon'
                                 src="./assets/icons/prio-low.svg"></button>
                     </div>
                 </div>

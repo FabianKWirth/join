@@ -3,24 +3,25 @@ let showAssignedUsers = false;
 let assignedUsers = [];
 
 
+
 users = [
     {
         "username": "john_doe",
         "password": "securePassword123",
         "email": "john.doe@example.com",
-        "iconColor":"#FFA35E"
+        "iconColor": "#FFA35E"
     },
     {
         "username": "jane_smith",
         "password": "strongPass456",
         "email": "jane.smith@example.com",
-        "iconColor":"#FFA35E"
+        "iconColor": "#FFA35E"
     },
     {
         "username": "user123",
         "password": "password789",
         "email": "user123@example.com",
-        "iconColor":"#1FD7C1"
+        "iconColor": "#1FD7C1"
     }
 ];
 
@@ -112,8 +113,7 @@ function setAssignedUserData() {
     /**
      * @type {HTMLElement}
      */
-    const userForm = document.getElementById('assignUserFrom');
-    const userList = document.getElementById('assignedUserList');
+    const userList = document.getElementById('selectAssignedUserList');
 
     userList.innerHTML +=/*html*/`<table>`;
     for (let i = 0; i < users.length; i++) {
@@ -121,22 +121,20 @@ function setAssignedUserData() {
 
         let userName = user['username'];
         //let userIcon=getUserIcon(user['username']);
-        let userIcon = "";
+        let userIcon = getContactIconHtml(user);
 
         userList.innerHTML +=/*html*/`
-        <tr onclick='selectUser(this)' id='userId' data-user-id='${i}'>
-            <td>${userIcon}</td>
-            <td>${userName}</td>
-            <td>
-            <input type='checkBox' class='selected-user-checkbox' id='selectedUserCheckBox${i}'>
-            <span class='selected-user-checkbox-label'></span>
-            </td>
-        </tr>`;
+        <div onclick='selectUser(this)' id='userId' class='assign-user-option' data-user-id='${i}'>
+            <div class='user-information'>
+                ${userIcon}
+                ${userName}
+            </div>
+            <img src="./assets/icons/checkbox-empty.svg" id="selectedUserCheckBox${i}" class="selected-user-checkbox">
+        </div>`;
     }
     userList.innerHTML +=/*html*/`</table>`;
 
 }
-
 
 function setSelectedUserIcons() {
     let html = "";
@@ -147,21 +145,27 @@ function setSelectedUserIcons() {
     document.getElementById("assignedUserList").innerHTML = html;
 }
 
-function selectUser(tableRow) {
-    console.log(tableRow);
-    assignedUsers.push(tableRow.getAttribute("data-user-id"));
-    tableRow.onclick = () => unselectUser(tableRow);
-    tableRow.classList.add("selectedRow");
+function selectUser(row) {
+    userId=row.getAttribute("data-user-id");
+    assignedUsers.push(userId);
+    row.onclick = () => unselectUser(row);
+    row.classList.add("selected-option");
+    document.getElementById("selectedUserCheckBox"+userId).src='./assets/icons/checkbox-filled.svg';
+    document.getElementById("selectedUserCheckBox"+userId).classList.add("white-symbol");
+    setSelectedUserIcons();
 }
 
-function unselectUser(tableRow) {
-    console.log(tableRow);
-    const indexToRemove = assignedUsers.indexOf(tableRow.getAttribute("data-user-id"));
+function unselectUser(row) {
+    userId=row.getAttribute("data-user-id");
+    const indexToRemove = assignedUsers.indexOf(userId);
     if (indexToRemove !== -1) {
         assignedUsers.splice(indexToRemove, 1);
     }
-    tableRow.onclick = () => selectUser(tableRow);
-    tableRow.classList.remove("selectedRow");
+    row.onclick = () => selectUser(row);
+    row.classList.remove("selected-option");
+    document.getElementById("selectedUserCheckBox"+userId).src='./assets/icons/checkbox-empty.svg';
+    document.getElementById("selectedUserCheckBox"+userId).classList.remove("white-symbol");
+    setSelectedUserIcons();
 }
 
 function changeAvailableUsersVisibility() {
@@ -210,7 +214,7 @@ function setTaskData() {
  *
  * @param {HTMLButtonElement} currentButton - The button to be set as selected.
  */
-function setButtonSelected(currentButton) {
+function setPrioButtonSelected(currentButton) {
     /**
      * @type {HTMLCollectionOf<HTMLButtonElement>}
      */
@@ -221,16 +225,16 @@ function setButtonSelected(currentButton) {
          */
         const button = buttons[i];
         if (button == currentButton) {
-            setButtonSelectStatusById(button.value, true);
+            setPrioButtonSelectStatusById(button.value, true);
         } else {
-            setButtonSelectStatusById(button.value, false);
+            setPrioButtonSelectStatusById(button.value, false);
         }
     }
 }
 
 
 
-function setButtonSelectStatusById(type, selectStatus = false) {
+function setPrioButtonSelectStatusById(type, selectStatus = false) {
     console.log(`priority-button-${type}-selected`, selectStatus);
 
     if (selectStatus == true) {
