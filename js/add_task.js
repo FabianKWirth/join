@@ -1,5 +1,6 @@
 let selectedTaskPriority = null //Priorities= urgent, medium, low
 let showAssignedUsers=false;
+let assignedUsers=[];
 
 users = [
     {
@@ -112,6 +113,7 @@ function setAssignedUserData() {
     const userForm = document.getElementById('assignUserFrom');
     const userList = document.getElementById('assignedUserList');
 
+    userList.innerHTML +=/*html*/`<table>`;
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
 
@@ -121,16 +123,30 @@ function setAssignedUserData() {
         let userMail = user['email'];
 
         userList.innerHTML +=/*html*/`
-        <tr onclick='setUserSelected(this)' class id='userId' value='userMail'>
+        <tr onclick='selectUser(this)' id='userId' data-usermail='${userMail}'>
             <td>${userIcon}</td>
             <td>${userName}</td>
-            <td><input type='checkBox' id='selectedUserCheckBox${userMail}'></td>
+            <td><input type='checkBox' class='selected-user-checkbox' id='selectedUserCheckBox${userMail}'></td>
         </tr>`;
     }
+    userList.innerHTML +=/*html*/`</table>`;
+}
 
-        // Do something with the selected usernames
-        //console.log('Selected usernames:', selectedUsernames);
+function selectUser(tableRow){
+    console.log(tableRow);
+    assignedUsers.push(tableRow.getAttribute("data-usermail"));
+    tableRow.onclick = () => unselectUser(tableRow);
+    tableRow.classList.add("selectedRow");
+}
 
+function unselectUser(tableRow){
+    console.log(tableRow);
+    const indexToRemove = assignedUsers.indexOf(tableRow.getAttribute("data-usermail"));
+    if (indexToRemove !== -1) {
+        assignedUsers.splice(indexToRemove, 1);
+    }
+    tableRow.onclick = () => selectUser(tableRow);
+    tableRow.classList.remove("selectedRow");
 }
 
 function changeAvailableUsersVisibility(){
@@ -201,7 +217,6 @@ function setButtonSelected(currentButton) {
 
 function setButtonSelectStatusById(type, selectStatus = false) {
     console.log(`priority-button-${type}-selected`, selectStatus);
-    let button = document.querySelector('#newTaskCategory');
 
     if (selectStatus == true) {
         document.getElementById(`${type}Button`).classList.add(`priority-button-${type}-selected`);

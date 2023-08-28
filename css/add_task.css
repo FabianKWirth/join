@@ -74,12 +74,11 @@
     border-radius: 10px;
 }
 
-
 .dropdown-field {
     height: 48px;
     width: 440px;
     font-size: 20px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     display: flex;
     align-items: center;
 }
@@ -99,13 +98,77 @@
     margin-left: -48px;
 }
 
+
+
+#assignUserFrom {
+    border-radius: 10px;
+    width: 440px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 #assignedUserList {
     width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#assignedUserList tr {
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#assignedUserList tr:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+#assignedUserList .selectedRow {
+    background-color: #2A3647;
+    color: white
+}
+
+#assignedUserList .selectedRow:hover {
+    background-color: #091931;
+    color: white;
+}
+
+.selected-user-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.selected-user-checkbox::before{
+    content: "";
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #2A3647;
+    background-image: url('checkbox-empty.svg'); /* Icon for selected state */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.selected-user-checkbox::checked {
+    display: block; /* Show the selected icon when the checkbox is checked */
+    background-image: url('checkbox-filled.svg'); /* Icon for unselected state */
 }
 
 #newTaskCategory {
     display: flex;
     flex-direction: row;
+}
+
+.new-task-category-option{
+    width: 440px;
+    font-size: 20px;
 }
 
 #newTaskPriority {
@@ -138,8 +201,6 @@
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.166);
 }
 
-
-
 .priority-button-urgent-selected {
     background-color: orangered;
 
@@ -164,7 +225,6 @@
     display: flex;
     justify-content: flex-end;
 }
-
 
 .form-options-button {
     gap: 16px;
