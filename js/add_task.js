@@ -1,22 +1,26 @@
 let selectedTaskPriority = null //Priorities= urgent, medium, low
-let showAssignedUsers=false;
-let assignedUsers=[];
+let showAssignedUsers = false;
+let assignedUsers = [];
+
 
 users = [
     {
         "username": "john_doe",
         "password": "securePassword123",
-        "email": "john.doe@example.com"
+        "email": "john.doe@example.com",
+        "iconColor":"#FFA35E"
     },
     {
         "username": "jane_smith",
         "password": "strongPass456",
-        "email": "jane.smith@example.com"
+        "email": "jane.smith@example.com",
+        "iconColor":"#FFA35E"
     },
     {
         "username": "user123",
         "password": "password789",
-        "email": "user123@example.com"
+        "email": "user123@example.com",
+        "iconColor":"#1FD7C1"
     }
 ];
 
@@ -108,7 +112,6 @@ function setAssignedUserData() {
     /**
      * @type {HTMLElement}
      */
-    let dropDownElement = document.getElementById("newTaskAssignedUser");
     const userForm = document.getElementById('assignUserFrom');
     const userList = document.getElementById('assignedUserList');
 
@@ -119,31 +122,41 @@ function setAssignedUserData() {
         let userName = user['username'];
         //let userIcon=getUserIcon(user['username']);
         let userIcon = "";
-        let userMail = user['email'];
 
         userList.innerHTML +=/*html*/`
-        <tr onclick='selectUser(this)' id='userId' data-usermail='${userMail}'>
+        <tr onclick='selectUser(this)' id='userId' data-user-id='${i}'>
             <td>${userIcon}</td>
             <td>${userName}</td>
             <td>
-            <input type='checkBox' class='selected-user-checkbox' id='selectedUserCheckBox${userMail}'>
+            <input type='checkBox' class='selected-user-checkbox' id='selectedUserCheckBox${i}'>
             <span class='selected-user-checkbox-label'></span>
             </td>
         </tr>`;
     }
     userList.innerHTML +=/*html*/`</table>`;
+
 }
 
-function selectUser(tableRow){
+
+function setSelectedUserIcons() {
+    let html = "";
+    for (let i = 0; i < assignedUsers.length; i++) {
+        const id = assignedUsers[i];
+        html += getContactIconHtml(users[id]);
+    }
+    document.getElementById("assignedUserList").innerHTML = html;
+}
+
+function selectUser(tableRow) {
     console.log(tableRow);
-    assignedUsers.push(tableRow.getAttribute("data-usermail"));
+    assignedUsers.push(tableRow.getAttribute("data-user-id"));
     tableRow.onclick = () => unselectUser(tableRow);
     tableRow.classList.add("selectedRow");
 }
 
-function unselectUser(tableRow){
+function unselectUser(tableRow) {
     console.log(tableRow);
-    const indexToRemove = assignedUsers.indexOf(tableRow.getAttribute("data-usermail"));
+    const indexToRemove = assignedUsers.indexOf(tableRow.getAttribute("data-user-id"));
     if (indexToRemove !== -1) {
         assignedUsers.splice(indexToRemove, 1);
     }
@@ -151,15 +164,15 @@ function unselectUser(tableRow){
     tableRow.classList.remove("selectedRow");
 }
 
-function changeAvailableUsersVisibility(){
-    if(showAssignedUsers==false){
-        showAssignedUsers=true;
+function changeAvailableUsersVisibility() {
+    if (showAssignedUsers == false) {
+        showAssignedUsers = true;
         document.getElementById("dropDownContent").classList.remove("hide");
-    }else{
-        showAssignedUsers=false;
+    } else {
+        showAssignedUsers = false;
         document.getElementById("dropDownContent").classList.add("hide");
     }
-   
+
 }
 
 /**
