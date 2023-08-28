@@ -1,0 +1,22 @@
+body{
+    font-family: inter;
+}
+
+.privacy-policy-container {
+    position: absolute;
+    margin: 100px 0 0 300px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+}
+
+p {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+li {
+    font-size: 18px;
+}
