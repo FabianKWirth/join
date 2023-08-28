@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 32px;
 }
 
 .logo {
@@ -46,7 +47,7 @@
 
 .animation {
     opacity: 0;
-    animation: appearField 0.5s ease-in-out 500ms forwards;
+    animation: appearField 0.5s ease-in-out 1s forwards;
 }
 
 @keyframes appearField {
@@ -203,9 +204,9 @@
 .sign-up-btn {
     padding: 15px 16px 15px 16px;
     border-radius: 8px;
-    gap: 10px;
     background-color: #2A3647;
     color: white;
+    border: unset;
 }
 
 #sign-up-btn-container {
@@ -366,4 +367,28 @@ a:hover {
 
 .d-none {
     display: none;
+}
+
+.forgot-password-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: #2A3647;
+    padding: 16px 32px;
+    border-radius: 16px;
+    position: absolute;
+    bottom: 90px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.forgot-password-message-text {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: white;
 }

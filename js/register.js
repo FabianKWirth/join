@@ -2,16 +2,13 @@
  * Pushing user data to the remote storage.
  */
 async function addUser(){
-    let registeredUser=[];
     let username = document.getElementById('username');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
 
-    registeredUser.push({'username': username.value, 'email': email.value, 'password': password.value});
+    users.push({'username': username.value, 'email': email.value, 'password': password.value});
 
-    users.push(registeredUser);
     setItem("users",users);
-
     signedUp();
 };
 

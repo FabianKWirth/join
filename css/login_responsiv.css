@@ -13,7 +13,7 @@
     .forgot-password-form {
         width: 396px;
         height: 500px;
-        margin: 150px 0 150px 0px;
+        margin: 150px 0 150px 0;
         border-radius: 30px
     }
 }
@@ -46,7 +46,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
     }
 
     #login-form {
@@ -122,6 +121,7 @@
     #login-form {
         width: 320px;
         height: 550px;
+        gap: 30px;
     }
 
     .sign-up-form {
@@ -149,5 +149,13 @@
 
     .forgot-password-form {
         width: 280px;
+    }
+
+    .forgot-password-message-text {
+        font-size: 17px;
+    }
+
+    .forgot-password-message {
+        padding: 12px 18px;
     }
 }

@@ -4,8 +4,9 @@ let tasks = [];
 
 
 async function init() {
-    await getStorageData();
     renderLoginContainer();
+    await getStorageData();
+    
 }
 
 
