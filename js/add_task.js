@@ -34,7 +34,6 @@ function collectTaskData() {
 
     const titleInput = container.querySelector('#newTaskTitle').value;
     const descriptionTextarea = container.querySelector('#newTaskDescription').value;
-    const assignedUsers = container.querySelector('assignedUserList').value;
     const dueDateInput = container.querySelector('#newTaskDate').value;
     const categorySelect = container.querySelector('#newTaskCategory').value;
     const subTaskSelect = container.querySelector('#newTaskSubTask').value;
@@ -126,7 +125,10 @@ function setAssignedUserData() {
         <tr onclick='selectUser(this)' id='userId' data-usermail='${userMail}'>
             <td>${userIcon}</td>
             <td>${userName}</td>
-            <td><input type='checkBox' class='selected-user-checkbox' id='selectedUserCheckBox${userMail}'></td>
+            <td>
+            <input type='checkBox' class='selected-user-checkbox' id='selectedUserCheckBox${userMail}'>
+            <span class='selected-user-checkbox-label'></span>
+            </td>
         </tr>`;
     }
     userList.innerHTML +=/*html*/`</table>`;
