@@ -33,17 +33,16 @@
 
                 <div>
                     <label for="newTaskAssignedUser" placeholder="Select contacts to assign">Assigned to</label>
-                    <div class="newTaskAssignedUser">
+                    <div id="newTaskAssignedUser">
                         <div class="dropdown-field"  onclick="changeAvailableUsersVisibility()">
                             <input type="text" class='dropdown-field-text' value="Select contacts to assign">
-                            <img class='dropdown-field-icon' src="./assets/icons/arrow-drop.svg">
+                            <img id='assignUsersDropDownIcon' class='dropdown-field-icon' src="./assets/icons/arrow-drop.svg">
                         </div>
                         <div class="dropdown-content hide" id="dropDownContent">
-                            <div id="assignUserContent">
                                 <div id="selectAssignedUserList">
+
                                 </div>
-                                <button type="button" class="add-new-contact-button">Add new contact</button>
-                            </div>
+                                <button type="button" class="default-button">Add new contact<img src='./assets/icons/person-add.svg'></button>
                         </div>
                         <div id='assignedUserList'></div>
                     </div>
@@ -82,8 +81,8 @@
         </div>
 
         <div class="form-options">
-            <button onclick="emptyAddTaskForm()" class="form-options-button form-options-button-clear">Clear</button>
-            <button id="createTask" onclick="createTask()" class="form-options-button form-options-button-create" disabled>Create Task</button>
+            <button onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
+            <button type='button' id="createTask" onclick="createTask()" class="default-button" disabled>Create Task</button>
         </div>
 
 

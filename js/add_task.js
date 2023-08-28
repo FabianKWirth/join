@@ -115,7 +115,7 @@ function setAssignedUserData() {
      */
     const userList = document.getElementById('selectAssignedUserList');
 
-    userList.innerHTML +=/*html*/`<table>`;
+    let additionalClass='first-user-option';
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
 
@@ -124,15 +124,16 @@ function setAssignedUserData() {
         let userIcon = getContactIconHtml(user);
 
         userList.innerHTML +=/*html*/`
-        <div onclick='selectUser(this)' id='userId' class='assign-user-option' data-user-id='${i}'>
+        <div onclick='selectUser(this)' id='userId' class='assign-user-option ${additionalClass}' data-user-id='${i}'>
             <div class='user-information'>
                 ${userIcon}
                 ${userName}
             </div>
             <img src="./assets/icons/checkbox-empty.svg" id="selectedUserCheckBox${i}" class="selected-user-checkbox">
         </div>`;
+        additionalClass="";
     }
-    userList.innerHTML +=/*html*/`</table>`;
+
 
 }
 
@@ -172,9 +173,11 @@ function changeAvailableUsersVisibility() {
     if (showAssignedUsers == false) {
         showAssignedUsers = true;
         document.getElementById("dropDownContent").classList.remove("hide");
+        document.getElementById("assignUsersDropDownIcon").classList.add('rotate-180');
     } else {
         showAssignedUsers = false;
         document.getElementById("dropDownContent").classList.add("hide");
+        document.getElementById("assignUsersDropDownIcon").classList.remove('rotate-180');
     }
 
 }

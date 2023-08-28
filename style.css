@@ -31,18 +31,71 @@ h3 {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-   
-    display:flex;
+
+    display: flex;
     justify-content: center;
     align-items: center;
 
     /* Makes the element a circle */
 }
 
-.circle-text{
+.circle-text {
     color: white;
     font-size: 12px;
 }
+
+.default-button {
+    font-size: 21px;
+    padding: 15px 24px 15px 24px;
+    border-radius: 8px;
+    background: #2A3647;
+    color: white;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: fit-content;
+    border: unset;
+}
+
+.default-button:hover {
+    background-color: #29ABE2;
+    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
+}
+
+.default-button:active {
+    background-color: #091931;
+}
+
+.alternative-button {
+    padding: 15px 24px 15px 24px;
+    border-radius: 8px;
+    border: 1px solid #2A3647;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+    background-color: white;
+}
+
+.alternative-button:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
+}
+
+
+.alternative-button:active {
+    border: 1px solid #091931;
+    color: #091931;
+}
+
 
 
 #loadingContainer {
@@ -369,7 +422,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;    
+    flex-grow: 1;
 }
 
 .greeting {
@@ -384,7 +437,7 @@ header {
 }
 
 .blue-text {
-    color:#29ABE2;
+    color: #29ABE2;
 }
 
 .tasks-top:hover {

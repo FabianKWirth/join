@@ -42,8 +42,6 @@
     flex-direction: column;
     gap: 20px;
     width: 440px;
-
-
     padding-right: 32px;
 }
 
@@ -70,16 +68,28 @@
     width: 440px;
     font-size: 20px;
     margin: 12px 0;
-    border-radius: 10px;
+}
+
+#selectAssignedUserList {
+    width: 440px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
 .dropdown-field {
+    z-index:200;
     height: 48px;
     width: 440px;
     font-size: 20px;
     background-color: rgba(255, 255, 255, 0);
     display: flex;
     align-items: center;
+    position: relative;
+    margin-bottom: -20px;
+
 }
 
 .dropdown-field-text {
@@ -96,39 +106,45 @@
     margin-left: -48px;
 }
 
-#assignUserFrom {
-    border-radius: 10px;
-    width: 440px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .user-information {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    margin: 8px;
 }
 
-#assignedUserContent{
-    max-width: 440px;
-    display: flex;
-    justify-content: center;
+
     
-}
+
 
 #assignedUserList {
     width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
     display: flex;
     flex-direction: row;
+    margin-top: 30px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.dropdown-content{
+    position: relative;
+    max-width: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 100;
+}
+
+.first-user-option {
+    padding-top: 20px;
 }
 
 .assign-user-option {
-    border-radius: 10px;
     font-size: 20px;
     cursor: pointer;
     display: flex;
@@ -196,7 +212,6 @@
 
 .priority-button-urgent-selected {
     background-color: orangered;
-
 }
 
 .priority-button-medium-selected {
@@ -212,38 +227,13 @@
 }
 
 .form-options {
-    z-index: -10;
-    float: right;
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    float: right;
 }
 
-.form-options-button {
-    gap: 16px;
-    font-size: 21px;
-    padding: 10px;
-    border-radius: 16px;
-    background-color: #2A3647;
-
-}
-
-.form-options-button-clear {
-    background-color: #F6F7F8;
-}
-
-.form-options-button-clear:hover {
-    border-color: #29ABE2;
-    color: #29ABE2;
-    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
-}
-
-.form-options-button-create {
-    background-color: #2A3647;
-    color: white;
-}
-
-.form-options-button-create:hover {
-    background-color: #29ABE2;
-    box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
+.rotate-180{
+    transform: rotate(180deg);
 }
