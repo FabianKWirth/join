@@ -27,7 +27,7 @@ function bgDarkLegalNotice(x) {
  * This function loads the account data from the server
  */
 function setInitials() {
-    document.getElementById('myAccount').innerHTML = 'P';
+    document.getElementById('myAccount').innerHTML = 'PH';
 }
 
 /**
