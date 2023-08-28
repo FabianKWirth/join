@@ -48,5 +48,32 @@ function ShowMenu() {
 }
 
 function hoverRightButton() {
-    img1 = document.getElementById('')
+    let circle = document.getElementById('button-right-hover1');
+    let check = document.getElementById('button-right-hover2');
+    circle.src = 'assets/image/Summary/white-button.svg';
+    check.src = 'assets/image/Summary/check-icon-blue.svg';
+}
+
+
+function hoverOffRightButton() {
+    let circle = document.getElementById('button-right-hover1');
+    let check = document.getElementById('button-right-hover2');
+    circle.src = 'assets/image/Summary/blue-button-summary.svg';
+    check.src = 'assets/image/Summary/check-icon-white.svg';
+}
+
+
+function hoverLeftButton() {
+    let circle = document.getElementById('button-left-hover1');
+    let check = document.getElementById('button-left-hover2');
+    circle.src = 'assets/image/Summary/white-button.svg';
+    check.src = 'assets/image/Summary/pencil-blue.svg';
+}
+
+
+function hoverOffLeftButton() {
+    let circle = document.getElementById('button-left-hover1');
+    let check = document.getElementById('button-left-hover2');
+    circle.src = 'assets/image/Summary/blue-button-summary.svg';
+    check.src = 'assets/image/Summary/pencil-1.svg';
 }
