@@ -67,7 +67,7 @@ async function includeHTML(x) {
     }
     bgDark(x);
     bgDarkLegalNotice(x);
-    document.getElementById("myAccount").innerHTML=getInitials(users[currentSelectedUser]);
+    setUserHeaderInitials();
 }
 
 
@@ -174,6 +174,10 @@ function getInitials(user) {
     let lastName = name[1].charAt(0).toUpperCase();
     let initials = firstName + lastName;
     return initials
+}
+
+function setUserHeaderInitials(){
+    document.getElementById("myAccount").innerHTML=getInitials(users[currentSelectedUser]);
 }
 
 /**

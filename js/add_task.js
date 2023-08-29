@@ -2,8 +2,6 @@ let selectedTaskPriority = null //Priorities= urgent, medium, low
 let showAssignedUsers = false;
 let assignedUsers = [];
 
-
-
 users = [
     {
         "username": "john_doe",
@@ -45,7 +43,6 @@ users = [
 
 renderTaskInput();
 
-
 function renderTaskInput() {
     setAssignedUserData();
     setTaskData();
@@ -71,10 +68,6 @@ dropdownItems.forEach(function (item) {
         taskCategoryHeader.textContent = selectedValue;
     });
 });
-
-
-
-
 
 const inputField = document.getElementById('subtaskField');
 
