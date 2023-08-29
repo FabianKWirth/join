@@ -22,16 +22,55 @@ users = [
         "password": "password789",
         "email": "user123@example.com",
         "iconColor": "#1FD7C1"
+    },
+    {
+        "username": "john_doe",
+        "password": "securePassword123",
+        "email": "john.doe@example.com",
+        "iconColor": "#FFA35E"
+    },
+    {
+        "username": "jane_smith",
+        "password": "strongPass456",
+        "email": "jane.smith@example.com",
+        "iconColor": "#FFA35E"
+    },
+    {
+        "username": "user123",
+        "password": "password789",
+        "email": "user123@example.com",
+        "iconColor": "#1FD7C1"
     }
 ];
 
 renderTaskInput();
+
 
 function renderTaskInput() {
     setAssignedUserData();
     setTaskData();
 }
 
+document.addEventListener("click", function(event) {
+    const dropdowns = document.querySelectorAll(".task-category");
+    dropdowns.forEach(function(dropdown) {
+      if (dropdown.contains(event.target)) {
+        dropdown.classList.toggle("open");
+      } else {
+        dropdown.classList.remove("open");
+      }
+    });
+  });
+
+  const dropdownItems = document.querySelectorAll(".task-category-item");
+  const taskCategoryHeader = document.getElementById("taskCategoryHeader");
+
+  dropdownItems.forEach(function(item) {
+    item.addEventListener("click", function() {
+      const selectedValue = item.getAttribute("data-value");
+      taskCategoryHeader.textContent = selectedValue;
+    });
+  });
 
 function collectTaskData() {
     const container = document.getElementById('addTaskContainer');
@@ -43,7 +82,7 @@ function collectTaskData() {
     const categorySelect = container.querySelector('#newTaskCategory').value;
     const subTaskSelect = container.querySelector('#newTaskSubTask').value;
 
-    if (titleInput != "" & assignedUserSelect != "" & dueDateInput != "" & categorySelect != "" & selectedTaskPriority != null) {
+    if (titleInput != "" & dueDateInput != "" & categorySelect != "" & selectedTaskPriority != null) {
         if (checkIfTaskWithThisTitleExists(titleInput) == false) {
             task.title = titleInput;
             task.description = descriptionTextarea;
@@ -101,21 +140,12 @@ function createTask() {
     }
 }
 
-
-/**
- * Populates a dropdown element with user data for task assignment.
- *
- * This function populates a given dropdown element with user data to provide options
- * for task assignment. Each user's email and username are used as option values and
- * text respectively.
- */
 function setAssignedUserData() {
-    /**
-     * @type {HTMLElement}
-     */
+
     const userList = document.getElementById('selectAssignedUserList');
 
-    let additionalClass='first-user-option';
+    let additionalClass = 'first-user-option';
+    userList.innerHTML = "";
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
 
@@ -124,17 +154,37 @@ function setAssignedUserData() {
         let userIcon = getContactIconHtml(user);
 
         userList.innerHTML +=/*html*/`
-        <div onclick='selectUser(this)' id='userId' class='assign-user-option ${additionalClass}' data-user-id='${i}'>
+        <div onclick='selectUser(this)' id='assignableUser${i}' class='assign-user-option ${additionalClass}'>
             <div class='user-information'>
                 ${userIcon}
                 ${userName}
             </div>
             <img src="./assets/icons/checkbox-empty.svg" id="selectedUserCheckBox${i}" class="selected-user-checkbox">
         </div>`;
-        additionalClass="";
+        additionalClass = "";
     }
+}
 
-
+function showAvailableUsers(event) {
+    let input = document.getElementById("dropDownTextFieldInput").value;
+    let additionalClass = 'first-user-option';
+    console.log(input);
+        for (let i = 0; i < users.length; i++) {
+            const user = users[i];
+            if (user['username'].startsWith(input)) {
+                document.getElementById("assignableUser" + i).classList.remove('hide');
+                if(additionalClass!=""){
+                    document.getElementById("assignableUser" + i).classList.add('first-user-option');
+                    additionalClass=""
+                }else{
+                    document.getElementById("assignableUser" + i).classList.remove('first-user-option');
+                }
+            } else {
+                document.getElementById("assignableUser" + i).classList.add('hide');
+                
+            }
+        }
+    makeAvailableUsersVisible();
 }
 
 function setSelectedUserIcons() {
@@ -147,39 +197,47 @@ function setSelectedUserIcons() {
 }
 
 function selectUser(row) {
-    userId=row.getAttribute("data-user-id");
+    let userId = row.getAttribute("id").replace("assignableUser", "");
     assignedUsers.push(userId);
     row.onclick = () => unselectUser(row);
     row.classList.add("selected-option");
-    document.getElementById("selectedUserCheckBox"+userId).src='./assets/icons/checkbox-filled.svg';
-    document.getElementById("selectedUserCheckBox"+userId).classList.add("white-symbol");
+    document.getElementById("selectedUserCheckBox" + userId).src = './assets/icons/checkbox-filled.svg';
+    document.getElementById("selectedUserCheckBox" + userId).classList.add("white-symbol");
     setSelectedUserIcons();
 }
 
 function unselectUser(row) {
-    userId=row.getAttribute("data-user-id");
+    let userId = row.getAttribute("id").replace("assignableUser", "");
     const indexToRemove = assignedUsers.indexOf(userId);
     if (indexToRemove !== -1) {
         assignedUsers.splice(indexToRemove, 1);
     }
     row.onclick = () => selectUser(row);
     row.classList.remove("selected-option");
-    document.getElementById("selectedUserCheckBox"+userId).src='./assets/icons/checkbox-empty.svg';
-    document.getElementById("selectedUserCheckBox"+userId).classList.remove("white-symbol");
+    document.getElementById("selectedUserCheckBox" + userId).src = './assets/icons/checkbox-empty.svg';
+    document.getElementById("selectedUserCheckBox" + userId).classList.remove("white-symbol");
     setSelectedUserIcons();
 }
 
 function changeAvailableUsersVisibility() {
     if (showAssignedUsers == false) {
-        showAssignedUsers = true;
-        document.getElementById("dropDownContent").classList.remove("hide");
-        document.getElementById("assignUsersDropDownIcon").classList.add('rotate-180');
-    } else {
-        showAssignedUsers = false;
-        document.getElementById("dropDownContent").classList.add("hide");
-        document.getElementById("assignUsersDropDownIcon").classList.remove('rotate-180');
-    }
+        makeAvailableUsersVisible();
 
+    } else {
+        makeAvailableUsersInvisible();
+    }
+}
+
+function makeAvailableUsersVisible() {
+    showAssignedUsers = true;
+    document.getElementById("dropDownContent").classList.remove("hide");
+    document.getElementById("assignUsersDropDownIcon").classList.add('rotate-180');
+}
+
+function makeAvailableUsersInvisible() {
+    showAssignedUsers = false;
+    document.getElementById("dropDownContent").classList.add("hide");
+    document.getElementById("assignUsersDropDownIcon").classList.remove('rotate-180');
 }
 
 /**

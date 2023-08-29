@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+  }
+
+  .custom-dropdown-header {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  .custom-dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    display: none;
+  }
+
+  .custom-dropdown-item {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .custom-dropdown-item:hover {
+    background-color: #f4f4f4;
+  }
+
+  .custom-dropdown.open .custom-dropdown-list {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div class="custom-dropdown">
+  <div class="custom-dropdown-header">Select an option</div>
+  <div class="custom-dropdown-list">
+    <div class="custom-dropdown-item">Option 1</div>
+    <div class="custom-dropdown-item">Option 2</div>
+    <div class="custom-dropdown-item">Option 3</div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("click", function(event) {
+    const dropdowns = document.querySelectorAll(".custom-dropdown");
+    dropdowns.forEach(function(dropdown) {
+      if (dropdown.contains(event.target)) {
+        dropdown.classList.toggle("open");
+      } else {
+        dropdown.classList.remove("open");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -9,84 +9,97 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/add_task.css">
     <link rel="icon" type="image/x-icon" href="../assets/image/join-logo.svg">
-    
+
 </head>
 
 <body onload="includeHTML(1)">
     <div w3-include-html="./assets/templates/header.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
-    
+
     <form onsubmit="return false;" id="addTaskContainer">
         <div class="add-task" onchange="collectTaskData()">
-        <h1>Add Task</h1>
-        <div class="task-input-container">
-            <div class="task-input-cell">
-                <div>
-                    <label for="newTaskTitle">Title</label>
-                    <input type="text" id="newTaskTitle" placeholder="Enter a title" required>
-                </div>
+            <h1>Add Task</h1>
+            <div class="task-input-container">
+                <div class="task-input-cell">
+                    <div class="task-title">
+                        <label for="newTaskTitle">Title</label>
+                        <input type="text" id="newTaskTitle" placeholder="Enter a title" required>
+                    </div>
 
-                <div>
-                    <label for="newTaskDescription">Description</label>
-                    <textarea id="newTaskDescription" placeholder="Enter a Description"></textarea>
-                </div>
+                    <div class="task-description">
+                        <label for="newTaskDescription">Description</label>
+                        <textarea id="newTaskDescription" placeholder="Enter a Description"></textarea>
+                    </div>
 
-                <div>
-                    <label for="newTaskAssignedUser" placeholder="Select contacts to assign">Assigned to</label>
-                    <div id="newTaskAssignedUser">
-                        <div class="dropdown-field"  onclick="changeAvailableUsersVisibility()">
-                            <input type="text" class='dropdown-field-text' value="Select contacts to assign">
-                            <img id='assignUsersDropDownIcon' class='dropdown-field-icon' src="./assets/icons/arrow-drop.svg">
-                        </div>
-                        <div class="dropdown-content hide" id="dropDownContent">
+                    <div class="task-assigned-users">
+                        <label for="newTaskAssignedUser" placeholder="Select contacts to assign">Assigned to</label>
+                        <div id="newTaskAssignedUser">
+                            <div class="dropdown-field" onclick="changeAvailableUsersVisibility()">
+                                <input type="text" id="dropDownTextFieldInput" onchange="showAvailableUsers()"
+                                    class='dropdown-field-text' value="Select contacts to assign">
+                                <img id='assignUsersDropDownIcon' class='dropdown-field-icon'
+                                    src="./assets/icons/arrow-drop.svg">
+                            </div>
+                            <div class="dropdown-content hide" id="dropDownContent">
                                 <div id="selectAssignedUserList">
 
                                 </div>
-                                <button type="button" class="default-button">Add new contact<img src='./assets/icons/person-add.svg'></button>
+                                <button type="button" class="default-button dropdown-button">Add new contact<img
+                                        src='./assets/icons/person-add.svg'></button>
+                            </div>
+                            <div id='assignedUserList'></div>
                         </div>
-                        <div id='assignedUserList'></div>
+                    </div>
+
+                </div>
+
+                <div class="task-input-cell task-input-not-first-cell">
+                    
+                    <div class="task-date">
+                        <label for="newTaskDate">Due Date</label>
+                        <input type="date" id="newTaskDate" placeholder="dd/mm/yy" pattern="\d{4}-\d{2}-\d{2}">
+                    </div>
+
+                    <div class="task-priority">
+                        <label for="newTaskPriority">Prio</label>
+                        <div id='newTaskPriority'>
+                            <button id='urgentButton' type="button" class="priority-button" value="urgent"
+                                onclick="setPrioButtonSelected(this)">Urgent<img id='urgentIcon' class='prio-icon'
+                                    src="./assets/icons/prio-urgent.svg"></button>
+                            <button id='mediumButton' type="button" class="priority-button" value="medium"
+                                onclick="setPrioButtonSelected(this)">Medium<img id='mediumIcon' class='prio-icon'
+                                    src="./assets/icons/prio-medium.svg"></button>
+                            <button id='lowButton' type="button" class="priority-button" value="low"
+                                onclick="setPrioButtonSelected(this)">Low<img id='lowIcon' class='prio-icon'
+                                    src="./assets/icons/prio-low.svg"></button>
+                        </div>
+                    </div>
+                    
+                    <label for="taskCategory">Category</label>
+                    <div class="task-category" id="taskCategory">
+                        <div class="task-category-header" id="taskCategoryHeader">Select Task Category</div>
+                        <div class="task-category-list">
+                            <div class="task-category-item" data-value="Technical Task">Technical Task</div>
+                            <div class="task-category-item" data-value="User Story">User Story</div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-subtask">
+                        <label for="newTaskSubTask">Subtasks</label>
+                        <select id="newTaskSubTask">
+                        </select>
                     </div>
                 </div>
             </div>
 
-            <div class="task-input-cell task-input-not-first-cell">
-                <div>
-                    <label for="newTaskDate">Due Date</label>
-                    <input type="date" id="newTaskDate" placeholder="dd/mm/yy" pattern="\d{4}-\d{2}-\d{2}">
-                </div>
-                <div>
-                    <label for="newTaskPriority">Prio</label>
-                    <div id='newTaskPriority'>
-                        <button id='urgentButton' type="button" class="priority-button" value="urgent" onclick="setPrioButtonSelected(this)">Urgent<img id='urgentIcon' class='prio-icon'
-                                src="./assets/icons/prio-urgent.svg" ></button>
-                        <button id='mediumButton' type="button" class="priority-button" value="medium" onclick="setPrioButtonSelected(this)">Medium<img id='mediumIcon' class='prio-icon'
-                                src="./assets/icons/prio-medium.svg"></button>
-                        <button id='lowButton' type="button" class="priority-button" value="low" onclick="setPrioButtonSelected(this)">Low<img id='lowIcon' class='prio-icon'
-                                src="./assets/icons/prio-low.svg"></button>
-                    </div>
-                </div>
-                <div>
-                    <label for="newTaskCategory">Category</label>
-                    <select id="newTaskCategory">
-                        <option class="new-task-category-option" value="technicalTask">Technical Task</option><!-- categoryId, categoryName-->
-                        <option class="new-task-category-option" value="userStory">User Story</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="newTaskSubTask">Subtasks</label>
-                    <select id="newTaskSubTask">
-                    </select>
-                </div>
+            <div class="form-options">
+                <button onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
+                <button type='button' id="createTask" onclick="createTask()" class="default-button" disabled>Create
+                    Task</button>
             </div>
+
+
         </div>
-
-        <div class="form-options">
-            <button onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
-            <button type='button' id="createTask" onclick="createTask()" class="default-button" disabled>Create Task</button>
-        </div>
-
-
-    </div>
     </form>
 
     <script src="./script.js"></script>
