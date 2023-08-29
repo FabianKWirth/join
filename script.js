@@ -113,19 +113,8 @@ function assignNewUserColor(user) {
  * @returns {string} The generated HTML code for the contact icon.
  */
 function getContactIconHtml(user) {
-<<<<<<< Updated upstream
-    const userNameParts = user['username'].split(" ");
     let userSignature = getInitials(user);
 
-    if (userNameParts[1] != null) {
-        userSignature = userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
-    } else {
-        userSignature = userNameParts[0][0].toUpperCase() + userNameParts[0].slice(-1).toUpperCase();
-    }
-=======
-    let userSignature = getInitials(user);
-
->>>>>>> Stashed changes
 
     const currentUserColor = user['iconColor'];
 
