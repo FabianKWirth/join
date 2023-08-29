@@ -125,42 +125,22 @@
     color: #29ABE2;
 }
 
-.tasks-top:hover {
+.backgroundBlack:hover {
     background-color: #2A3647;
 }
 
-.task-middle:hover {
-    background-color: #2A3647;
-}
-
-.task-bottom:hover {
-    background-color: #2A3647;
-}
-
-.tasks-top:hover h2 {
-    color: white;
-}
-
+.tasks-top:hover h2,
 .tasks-top:hover .task-text {
     color: white;
 }
 
-.task-middle:hover h2 {
-    color: white;
-}
-
-.task-middle:hover h3 {
-    color: white;
-}
-
+.task-middle:hover h2,
+.task-middle:hover h3,
 .task-middle:hover .font-16 {
     color: white;
 }
 
-.task-bottom:hover h2 {
-    color: white;
-}
-
+.task-bottom:hover h2,
 .task-bottom:hover .font-16 {
     color: white;
 }

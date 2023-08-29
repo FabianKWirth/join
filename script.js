@@ -157,8 +157,9 @@ function bgDark(x) {
  */
 function bgDarkLegalNotice(x) {
     if (x > 3) {
-        document.getElementById(`menu-link${x}`).classList.add('bg-dark-legal-notice');
+        document.getElementById(`menu-link${x}`).classList.add('bg-dark-legal-notice', 'white');
         document.getElementById('sidebar-menu').classList.add('dNone');
+        document.getElementById(`legal-notice${x}`).src = `assets/image/sidebar/legal-notice-white.svg`;
     }
 }
 
@@ -176,8 +177,9 @@ function getInitials(user) {
     return initials
 }
 
-function setUserHeaderInitials(){
-    document.getElementById("myAccount").innerHTML=getInitials(users[currentSelectedUser]);
+function setUserHeaderInitials() {
+    let myAccount = document.getElementById("myAccount");
+    myAccount.innerHTML = getInitials(users[currentSelectedUser]);
 }
 
 /**
