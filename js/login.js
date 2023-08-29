@@ -43,11 +43,12 @@ function renderSignUpForm() {
 
 function renderForgotPasswordForm() {
   container.innerHTML = /*html*/ `
-  <form unsubmit="" class="forgot-password-form">
+  <form unsubmit="checkEmail(event); return false" class="forgot-password-form">
   <img onclick="renderLoginContainer()" class="forgot-password-arrow arrow" src="../assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">I forgot my Password</h2><div class="seperator"></div></div>
   <p class="form-text">Don't worry! We will send you an email with the instructions to reset your password.</p>
-  <input required class="input-login email" type="email" placeholder="Email">
+  <input required id ="forgot-password-email"class="input-login email" type="email" placeholder="Email">
+  <span id="forgot-password-info" style="color: red"></span>
   <button type="submit" class="send-email-btn">Send me the email</button>
   </form>
   `;
@@ -68,8 +69,8 @@ function removeAnimationClass() {
 
 /**
  * Check's if the passwords match.
- * 
- * @returns a boolean 
+ *
+ * @returns a boolean
  */
 function checkPassword() {
   let password1 = document.getElementById("password").value;
@@ -80,7 +81,8 @@ function checkPassword() {
     addUser();
     return true;
   } else {
-    info.innerHTML = "<span style='color: red'>Your password don't match</span>";
+    info.innerHTML =
+      "<span style='color: red'>Your password don't match</span>";
     return false;
   }
 }
@@ -88,19 +90,52 @@ function checkPassword() {
 /**
  * Check's if the user is registred, if not a message is displayed.
  */
-function login (){
-  let message = document.getElementById('login-message');
-  let email = document.getElementById('login-email');
-  let password = document.getElementById('login-password');
-  let user = users.find(u => u.email == email.value && u.password == password.value);
+function login() {
+  let message = document.getElementById("login-message");
+  let email = document.getElementById("login-email");
+  let password = document.getElementById("login-password");
+  let user = users.find(
+    (u) => u.email == email.value && u.password == password.value
+  );
 
-  if(user){
+  if (user) {
     window.location.href = "summary.html";
-  } else (
-    message.innerHTML = 'Wrong password or email! Try again.'
-  )
+  } else message.innerHTML = "Wrong password or email! Try again.";
 }
 
-function resetPassword(){
-  
+function checkEmail(event) {
+  let message = document.getElementById("forgot-password-info");
+  let email = document.getElementById("forgot-password-email");
+  let user = users.find((u) => u.email == email.value);
+
+  if (user) {
+    sendEmail(event, message);
+  }
+}
+
+function showMessage() {
+  let message = document.getElementById("forgot-password-message");
+  message.classList.remove("d-none");
+
+  setTimeout(() => {
+    message.classList.add("d-none");
+  }, 4000);
+}
+
+async function sendEmail(event, message) {
+  event.preventDefault();
+  let formData = new FormData(event.target);
+  let response = await action(formData);
+  if (response.ok) {
+    showMessage();
+  } else message.innerHTML = "This email is not registred.";
+}
+
+function action(formData) {
+  const input = "";
+  const requestInit = {
+    method: "post",
+    body: formData,
+  };
+  return fetch(input, requestInit);
 }
