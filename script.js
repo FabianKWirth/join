@@ -133,3 +133,5 @@ function getContactIconHtml(user) {
 
     return iconHtml;
 }
+
+

@@ -4,10 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Summary | Join</title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/header.css"/>
+        <link rel="stylesheet" href="css/sidebar.css">
+        <link rel="stylesheet" href="css/summary.css">
+        <link rel="icon" type="image/x-icon" href="../assets\image\join-logo.svg">
+
     </head>
 
-    <body onload="includeHTML(0)">
+    <body onload="includeHTML(0), greetUser()">
         <div w3-include-html="assets/templates/header.html"></div>
 
         <div
@@ -16,7 +21,7 @@
         ></div>
 
         <script src="script.js"></script>
-        <script src="summary.js"></script>
+        <script src="./js/summary.js"></script>
         <script src="./js/storage.js"></script>
         <script src="./js/add_task.js"></script>
         <!-- <script src="./js/register.js"></script> -->
@@ -102,8 +107,8 @@
 
                 <div class="greet-section">
                     <div class="greeting">
-                        <span class="greeting-time">Good morning,</span>
-                        <h1 class="blue-text">Sofia Müller</h1>
+                        <span id="greeting-time" class="greeting-time">Good morning,</span>
+                        <h1 id="greeting-name" class="blue-text">Sofia Müller</h1>
                     </div>
                 </div>
             </div>

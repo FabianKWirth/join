@@ -4,9 +4,18 @@ body {
 
 .help-container {
     position: absolute;
-    margin: 100px 0 0 300px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 96px 0 0 328px;
     padding-right: 64px;
     padding-bottom: 40px;
+    overflow-y: scroll;
+}
+
+.break {
+    margin-top: 60px;
 }
 
 p {

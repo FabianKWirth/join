@@ -40,6 +40,38 @@ function goBack() {
     document.getElementById('goBack').classList.add('dNone');
 }
 
+
+function greetUser() {
+    greetingTime();
+    greetingUser()
+}
+
+
+function greetingTime() {
+    let greetingTime = document.getElementById('greeting-time');
+    let hour = new Date().getHours();
+    let greetingText = '';
+
+    if (hour >= 5 && hour < 12) {
+        greetingText = "Good morning,";
+    } else if (hour >= 12 && hour < 18) {
+        greetingText = "Good afternoon,";
+    } else {
+        greetingText = "Good evening,";
+    }
+
+    greetingTime.innerHTML = greetingText;
+}
+
+
+function greetingUser() {
+    let greetingName = document.getElementById('greeting-name');
+    let user = users[0]['username'];
+    greetingName.innerHTML = user;
+    // console.log(user);
+}
+
+
 /**
  * This function opens the menu from the header
  */
