@@ -113,16 +113,14 @@ function assignNewUserColor(user) {
  * @returns {string} The generated HTML code for the contact icon.
  */
 function getContactIconHtml(user) {
-    //const userNameParts = user['username'].split(" ");
+    const userNameParts = user['username'].split(" ");
     let userSignature = getInitials(user);
 
-    /*
     if (userNameParts[1] != null) {
         userSignature = userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
     } else {
         userSignature = userNameParts[0][0].toUpperCase() + userNameParts[0].slice(-1).toUpperCase();
     }
-    */
 
     const currentUserColor = user['iconColor'];
 
@@ -133,6 +131,7 @@ function getContactIconHtml(user) {
     const iconHtml = `<div class="circle" style="background-color:${currentUserColor}">
         <span class='circle-text'>${userSignature}</span>
     </div>`;
+    console.log(iconHtml);
 
     return iconHtml;
 }
