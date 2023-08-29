@@ -33,7 +33,7 @@
 .task-input-container {
     display: flex;
     width: 976.25px;
-    height: 424px;
+    height: fit-content;
 }
 
 .task-input-cell {
@@ -64,6 +64,7 @@
     margin: 12px 0;
     border: 1px solid #D1D1D1;
     padding: 0px 21px 0px 21px;
+    position: relative;
 }
 
 #newTaskDescription {
@@ -79,10 +80,10 @@
 }
 
 #selectAssignedUserList {
-    position: absolute;
-    top: 0;
+    position: relative;
     width: 438px;
-    height: 260px;
+    height: fit-content;
+    max-height: 260px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -130,12 +131,13 @@
 }
 
 #assignedUserList {
-    width: 100%;
+    width: 440px;
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
-    gap: 10px;
     flex-wrap: wrap;
+    margin-top: 12px;
+    gap: 10px;
+
 }
 
 .dropdown-content {
@@ -201,26 +203,28 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    z-index: 200;
+    z-index: 300;
 }
 
 .task-category-list {
     border: 1px solid #D1D1D1;
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: 0;
     width: calc(100% - 2px);
     background-color: white;
     border-top: none;
     border-radius: 0 0 10px 10px;
     display: none;
+    z-index: 250;
 }
 
 .task-category-item {
-    padding: 24px 21px 8px 21px;
+    padding: 8px 21px 8px 21px;
     font-size: 20px;
     cursor: pointer;
-    z-index: 50;
+    position: relative;
+    z-index: 250;
 }
 
 .task-category-item:hover {
@@ -251,6 +255,7 @@
 }
 
 #newTaskPriority {
+    margin: 12px 0px;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -258,16 +263,14 @@
     gap: 16px;
 }
 
-.hide {
-    display: none;
-}
+
 
 .dropdown-button-container {
-    width: 440px;
+    width: 438px;
     height: 72px;
     margin: 8px 16px;
-    position: absolute;
-    top: 256px;
+    position: relative;
+    top: -10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -343,22 +346,81 @@
 
 }
 
-#approveSubtaskMenu {
+.approve-subtask-menu {
     display: flex;
-    align-items: centers;
+    align-items: center;
     flex-direction: row;
     position: absolute;
     right: 15px;
-    height:100%;
+    height: 100%;
 }
 
 .approve-subtask-menu-border {
     background-color: #2A3647;
-    height: 16px;
-    width: 1px!important;
+    height: 24px;
+    width: 1px;
+}
+
+#currentSelectedSubtasks {
+    position: relative;
+}
+
+#enterSubtaskCreation,
+#declineEnteredTaskIcon,
+#approveEnteredTaskIcon,
+#deleteSubTask,
+#editSubTask {
+    cursor: pointer;
+}
+
+.shown-subtask {
+    display: list-item;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 6px 16px 6px 16px;
+}
+
+.shown-subtask:hover {
+
+    background-color: #EEEEEE;
+}
+
+#editSubTaskField{
+    position: relative;
+}
+
+.change-task-field{
+    width:404px;
+    height: 32px;
+    padding: 4px 16px 4px 16px;
+    border: none;
+    border-bottom:solid 1px#005DFF;
+    
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shown-subtask-menu{
+    position:absolute;
+    top:0;
+    right:0;
+    z-index: 200;
 }
 
 
+
+.shown-subtask-menu {
+    display: flex;
+    align-items: center;
+    z-index: -999;
+    float: right;
+}
+
+.shown-subtask-menu:hover {
+    z-index: 0;
+}
 
 
 .white-symbol {
@@ -374,6 +436,20 @@
     gap: 10px;
 }
 
+.animated-icon {
+    transition: background-color 0.3s ease-out;
+    border-radius: 50px;
+
+}
+
+.animated-icon:hover {
+    background-color: #EEEEEE;
+}
+
 .rotate-180 {
     transform: rotate(180deg);
+}
+
+.hide {
+    display: none;
 }

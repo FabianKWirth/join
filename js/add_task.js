@@ -1,6 +1,7 @@
 let selectedTaskPriority = null //Priorities= urgent, medium, low
 let showAssignedUsers = false;
 let assignedUsers = [];
+let subTasks = [];
 
 users = [
     {
@@ -10,34 +11,28 @@ users = [
         "iconColor": "#FFA35E"
     },
     {
-        "username": "jane_smith",
+        "username": "janasdasdase_smith",
+        "password": "strongPass456",
+        "email": "jane.smith@example.com",
+        "iconColor": "#FFA35E"
+    },    
+    {
+        "username": "jaasdasdsadne_smith",
         "password": "strongPass456",
         "email": "jane.smith@example.com",
         "iconColor": "#FFA35E"
     },
     {
-        "username": "user123",
-        "password": "password789",
-        "email": "user123@example.com",
-        "iconColor": "#1FD7C1"
-    },
-    {
-        "username": "john_doe",
-        "password": "securePassword123",
-        "email": "john.doe@example.com",
-        "iconColor": "#FFA35E"
-    },
-    {
-        "username": "jane_smith",
+        "username": "jsdsdane_smith",
         "password": "strongPass456",
         "email": "jane.smith@example.com",
         "iconColor": "#FFA35E"
     },
     {
-        "username": "user123",
-        "password": "password789",
-        "email": "user123@example.com",
-        "iconColor": "#1FD7C1"
+        "username": "jane_smasdasdith",
+        "password": "strongPass456",
+        "email": "jane.smith@example.com",
+        "iconColor": "#FFA35E"
     }
 ];
 
@@ -76,7 +71,11 @@ inputField.addEventListener('focus', function () {
 });
 
 inputField.addEventListener('blur', function () {
-    defaultSubtaskMenu();
+    console.log(document.getElementById("subtaskField"));
+    if (document.getElementById("subtaskField").value == "") {
+        defaultSubtaskMenu();
+    }
+
 });
 
 
@@ -99,10 +98,8 @@ function collectTaskData() {
     const titleInput = container.querySelector('#newTaskTitle').value;
     const descriptionTextarea = container.querySelector('#newTaskDescription').value;
     const dueDateInput = container.querySelector('#newTaskDate').value;
-    const categorySelect = container.querySelector('#newTaskCategory').value;
-    const subTaskSelect = container.querySelector('#newTaskSubTask').value;
 
-    if (titleInput != "" & dueDateInput != "" & categorySelect != "" & selectedTaskPriority != null) {
+    if (titleInput != "" & dueDateInput != "" & selectedTaskPriority != null) {
         if (checkIfTaskWithThisTitleExists(titleInput) == false) {
             task.title = titleInput;
             task.description = descriptionTextarea;
@@ -264,11 +261,11 @@ function makeAvailableUsersInvisible() {
 
 function rotateIconBy180(elementName) {
     let element = document.getElementById(elementName);
-
+    console.log(element);
     if (element.classList.contains("rotate-180")) {
-        document.getElementById(elementName).classList.remove('rotate-180');
+        element.classList.remove('rotate-180');
     } else {
-        document.getElementById(elementName).classList.add('rotate-180');
+        element.classList.add('rotate-180');
     }
 }
 
@@ -337,6 +334,74 @@ function setPrioButtonSelectStatusById(type, selectStatus = false) {
         document.getElementById(`${type}Button`).classList.remove(`priority-button-${type}-selected`);
         document.getElementById(`${type}Icon`).classList.remove('white-symbol');
     }
+}
+
+
+function createSubTask() {
+    subTaskName = document.getElementById("subtaskField").value;
+    if (subTaskName != "") {
+        subTasks.push(subTaskName);
+    }
+    renderSubTasksList();
+}
+
+function resetSubTaskInput(){
+    setElementValue("subtaskField","");
+}
+
+function deleteSubTask(element){
+    let id=element.id.replace("deleteSubTask","");
+    subTasks.splice(id,1);
+
+    renderSubTasksList();
+}
+
+function editSubTask(element){
+    let i=element.id.replace("editSubTask","");
+    document.getElementById("editSubTaskField").innerHTML=/*html*/`
+    <input type='text' class='change-task-field'>
+    <div class='shown-subtask-menu'>
+        <img src="./assets/icons/trashcan-icon.svg" id="deleteSubTask${i}" class="animated-icon" onclick='deleteSubTask(this)'>
+        <div class="approve-subtask-menu-border"></div>
+        <img src="./assets/icons/checkmark-icon.svg" id="approveSubTask${i}" class="animated-icon" onclick="approveSubTask(this)">
+    </div>`;
+    setElementHtml("currentSelectedSubtasks", "");
+}
+
+function getSubTasksListHtml() {
+    if (subTasks.length > 0) {
+        let html = "<uol>";
+        for (let i = 0; i < subTasks.length; i++) {
+            const element = subTasks[i];
+            html += /*html*/ `
+            <li class='shown-subtask' id='shownSubtask${i}'>
+                ${element}
+                <div class='shown-subtask-menu'>
+                    <img src="./assets/icons/trashcan-icon.svg" id="deleteSubTask${i}"  class="animated-icon" onclick='deleteSubTask(this)'>
+                    <div class="approve-subtask-menu-border"></div>
+                    <img src="./assets/icons/pen-icon.svg"      id="editSubTask${i}"    class="animated-icon" onclick="editSubTask(this)">
+                </div>
+            </li>`;
+        }
+        html += "</uol>";
+        return html;
+    }else{
+        return "";
+    }
+}
+
+
+
+function renderSubTasksList() {
+    setElementHtml("currentSelectedSubtasks", getSubTasksListHtml());
+}
+
+function setElementHtml(elementId, html) {
+    document.getElementById(elementId).innerHTML = html;
+}
+
+function setElementValue(elementId, html) {
+    document.getElementById(elementId).value = html;
 }
 
 function emptyAddTaskForm() {

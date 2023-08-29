@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Task | Join</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/add_task.css">
@@ -52,8 +52,9 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id='assignedUserList'></div>
+                            
                         </div>
+                        <div id='assignedUserList'></div>
                     </div>
 
                 </div>
@@ -99,13 +100,17 @@
                         <div class="subtask-field">
                             <input type="text" class="subtask-input-field" id="subtaskField"
                                 placeholder="Add new Subtask">
-                            <img id='enterSubtaskCreation' src="./assets/icons/puls-icon.svg">
-                            <div id='approveSubtaskMenu' class="hide">
-                                <img src="./assets/icons/x-icon.svg" id="declineEnteredTaskIcon">
+                            <img id='enterSubtaskCreation' class="animated-icon" src="./assets/icons/puls-icon.svg">
+                            <div id='approveSubtaskMenu' class="approve-subtask-menu hide">
+                                <img src="./assets/icons/x-icon.svg" id="declineEnteredTaskIcon" class="animated-icon" onclick="resetSubTaskInput()">
                                 <div class="approve-subtask-menu-border"></div>
-                                <img src='./assets/icons/checkmark-icon.svg' id="approveEnteredTaskIcon">
+                                <img src='./assets/icons/checkmark-icon.svg' id="approveEnteredTaskIcon" class="animated-icon" onclick="createSubTask()">
                             </div>
                         </div>
+                        <div id="currentSelectedSubtasks">
+
+                        </div>
+                        <div id="editSubTaskField"></div>
                     </div>
                 </div>
             </div>
