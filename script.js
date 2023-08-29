@@ -2,6 +2,8 @@ let users = [];
 
 let tasks = [];
 
+let currentSelectedUser=0;
+
 let userIconColors = [
     "#6E52FF",
     "#FF7A00",
@@ -65,7 +67,7 @@ async function includeHTML(x) {
     }
     bgDark(x);
     bgDarkLegalNotice(x);
-    setInitials();
+    document.getElementById("myAccount").innerHTML=getInitials(users[currentSelectedUser]);
 }
 
 
@@ -111,7 +113,7 @@ function assignNewUserColor(user) {
  * @returns {string} The generated HTML code for the contact icon.
  */
 function getContactIconHtml(user) {
-    const userNameParts = user['username'].split(" ");
+    //const userNameParts = user['username'].split(" ");
     let userSignature = getInitials(user);
 
     /*
