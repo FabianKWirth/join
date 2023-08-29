@@ -51,26 +51,53 @@ function renderTaskInput() {
     setTaskData();
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     const dropdowns = document.querySelectorAll(".task-category");
-    dropdowns.forEach(function(dropdown) {
-      if (dropdown.contains(event.target)) {
-        dropdown.classList.toggle("open");
-      } else {
-        dropdown.classList.remove("open");
-      }
+    dropdowns.forEach(function (dropdown) {
+        if (dropdown.contains(event.target)) {
+            dropdown.classList.toggle("open");
+        } else {
+            dropdown.classList.remove("open");
+        }
     });
-  });
+});
 
-  const dropdownItems = document.querySelectorAll(".task-category-item");
-  const taskCategoryHeader = document.getElementById("taskCategoryHeader");
+const dropdownItems = document.querySelectorAll(".task-category-item");
+const taskCategoryHeader = document.getElementById("taskCategoryHeader");
 
-  dropdownItems.forEach(function(item) {
-    item.addEventListener("click", function() {
-      const selectedValue = item.getAttribute("data-value");
-      taskCategoryHeader.textContent = selectedValue;
+dropdownItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+        const selectedValue = item.getAttribute("data-value");
+        taskCategoryHeader.textContent = selectedValue;
     });
-  });
+});
+
+
+
+
+
+const inputField = document.getElementById('subtaskField');
+
+inputField.addEventListener('focus', function () {
+    approveSubtaskMenu(); // Call your function here
+});
+
+inputField.addEventListener('blur', function () {
+    defaultSubtaskMenu();
+});
+
+
+function approveSubtaskMenu() {
+    document.getElementById("approveSubtaskMenu").classList.remove("hide");
+    document.getElementById("enterSubtaskCreation").classList.add("hide");
+}
+
+function defaultSubtaskMenu() {
+    document.getElementById("approveSubtaskMenu").classList.add("hide");
+    document.getElementById("enterSubtaskCreation").classList.remove("hide");
+}
+
+
 
 function collectTaskData() {
     const container = document.getElementById('addTaskContainer');
@@ -110,6 +137,8 @@ function setCreateTaskStatus(status) {
         document.getElementById("createTask").disabled = false;
     }
 }
+
+
 
 
 /**
@@ -169,21 +198,21 @@ function showAvailableUsers(event) {
     let input = document.getElementById("dropDownTextFieldInput").value;
     let additionalClass = 'first-user-option';
     console.log(input);
-        for (let i = 0; i < users.length; i++) {
-            const user = users[i];
-            if (user['username'].startsWith(input)) {
-                document.getElementById("assignableUser" + i).classList.remove('hide');
-                if(additionalClass!=""){
-                    document.getElementById("assignableUser" + i).classList.add('first-user-option');
-                    additionalClass=""
-                }else{
-                    document.getElementById("assignableUser" + i).classList.remove('first-user-option');
-                }
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        if (user['username'].startsWith(input)) {
+            document.getElementById("assignableUser" + i).classList.remove('hide');
+            if (additionalClass != "") {
+                document.getElementById("assignableUser" + i).classList.add('first-user-option');
+                additionalClass = ""
             } else {
-                document.getElementById("assignableUser" + i).classList.add('hide');
-                
+                document.getElementById("assignableUser" + i).classList.remove('first-user-option');
             }
+        } else {
+            document.getElementById("assignableUser" + i).classList.add('hide');
+
         }
+    }
     makeAvailableUsersVisible();
 }
 
@@ -231,13 +260,23 @@ function changeAvailableUsersVisibility() {
 function makeAvailableUsersVisible() {
     showAssignedUsers = true;
     document.getElementById("dropDownContent").classList.remove("hide");
-    document.getElementById("assignUsersDropDownIcon").classList.add('rotate-180');
+    rotateIconBy180("assignUsersDropDownIcon");
 }
 
 function makeAvailableUsersInvisible() {
     showAssignedUsers = false;
     document.getElementById("dropDownContent").classList.add("hide");
-    document.getElementById("assignUsersDropDownIcon").classList.remove('rotate-180');
+    rotateIconBy180("assignUsersDropDownIcon");
+}
+
+function rotateIconBy180(elementName) {
+    let element = document.getElementById(elementName);
+
+    if (element.classList.contains("rotate-180")) {
+        document.getElementById(elementName).classList.remove('rotate-180');
+    } else {
+        document.getElementById(elementName).classList.add('rotate-180');
+    }
 }
 
 /**

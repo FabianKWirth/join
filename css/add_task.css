@@ -54,18 +54,16 @@
 #newTaskTitle,
 #newTaskDate,
 #newTaskCategory,
-#newTaskSubTask {
+#newTaskSubTask,
+.subtask-field,
+#newTaskAssignedUser {
     height: 48px;
-    width: 440px;
+    width: 396px;
     font-size: 20px;
     border-radius: 10px;
     margin: 12px 0;
     border: 1px solid #D1D1D1;
-    padding: 12px 21px 12px 21px;
-}
-
-#newTaskAssignedUser{
-
+    padding: 0px 21px 0px 21px;
 }
 
 #newTaskDescription {
@@ -74,7 +72,7 @@
     font-size: 20px;
     margin: 12px 0;
     font-family: 'Inter';
-    padding: 18px 16px 18px 16px;
+    padding: 12px 21px 12px 21px;
     box-sizing: border-box;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
@@ -83,24 +81,26 @@
 #selectAssignedUserList {
     position: absolute;
     top: 0;
-    width: 440px;
-    max-height: 240px;
+    width: 438px;
+    height: 260px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    border: 1px solid #D1D1D1;
 
 }
 
 .dropdown-field {
     z-index: 200;
-    height: 48px;
+    height: 50px;
     width: 440px;
     font-size: 20px;
     background-color: rgba(255, 255, 255, 0);
     display: flex;
     align-items: center;
     position: relative;
+    margin-left: -21px;
     margin-bottom: -20px;
 }
 
@@ -110,13 +110,15 @@
     font-size: 20px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
+    padding: 0px 21px 0px 21px;
 }
 
 .dropdown-field-icon {
     width: 48px;
     height: 48px;
     font-size: 20px;
-    margin-left: -48px;
+    position: absolute;
+    right: 25px;
 }
 
 .user-information {
@@ -183,38 +185,42 @@
 .task-category {
     position: relative;
     display: inline-block;
+    height: 58px;
 }
 
 .task-category-header {
     border: 1px solid #D1D1D1;
     background-color: white;
     height: 48px;
-    width: 440px;
+    width: 396px;
     font-size: 20px;
     border-radius: 10px;
-
+    padding: 0px 21px 0px 21px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    position: relative;
+    z-index: 200;
 }
 
 .task-category-list {
     border: 1px solid #D1D1D1;
     position: absolute;
-    top: 100%;
+    top: 40px;
     left: 0;
-    width: 100%;
+    width: calc(100% - 2px);
     background-color: white;
     border-top: none;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 10px 10px;
     display: none;
 }
 
 .task-category-item {
-    padding: 8px;
-    font-size: 16px;
+    padding: 24px 21px 8px 21px;
+    font-size: 20px;
     cursor: pointer;
+    z-index: 50;
 }
 
 .task-category-item:hover {
@@ -256,12 +262,27 @@
     display: none;
 }
 
+.dropdown-button-container {
+    width: 440px;
+    height: 72px;
+    margin: 8px 16px;
+    position: absolute;
+    top: 256px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #D1D1D1;
+    border-top: none;
+    ;
+}
+
 .dropdown-button {
     width: 408px;
     height: 56px;
     margin: 8px 16px;
-    position: absolute;
-    top: 256px;
 }
 
 .priority-button {
@@ -297,6 +318,49 @@
     color: white;
 }
 
+.subtask-field {
+    position: relative;
+    border-left: 1px solid #D1D1D1;
+    display: flex;
+    align-items: center;
+}
+
+.subtask-input-field {
+    width: calc(100% - 44px);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #D1D1D1;
+    font-size: 20px;
+    padding: 0px 21px 0px 21px;
+}
+
+#enterSubtaskCreation {
+    position: absolute;
+    right: 15px;
+
+}
+
+#approveSubtaskMenu {
+    display: flex;
+    align-items: centers;
+    flex-direction: row;
+    position: absolute;
+    right: 15px;
+    height:100%;
+}
+
+.approve-subtask-menu-border {
+    background-color: #2A3647;
+    height: 16px;
+    width: 1px!important;
+}
+
+
+
+
 .white-symbol {
     filter: brightness(0) invert(1);
 }
@@ -307,6 +371,7 @@
     justify-content: flex-end;
     position: relative;
     float: right;
+    gap: 10px;
 }
 
 .rotate-180 {

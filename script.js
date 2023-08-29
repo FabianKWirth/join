@@ -112,13 +112,15 @@ function assignNewUserColor(user) {
  */
 function getContactIconHtml(user) {
     const userNameParts = user['username'].split(" ");
-    let userSignature = "";
+    let userSignature = getInitials(user);
 
+    /*
     if (userNameParts[1] != null) {
         userSignature = userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
     } else {
         userSignature = userNameParts[0][0].toUpperCase() + userNameParts[0].slice(-1).toUpperCase();
     }
+    */
 
     const currentUserColor = user['iconColor'];
 
@@ -129,7 +131,6 @@ function getContactIconHtml(user) {
     const iconHtml = `<div class="circle" style="background-color:${currentUserColor}">
         <span class='circle-text'>${userSignature}</span>
     </div>`;
-    console.log(iconHtml);
 
     return iconHtml;
 }
@@ -163,18 +164,14 @@ function bgDarkLegalNotice(x) {
 /**
  * This function loads the account data from the server
  */
-function setInitials() {
-    let myAccount = document.getElementById('myAccount');
-    let user = users[0]['username'];
-    let name = user.split("_");
+function getInitials(user) {
+    let username = user['username'];
+    let name = username.split("_");
     // let name = user.split(" ");
-    console.log(name);
     let firstName = name[0].charAt(0).toUpperCase();
     let lastName = name[1].charAt(0).toUpperCase();
     let initials = firstName + lastName;
-    console.log(firstName)
-    console.log(lastName)
-    myAccount.innerHTML = initials;
+    return initials
 }
 
 /**
