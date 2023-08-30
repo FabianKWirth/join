@@ -1,11 +1,12 @@
+body{
+    font-family: inter;
+}
+
 #addTaskContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: inter;
-    font-weight: 400;
-    font-size: 20px;
     position: absolute;
     width: 1208px;
     height: 928px;
@@ -436,7 +437,48 @@
 .animated-icon {
     transition: background-color 0.3s ease-out;
     border-radius: 50px;
+}
 
+.task-created-notification-container{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100vh;
+    z-index:999;
+    display:flex;
+    align-items:flex-end;
+    justify-content: center;
+    animation: alignAnimation 0.5s ease-out forwards;
+}
+
+.task-created-notification{
+    position: relative;
+    background-color: #2A3647;
+    border-radius: 20px;
+    color:white;
+    width:326px;
+    height:74px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    
+
+}
+
+@keyframes alignAnimation {
+    from {
+        top:100vh;
+    }
+    to {
+        align-items: center;
+    }
+}
+
+.task-created-notification p{
+    color:white;
+    font-size: 20px;
 }
 
 .animated-icon:hover {

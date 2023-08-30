@@ -19,7 +19,7 @@
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
     <form onsubmit="return false;" id="addTaskContainer">
-        <div class="add-task" onchange="collectTaskData()">
+        <div class="add-task" onchange="saveCurrentEntriesToTask()">
             <h1>Add Task</h1>
             <div class="task-input-container">
                 <div class="task-input-cell">
@@ -38,7 +38,7 @@
                         <div id="newTaskAssignedUser">
                             <div class="dropdown-field"><!-- onclick="changeAvailableUsersVisibility() -->
                                 <input type="text" id="dropDownUsersTextFieldInput" 
-                                    class='dropdown-field-text toggle-dropdown' value="Select contacts to assign"> <!-- onchange="showAvailableUsers()" -->
+                                    class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign"> <!-- onchange="showAvailableUsers()" -->
                                 <img id='assignUsersDropDownIcon' class='dropdown-field-icon'
                                     src="./assets/icons/arrow-drop.svg">
                             </div>
@@ -70,13 +70,13 @@
                         <label for="newTaskPriority">Prio</label>
                         <div id='newTaskPriority'>
                             <button id='urgentButton' type="button" class="priority-button" value="urgent"
-                                onclick="setPrioButtonSelected(this)">Urgent<img id='urgentIcon' class='prio-icon'
+                                onclick="setPrioButtonSelected('urgent')">Urgent<img id='urgentIcon' class='prio-icon'
                                     src="./assets/icons/prio-urgent.svg"></button>
                             <button id='mediumButton' type="button" class="priority-button" value="medium"
-                                onclick="setPrioButtonSelected(this)">Medium<img id='mediumIcon' class='prio-icon'
+                                onclick="setPrioButtonSelected('medium')">Medium<img id='mediumIcon' class='prio-icon'
                                     src="./assets/icons/prio-medium.svg"></button>
                             <button id='lowButton' type="button" class="priority-button" value="low"
-                                onclick="setPrioButtonSelected(this)">Low<img id='lowIcon' class='prio-icon'
+                                onclick="setPrioButtonSelected('low')">Low<img id='lowIcon' class='prio-icon'
                                     src="./assets/icons/prio-low.svg"></button>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="task-category toggle-dropdown" id="taskCategory">
                         <input type='hidden' id='taskCategoryValue' >
                         <div class="task-category-header" id="taskCategoryHeader"
-                            onclick="rotateIconBy180('taskCategoryDropDownIcon')">
+                            onclick="rotateIconBy180('taskCategoryDropDownIcon');">
                             <p id="taskCategoryName">Select Task Category</p>
                             <img id='taskCategoryDropDownIcon' class='dropdown-field-icon'
                                 src="./assets/icons/arrow-drop.svg">
@@ -122,14 +122,14 @@
 
             <div class="form-options">
                 <button type='button' onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
-                <button type='button' id="createTask" onclick="createTask()" class="default-button" disabled>
+                <button type='button' id="createTask" onclick="submitTask()" class="default-button" disabled>
                     Create Task</button>
             </div>
 
 
         </div>
     </form>
-
+    
     <script src="./script.js"></script>
     <!-- <script src=".js/summary.js"></script> -->
     <script src="./js/add_task.js"></script>
