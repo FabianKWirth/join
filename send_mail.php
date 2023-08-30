@@ -1,34 +1,4 @@
 <?php
-
-########### CONFIG ###############
-
-$recipient = $email;
-
-########### CONFIG END ###########
-
-
-
-########### Intruction ###########   
-#
-#   This script has been created to send an email to the $recipient
-#   
-#  1) Upload this file to your FTP Server
-#  2) Send a POST rewquest to this file, including
-#     [name] The name of the sender (Absender)
-#     [message] Message that should be send to you
-#
-##################################
-
-
-
-###############################
-#
-#        DON'T CHANGE ANYTHING FROM HERE!
-#
-#        Ab hier nichts mehr ändern!
-#
-###############################
-
 switch ($_SERVER['REQUEST_METHOD']) {
     case ("OPTIONS"): //Allow preflighting to take place.
         header("Access-Control-Allow-Origin: *");
@@ -41,8 +11,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $email = $_POST['email'];
 
         $message = "Hello,\n
-        \nFollow this link to reset your Join password for your" . $email . " account.\n
-        \nhttps://gruppe-671.developerakademie.net/join/reset.password.html?email=" . $email . "\n"
+        \nFollow this link to reset your Join password for your " . $email . " account.\n
+        \nhttps://gruppe-671.developerakademie.net/join/reset.password.html?email=" . $email . "\n";
 
         $recipient = $email;
         $subject = "Reset your password for Join App";
