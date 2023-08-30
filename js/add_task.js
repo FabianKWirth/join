@@ -4,7 +4,7 @@ let assignedUsers = [];
 let subTasks = [];
 
 
-let simpleInputFiledIds=["newTaskTitle","newTaskDescription","newTaskDate","taskCategoryValue"];
+let simpleInputFiledIds = ["newTaskTitle", "newTaskDescription", "newTaskDate", "taskCategoryValue"];
 
 users = [
     {
@@ -18,7 +18,7 @@ users = [
         "password": "strongPass456",
         "email": "jane.smith@example.com",
         "iconColor": "#FFA35E"
-    },    
+    },
     {
         "username": "jaasdasdsadne_smith",
         "password": "strongPass456",
@@ -44,48 +44,88 @@ renderTaskInput();
 function renderTaskInput() {
     renderAssignedUserData();
     setTaskData();
+    loadEventListeners();
+}
+
+
+function loadEventListeners() {
+    dropDownEventListeners();
+    subTaskEventListeners();
+    setSelectedCategoryEventListener();
+    perventDropdownFromCollapsingOnclick();
+}
+
+
+function dropDownEventListeners() {
+    let eventSrcElementsId = ["dropDownUsersTextFieldInput", "assignUsersDropDownIcon", "taskCategoryName", "taskCategoryHeader"];
+    let eventTargets = ["assignedUsersdropDownContent", "assignedUsersdropDownContent", "taskCategoryList", "taskCategoryList"];
+
+    document.addEventListener("click", function (event) {
+        index = eventSrcElementsId.indexOf(event.target.id);
+        if (index != -1) {
+            let element = document.getElementById(eventTargets[index]);
+
+            if (eventTargets[index] == "taskCategoryList") {
+                element.classList.toggle("show-block");
+            } else {
+                element.classList.toggle("show-flex");
+            }
+        } else {
+            for (let i = 0; i < eventTargets.length; i++) {
+                let eventTarget = eventTargets[i];
+                let element = document.getElementById(eventTarget);
+                element.classList.remove("show-flex");
+                element.classList.remove("show-block");
+            }
+        }
+    });
+}
+
+function subTaskEventListeners() {
+    const inputField = document.getElementById('subtaskField');
+
+    inputField.addEventListener('focus', function () {
+        approveSubtaskMenu(); // Call your function here
+    });
+
+    inputField.addEventListener('blur', function () {
+        if (document.getElementById("subtaskField").value == "") {
+            defaultSubtaskMenu();
+        }
+    });
+}
+
+function perventDropdownFromCollapsingOnclick() {
+    let selectAssignedUserList = document.getElementById("selectAssignedUserList");
+    selectAssignedUserList.addEventListener('click', function (event) {
+        event.stopPropagation(); // Stop the event from propagating further up the DOM
+    });
+}
+
+
+function setSelectedCategoryEventListener(){
+    //Category Dropdown
+    let dropdownItems = document.querySelectorAll(".task-category-item");
+    const taskCategoryValueElement = document.getElementById("taskCategoryValue");
+    dropdownItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+            const selectedValue = item.getAttribute("data-value");
+            document.getElementById('taskCategoryName').innerHTML = selectedValue;
+            taskCategoryValueElement.value = selectedValue;
+        });
+    });
 }
 
 
 
-newTaskAssignedUser
-
-document.addEventListener("click", function (event) {
-    const dropdowns = document.querySelectorAll(".task-category");
-    dropdowns.forEach(function (dropdown) {
-        if (dropdown.contains(event.target)) {
-            dropdown.classList.toggle("open");
-        } else {
-            dropdown.classList.remove("open");
-        }
-    });
-});
-
-
-//Category Dropdown
-const dropdownItems = document.querySelectorAll(".task-category-item");
-const taskCategoryHeaderElement = document.getElementById("taskCategoryHeader");
-const taskCategoryValueElement = document.getElementById("taskCategoryValue");
-dropdownItems.forEach(function (item) {
-    item.addEventListener("click", function () {
-        const selectedValue = item.getAttribute("data-value");
-        taskCategoryHeaderElement.textContent = selectedValue;
-        taskCategoryValueElement.value=selectedValue;
-    });
-});
-
-const inputField = document.getElementById('subtaskField');
-
-inputField.addEventListener('focus', function () {
-    approveSubtaskMenu(); // Call your function here
-});
-
-inputField.addEventListener('blur', function () {
-    if (document.getElementById("subtaskField").value == "") {
-        defaultSubtaskMenu();
+function checkIfClassIsSet(classname, elementId) {
+    const element = document.getElementById(elementId);
+    if (element.classList.contains(classname)) {
+        return true
+    } else {
+        return false;
     }
-
-});
+}
 
 
 function approveSubtaskMenu() {
@@ -159,7 +199,7 @@ function checkIfTaskWithThisTitleExists(titleInput) {
 function createTask() {
     console.log("here");
     taskData = collectTaskData();
-    if(verifyTaskData(taskData)){
+    if (verifyTaskData(taskData)) {
         tasks.push(taskData);
         setItem("tasks", tasks);
     }
@@ -255,13 +295,13 @@ function changeAvailableUsersVisibility() {
 
 function makeAvailableUsersVisible() {
     showAssignedUsers = true;
-    document.getElementById("dropDownContent").classList.remove("hide");
+    document.getElementById("assignedUsersdropDownContent").classList.remove("hide");
     rotateIconBy180("assignUsersDropDownIcon");
 }
 
 function makeAvailableUsersInvisible() {
     showAssignedUsers = false;
-    document.getElementById("dropDownContent").classList.add("hide");
+    document.getElementById("assignedUsersdropDownContent").classList.add("hide");
     rotateIconBy180("assignUsersDropDownIcon");
 }
 
@@ -347,30 +387,30 @@ function createSubTask() {
     renderSubTasksList();
 }
 
-function resetSubTaskInput(){
-    setElementValue("subtaskField","");
+function resetSubTaskInput() {
+    setElementValue("subtaskField", "");
 }
 
-function deleteSubTask(element){
-    let id=element.id.replace("deleteSubTask","");
-    subTasks.splice(id,1);
-    setElementHtml("editSubTaskField","");
+function deleteSubTask(element) {
+    let id = element.id.replace("deleteSubTask", "");
+    subTasks.splice(id, 1);
+    setElementHtml("editSubTaskField", "");
     renderSubTasksList();
 }
 
-function approveSubTask(element){
-    let i=element.id.replace("approveSubTask","");
-    let editSubTaskInputfield=document.getElementById(`editSubtaskField${i}`);
-    subTasks[i]=editSubTaskInputfield.value;
-    editSubTaskInputfield.innerHtml="";
-    setElementHtml("editSubTaskField","");
+function approveSubTask(element) {
+    let i = element.id.replace("approveSubTask", "");
+    let editSubTaskInputfield = document.getElementById(`editSubtaskField${i}`);
+    subTasks[i] = editSubTaskInputfield.value;
+    editSubTaskInputfield.innerHtml = "";
+    setElementHtml("editSubTaskField", "");
     renderSubTasksList();
 }
 
-function editSubTask(element){
-    let i=element.id.replace("editSubTask","");
-    let valueToEdit=subTasks[i];
-    document.getElementById("editSubTaskField").innerHTML=/*html*/`
+function editSubTask(element) {
+    let i = element.id.replace("editSubTask", "");
+    let valueToEdit = subTasks[i];
+    document.getElementById("editSubTaskField").innerHTML =/*html*/`
     <input type='text' class='edit-subtask-field' id='editSubtaskField${i}' value='${valueToEdit}'>
     <div class='edit-subtask-menu'>
         <img src='./assets/icons/trashcan-icon.svg' id='deleteSubTask${i}' class='animated-icon' onclick='deleteSubTask(this)'>
@@ -397,7 +437,7 @@ function getSubTasksListHtml() {
         }
         html += "</uol>";
         return html;
-    }else{
+    } else {
         return "";
     }
 }
@@ -416,21 +456,20 @@ function setElementValue(elementId, html) {
 
 function emptyAddTaskForm() {
     selectedTaskPriority = null //Priorities= urgent, medium, low
-    
+
     showAssignedUsers = false;
     assignedUsers = [];
     renderSelectedUserIcons();
     renderAssignedUserData();
-   
+
     subTasks = [];
     renderSubTasksList();
     resetSubTaskInput();
-
 
     setPrioButtonSelectStatusById("urgent", false);
     setPrioButtonSelectStatusById("medium", false);
     setPrioButtonSelectStatusById("low", false);
 
-    setElementHtml("taskCategoryHeader","Select Task Category");
-    setElementHtml("taskCategoryValue","");
+    setElementHtml("taskCategoryName", "Select Task Category");
+    setElementHtml("taskCategoryValue", "");
 }

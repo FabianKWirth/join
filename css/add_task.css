@@ -141,9 +141,8 @@
 }
 
 .dropdown-content {
+    display: none;
     position: relative;
-    max-width: 440px;
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -229,10 +228,6 @@
 
 .task-category-item:hover {
     background-color: #f4f4f4;
-}
-
-.task-category.open .task-category-list {
-    display: block;
 }
 
 .category-options {
@@ -364,6 +359,7 @@
     position: relative;
 }
 
+#assignUsersDropDownIcon,
 #enterSubtaskCreation,
 #declineEnteredTaskIcon,
 #approveEnteredTaskIcon,
@@ -449,6 +445,14 @@
 
 .rotate-180 {
     transform: rotate(180deg);
+}
+
+.show-block {
+    display: block !important;
+}
+
+.show-flex {
+    display: flex !important;
 }
 
 .hide {

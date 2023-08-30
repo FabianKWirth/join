@@ -36,13 +36,13 @@
                     <div class="task-assigned-users">
                         <label for="newTaskAssignedUser">Assigned to</label>
                         <div id="newTaskAssignedUser">
-                            <div class="dropdown-field" onclick="changeAvailableUsersVisibility()">
-                                <input type="text" id="dropDownTextFieldInput" onchange="showAvailableUsers()"
-                                    class='dropdown-field-text' value="Select contacts to assign">
+                            <div class="dropdown-field"><!-- onclick="changeAvailableUsersVisibility() -->
+                                <input type="text" id="dropDownUsersTextFieldInput" 
+                                    class='dropdown-field-text toggle-dropdown' value="Select contacts to assign"> <!-- onchange="showAvailableUsers()" -->
                                 <img id='assignUsersDropDownIcon' class='dropdown-field-icon'
                                     src="./assets/icons/arrow-drop.svg">
                             </div>
-                            <div class="dropdown-content hide" id="dropDownContent">
+                            <div class="dropdown-content" id="assignedUsersdropDownContent">
                                 <div id="selectAssignedUserList">
 
                                 </div>
@@ -82,15 +82,15 @@
                     </div>
 
                     <label for="taskCategory">Category</label>
-                    <div class="task-category" id="taskCategory">
+                    <div class="task-category toggle-dropdown" id="taskCategory">
                         <input type='hidden' id='taskCategoryValue' >
                         <div class="task-category-header" id="taskCategoryHeader"
-                            onclick="rotateIconBy180('categoryDropDownIcon')">
-                            <p>Select Task Category</p>
-                            <img id='categoryDropDownIcon' class='dropdown-field-icon'
+                            onclick="rotateIconBy180('taskCategoryDropDownIcon')">
+                            <p id="taskCategoryName">Select Task Category</p>
+                            <img id='taskCategoryDropDownIcon' class='dropdown-field-icon'
                                 src="./assets/icons/arrow-drop.svg">
                         </div>
-                        <div class="task-category-list">
+                        <div class="task-category-list" id="taskCategoryList">
                             <div class="task-category-item" data-value="Technical Task">Technical Task</div>
                             <div class="task-category-item" data-value="User Story">User Story</div>
                         </div>
