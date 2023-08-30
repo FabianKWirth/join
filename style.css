@@ -109,10 +109,15 @@ h3 {
 
 /* provisorisch*/
 #goBack {
-    margin-left: 500px;
-    margin-top: 200px;
-    color: black;
-    width: 50px;
+    position: absolute;
+    top: 74px;
+    right: 100px;
     height: 50px;
+}
+
+#goBack:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
 }
 

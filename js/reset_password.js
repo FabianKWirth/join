@@ -1,9 +1,7 @@
 let email = '';
-let user;
 
 function onPageLoad() {
     email = getEmailUrlParameter();
-    users = users;
 }
 
 function getEmailUrlParameter() {
@@ -11,10 +9,6 @@ function getEmailUrlParameter() {
     const urlParams = new URLSearchParams(queryString);
     const email = urlParams.get('email');
     return email;
-}
-
-function getUsers() {
-    return JSON.parse(localStorage.getItem('users')) || [];
 }
 
 function onSubmit(event) {

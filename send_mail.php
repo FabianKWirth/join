@@ -2,7 +2,7 @@
 
 ########### CONFIG ###############
 
-$recipient = 'dschabrail.bjj@gmail.com';
+$recipient = $email;
 
 ########### CONFIG END ###########
 
@@ -42,11 +42,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         $message = "Hello,\n
         \nFollow this link to reset your Join password for your" . $email . " account.\n
-        \n?email=" . $email . "\n"
+        \nhttps://gruppe-671.developerakademie.net/join/reset.password.html?email=" . $email . "\n"
 
         $recipient = $email;
         $subject = "Reset your password for Join App";
-        $headers = "From:  Join@developerakademie.com";
+        $headers = "From:  noreply@http://gruppe-671.developerakademie.net";
 
         $result = mail($recipient, $subject, $message, $headers);
         print($result); 

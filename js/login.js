@@ -43,11 +43,11 @@ function renderSignUpForm() {
 
 function renderForgotPasswordForm() {
   container.innerHTML = /*html*/ `
-  <form unsubmit="checkEmail(event); return false" class="forgot-password-form">
+  <form onsubmit="onSubmit(event); return false" class="forgot-password-form">
   <img onclick="renderLoginContainer()" class="forgot-password-arrow arrow" src="../assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">I forgot my Password</h2><div class="seperator"></div></div>
   <p class="form-text">Don't worry! We will send you an email with the instructions to reset your password.</p>
-  <input required id ="forgot-password-email"class="input-login email" type="email" placeholder="Email">
+  <input required name="email" id ="forgot-password-email"class="input-login email" type="email" placeholder="Email">
   <span id="forgot-password-info" style="color: red"></span>
   <button type="submit" class="send-email-btn">Send me the email</button>
   </form>
@@ -103,13 +103,12 @@ function login() {
   } else message.innerHTML = "Wrong password or email! Try again.";
 }
 
-function checkEmail(event) {
-  let message = document.getElementById("forgot-password-info");
+function checkEmail() {
   let email = document.getElementById("forgot-password-email");
   let user = users.find((u) => u.email == email.value);
 
   if (user) {
-    sendEmail(event, message);
+    showMessage();
   }
 }
 
@@ -122,20 +121,37 @@ function showMessage() {
   }, 4000);
 }
 
-async function sendEmail(event, message) {
+async function onSubmit(event) {
+  let message = document.getElementById("forgot-password-message");
   event.preventDefault();
   let formData = new FormData(event.target);
-  let response = await action(formData);
-  if (response.ok) {
-    showMessage();
-  } else message.innerHTML = "This email is not registred.";
+  
+  try {
+    let response = await action(formData);
+    
+    if (response.ok) {
+      checkEmail();
+    } else {
+      message.innerHTML = "This email is not registered.";
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    message.innerHTML = "An error occurred while processing the request.";
+  }
 }
 
-function action(formData) {
-  const input = "";
+async function action(formData) {
+  const input = "https://gruppe-671.developerakademie.net/join/send_mail.php";
   const requestInit = {
     method: "post",
     body: formData,
   };
-  return fetch(input, requestInit);
+  
+  try {
+    const response = await fetch(input, requestInit);
+    return response;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    throw error; // Re-throw the error to be caught by the outer try...catch block
+  }
 }
