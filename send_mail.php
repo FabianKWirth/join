@@ -19,10 +19,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $headers = "From:  noreply@http://gruppe-671.developerakademie.net";
 
         $result = mail($recipient, $subject, $message, $headers);
-        print($result); 
+        print($result);
 
         break;
     default: //Reject any non POST or OPTIONS requests.
         header("Allow: POST", true, 405);
         exit;
 }
+?>
