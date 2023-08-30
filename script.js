@@ -180,10 +180,7 @@ function setUserHeaderInitials() {
  * This function goes back to the menu
  */
 function goBack() {
-    document.getElementById('sidebar-menu').classList.remove('dNone');
-    document.getElementById(`menu-link4`).classList.remove('bg-dark-legal-notice');
-    document.getElementById(`menu-link5`).classList.remove('bg-dark-legal-notice');
-    document.getElementById('goBack').classList.add('dNone');
+    window.history.back();
 }
 
 
