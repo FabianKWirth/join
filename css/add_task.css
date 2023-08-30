@@ -334,7 +334,6 @@
     position: absolute;
     left: 0;
     border-radius: 10px;
-    outline: none;
     border: 1px solid #D1D1D1;
     font-size: 20px;
     padding: 0px 21px 0px 21px;
@@ -373,54 +372,56 @@
     cursor: pointer;
 }
 
+.subtask-display{
+    position:relative;
+}
+
 .shown-subtask {
     display: list-item;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     padding: 6px 16px 6px 16px;
+    z-index: 10;
 }
 
 .shown-subtask:hover {
-
     background-color: #EEEEEE;
 }
 
-#editSubTaskField{
+.shown-subtask-menu {
+    display: none;
+    float: right;
     position: relative;
+    z-index: 200;
 }
 
-.change-task-field{
+.shown-subtask:hover .shown-subtask-menu {
+    display: flex;
+    align-items: center;
+}
+
+.edit-subtask-field{
     width:404px;
     height: 32px;
     padding: 4px 16px 4px 16px;
     border: none;
     border-bottom:solid 1px#005DFF;
-    
     outline: none;
     display: flex;
     justify-content: space-between;
 }
 
-.shown-subtask-menu{
-    position:absolute;
-    top:0;
-    right:0;
-    z-index: 200;
-}
-
-
-
-.shown-subtask-menu {
-    display: flex;
-    align-items: center;
-    z-index: -999;
+.edit-subtask-menu{
+    position: relative;
+    margin-top: -33px;
+    margin-right: 16px;
     float: right;
+    display: flex;
+    justify-content: space-between;
 }
 
-.shown-subtask-menu:hover {
-    z-index: 0;
-}
+
 
 
 .white-symbol {

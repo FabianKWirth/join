@@ -14,7 +14,7 @@
 
 </head>
 
-<body onload="includeHTML(1)" onclick="">
+<body onload="includeHTML(1)">
     <div w3-include-html="./assets/templates/header.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
@@ -52,7 +52,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div id='assignedUserList'></div>
                     </div>
@@ -83,6 +83,7 @@
 
                     <label for="taskCategory">Category</label>
                     <div class="task-category" id="taskCategory">
+                        <input type='hidden' id='taskCategoryValue' >
                         <div class="task-category-header" id="taskCategoryHeader"
                             onclick="rotateIconBy180('categoryDropDownIcon')">
                             <p>Select Task Category</p>
@@ -102,21 +103,25 @@
                                 placeholder="Add new Subtask">
                             <img id='enterSubtaskCreation' class="animated-icon" src="./assets/icons/puls-icon.svg">
                             <div id='approveSubtaskMenu' class="approve-subtask-menu hide">
-                                <img src="./assets/icons/x-icon.svg" id="declineEnteredTaskIcon" class="animated-icon" onclick="resetSubTaskInput()">
+                                <img src="./assets/icons/x-icon.svg" id="declineEnteredTaskIcon" class="animated-icon"
+                                    onclick="resetSubTaskInput()">
                                 <div class="approve-subtask-menu-border"></div>
-                                <img src='./assets/icons/checkmark-icon.svg' id="approveEnteredTaskIcon" class="animated-icon" onclick="createSubTask()">
+                                <img src='./assets/icons/checkmark-icon.svg' id="approveEnteredTaskIcon"
+                                    class="animated-icon" onclick="createSubTask()">
                             </div>
                         </div>
-                        <div id="currentSelectedSubtasks">
+                        <div class="subtask-display">
+                            <div id="currentSelectedSubtasks">
 
+                            </div>
+                            <div id="editSubTaskField"></div>
                         </div>
-                        <div id="editSubTaskField"></div>
                     </div>
                 </div>
             </div>
 
             <div class="form-options">
-                <button onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
+                <button type='button' onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
                 <button type='button' id="createTask" onclick="createTask()" class="default-button" disabled>
                     Create Task</button>
             </div>

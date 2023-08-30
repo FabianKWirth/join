@@ -3,6 +3,9 @@ let showAssignedUsers = false;
 let assignedUsers = [];
 let subTasks = [];
 
+
+let simpleInputFiledIds=["newTaskTitle","newTaskDescription","newTaskDate","taskCategoryValue"];
+
 users = [
     {
         "username": "john_doe",
@@ -39,9 +42,13 @@ users = [
 renderTaskInput();
 
 function renderTaskInput() {
-    setAssignedUserData();
+    renderAssignedUserData();
     setTaskData();
 }
+
+
+
+newTaskAssignedUser
 
 document.addEventListener("click", function (event) {
     const dropdowns = document.querySelectorAll(".task-category");
@@ -54,13 +61,16 @@ document.addEventListener("click", function (event) {
     });
 });
 
-const dropdownItems = document.querySelectorAll(".task-category-item");
-const taskCategoryHeader = document.getElementById("taskCategoryHeader");
 
+//Category Dropdown
+const dropdownItems = document.querySelectorAll(".task-category-item");
+const taskCategoryHeaderElement = document.getElementById("taskCategoryHeader");
+const taskCategoryValueElement = document.getElementById("taskCategoryValue");
 dropdownItems.forEach(function (item) {
     item.addEventListener("click", function () {
         const selectedValue = item.getAttribute("data-value");
-        taskCategoryHeader.textContent = selectedValue;
+        taskCategoryHeaderElement.textContent = selectedValue;
+        taskCategoryValueElement.value=selectedValue;
     });
 });
 
@@ -71,7 +81,6 @@ inputField.addEventListener('focus', function () {
 });
 
 inputField.addEventListener('blur', function () {
-    console.log(document.getElementById("subtaskField"));
     if (document.getElementById("subtaskField").value == "") {
         defaultSubtaskMenu();
     }
@@ -88,8 +97,6 @@ function defaultSubtaskMenu() {
     document.getElementById("approveSubtaskMenu").classList.add("hide");
     document.getElementById("enterSubtaskCreation").classList.remove("hide");
 }
-
-
 
 function collectTaskData() {
     const container = document.getElementById('addTaskContainer');
@@ -150,16 +157,15 @@ function checkIfTaskWithThisTitleExists(titleInput) {
 }
 
 function createTask() {
-    task = collectTaskData();
-    if (task != false) {
-        tasks.push(task);
+    console.log("here");
+    taskData = collectTaskData();
+    if(verifyTaskData(taskData)){
+        tasks.push(taskData);
         setItem("tasks", tasks);
-    } else {
-        alert("A task with this name already exists");
     }
 }
 
-function setAssignedUserData() {
+function renderAssignedUserData() {
 
     const userList = document.getElementById('selectAssignedUserList');
 
@@ -206,7 +212,7 @@ function showAvailableUsers(event) {
     makeAvailableUsersVisible();
 }
 
-function setSelectedUserIcons() {
+function renderSelectedUserIcons() {
     let html = "";
     for (let i = 0; i < assignedUsers.length; i++) {
         const id = assignedUsers[i];
@@ -222,7 +228,7 @@ function selectUser(row) {
     row.classList.add("selected-option");
     document.getElementById("selectedUserCheckBox" + userId).src = './assets/icons/checkbox-filled.svg';
     document.getElementById("selectedUserCheckBox" + userId).classList.add("white-symbol");
-    setSelectedUserIcons();
+    renderSelectedUserIcons();
 }
 
 function unselectUser(row) {
@@ -235,7 +241,7 @@ function unselectUser(row) {
     row.classList.remove("selected-option");
     document.getElementById("selectedUserCheckBox" + userId).src = './assets/icons/checkbox-empty.svg';
     document.getElementById("selectedUserCheckBox" + userId).classList.remove("white-symbol");
-    setSelectedUserIcons();
+    renderSelectedUserIcons();
 }
 
 function changeAvailableUsersVisibility() {
@@ -322,10 +328,7 @@ function setPrioButtonSelected(currentButton) {
     }
 }
 
-
-
 function setPrioButtonSelectStatusById(type, selectStatus = false) {
-    console.log(`priority-button-${type}-selected`, selectStatus);
 
     if (selectStatus == true) {
         document.getElementById(`${type}Button`).classList.add(`priority-button-${type}-selected`);
@@ -335,7 +338,6 @@ function setPrioButtonSelectStatusById(type, selectStatus = false) {
         document.getElementById(`${type}Icon`).classList.remove('white-symbol');
     }
 }
-
 
 function createSubTask() {
     subTaskName = document.getElementById("subtaskField").value;
@@ -352,18 +354,28 @@ function resetSubTaskInput(){
 function deleteSubTask(element){
     let id=element.id.replace("deleteSubTask","");
     subTasks.splice(id,1);
+    setElementHtml("editSubTaskField","");
+    renderSubTasksList();
+}
 
+function approveSubTask(element){
+    let i=element.id.replace("approveSubTask","");
+    let editSubTaskInputfield=document.getElementById(`editSubtaskField${i}`);
+    subTasks[i]=editSubTaskInputfield.value;
+    editSubTaskInputfield.innerHtml="";
+    setElementHtml("editSubTaskField","");
     renderSubTasksList();
 }
 
 function editSubTask(element){
     let i=element.id.replace("editSubTask","");
+    let valueToEdit=subTasks[i];
     document.getElementById("editSubTaskField").innerHTML=/*html*/`
-    <input type='text' class='change-task-field'>
-    <div class='shown-subtask-menu'>
-        <img src="./assets/icons/trashcan-icon.svg" id="deleteSubTask${i}" class="animated-icon" onclick='deleteSubTask(this)'>
-        <div class="approve-subtask-menu-border"></div>
-        <img src="./assets/icons/checkmark-icon.svg" id="approveSubTask${i}" class="animated-icon" onclick="approveSubTask(this)">
+    <input type='text' class='edit-subtask-field' id='editSubtaskField${i}' value='${valueToEdit}'>
+    <div class='edit-subtask-menu'>
+        <img src='./assets/icons/trashcan-icon.svg' id='deleteSubTask${i}' class='animated-icon' onclick='deleteSubTask(this)'>
+        <div class='approve-subtask-menu-border'></div>
+        <img src='./assets/icons/checkmark-icon.svg' id='approveSubTask${i}' class='animated-icon' onclick='approveSubTask(this)'>
     </div>`;
     setElementHtml("currentSelectedSubtasks", "");
 }
@@ -390,8 +402,6 @@ function getSubTasksListHtml() {
     }
 }
 
-
-
 function renderSubTasksList() {
     setElementHtml("currentSelectedSubtasks", getSubTasksListHtml());
 }
@@ -405,5 +415,22 @@ function setElementValue(elementId, html) {
 }
 
 function emptyAddTaskForm() {
+    selectedTaskPriority = null //Priorities= urgent, medium, low
+    
+    showAssignedUsers = false;
+    assignedUsers = [];
+    renderSelectedUserIcons();
+    renderAssignedUserData();
+   
+    subTasks = [];
+    renderSubTasksList();
+    resetSubTaskInput();
 
+
+    setPrioButtonSelectStatusById("urgent", false);
+    setPrioButtonSelectStatusById("medium", false);
+    setPrioButtonSelectStatusById("low", false);
+
+    setElementHtml("taskCategoryHeader","Select Task Category");
+    setElementHtml("taskCategoryValue","");
 }
