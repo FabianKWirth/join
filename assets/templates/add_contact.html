@@ -1,0 +1,100 @@
+<style>
+    .add-contact-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: black;
+        z-index: 900;
+        opacity: 0.2;
+    }
+
+    .add-contact-container {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        z-index: 999;
+        
+    }
+
+    .add-contact-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1212px;
+        max-width:90%;
+        height: 594px;
+        /*padding: 66px 48px 66px 48px;*/
+        gap: 12px;
+        background-color: white;
+        z-index: 1000;
+        border-radius: 30px;
+        overflow: hidden;
+
+    }
+
+    .card-header{
+
+        background-color: #2A3647;
+        height: 100%;
+        width: 100%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 66px 48px 66px 48px;
+    }
+
+    .card-header img{
+        object-fit: cover;
+        overflow: hidden;
+        width: 55.6px;
+        height:66.48px
+    } 
+
+    .card-body{
+        display: flex;
+    }
+
+    .card-form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+</style>
+<div class="add-contact-overlay">
+
+</div>
+
+<div class="add-contact-container">
+    <div class="add-contact-card">
+        <div class="card-header">
+            <div class="card-header-content">
+            <img src="../assets/image/join-logo-white.svg">
+            <h1>Add contact</h1>
+            <h4>Tasks are better with a team!</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <img src="../assets/icons/empty-user-avatar.png">
+            <div class="card-form">
+                <input type="text" id="user-name" class="new-contact-input">
+                <input type="email" id="user-mail" class="new-contact-input">
+                <input type="tel" id="user-phone" class="new-contact-input">
+                <div class="form-options">
+                    <button type='button' class="alternative-button">Clear</button>
+                    <button type='button' class="default-button" disabled>Create Task</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

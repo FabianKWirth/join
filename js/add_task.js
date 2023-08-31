@@ -3,10 +3,8 @@ let showAssignedUsers = false;
 let assignedUsers = [];
 let subTasks = [];
 
-let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate",];
-let indirectInputFieldIds = ["assignedUserList", "subtaskField", "editSubTaskField", "taskCategoryList"];
-let inputButtons = ["urgentButton", "mediumButton", "lowButton", "approveEnteredTaskIcon"];
-let dropDownClasses = ["task-category-item", "assign-user-option"];
+let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate","taskCategoryValue"];
+let indirectInputFieldIds = ["assignedUserList", "taskCategoryList", "subtaskField", "editSubTaskField",];
 let unfinishedTaskData = {};
 
 users = [
@@ -48,7 +46,6 @@ function renderTaskInput() {
     renderUserAssignmentDropDown();
     setTaskData();
     loadEventListeners();
-
 }
 
 function loadEventListeners() {
@@ -56,7 +53,7 @@ function loadEventListeners() {
     setSubTaskEventListeners();
     setSelectedCategoryEventListener();
     setDropDownUsersTextFieldInputEventListener();
-    preventUserListFromCollapsingOnclic();
+    preventUserListFromCollapsingOnclick();
     addFormDataChangesEventListener();
 }
 
@@ -67,42 +64,85 @@ function addSaveEvent(eventType, element) {
 }
 
 function addFormDataChangesEventListener() {
+    addListenersToDropDownSelections();
+    addListenersToInputButtons();
+    addListenersToDirectInputFields();
+    addListenersToIndirectInputFields();
+}
 
-    // Get all elements with the class "task-category-item"
+function addListenersToDropDownSelections() {
+    let dropDownClasses = ["task-category-item", "assign-user-option"];
     dropDownClasses.forEach(className => {
         const categoryItems = document.querySelectorAll("." + className);
 
         // Loop through each category item and add an event listener
         categoryItems.forEach(item => addSaveEvent("click", item));
     });
+}
 
+
+/**
+ * Adds event listeners to specified input buttons, invoking the 'addSaveEvent' function on click.
+ * 
+ * @function
+ * @returns {void}
+ */
+function addListenersToInputButtons() {
+    let inputButtons = ["urgentButton", "mediumButton", "lowButton", "approveEnteredTaskIcon"];
     inputButtons.forEach(inputButton => {
         addSaveEvent("click", document.getElementById(inputButton));
     });
+}
 
+
+/**
+ * Adds event listeners to specified input buttons having the ids save in the global array directInputFieldIds, invoking the 'addSaveEvent' function on click.
+ * 
+ * @function
+ * @returns {void}
+ */
+function addListenersToDirectInputFields() {
     directInputFieldIds.forEach(directInputFieldId => {
         addSaveEvent("change", document.getElementById(directInputFieldId));
     });
+}
+
+/**
+ * Adds event listeners to specified input buttons having the ids save in the global array indirectInputFieldIds, invoking the 'addSaveEvent' function on click.
+ * 
+ * @function
+ * @returns {void}
+ */
+function addListenersToIndirectInputFields() {
 
     indirectInputFieldIds.forEach(indirectInputFieldId => {
         addSaveEvent("change", document.getElementById(indirectInputFieldId));
     });
 }
 
+/** 
+ * Calls functions to save the data entered by the user into the unfinishedTaskData JSON array
+ * Calls a function to check wether the Task can be created
+ */
 function saveCurrentEntriesToTask() {
     saveGlobalVariables();
     saveDirectInputFields();
 
-    let result = checkIfFormSubmittable();
-    console.log(result);
+    checkIfFormSubmittable();
 }
 
+/**
+ * Saves validated selected global variables into the 'unfinishedTaskData' JSON array
+ * 
+ * @returns {void}
+ * 
+ */
 function saveGlobalVariables() {
-    if (assignedUsers != []) {
+    if (assignedUsers.length > 0) {
         unfinishedTaskData["assignedUsers"] = assignedUsers;
     }
 
-    if (subTasks != []) {
+    if (subTasks.length > 0) {
         unfinishedTaskData["subTasks"] = subTasks;
     }
 
@@ -111,6 +151,9 @@ function saveGlobalVariables() {
     }
 }
 
+/** 
+ * saves validated inputs of all elements having the ids of directInputFieldIds into the 'unfinishedTaskData' JSON array
+*/
 function saveDirectInputFields() {
     for (let index = 0; index < directInputFieldIds.length; index++) {
         const directInputFiledId = directInputFieldIds[index];
@@ -120,20 +163,25 @@ function saveDirectInputFields() {
     }
 }
 
+/** 
+ * Calls functions to see whether all required input field are set 
+ * Calls function setCreateTaskStatus enable/disable the "Create Task" button;
+ * 
+ * @returns {boolean} true if form is submittable; false if not;
+ * 
+ * */
 function checkIfFormSubmittable() {
-
-    if(checkIfPrioIsSet() && checkIfdirectInputFieldIdsAreSet()){
+    if (checkIfPrioIsSet() && checkIfdirectInputFieldIdsAreSet()) {
         setCreateTaskStatus("Enabled");
         return true;
-    }else{
+    } else {
         setCreateTaskStatus("Disabled");
         return false;
     }
-    
 }
 
 function checkIfPrioIsSet() {
-    let isSubmittable=true;
+    let isSubmittable = true;
     if (selectedTaskPriority != null) {
         unfinishedTaskData["priority"] = selectedTaskPriority;
     } else {
@@ -144,23 +192,27 @@ function checkIfPrioIsSet() {
     return isSubmittable;
 }
 
+/**
+ * Checks if the values of the specific input fields of the global array directInputFieldIds, identified by their IDs,
+ * are set (not empty).
+ *
+ * @returns {boolean} Returns true if all the identified input fields have non-empty values,
+ *                    otherwise returns false.
+ */
 function checkIfdirectInputFieldIdsAreSet() {
-    let isSubmittable=true;
+
+    let isSubmittable = true;
+
     for (let index = 0; index < directInputFieldIds.length; index++) {
-        const simpleInputFieldId = directInputFieldIds[index];
-        if (document.getElementById(simpleInputFieldId).value == "") {
-            console.log(simpleInputFieldId);
+
+        const inputValue = document.getElementById(directInputFieldIds[index]).value;
+        if (inputValue === "") {
             isSubmittable = false;
         }
     }
 
     return isSubmittable;
 }
-
-
-
-
-
 
 function setDropDownUsersTextFieldInputEventListener() {
     let inputField = document.getElementById("dropDownUsersTextFieldInput");
@@ -199,7 +251,7 @@ function setSubTaskEventListeners() {
     const inputField = document.getElementById('subtaskField');
 
     inputField.addEventListener('focus', function () {
-        approveSubtaskMenu(); // Call your function here
+        approveSubtaskMenu();
     });
 
     inputField.addEventListener('blur', function () {
@@ -209,15 +261,14 @@ function setSubTaskEventListeners() {
     });
 }
 
-function preventUserListFromCollapsingOnclic() {
+function preventUserListFromCollapsingOnclick() {
     let selectAssignedUserList = document.getElementById("selectAssignedUserList");
     selectAssignedUserList.addEventListener('click', function (event) {
-        event.stopPropagation(); // Stop the event from propagating further up the DOM
+        event.stopPropagation();
     });
 }
 
 function setSelectedCategoryEventListener() {
-    //Category Dropdown
     let dropdownItems = document.querySelectorAll(".task-category-item");
     const taskCategoryValueElement = document.getElementById("taskCategoryValue");
     dropdownItems.forEach(function (item) {
@@ -229,15 +280,32 @@ function setSelectedCategoryEventListener() {
     });
 }
 
+/**
+ * Displays the 'approveSubtaskMenu' and hides the 'enterSubtaskCreation' menu.
+ * 
+ * @returns {void}
+ */
 function approveSubtaskMenu() {
     document.getElementById("approveSubtaskMenu").classList.remove("hide");
     document.getElementById("enterSubtaskCreation").classList.add("hide");
 }
 
+/**
+ * Displays the 'enterSubtaskCreation' and hides the 'approveSubtaskMenu' menu.
+ * 
+ * @returns {void}
+ */
 function defaultSubtaskMenu() {
     document.getElementById("approveSubtaskMenu").classList.add("hide");
     document.getElementById("enterSubtaskCreation").classList.remove("hide");
 }
+
+
+/**
+ * Enables disabels the "Create Task" button depending on the give status
+ * 
+ * @returns {void}
+ */
 
 function setCreateTaskStatus(status) {
     if (status == "Disabled") {
