@@ -1,4 +1,3 @@
-
 function greetUser() {
     greetingTime();
     greetingUser()
@@ -24,8 +23,7 @@ function greetingTime() {
 
 function greetingUser() {
     let greetingName = document.getElementById('greeting-name');
-    let user = users[0]['username'];
-    greetingName.innerHTML = user;
+    greetingName.innerHTML = username;
     // console.log(user);
 }
 

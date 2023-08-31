@@ -20,7 +20,8 @@ function renderLoginContainerTemplate() {
   <div class="login-checkbox-container"><input class="login-checkbox" id="checkbox" type="checkbox">
   <label class="checkbox-label" for="checkbox">Remember me</label></div>
   <span onclick="renderForgotPasswordForm()" class="forgot-password-span">I forgot my Password</span></div> 
-  <div class="login-button-container"><button type="submit" class="login-button">Log in</button><button class="guest-button">Guest Log in</button></div>
+  <div class="login-button-container"><button type="submit" class="login-button">Log in</button>
+  <button onclick="guestLogin()" class="guest-button">Guest Log in</button></div>
   </form>`;
 }
 
@@ -43,7 +44,7 @@ function renderSignUpForm() {
 
 function renderForgotPasswordForm() {
   container.innerHTML = /*html*/ `
-  <form action='send_mail.php' class="forgot-password-form" method="post">
+  <form onsubmit="onSubmit(event)" class="forgot-password-form">
   <img onclick="renderLoginContainer()" class="forgot-password-arrow arrow" src="../assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">I forgot my Password</h2><div class="seperator"></div></div>
   <p class="form-text">Don't worry! We will send you an email with the instructions to reset your password.</p>
@@ -95,25 +96,36 @@ function login() {
   let email = document.getElementById("login-email");
   let password = document.getElementById("login-password");
   let user = users.find(
-    (u) => u.email == email.value && u.password == password.value
-  );
+    (u) => u.email == email.value && u.password == password.value);
 
   if (user) {
-    window.location.href = "summary.html";
+    window.location.href = `./summary.html?name=${user.username}`;
   } else message.innerHTML = "Wrong password or email! Try again.";
 }
 
-function checkEmail() {
+async function checkEmail(event) {
+  let message = document.getElementById("forgot-password-message");
   let email = document.getElementById("forgot-password-email");
   let user = users.find((u) => u.email == email.value);
 
   if (user) {
-    showMessage();
+    let formData = new FormData(event.target);
+  
+  try {
+    let response = await action(formData);
+    
+    if (response.ok) {
+      showMessage(message);
+    } else {
+      message.innerHTML = "This email is not registered.";
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  };
   }
 }
 
-function showMessage() {
-  let message = document.getElementById("forgot-password-message");
+function showMessage(message) {
   message.classList.remove("d-none");
 
   setTimeout(() => {
@@ -122,22 +134,8 @@ function showMessage() {
 }
 
 async function onSubmit(event) {
-  let message = document.getElementById("forgot-password-message");
   event.preventDefault();
-  let formData = new FormData(event.target);
-  
-  try {
-    let response = await action(formData);
-    
-    if (response.ok) {
-      checkEmail();
-    } else {
-      message.innerHTML = "This email is not registered.";
-    }
-  } catch (error) {
-    console.error("An error occurred:", error);
-    message.innerHTML = "An error occurred while processing the request.";
-  }
+  checkEmail(event);
 }
 
 async function action(formData) {
@@ -149,9 +147,22 @@ async function action(formData) {
   
   try {
     const response = await fetch(input, requestInit);
+
+    if (response.ok) {
+      // Erfolgreiche Antwort (Statuscode 200-299)
+      console.log("Request successful");
+    } else {
+      // Fehlerhafte Antwort (Statuscode nicht im Bereich 200-299)
+      console.error("Request failed with status:", response.status);
+    }
+
     return response;
   } catch (error) {
     console.error("Fetch error:", error);
     throw error; // Re-throw the error to be caught by the outer try...catch block
   }
+}
+
+function guestLogin() {
+  window.location.href = `./summary.html?name=Guest`;
 }

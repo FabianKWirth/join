@@ -2,7 +2,7 @@ let users = [];
 
 let tasks = [];
 
-let currentSelectedUser=0;
+let currentSelectedUser;
 
 let userIconColors = [
     "#6E52FF",
@@ -22,7 +22,10 @@ let userIconColors = [
     "#FFBB2B"
 ];
 
-
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+const username = params.name;
+const userInitials = getInitials({ username: username });
 
 
 async function init() {
@@ -185,12 +188,12 @@ function getInitials(user) {
 }
 
 function setUserHeaderInitials() {
-    let myAccount = document.getElementById("myAccount");
-    myAccount.innerHTML = getInitials(users[currentSelectedUser]);
+   let myAccount = document.getElementById("myAccount");
+    myAccount.innerHTML = userInitials;
 }
 
 /**
- * This function goes back to the menu
+ * This function goes back to the last page.
  */
 function goBack() {
     window.history.back();
