@@ -13,6 +13,12 @@ async function includeAddContactHTML() {
         }
     }
 
+    window.scrollTo(0, 0);
+    
+    elements.forEach(element => {
+        element.classList.add("hide-overflow");
+    });
+
     document.addEventListener("click", function (event) {
         removeElementsByPartialClassName("add-contact");
     })

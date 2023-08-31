@@ -3,11 +3,14 @@
         position: absolute;
         left: 0;
         top: 0;
+        right: 0;
+        bottom: 0;
         height: 100vh;
         width: 100%;
         background-color: black;
         z-index: 900;
         opacity: 0.2;
+        overflow: unset;
     }
 
     .add-contact-container {
@@ -85,19 +88,19 @@
         margin-top: -40px;
     }
 
-    .add-contact-contact-form-options{
+    .add-contact-contact-form-options {
         display: flex;
         gap: 24px;
     }
 
-    #closeAddContactCardIcon{
+    #closeAddContactCardIcon {
         position: absolute;
         right: 40px;
         top: 40px;
     }
 </style>
 
-<script src="js/contacts.js"></script>
+<script src="./js/contacts.js"></script>
 <div class="add-contact-overlay">
 
 </div>
@@ -114,19 +117,21 @@
 
         <img src="../assets/icons/empty-user-avatar.png">
         <form class="add-contact-card-form" onsubmit="return false;">
-            <div><input type="text" id="add-contact-name" placeholder="Name"><img
-                    src="../assets/icons/person-icon.svg"></div>
-            <div><input type="email" id="add-contact-mail" placeholder="Email"><img
-                    src="../assets/icons/mail-icon.svg"></div>
-            <div><input type="tel" id="add-contact-phone" placeholder="Phone"><img
-                    src="../assets/icons/call-icon.svg"></div>
+            <div><input type="text" id="add-contact-name" placeholder="Name"><img src="../assets/icons/person-icon.svg">
+            </div>
+            <div><input type="email" id="add-contact-mail" placeholder="Email"><img src="../assets/icons/mail-icon.svg">
+            </div>
+            <div><input type="tel" id="add-contact-phone" placeholder="Phone"><img src="../assets/icons/call-icon.svg">
+            </div>
             <div class="add-contact-contact-form-options">
-                <button type='button' class="alternative-button" onclick="removeElementsByPartialClassName('add-contact')">Cancel</button>
+                <button type='button' class="alternative-button"
+                    onclick="removeElementsByPartialClassName('add-contact')">Cancel</button>
                 <button type='button' class="default-button" disabled>Create Contact</button>
             </div>
         </form>
-        <img id='closeAddContactCardIcon' onclick="removeElementsByPartialClassName('add-contact')" src="../assets/icons/x-icon.svg">
+        <img id='closeAddContactCardIcon' onclick="removeElementsByPartialClassName('add-contact')"
+            src="../assets/icons/x-icon.svg">
 
-        </div>
     </div>
+</div>
 </div>

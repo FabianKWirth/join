@@ -14,9 +14,10 @@
 
 </head>
 
-<body onload="includeHTML(1)">
-    <div w3-include-html="./assets/templates/header.html"></div>
+<body onload="includeHTML(1);init();">
+    
     <div include-html="./assets/templates/add_contact.html"></div>
+    <div w3-include-html="./assets/templates/header.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
     <form onsubmit="return false;" id="addTaskContainer">
@@ -38,8 +39,9 @@
                         <label for="newTaskAssignedUser">Assigned to</label>
                         <div id="newTaskAssignedUser">
                             <div class="dropdown-field"><!-- onclick="changeAvailableUsersVisibility() -->
-                                <input type="text" id="dropDownUsersTextFieldInput" 
-                                    class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign"> <!-- onchange="showAvailableUsers()" -->
+                                <input type="text" id="dropDownUsersTextFieldInput"
+                                    class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign">
+                                <!-- onchange="showAvailableUsers()" -->
                                 <img id='assignUsersDropDownIcon' class='dropdown-field-icon'
                                     src="./assets/icons/arrow-drop.svg">
                             </div>
@@ -48,7 +50,8 @@
 
                                 </div>
                                 <div class='dropdown-button-container'>
-                                    <button type="button" class="default-button dropdown-button" onclick="includeAddContactHTML()">Add new contact
+                                    <button type="button" class="default-button dropdown-button"
+                                        onclick="includeAddContactHTML()">Add new contact
                                         <img src='./assets/icons/person-add.svg'>
                                     </button>
                                 </div>
@@ -82,26 +85,27 @@
                         </div>
                     </div>
 
-                    <label for="taskCategory">Category</label>
-                    <div class="task-category toggle-dropdown" id="taskCategory">
-                        <input type='hidden' id='taskCategoryValue' >
-                        <div class="task-category-header" id="taskCategoryHeader"
+                    <div class="task-category">
+                        <label for="taskCategory">Category</label>
+                        <input type='hidden' id='taskCategoryValue'>
+                        <div class="task-category-header toggle-dropdown" id="taskCategoryHeader"
                             onclick="rotateIconBy180('taskCategoryDropDownIcon');">
                             <p id="taskCategoryName">Select Task Category</p>
                             <img id='taskCategoryDropDownIcon' class='dropdown-field-icon'
                                 src="./assets/icons/arrow-drop.svg">
-                        </div>
-                        <div class="task-category-list" id="taskCategoryList">
-                            <div class="task-category-item" data-value="Technical Task">Technical Task</div>
-                            <div class="task-category-item" data-value="User Story">User Story</div>
+
+                            <div class="task-category-list" id="taskCategoryList">
+                                <div class="task-category-item" data-value="Technical Task">Technical Task</div>
+                                <div class="task-category-item" data-value="User Story">User Story</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="task-subtask">
                         <label for="newTaskSubTask">Subtasks</label>
                         <div class="subtask-field">
-                            <input type="text" class="subtask-input-field" id="subtaskField"
-                                placeholder="Add new Subtask">
+                            <input type="text" class="subtask-input-field" id="subtaskField" placeholder="Add new Subtask">
+                            <input type='hidden' id='subtaskValues'>
                             <img id='enterSubtaskCreation' class="animated-icon" src="./assets/icons/puls-icon.svg">
                             <div id='approveSubtaskMenu' class="approve-subtask-menu hide">
                                 <img src="./assets/icons/x-icon.svg" id="declineEnteredTaskIcon" class="animated-icon"
@@ -131,10 +135,12 @@
 
         </div>
     </form>
-    
+
     <script src="./script.js"></script>
     <script src="./js/script1.js"></script>
     <script src="./js/add_task.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/storage.js"></script>
-</body></html>
+</body>
+
+</html>

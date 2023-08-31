@@ -7,39 +7,6 @@ let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate","
 let indirectInputFieldIds = ["assignedUserList", "taskCategoryList", "subtaskField", "editSubTaskField",];
 let unfinishedTaskData = {};
 
-users = [
-    {
-        "username": "john_doe",
-        "password": "securePassword123",
-        "email": "john.doe@example.com",
-        "iconColor": "#FFA35E"
-    },
-    {
-        "username": "janasdasdase_smith",
-        "password": "strongPass456",
-        "email": "jane.smith@example.com",
-        "iconColor": "#FFA35E"
-    },
-    {
-        "username": "jaasdasdsadne_smith",
-        "password": "strongPass456",
-        "email": "jane.smith@example.com",
-        "iconColor": "#FFA35E"
-    },
-    {
-        "username": "jsdsdane_smith",
-        "password": "strongPass456",
-        "email": "jane.smith@example.com",
-        "iconColor": "#FFA35E"
-    },
-    {
-        "username": "jane_smasdasdith",
-        "password": "strongPass456",
-        "email": "jane.smith@example.com",
-        "iconColor": "#FFA35E"
-    }
-];
-
 renderTaskInput();
 
 function renderTaskInput() {
@@ -246,26 +213,7 @@ function setDropDownEventListeners() {
     });
 }
 
-function setSubTaskEventListeners() {
-    const inputField = document.getElementById('subtaskField');
 
-    inputField.addEventListener('focus', function () {
-        approveSubtaskMenu();
-    });
-
-    inputField.addEventListener('blur', function () {
-        if (document.getElementById("subtaskField").value == "") {
-            defaultSubtaskMenu();
-        }
-    });
-}
-
-function preventUserListFromCollapsingOnclick() {
-    let selectAssignedUserList = document.getElementById("selectAssignedUserList");
-    selectAssignedUserList.addEventListener('click', function (event) {
-        event.stopPropagation();
-    });
-}
 
 function setSelectedCategoryEventListener() {
     let dropdownItems = document.querySelectorAll(".task-category-item");
@@ -418,14 +366,7 @@ function makeAvailableUsersInvisible() {
     rotateIconBy180("assignUsersDropDownIcon");
 }
 
-function rotateIconBy180(elementName) {
-    let element = document.getElementById(elementName);
-    if (element.classList.contains("rotate-180")) {
-        element.classList.remove('rotate-180');
-    } else {
-        element.classList.add('rotate-180');
-    }
-}
+
 
 /**
  * Populates a dropdown element with task data for subtask assignment.
@@ -492,6 +433,21 @@ function setPrioButtonSelectStatusById(type, selectStatus = false) {
         document.getElementById(`${type}Icon`).classList.remove('white-symbol');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function createSubTask() {
     subTaskName = document.getElementById("subtaskField").value;
@@ -560,6 +516,42 @@ function renderSubTasksList() {
     setElementHtml("currentSelectedSubtasks", getSubTasksListHtml());
 }
 
+function setSubTaskEventListeners() {
+    const inputField = document.getElementById('subtaskField');
+
+    inputField.addEventListener('focus', function () {
+        approveSubtaskMenu();
+    });
+
+    inputField.addEventListener('blur', function () {
+        if (document.getElementById("subtaskField").value == "") {
+            defaultSubtaskMenu();
+        }
+    });
+}
+
+function preventUserListFromCollapsingOnclick() {
+    let selectAssignedUserList = document.getElementById("selectAssignedUserList");
+    selectAssignedUserList.addEventListener('click', function (event) {
+        event.stopPropagation();
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function setElementHtml(elementId, html) {
     document.getElementById(elementId).innerHTML = html;
 }
@@ -568,8 +560,16 @@ function setElementValue(elementId, html) {
     document.getElementById(elementId).value = html;
 }
 
+function rotateIconBy180(elementName) {
+    let element = document.getElementById(elementName);
+    if (element.classList.contains("rotate-180")) {
+        element.classList.remove('rotate-180');
+    } else {
+        element.classList.add('rotate-180');
+    }
+}
+
 async function submitTask() {
-    console.log("here");
     tasks.push(unfinishedTaskData);
     renderTaskAddedElement();
     await setItem("tasks", tasks);

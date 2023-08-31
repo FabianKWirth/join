@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f6f7f8;
+    font-family: inter;    
 }
 
 h1 {
@@ -105,7 +106,9 @@ h3 {
     transform: translate(-50%, -50%);
 }
 
-
+.hide-overflow{
+    overflow: hidden;
+}
 
 /* provisorisch*/
 #goBack {

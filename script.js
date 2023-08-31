@@ -2,6 +2,10 @@ let users = [];
 
 let tasks = [];
 
+let contacts=[];
+
+let username="Tobias";
+
 let currentSelectedUser;
 
 let userIconColors = [
@@ -22,14 +26,15 @@ let userIconColors = [
     "#FFBB2B"
 ];
 
+/*
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 const username = params.name;
-const userInitials = getInitials({ username: username });
-
+const userInitials = getInitials({});
+*/
 
 async function init() {
-    renderLoginContainer();
+    //renderLoginContainer();
     await getStorageData();
 }
 
@@ -47,7 +52,7 @@ async function getStorageData() {
 
     //resolves values to global array while promise is completed
     users = await usersFetch;
-    tasks = await usersFetch;
+    tasks = await tasksFetch;
 }
 
 ///************INCLUDE HTML-TEMPLATES*************///
@@ -70,23 +75,10 @@ async function includeHTML(x) {
     }
     bgDark(x);
     bgDarkLegalNotice(x);
-    setUserHeaderInitials();
+    //setUserHeaderInitials();
 }
 
-async function includeAddContactHTML() {
-    let includeElements = document.querySelectorAll('[include-html]');
-    for (let i = 0; i < includeElements.length; i++) {
-        const element = includeElements[i];
-        file = element.getAttribute("include-html"); // "includes/header.html"
-        let resp = await fetch(file);
-        if (resp.ok) {
-            element.innerHTML = await resp.text();
-        } else {
-            element.innerHTML = 'Page not found';
-        }
-    }
 
-}
 
 
 /**
@@ -188,8 +180,12 @@ function getInitials(user) {
 }
 
 function setUserHeaderInitials() {
-   let myAccount = document.getElementById("myAccount");
-    myAccount.innerHTML = userInitials;
+    let myAccount = document.getElementById("myAccount");
+    if (myAccount != null) {
+        //myAccount.innerHTML = userInitials;
+        myAccount.innerHTML = "FW";
+    }
+
 }
 
 /**
@@ -225,4 +221,17 @@ function openContacts() {
 
 function openHelp() {
     window.location.href = `./help.html?name=${username}`;
+}
+
+
+
+
+
+function stopClickEvenPropagnationForElementById(elementId) {
+    let element = document.getElementById(elementId);
+    if (element != null) {
+        element.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    }
 }

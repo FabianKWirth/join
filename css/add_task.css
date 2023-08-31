@@ -1,6 +1,4 @@
-body{
-    font-family: inter;
-}
+
 
 #addTaskContainer {
     display: flex;
@@ -184,10 +182,8 @@ body{
     margin: 12px;
 }
 
-.task-category {
-    position: relative;
-    display: inline-block;
-    height: 58px;
+.task-category{
+    display: block;
 }
 
 .task-category-header {
@@ -197,13 +193,13 @@ body{
     width: 396px;
     font-size: 20px;
     border-radius: 10px;
+    margin:12px 0px;
     padding: 0px 21px 0px 21px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    z-index: 300;
 }
 
 .task-category-list {
