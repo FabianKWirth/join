@@ -222,3 +222,7 @@ function openBoard() {
 function openContacts() {
     window.location.href = `./contact.html?name=${username}`;
 }
+
+function openHelp() {
+    window.location.href = `./help.html?name=${username}`;
+}
