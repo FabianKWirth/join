@@ -14,7 +14,7 @@
 
 </head>
 
-<body onload="includeHTML(1);includeAddContactHTML()">
+<body onload="includeHTML(1)">
     <div w3-include-html="./assets/templates/header.html"></div>
     <div include-html="./assets/templates/add_contact.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
@@ -48,7 +48,7 @@
 
                                 </div>
                                 <div class='dropdown-button-container'>
-                                    <button type="button" class="default-button dropdown-button">Add new contact
+                                    <button type="button" class="default-button dropdown-button" onclick="includeAddContactHTML()">Add new contact
                                         <img src='./assets/icons/person-add.svg'>
                                     </button>
                                 </div>
@@ -112,6 +112,7 @@
                             </div>
                         </div>
                         <div class="subtask-display">
+                            <input type='hidden' id="activeSubtasks">
                             <div id="currentSelectedSubtasks">
 
                             </div>
@@ -132,7 +133,8 @@
     </form>
     
     <script src="./script.js"></script>
-    <!-- <script src=".js/summary.js"></script> -->
+    <script src="./js/script1.js"></script>
     <script src="./js/add_task.js"></script>
+    <script src="./js/contacts.js"></script>
     <script src="./js/storage.js"></script>
-</body>
+</body></html>

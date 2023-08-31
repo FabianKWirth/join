@@ -185,7 +185,6 @@ function checkIfPrioIsSet() {
     if (selectedTaskPriority != null) {
         unfinishedTaskData["priority"] = selectedTaskPriority;
     } else {
-        console.log("prio not set");
         isSubmittable = false;
     }
 

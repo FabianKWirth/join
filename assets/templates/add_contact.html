@@ -20,27 +20,27 @@
         height: 100vh;
         width: 100%;
         z-index: 999;
-        
+
     }
 
     .add-contact-card {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 1212px;
-        max-width:90%;
+        /*width: 1212px;*/
+        max-width: 90%;
         height: 594px;
         /*padding: 66px 48px 66px 48px;*/
-        gap: 12px;
+        gap: 32px;
         background-color: white;
         z-index: 1000;
         border-radius: 30px;
         overflow: hidden;
+        position: relative;
 
     }
 
-    .card-header{
-
+    .add-contact-card-header {
         background-color: #2A3647;
         height: 100%;
         width: 100%;
@@ -49,52 +49,84 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 66px 48px 66px 48px;
+        padding: 66px 0px 66px 48px;
     }
 
-    .card-header img{
+    .add-contact-card-icon {
         object-fit: cover;
         overflow: hidden;
         width: 55.6px;
-        height:66.48px
-    } 
-
-    .card-body{
-        display: flex;
+        height: 66.48px
     }
 
-    .card-form{
+    .add-contact-card-form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        padding: 66px 48px 66px 0px;
+        gap: 32px;
     }
 
+    .add-contact-card-form div {
+        position: relative;
+    }
+
+    .add-contact-card-form input {
+        width: 422px;
+        height: 50px;
+        border-radius: 10px;
+        border: solid 1px #D1D1D1;
+        padding-left: 5%;
+        font-size: 20px;
+    }
+
+    .add-contact-card-form img {
+        position: relative;
+        float: right;
+        margin-top: -40px;
+    }
+
+    .add-contact-contact-form-options{
+        display: flex;
+        gap: 24px;
+    }
+
+    #closeAddContactCardIcon{
+        position: absolute;
+        right: 40px;
+        top: 40px;
+    }
 </style>
+
+<script src="js/contacts.js"></script>
 <div class="add-contact-overlay">
 
 </div>
 
 <div class="add-contact-container">
-    <div class="add-contact-card">
-        <div class="card-header">
-            <div class="card-header-content">
-            <img src="../assets/image/join-logo-white.svg">
-            <h1>Add contact</h1>
-            <h4>Tasks are better with a team!</h4>
-            </div>
-        </div>
-        <div class="card-body">
-            <img src="../assets/icons/empty-user-avatar.png">
-            <div class="card-form">
-                <input type="text" id="user-name" class="new-contact-input">
-                <input type="email" id="user-mail" class="new-contact-input">
-                <input type="tel" id="user-phone" class="new-contact-input">
-                <div class="form-options">
-                    <button type='button' class="alternative-button">Clear</button>
-                    <button type='button' class="default-button" disabled>Create Task</button>
-                </div>
+    <div class="add-contact-card" id="contactCard">
+        <div class="add-contact-card-header">
+            <div class="add-contact-card-header-content">
+                <img src="../assets/image/join-logo-white.svg">
+                <h1>Add contact</h1>
+                <h4>Tasks are better with a team!</h4>
             </div>
         </div>
 
+        <img src="../assets/icons/empty-user-avatar.png">
+        <form class="add-contact-card-form" onsubmit="return false;">
+            <div><input type="text" id="add-contact-name" placeholder="Name"><img
+                    src="../assets/icons/person-icon.svg"></div>
+            <div><input type="email" id="add-contact-mail" placeholder="Email"><img
+                    src="../assets/icons/mail-icon.svg"></div>
+            <div><input type="tel" id="add-contact-phone" placeholder="Phone"><img
+                    src="../assets/icons/call-icon.svg"></div>
+            <div class="add-contact-contact-form-options">
+                <button type='button' class="alternative-button" onclick="removeElementsByPartialClassName('add-contact')">Cancel</button>
+                <button type='button' class="default-button" disabled>Create Contact</button>
+            </div>
+        </form>
+        <img id='closeAddContactCardIcon' onclick="removeElementsByPartialClassName('add-contact')" src="../assets/icons/x-icon.svg">
+
+        </div>
     </div>
 </div>
