@@ -34,7 +34,6 @@ const userInitials = getInitials({});
 */
 
 async function init() {
-    //renderLoginContainer();
     await getStorageData();
 }
 
