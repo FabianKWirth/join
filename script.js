@@ -206,3 +206,19 @@ function goBack() {
 function ShowMenu() {
     document.getElementById('header-menu').classList.toggle('dNone');
 }
+
+function openSummary() {
+    window.location.href = `./summary.html?name=${username}`;
+}
+
+function openAddTask() {
+    window.location.href = `./add_task.html?name=${username}`;
+}
+
+function openBoard() {
+    window.location.href = `./board.html?name=${username}`;
+}
+
+function openContacts() {
+    window.location.href = `./contact.html?name=${username}`;
+}
