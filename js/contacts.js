@@ -76,6 +76,8 @@ contacts = [
     }
 ];
 
+let selectedContact = 0;
+
 async function includeAddContactHTML() {
     let includeElements = document.querySelectorAll('[include-html]');
     for (let i = 0; i < includeElements.length; i++) {
@@ -152,9 +154,13 @@ function createContact() {
 
 
 ////////////////////////CONTACTS PAGE
+
+
+
 async function initContacts() {
     await init();
     renderContacts();
+    renderSelectedContactBody();
 }
 
 
@@ -178,6 +184,57 @@ function renderContacts() {
     });
 }
 
+function renderSelectedContactBody() {
+    let contactElement = document.getElementById("selectedContactBody");
+    let contact = users[selectedContact];
+    let contactIcon = getContactIconHtml(contact);
+    let contactName = contact['username'];
+    let contactMail = contact['email'];
+    let contactPhone = contact['phone'];
+
+    contactElement.innerHTML =/*html*/`
+    <div class='contact-name-row'>
+        ${contactIcon}
+        <div>
+            <h2>  ${contactName}</h2>
+            <div class='contact-menu'>
+                <div id='editField'>
+                    <img src='./assets/icons/pen-icon.svg'>
+                    edit
+                </div>
+                <div id='deleteField'>
+                    <img src='./assets/icons/trashcan-icon.svg'>
+                    delete
+                </div>
+            </div>
+        </div>
+    </div> `;
+
+    contactElement.innerHTML +=/*html*/`
+    <div class='contact-details'>
+        <p class='contact-information'>Contact Information</p>
+        <div class='mail'>
+            <p><b>Email</b></p>
+            <p>${contactMail}</p>
+        </div>
+        <div class='phone'>
+            <p><b>Phone</b></p>
+            <p>${contactPhone}</p>
+        </div>
+    </div> `;
+
+
+
+}
+
+
+//MUST BE COMPLETED
+/*
+function selectContact(this) {
+    selectedContact = 0;
+    renderSelectedContactBody()
+}
+*/
 
 function renderLetterHeader(currentLetter) {
     let listElement = document.getElementById("userList");

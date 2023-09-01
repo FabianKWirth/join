@@ -111,9 +111,10 @@ body {
     top: 96px;
     width: calc(100% - 233px);
     height: (100vh - 96px);
+    display: flex;
 }
 
-.contact-list{
+.contact-list {
     border: 1px solid #D1D1D1;
     display: flex;
     flex-direction: column;
@@ -124,14 +125,14 @@ body {
 
 .user-list {
     position: relative;
-    
+
     display: flex;
     max-height: fit-content;
     flex-direction: column;
-   
+
     justify-content: flex-start;
     align-items: center;
-    
+
     padding-bottom: 46px;
     overflow-y: auto;
 }
@@ -184,4 +185,80 @@ body {
 .contact-button {
     margin: 16px;
     width: 352px;
+}
+
+.selected-contact-container h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin: 30px;
+}
+
+.selected-contact-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.selected-contact-header h1 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.horizontal-blue-line {
+    background-color: #29ABE2;
+    height: 59px;
+    width: 3px;
+}
+
+.selected-contact-body {
+    margin: 62px;
+    gap: 21px
+}
+
+.contact-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-name-row .circle {
+    width: 120px;
+    height: 120px;
+    font-weight: 500;
+    font-size: 47px;
+
+}
+
+.contact-name-row .circle .circle-text {
+    font-weight: 500;
+    font-size: 47px;
+}
+
+.contact-menu {
+    display: flex;
+    gap: 13px;
+}
+
+#editField,
+#deleteField {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+}
+
+#editField,
+#deleteField {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-information {
+    font-size: 20px;
+}
+
+.contact-details {
+    gap: 22px;
 }
