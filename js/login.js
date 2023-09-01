@@ -139,7 +139,7 @@ async function onSubmit(event) {
 }
 
 async function action(formData) {
-  const input = "https://gruppe-671.developerakademie.net/join/send_mail.php";
+  const input = "http://gruppe-671.developerakademie.net/join/send_mail.php";
   const requestInit = {
     method: "post",
     body: formData,
