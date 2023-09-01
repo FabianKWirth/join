@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/add_task.css">
+    <link rel="stylesheet" href="css/contact.css'>
     <link rel="icon" type="image/x-icon" href="../assets/image/join-logo.svg">
 
 </head>
@@ -24,7 +25,7 @@
         <div class="add-task" onchange="saveCurrentEntriesToTask()">
             <h1>Add Task</h1>
             <div class="task-input-container">
-                <div class="task-input-cell">
+                <div class="task-input-col">
                     <div class="task-title">
                         <label for="newTaskTitle">Title</label>
                         <input type="text" id="newTaskTitle" placeholder="Enter a title" required>
@@ -39,14 +40,14 @@
                         <label for="newTaskAssignedUser">Assigned to</label>
                         <div id="newTaskAssignedUser">
                             <div class="dropdown-field"><!-- onclick="changeAvailableUsersVisibility() -->
-                                <input type="text" id="dropDownUsersTextFieldInput"
+                                <input type="text" id="dropDownUsersTextFieldInput" 
                                     class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign">
                                 <!-- onchange="showAvailableUsers()" -->
                                 <img id='assignUsersDropDownIcon' class='dropdown-field-icon'
                                     src="./assets/icons/arrow-drop.svg">
                             </div>
                             <div class="dropdown-content" id="assignedUsersdropDownContent">
-                                <div id="selectAssignedUserList">
+                                <div id="selectAssignedUserList" class="contact-list">
 
                                 </div>
                                 <div class='dropdown-button-container'>
@@ -63,7 +64,7 @@
 
                 </div>
 
-                <div class="task-input-cell task-input-not-first-cell">
+                <div class="task-input-cell task-input-not-first-col">
 
                     <div class="task-date">
                         <label for="newTaskDate">Due Date</label>
@@ -137,7 +138,6 @@
     </form>
 
     <script src="./script.js"></script>
-    <script src="./js/script1.js"></script>
     <script src="./js/add_task.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/storage.js"></script>

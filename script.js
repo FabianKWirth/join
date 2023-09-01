@@ -124,7 +124,6 @@ function assignNewUserColor(user) {
 function getContactIconHtml(user) {
     let userSignature = getInitials(user);
 
-
     const currentUserColor = user['iconColor'];
 
     /**

@@ -6,19 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Join</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/contact.css">
     <link rel="icon" type="image/x-icon" href="../assets\image\join-logo.svg">
-    <script src="script.js"></script>
-    <script src="summary.js"></script>
-    <script src="./js/add_task.js"></script>
+
 </head>
 
-<body onload="includeHTML(3)">
-
+<body onload="includeHTML(3);initContacts()" id="body">
+    <div include-html="./assets/templates/add_contact.html"></div>
     <div w3-include-html="assets/templates/header.html"></div>
-
     <div class="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
-    
+
+    <div class="contacts-container">
+        <div class="contact-list">
+            <button type="button" class="default-button contact-button" onclick="includeAddContactHTML()">
+                Add new contact
+                <img src='./assets/icons/person-add.svg'>
+            </button>
+            <div id="userList" class="user-list"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="./script.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/contacts.js"></script>
+
 </body>
+
 </html>

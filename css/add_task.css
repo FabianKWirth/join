@@ -35,7 +35,13 @@
     height: fit-content;
 }
 
-.task-input-cell {
+.task-input-container .task-input {
+    display: flex;
+    width: 976.25px;
+    height: fit-content;
+}
+
+.task-input-col {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -44,7 +50,7 @@
     padding-right: 32px;
 }
 
-.task-input-not-first-cell {
+.task-input-not-first-col {
     border-left: 1px solid #D1D1D1;
     padding-right: 0px;
     padding-left: 32px;
