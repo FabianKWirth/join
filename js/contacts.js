@@ -94,8 +94,6 @@ async function includeContactHTML(type) {
     window.scrollTo(0, 0);
     removeScrollFromBody();
 
-
-
     if (type == 'addContact') {
 
         //Create Contact config
@@ -134,6 +132,10 @@ async function includeContactHTML(type) {
     setContactText(textToSet);
     setContactFunctions(functionsToSet);
 
+    if(type=='editContact'){
+        setContactCredentials()
+    }
+
     document.addEventListener("click", function (event) {
         removeElementsByPartialClassName("add-contact");
         addScrollToBody();
@@ -142,6 +144,12 @@ async function includeContactHTML(type) {
 
 }
 
+
+function setContactCredentials(){
+    if(selectedContact!=null){
+        document.getElementById('contactCredentials').innerHTML=getContactIconHtml(users[selectedContact]);
+    }
+}
 
 /**
  * Sets inner html values based on a provided object mapping element IDs to text content.
@@ -272,11 +280,11 @@ function renderSelectedContactBody() {
         <div>
             <h2>  ${contactName}</h2>
             <div class='contact-menu'>
-                <div id='editField'>
+                <div id='editField' onclick='includeContactHTML("editContact")'>
                     <img src='./assets/icons/pen-icon.svg' class='colorized-img'>
                     Edit
                 </div>
-                <div id='deleteField'>
+                <div id='deleteField' onclick='deleteContact()'>
                     <img src='./assets/icons/trashcan-icon.svg' class='colorized-img'>
                     Delete
                 </div>
