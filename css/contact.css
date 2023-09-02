@@ -8,7 +8,7 @@ h4 {
     line-height: 32px;
     text-align: left;
     color: #2A3647;
-    
+
 }
 
 .add-contact-overlay {
@@ -56,7 +56,6 @@ h4 {
     border-radius: 30px;
     overflow: hidden;
     position: relative;
-
 }
 
 .add-contact-card-header {
@@ -71,14 +70,14 @@ h4 {
     padding: 66px 0px 66px 48px;
 }
 
-.add-contact-card-header-content h4{
+.add-contact-card-header-content h4 {
     font-size: 27px;
     font-weight: 400;
     line-height: 32px;
     letter-spacing: 0em;
     text-align: left;
     color: white;
-    
+
 }
 
 .add-contact-card-icon {
@@ -129,31 +128,36 @@ h4 {
     left: 232px;
     top: 96px;
     width: calc(100% - 233px);
-    height: (100vh - 96px);
+    height: calc(100vh - 96px);
     display: flex;
 }
 
 .contact-list {
-    border: 1px solid #D1D1D1;
+    border-right: 1px solid #D1D1D1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 438px;
+    position: relative;
 }
 
 .user-list {
-    position: relative;
-
+    position: absolute;
     display: flex;
     max-height: fit-content;
     flex-direction: column;
-
     justify-content: flex-start;
     align-items: center;
-
     padding-bottom: 46px;
-    overflow-y: auto;
+    top: 0px;
+    height: calc(100vh - 46px - 96px - 78px);
+    margin-top: 78px;
+    overflow-y: scroll;
+}
+
+.scrollable {
+    overflow-y: scroll;
 }
 
 .contact-list-letter-header {
@@ -202,6 +206,8 @@ h4 {
 }
 
 .contact-button {
+    position: absolute;
+    top: 0px;
     margin: 16px;
     width: 352px;
 }
@@ -219,13 +225,12 @@ h4 {
     gap: 30px;
 }
 
-.selected-contact-header h1 {
+.selected-contact-container h2 {
     font-size: 47px;
     font-weight: 500;
     line-height: 56px;
     letter-spacing: 0em;
     text-align: left;
-    
 }
 
 .horizontal-blue-line {
@@ -249,7 +254,7 @@ h4 {
     height: 120px;
     border-radius: 70px;
     border: 3px;
-    margin-right: 10px;
+    margin-right: 54px;
     margin-bottom: 10px;
 }
 
