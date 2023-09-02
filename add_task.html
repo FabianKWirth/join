@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/sidebar-responsive.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/add_task.css">
-    <link rel="stylesheet" href="css/contact.css'>
+    <link rel="stylesheet" href="css/contact.css">
     <link rel="icon" type="image/x-icon" href="../assets/image/join-logo.svg">
 
 </head>
@@ -20,6 +21,7 @@
     <div include-html="./assets/templates/add_contact.html"></div>
     <div w3-include-html="./assets/templates/header.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
+    <div class="sidebar-responsive" w3-include-html="assets/templates/sidebar-responsive.html"></div>
 
     <form onsubmit="return false;" id="addTaskContainer">
         <div class="add-task" onchange="saveCurrentEntriesToTask()">

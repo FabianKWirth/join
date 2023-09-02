@@ -7,15 +7,17 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="css/header.css"/>
         <link rel="stylesheet" href="css/sidebar.css">
+        <link rel="stylesheet" href="css/sidebar-responsive.css">
         <link rel="stylesheet" href="css/summary.css">
         <link rel="icon" type="image/x-icon" href="../assets\image\join-logo.svg">
 
     </head>
 
-    <body onload="includeHTML(0), greetUser()">
+    <body onload="includeHTML(0); greetUser()">
         <div w3-include-html="assets/templates/header.html"></div>
 
         <div class="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
+        <div class="sidebar-responsive" w3-include-html="assets/templates/sidebar-responsive.html"></div>
 
         <script src="script.js"></script>
         <script src="./js/summary.js"></script>

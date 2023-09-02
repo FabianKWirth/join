@@ -130,6 +130,7 @@ h4 {
     width: calc(100% - 233px);
     height: calc(100vh - 96px);
     display: flex;
+    overflow-y: scroll;
 }
 
 .contact-list {
