@@ -46,10 +46,8 @@ h4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*width: 1212px;*/
     max-width: 90%;
     height: 594px;
-    /*padding: 66px 48px 66px 48px;*/
     gap: 32px;
     background-color: white;
     z-index: 1000;
@@ -67,7 +65,7 @@ h4 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 66px 0px 66px 48px;
+    padding: 66px 48px 66px 48px;
 }
 
 .add-contact-card-header-content h4 {
@@ -85,6 +83,24 @@ h4 {
     width: 55.6px;
     height: 66.48px
 }
+
+#contactCredentials .circle{
+width: 120px;
+height: 120px;
+border-radius: 70px;
+border: 3px;
+margin-right: 54px;
+margin-bottom: 10px;
+}
+
+#contactCredentials .circle .circle-text {
+font-weight: 500;
+font-size: 47px;
+}
+
+
+
+
 
 .add-contact-card-form {
     display: flex;
@@ -112,7 +128,7 @@ h4 {
     margin-top: -40px;
 }
 
-.add-contact-contact-form-options {
+#addContactFormActions {
     display: flex;
     gap: 24px;
 }
@@ -197,7 +213,12 @@ h4 {
     background-color: rgb(233, 233, 233);
 }
 
-.mail-text {
+.user-element.selected {
+    background-color: #091931;
+    color: white;
+}
+
+.contact-list-mail-text {
     color: #007CEE;
 }
 

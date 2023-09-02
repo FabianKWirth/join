@@ -10,7 +10,7 @@
         <div class="add-contact-card-header">
             <div class="add-contact-card-header-content">
                 <img src="../assets/image/join-logo-white.svg">
-                <h1 id='contactTemplateTitle'>Add contact</h1>
+                <h1 id='contactTemplateTitle'></h1>
                 <h4>Tasks are better with a team!</h4>
             </div>
         </div>
@@ -18,16 +18,14 @@
             <img src="../assets/icons/empty-user-avatar.png">
         </div>
         <form class="add-contact-card-form" onsubmit="return false;">
-            <div><input type="text" id="add-contact-name" placeholder="Name"><img src="../assets/icons/person-icon.svg">
+            <div><input type="text" id="contactNameInput" placeholder="Name" required><img src="../assets/icons/person-icon.svg">
             </div>
-            <div><input type="email" id="add-contact-mail" placeholder="Email"><img src="../assets/icons/mail-icon.svg">
+            <div><input type="email" id="contactMailInput" placeholder="Email" required><img src="../assets/icons/mail-icon.svg">
             </div>
-            <div><input type="tel" id="add-contact-phone" placeholder="Phone"><img src="../assets/icons/call-icon.svg">
+            <div><input type="tel" id="contactPhoneInput" placeholder="Phone" required><img src="../assets/icons/call-icon.svg">
             </div>
-            <div class="add-contact-contact-form-options">
-                <button type='button' id="emptyButton" class="alternative-button"
-                    onclick="removeElementsByPartialClassName('add-contact')"></button>
-                <button type='button' id="filledButton" class="default-button" disabled></button>
+            <div id="addContactFormActions">
+                
             </div>
         </form>
         <img id='closeAddContactCardIcon' onclick="removeElementsByPartialClassName('add-contact')"

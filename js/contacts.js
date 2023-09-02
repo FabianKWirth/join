@@ -1,82 +1,5 @@
-contacts = [
-    {
-        "name": "John Doe",
-        "mail": "john@example.com",
-        "telephone": "555-1234"
-    },
-    {
-        "name": "Jane Smith",
-        "mail": "jane@example.com",
-        "telephone": "555-5678"
-    },
-    {
-        "name": "Michael Johnson",
-        "mail": "michael@example.com",
-        "telephone": "555-9876"
-    },
-    {
-        "name": "Emily Brown",
-        "mail": "emily@example.com",
-        "telephone": "555-4321"
-    },
-    {
-        "name": "David Wilson",
-        "mail": "david@example.com",
-        "telephone": "555-8765"
-    },
-    {
-        "name": "Sarah Lee",
-        "mail": "sarah@example.com",
-        "telephone": "555-2345"
-    },
-    {
-        "name": "Christopher Martin",
-        "mail": "christopher@example.com",
-        "telephone": "555-6543"
-    },
-    {
-        "name": "Jessica Garcia",
-        "mail": "jessica@example.com",
-        "telephone": "555-3456"
-    },
-    {
-        "name": "Matthew Thompson",
-        "mail": "matthew@example.com",
-        "telephone": "555-7654"
-    },
-    {
-        "name": "Linda Martinez",
-        "mail": "linda@example.com",
-        "telephone": "555-8765"
-    },
-    {
-        "name": "William Davis",
-        "mail": "william@example.com",
-        "telephone": "555-4567"
-    },
-    {
-        "name": "Amanda Hernandez",
-        "mail": "amanda@example.com",
-        "telephone": "555-6543"
-    },
-    {
-        "name": "Brian White",
-        "mail": "brian@example.com",
-        "telephone": "555-5678"
-    },
-    {
-        "name": "Stephanie Jackson",
-        "mail": "stephanie@example.com",
-        "telephone": "555-7890"
-    },
-    {
-        "name": "Daniel Taylor",
-        "mail": "daniel@example.com",
-        "telephone": "555-2345"
-    }
-];
-
-let selectedContact = 0;
+let selectedContact = null;
+let selectedContactListElement= null;
 
 async function includeContactHTML(type) {
     let includeElements = document.querySelectorAll('[include-html]');
@@ -96,44 +19,60 @@ async function includeContactHTML(type) {
 
     if (type == 'addContact') {
 
+
+        buttonsToSet =
+            [
+                {
+                    "class": "alternative-button",
+                    "function": "removeElementsByPartialClassName(\"add-contact\")",
+                    "innerHtml": "Clear"
+                },
+                {
+                    "class": "default-button",
+                    "function": "createContact()",
+                    "innerHtml": "Create Contact"
+                }
+            ];
+
         //Create Contact config
         textToSet =
         {
-            "contactTemplateTitle": "Add contact",
-            "emptyButton": "Cancel",
-            "filledButton": "Create Contact"
+            "contactTemplateTitle": "Add contact"
         };
 
-        functionsToSet =
-        {
-            "emptyButton": "removeElementsByPartialClassName('add-contact')",
-            "filledButton": "createContact()"
-        };
+
     }
 
 
     if (type == 'editContact') {
         // Edit Contact config
+
+        buttonsToSet = [
+            {
+                "class": 'alternative-button',
+                "function": "deleteContact()",
+                "innerHtml": "Delete"
+            },
+            {
+                "class": "default-button",
+                "function": "saveContact()",
+                "innerHtml": "Save"
+            }
+        ];
+
         textToSet =
         {
-            "contactTemplateTitle": "Edit contact",
-            "emptyButton": "Delete",
-            "filledButton": "Save"
-        };
-
-
-        functionsToSet =
-        {
-            "emptyButton": "deleteContact()",
-            "filledButton": "saveContact()"
+            "contactTemplateTitle": "Edit contact"
         };
     }
 
-    setContactText(textToSet);
-    setContactFunctions(functionsToSet);
 
-    if(type=='editContact'){
-        setContactCredentials()
+    setContactFormButtons(buttonsToSet);
+    setContactFormText(textToSet);
+
+    if (type == 'editContact') {
+        setContactCredentials();
+        setCurrentContactValues();
     }
 
     document.addEventListener("click", function (event) {
@@ -145,38 +84,52 @@ async function includeContactHTML(type) {
 }
 
 
-function setContactCredentials(){
-    if(selectedContact!=null){
-        document.getElementById('contactCredentials').innerHTML=getContactIconHtml(users[selectedContact]);
+function setCurrentContactValues() {
+    currentContact = contacts[selectedContact];
+    let name = currentContact['name'];
+    let mail = currentContact['mail'];
+    let phone = currentContact['phone'];
+
+    document.getElementById("contactNameInput").value = name;
+    document.getElementById("contactMailInput").value = mail;
+    document.getElementById("contactPhoneInput").value = phone;
+}
+
+
+function setContactCredentials() {
+    if (selectedContact != null) {
+        document.getElementById('contactCredentials').innerHTML = getContactIconHtml(contacts[selectedContact]);
     }
 }
 
 /**
  * Sets inner html values based on a provided object mapping element IDs to text content.
  *
- * @param {Object} functionsToSet - An object mapping element IDs to text content.
+ * @param {Object} textToSet - An object mapping element IDs to text content.
  */
-function setContactText(textToSet) {
-    let elementIds = Object.keys(textToSet)
+function setContactFormText(textToSet) {
+    let elementIds = Object.keys(textToSet);
+
     elementIds.forEach(elementId => {
         document.getElementById(elementId).innerHTML = textToSet[elementId];
     });
 }
 
-
 /**
  * Sets click event handlers for HTML elements based on a provided object mapping element IDs to function names.
  *
- * @param {Object} functionsToSet - An object mapping element IDs to function names.
+ * @param {Object} buttonsToSet - An object mapping element IDs to function names.
  */
-function setContactFunctions(functionsToSet) {
-    let elementIds = Object.keys(functionsToSet)
-    elementIds.forEach(elementId => {
-        const func = window[functionsToSet[elementId]];
-        if (typeof func === 'function') {
-            document.getElementById(elementId).onclick = func;
-        }
-    });
+function setContactFormButtons(buttonsToSet) {
+    elementToSet = document.getElementById("addContactFormActions");
+    for (let i = 0; i < buttonsToSet.length; i++) {
+        button = buttonsToSet[i];
+        elementToSet.innerHTML +=/*html*/`
+            <button 
+            class='${button['class']}' 
+            onclick='${button['function']}'>${button['innerHtml']}
+            </button>`;
+    };
 }
 
 function removeScrollFromBody() {
@@ -211,19 +164,39 @@ function removeElementsByPartialClassName(partialClassName) {
 
 
 function createContact() {
-    let contactName = document.getElementById("add-contact-name");
-    let contactMail = document.getElementById("add-contact-mail");
-    let contactPhone = document.getElementById("add-contact-phone");
+    let contactName = document.getElementById("contactNameInput").value;
+    let contactMail = document.getElementById("contactMailInput").value;
+    let contactPhone = document.getElementById("contactPhoneInput").value;
+    let color = getNewContactColor();
+    updateContactsArray(contactName, contactMail, contactPhone, color);
+    let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
 
-    if (contactName != "" & contactMail != "" & contactPhone != "") {
-        contacts.push({
-            "name": contactName,
-            "mail": contactMail,
-            "phone": contactPhone
-        })
-    }
+    setItem("contacts", contacts);
+    renderContacts();
+    removeElementsByPartialClassName("add-contact");
 }
 
+function saveContact() {
+    let contactName = document.getElementById("contactNameInput").value;
+    let contactMail = document.getElementById("contactMailInput").value;
+    let contactPhone = document.getElementById("contactPhoneInput").value;
+    let color = contacts[selectedContact]["color"];
+
+    let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
+    contacts[selectedContact] = contact;
+
+    setItem("contacts", contacts);
+    renderContacts();
+    removeElementsByPartialClassName("add-contact");
+    renderSelectedContactBody();
+}
+
+function updateContactsArray(contactName, contactMail, contactPhone, color) {
+    if (contactName != "" & contactMail != "" & contactPhone != "") {
+        let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
+        contacts.push(contact);
+    }
+}
 
 
 
@@ -240,38 +213,41 @@ function createContact() {
 async function initContacts() {
     await init();
     renderContacts();
-    renderSelectedContactBody();
-
 
 }
 
 
 function renderContacts() {
-
-    users = sortByUserName(users);
+    contacts = sortByUserName(contacts);
     let currentLetter = "";
-    users.forEach(user => {
-        console.log(user);
-        let thisCurrentLetter = user["username"].charAt(0);
+
+    let list = document.getElementById("contactList");
+    list.innerHTML = "";
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+
+        let thisCurrentLetter = contact["name"].charAt(0);
         thisCurrentLetter = thisCurrentLetter.toUpperCase();
 
         if (currentLetter != thisCurrentLetter) {
             currentLetter = thisCurrentLetter;
-            renderLetterHeader(currentLetter);
+            renderLetterHeader(list, currentLetter);
         }
+        renderContactListItem(list, i);
+    }
 
-        renderContactDiv(user);
+    if (selectedContactListElement != null) {
+        markUserElementAsSelected(selectedContactListElement);
+    }
 
-
-    });
 }
 
 function renderSelectedContactBody() {
     let contactElement = document.getElementById("selectedContactBody");
-    let contact = users[selectedContact];
+    let contact = contacts[selectedContact];
     let contactIcon = getContactIconHtml(contact);
-    let contactName = contact['username'];
-    let contactMail = contact['email'];
+    let contactName = contact['name'];
+    let contactMail = contact['mail'];
     let contactPhone = contact['phone'];
 
     contactElement.innerHTML =/*html*/`
@@ -281,11 +257,11 @@ function renderSelectedContactBody() {
             <h2>  ${contactName}</h2>
             <div class='contact-menu'>
                 <div id='editField' onclick='includeContactHTML("editContact")'>
-                    <img src='./assets/icons/pen-icon.svg' class='colorized-img'>
+                    <img src='./assets/icons/pen-icon.svg'>
                     Edit
                 </div>
-                <div id='deleteField' onclick='deleteContact()'>
-                    <img src='./assets/icons/trashcan-icon.svg' class='colorized-img'>
+                <div id='deleteField' onclick='deleteContact(selectedContact)'>
+                    <img src='./assets/icons/trashcan-icon.svg'>
                     Delete
                 </div>
             </div>
@@ -309,18 +285,46 @@ function renderSelectedContactBody() {
 
 }
 
-
-//MUST BE COMPLETED
-/*
-function selectContact(this) {
-    selectedContact = 0;
-    renderSelectedContactBody()
+function emptySelectedContactBody() {
+    let contactElement = document.getElementById("selectedContactBody");
+    contactElement.innerHTML = "";
 }
-*/
 
-function renderLetterHeader(currentLetter) {
-    let listElement = document.getElementById("userList");
-    listElement.innerHTML +=/*html*/`
+function selectContact(contactIndex) {
+    selectedContact = contactIndex;
+    renderSelectedContactBody();
+}
+
+function deleteContact(contactIndex) {
+    contacts.splice(contactIndex, 1);
+    setItem("contacts", contacts);
+    renderContacts();
+    emptySelectedContactBody();
+    removeElementsByPartialClassName("add-contact");
+}
+
+
+function markUserElementAsSelected(element) {
+
+    selectedElements = document.getElementsByClassName("selected");
+    if (selectedElements.length > 0) {
+        for (let index = 0; index < selectedElements.length; index++) {
+            const selectedElement = selectedElements[index];
+            selectedElement.classList.remove("selected");
+        }
+    }
+    element.classList.add("selected");
+    selectedContactListElement=element;
+}
+
+
+
+
+
+
+function renderLetterHeader(list, currentLetter) {
+
+    list.innerHTML +=/*html*/`
     <div class='contact-list-letter-header'>
         <p>${currentLetter}</p>
     </div>
@@ -329,35 +333,33 @@ function renderLetterHeader(currentLetter) {
     </div>`;
 }
 
-function renderContactDiv(user) {
-    contactName = user["username"];
-    contactMail = user["email"]
-    let listElement = document.getElementById("userList");
-    console.log(users[0]);
-    let userIcon = getContactIconHtml(users[0]);
-    listElement.innerHTML +=/*html*/`
-    <div class="user-element">
+function renderContactListItem(list, contactIndex) {
+    let contact = contacts[contactIndex];
+    contactName = contact["name"];
+    contactMail = contact["mail"]
+    let userIcon = getContactIconHtml(contact);
+    list.innerHTML +=/*html*/`
+    <div class="user-element" onclick='selectContact("${contactIndex}");markUserElementAsSelected(this)'>
         ${userIcon}
         <div>
         <p>${contactName}</p>
-        <p class='mail-text'>${contactMail}</a>
+        <p class='contact-list-mail-text'>${contactMail}</a>
         </div>
     </div>
-    
     `
-    getContactIconHtml(users[0]);
-
+    getContactIconHtml(contact);
 }
+
 
 /**
  * Sorts an array of contacts by their name in alphabetical order.
- * @param {Array} contactsArray - The array of contacts to be sorted.
+ * @param {Array} contacts - The array of contacts to be sorted.
  * @returns {Array} A new array containing the sorted contacts.
  */
-function sortByUserName(users) {
-    return users.slice().sort((a, b) => {
-        const nameA = a.username.toUpperCase();
-        const nameB = b.username.toUpperCase();
+function sortByUserName(contacts) {
+    return contacts.slice().sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
 
         if (nameA < nameB) {
             return -1;

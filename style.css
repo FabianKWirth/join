@@ -91,14 +91,6 @@ h3 {
     box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
 }
 
-
-.alternative-button:active {
-    border: 1px solid #091931;
-    color: #091931;
-}
-
-
-
 #loadingContainer {
     position: absolute;
     top: 50%;
