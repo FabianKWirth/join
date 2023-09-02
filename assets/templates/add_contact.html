@@ -10,7 +10,7 @@
         <div class="add-contact-card-header">
             <div class="add-contact-card-header-content">
                 <img src="../assets/image/join-logo-white.svg">
-                <h1>Add contact</h1>
+                <h1 id='contactTemplateTitle'>Add contact</h1>
                 <h4>Tasks are better with a team!</h4>
             </div>
         </div>
@@ -24,9 +24,9 @@
             <div><input type="tel" id="add-contact-phone" placeholder="Phone"><img src="../assets/icons/call-icon.svg">
             </div>
             <div class="add-contact-contact-form-options">
-                <button type='button' class="alternative-button"
-                    onclick="removeElementsByPartialClassName('add-contact')">Cancel</button>
-                <button type='button' class="default-button" disabled>Create Contact</button>
+                <button type='button' id="emptyButton" class="alternative-button"
+                    onclick="removeElementsByPartialClassName('add-contact')"></button>
+                <button type='button' id="filledButton" class="default-button" disabled></button>
             </div>
         </form>
         <img id='closeAddContactCardIcon' onclick="removeElementsByPartialClassName('add-contact')"

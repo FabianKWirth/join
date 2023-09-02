@@ -2,6 +2,15 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+h4 {
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: left;
+    color: #2A3647;
+    
+}
+
 .add-contact-overlay {
     position: fixed;
     left: 0;
@@ -60,6 +69,16 @@ body {
     align-items: center;
     justify-content: center;
     padding: 66px 0px 66px 48px;
+}
+
+.add-contact-card-header-content h4{
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: white;
+    
 }
 
 .add-contact-card-icon {
@@ -173,7 +192,7 @@ body {
     background-color: rgb(233, 233, 233);
 }
 
-.user-element a {
+.mail-text {
     color: #007CEE;
 }
 
@@ -201,8 +220,12 @@ body {
 }
 
 .selected-contact-header h1 {
-    font-size: 61px;
-    font-weight: 700;
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 56px;
+    letter-spacing: 0em;
+    text-align: left;
+    
 }
 
 .horizontal-blue-line {
@@ -212,8 +235,7 @@ body {
 }
 
 .selected-contact-body {
-    margin: 62px;
-    gap: 21px
+    margin: 54px;
 }
 
 .contact-name-row {
@@ -225,9 +247,10 @@ body {
 .contact-name-row .circle {
     width: 120px;
     height: 120px;
-    font-weight: 500;
-    font-size: 47px;
-
+    border-radius: 70px;
+    border: 3px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .contact-name-row .circle .circle-text {
@@ -238,21 +261,25 @@ body {
 .contact-menu {
     display: flex;
     gap: 13px;
+    font-size: 16px;
+    width: 159px;
+    justify-content: space-between;
+
 }
 
 #editField,
 #deleteField {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 13px;
+    gap: 8px;
+    color: #2A3647;
+    cursor: pointer;
 }
 
-#editField,
-#deleteField {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#editField:hover,
+#deleteField:hover {
+    filter: invert(54%) sepia(64%) saturate(1501%) hue-rotate(164deg) brightness(100%) contrast(78%);
+    font-weight: 700;
 }
 
 .contact-information {

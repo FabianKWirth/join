@@ -78,7 +78,7 @@ contacts = [
 
 let selectedContact = 0;
 
-async function includeAddContactHTML() {
+async function includeContactHTML(type) {
     let includeElements = document.querySelectorAll('[include-html]');
     for (let i = 0; i < includeElements.length; i++) {
         const element = includeElements[i];
@@ -94,6 +94,46 @@ async function includeAddContactHTML() {
     window.scrollTo(0, 0);
     removeScrollFromBody();
 
+
+
+    if (type == 'addContact') {
+
+        //Create Contact config
+        textToSet =
+        {
+            "contactTemplateTitle": "Add contact",
+            "emptyButton": "Cancel",
+            "filledButton": "Create Contact"
+        };
+
+        functionsToSet =
+        {
+            "emptyButton": "removeElementsByPartialClassName('add-contact')",
+            "filledButton": "createContact()"
+        };
+    }
+
+
+    if (type == 'editContact') {
+        // Edit Contact config
+        textToSet =
+        {
+            "contactTemplateTitle": "Edit contact",
+            "emptyButton": "Delete",
+            "filledButton": "Save"
+        };
+
+
+        functionsToSet =
+        {
+            "emptyButton": "deleteContact()",
+            "filledButton": "saveContact()"
+        };
+    }
+
+    setContactText(textToSet);
+    setContactFunctions(functionsToSet);
+
     document.addEventListener("click", function (event) {
         removeElementsByPartialClassName("add-contact");
         addScrollToBody();
@@ -102,6 +142,34 @@ async function includeAddContactHTML() {
 
 }
 
+
+/**
+ * Sets inner html values based on a provided object mapping element IDs to text content.
+ *
+ * @param {Object} functionsToSet - An object mapping element IDs to text content.
+ */
+function setContactText(textToSet) {
+    let elementIds = Object.keys(textToSet)
+    elementIds.forEach(elementId => {
+        document.getElementById(elementId).innerHTML = textToSet[elementId];
+    });
+}
+
+
+/**
+ * Sets click event handlers for HTML elements based on a provided object mapping element IDs to function names.
+ *
+ * @param {Object} functionsToSet - An object mapping element IDs to function names.
+ */
+function setContactFunctions(functionsToSet) {
+    let elementIds = Object.keys(functionsToSet)
+    elementIds.forEach(elementId => {
+        const func = window[functionsToSet[elementId]];
+        if (typeof func === 'function') {
+            document.getElementById(elementId).onclick = func;
+        }
+    });
+}
 
 function removeScrollFromBody() {
     let elements = document.getElementsByTagName("body");
@@ -153,6 +221,10 @@ function createContact() {
 
 
 
+
+
+
+
 ////////////////////////CONTACTS PAGE
 
 
@@ -161,6 +233,8 @@ async function initContacts() {
     await init();
     renderContacts();
     renderSelectedContactBody();
+
+
 }
 
 
@@ -199,12 +273,12 @@ function renderSelectedContactBody() {
             <h2>  ${contactName}</h2>
             <div class='contact-menu'>
                 <div id='editField'>
-                    <img src='./assets/icons/pen-icon.svg'>
-                    edit
+                    <img src='./assets/icons/pen-icon.svg' class='colorized-img'>
+                    Edit
                 </div>
                 <div id='deleteField'>
-                    <img src='./assets/icons/trashcan-icon.svg'>
-                    delete
+                    <img src='./assets/icons/trashcan-icon.svg' class='colorized-img'>
+                    Delete
                 </div>
             </div>
         </div>
@@ -215,7 +289,7 @@ function renderSelectedContactBody() {
         <p class='contact-information'>Contact Information</p>
         <div class='mail'>
             <p><b>Email</b></p>
-            <p>${contactMail}</p>
+            <p class='mail-text'>${contactMail}</p>
         </div>
         <div class='phone'>
             <p><b>Phone</b></p>
@@ -258,7 +332,7 @@ function renderContactDiv(user) {
         ${userIcon}
         <div>
         <p>${contactName}</p>
-        <a>${contactMail}</a>
+        <p class='mail-text'>${contactMail}</a>
         </div>
     </div>
     
