@@ -105,5 +105,123 @@
     width: 244px;
     background-color: rgba(0, 0, 0, 0.2);
     display: flex;
+    flex-direction: column;
     flex: 1 0 0;
 }
+
+.task-card {
+    padding: 16px;
+    background-color: #FFFFFF;
+    /* width: 100%; */
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.card-category {
+    padding: 4px 16px;
+    background-color: #0038FF;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    /* display: inline-block; */
+    color: #FFFFFF;
+    border-radius: 8px;
+    /* margin-bottom: 24px; */
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    color: #2A3647;
+    margin: 0;
+    padding-bottom: 8px;
+}
+
+.card-description {
+    color: #A8A8A8;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+}
+
+.progress-bar-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.progress-bar {
+    width: 60%; /* Breite der Fortschrittsleiste */
+    height: 8px; /* Höhe der Fortschrittsleiste */
+    background-color: #F4F4F4; /* Hintergrundfarbe der Fortschrittsleiste */
+    border-radius: 10px; /* Abgerundete Ecken */
+    margin: 10px 0; /* Abstand oben und unten */
+    overflow: hidden; /* Verhindert, dass der Fortschritt über den Rand hinausgeht */
+    margin-right: 11px;
+  }
+  
+  .progress {
+    width: 50%; /* Anpassen der Breite entsprechend dem Fortschritt (zum Beispiel 50%) */
+    height: 100%; /* Die Höhe sollte gleich der Höhe der Fortschrittsleiste sein */
+    background-color: #4589FF; /* Farbe des Fortschritts */
+    transition: width 0.3s ease-in-out; /* Animieren Sie die Breitenänderung */
+  }
+  
+  .progress-bar-subtasks {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+  }
+
+.circle-1 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF7A00;
+}
+
+.circle-2{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#1FD7C1;
+    margin-left: -13px;
+}
+
+.circle-3 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #462F8A;
+    margin-left: -13px;
+}
+
+.task-card-users {
+    display: flex;
+    gap: 5px;
+}
+
+.task-card-bottom-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+}
+
