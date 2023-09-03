@@ -2,28 +2,28 @@ let users = [];
 
 let tasks = [];
 
-let contacts=[];
+let contacts = [];
 
-let username="Tobias";
+let username = "Tobias";
 
 let currentSelectedUser;
 
 let contactIconColors = [
-    "#6E52FF",
-    "#FF7A00",
-    "#FF5EB3",
-    "#9327FF",
-    "#00BEE8",
-    "#1FD7C1",
-    "#FF745E",
-    "#FFA35E",
-    "#FC71FF",
-    "#FFC701",
-    "#0038FF",
-    "#C3FF2B",
-    "#FFE62B",
-    "#FF4646",
-    "#FFBB2B"
+  "#6E52FF",
+  "#FF7A00",
+  "#FF5EB3",
+  "#9327FF",
+  "#00BEE8",
+  "#1FD7C1",
+  "#FF745E",
+  "#FFA35E",
+  "#FC71FF",
+  "#FFC701",
+  "#0038FF",
+  "#C3FF2B",
+  "#FFE62B",
+  "#FF4646",
+  "#FFBB2B",
 ];
 
 /*
@@ -34,9 +34,8 @@ const userInitials = getInitials({});
 */
 
 async function init() {
-    await getStorageData();
+  await getStorageData();
 }
-
 
 /**
  * Asynchronously loads user,tasks data from storage and assigns it to the global variables 'users','tasks'.
@@ -45,99 +44,106 @@ async function init() {
  * @returns {<void>} User data and tasks data is loaded and assigned.
  */
 async function getStorageData() {
-    //fetches both arrays simoultaneously
-    let usersFetch = getItem("users");
-    let tasksFetch = getItem("tasks");
-    let contactsFetch = getItem("contacts");
-    //resolves values to global array while promise is completed
-    users = await usersFetch;
-    tasks = await tasksFetch;
-    contacts= await contactsFetch;
+  //fetches both arrays simoultaneously
+  let usersFetch = getItem("users");
+  let tasksFetch = getItem("tasks");
+  let contactsFetch = getItem("contacts");
+  //resolves values to global array while promise is completed
+  users = await usersFetch;
+  tasks = await tasksFetch;
+  contacts = await contactsFetch;
 }
 
 ///************INCLUDE HTML-TEMPLATES*************///
 
 /**
- * Searches for the "w3-include-html" attribute in the HTML file 
+ * Searches for the "w3-include-html" attribute in the HTML file
  * and replaces it with the value of this attribute.
  */
 async function includeHTML(x) {
-    let includeElements = document.querySelectorAll('[w3-include-html]');
-    for (let i = 0; i < includeElements.length; i++) {
-        const element = includeElements[i];
-        file = element.getAttribute("w3-include-html"); // "includes/header.html"
-        let resp = await fetch(file);
-        if (resp.ok) {
-            element.innerHTML = await resp.text();
-        } else {
-            element.innerHTML = 'Page not found';
-        }
+  let includeElements = document.querySelectorAll("[w3-include-html]");
+  for (let i = 0; i < includeElements.length; i++) {
+    const element = includeElements[i];
+    file = element.getAttribute("w3-include-html"); // "includes/header.html"
+    let resp = await fetch(file);
+    if (resp.ok) {
+      element.innerHTML = await resp.text();
+    } else {
+      element.innerHTML = "Page not found";
     }
-    bgDark(x);
-    bgDarkLegalNotice(x);
-    //setUserHeaderInitials();
+  }
+  bgDark(x);
+  bgDarkLegalNotice(x);
+  //setUserHeaderInitials();
+  disableIcon();
 }
 
-
-
-
-
 function getNewContactColor() {
+  const currentContactIconColorIndex = contacts.length % contacts.length;
 
-    const currentContactIconColorIndex = contacts.length % contacts.length;
+  let color = contactIconColors[currentContactIconColorIndex + 1];
 
-    let color = contactIconColors[currentContactIconColorIndex+1];
-
-    return color;
+  return color;
 }
 
 function getContactIconHtml(contact) {
-    let userSignature = getContactInitials(contact);
+  let userSignature = getContactInitials(contact);
 
-    const iconHtml = `<div class="circle" style="background-color:${contact['color']}">
+  const iconHtml = `<div class="circle" style="background-color:${contact["color"]}">
         <span class='circle-text'>${userSignature}</span>
     </div>`;
-    return iconHtml;
+  return iconHtml;
 }
 
 function getContactInitials(contact) {
-    const contactNameParts = contact['name'].split(" ");
-    if (contactNameParts[1] != null) {
-        contactSignature = contactNameParts[0][0].toUpperCase() + contactNameParts[1][0].toUpperCase();
-    } else {
-        contactSignature = contactNameParts[0][0].toUpperCase() + contactNameParts[0].slice(-1).toUpperCase();
-    }
-    return contactSignature;
+  const contactNameParts = contact["name"].split(" ");
+  if (contactNameParts[1] != null) {
+    contactSignature =
+      contactNameParts[0][0].toUpperCase() +
+      contactNameParts[1][0].toUpperCase();
+  } else {
+    contactSignature =
+      contactNameParts[0][0].toUpperCase() +
+      contactNameParts[0].slice(-1).toUpperCase();
+  }
+  return contactSignature;
 }
-
-
-
 
 /**
  * This function marks the menu item you are on
- * 
+ *
  * @param {number} x - That is the menu item to be loaded
  */
 function bgDark(x) {
-    if (x < 4) {
-        document.getElementById(`menu-link${x}`).classList.add('bg-dark', 'white');
-        document.getElementById(`menu-responsive-link${x}`).classList.add('bg-dark', 'white');
-        document.getElementById(`menu-img${x}`).src = `assets/image/sidebar/menu-${x}-white.svg`;
-        document.getElementById(`menu-responsive-img${x}`).src = `assets/image/sidebar/menu-${x}-white.svg`;
-    };
+  if (x < 4) {
+    document.getElementById(`menu-link${x}`).classList.add("bg-dark", "white");
+    document
+      .getElementById(`menu-responsive-link${x}`)
+      .classList.add("bg-dark", "white");
+    document.getElementById(
+      `menu-img${x}`
+    ).src = `assets/image/sidebar/menu-${x}-white.svg`;
+    document.getElementById(
+      `menu-responsive-img${x}`
+    ).src = `assets/image/sidebar/menu-${x}-white.svg`;
+  }
 }
 
 /**
  * This function highlights the menu item under Legal Notice that you are currently on
- * 
+ *
  * @param {number} x - That is the menu item to be loaded
  */
 function bgDarkLegalNotice(x) {
-    if (x > 3) {
-        document.getElementById(`menu-link${x}`).classList.add('bg-dark-legal-notice', 'white');
-        document.getElementById('sidebar-menu').classList.add('dNone');
-        document.getElementById(`legal-notice${x}`).src = `assets/image/sidebar/legal-notice-white.svg`;
-    }
+  if (x > 3) {
+    document
+      .getElementById(`menu-link${x}`)
+      .classList.add("bg-dark-legal-notice", "white");
+    document.getElementById("sidebar-menu").classList.add("dNone");
+    document.getElementById(
+      `legal-notice${x}`
+    ).src = `assets/image/sidebar/legal-notice-white.svg`;
+  }
 }
 
 // data must still be loaded from the server
@@ -145,38 +151,31 @@ function bgDarkLegalNotice(x) {
  * This function loads the account data from the server
  */
 function getUserInitials(user) {
-    const userNameParts = user['username'].split(" ");
-    if (userNameParts[1] != null) {
-        userSignature = userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
-    } else {
-        userSignature = userNameParts[0][0].toUpperCase() + userNameParts[0].slice(-1).toUpperCase();
-    }
+  const userNameParts = user["username"].split(" ");
+  if (userNameParts[1] != null) {
+    userSignature =
+      userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
+  } else {
+    userSignature =
+      userNameParts[0][0].toUpperCase() +
+      userNameParts[0].slice(-1).toUpperCase();
+  }
 
-    return userSignature;
+  return userSignature;
 }
-
-
 
 function setUserHeaderInitials() {
-    let myAccount = document.getElementById("myAccount");
-    if (myAccount != null) {
-        myAccount.innerHTML = getUserInitials(user);
-    }
+  let myAccount = document.getElementById("myAccount");
+  if (myAccount != null) {
+    myAccount.innerHTML = getUserInitials(user);
+  }
 }
-
-/**
- * This function goes back to the last page.
- */
-function goBack() {
-    window.history.back();
-}
-
 
 /**
  * This function opens the menu from the header
  */
 function ShowMenu() {
-    document.getElementById('header-menu').classList.toggle('dNone');
+  document.getElementById("header-menu").classList.toggle("dNone");
 }
 
 function ShowMenuResponsive() {
@@ -186,28 +185,24 @@ function ShowMenuResponsive() {
 }
 
 function openSummary() {
-    window.location.href = `./summary.html?name=${username}`;
+  window.location.href = `./summary.html?name=${username}`;
 }
 
 function openAddTask() {
-    window.location.href = `./add_task.html?name=${username}`;
+  window.location.href = `./add_task.html?name=${username}`;
 }
 
 function openBoard() {
-    window.location.href = `./board.html?name=${username}`;
+  window.location.href = `./board.html?name=${username}`;
 }
 
 function openContacts() {
-    window.location.href = `./contact.html?name=${username}`;
+  window.location.href = `./contact.html?name=${username}`;
 }
 
 function openHelp() {
-    window.location.href = `./help.html?name=${username}`;
+  window.location.href = `./help.html?name=${username}`;
 }
-
-
-
-
 
 function stopClickEvenPropagnationForElementById(elementId) {
     let element = document.getElementById(elementId);

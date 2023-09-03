@@ -101,18 +101,3 @@ h3 {
 .hide-overflow{
     overflow: hidden;
 }
-
-/* provisorisch*/
-#goBack {
-    position: absolute;
-    top: 74px;
-    right: 100px;
-    height: 50px;
-}
-
-#goBack:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    cursor: pointer;
-}
-
