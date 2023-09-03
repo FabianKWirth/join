@@ -166,7 +166,7 @@ function renderContactCreatedElement() {
         document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
         document.getElementById("contactChangeNotificationContainer").remove();
     }, 2000);
-    
+
 }
 
 function renderContactSavedElement() {
@@ -188,18 +188,18 @@ function renderContactDeleteElement() {
 }
 
 function setNotificationValue(input) {
-    switch(input){
+    switch (input) {
         case 'Created':
-            document.getElementById("changeContactNotificationText").innerHTML="Contact successfully created";
+            document.getElementById("changeContactNotificationText").innerHTML = "Contact successfully created";
             break;
         case 'Changed':
-            document.getElementById("changeContactNotificationText").innerHTML="Contact changes saved";
+            document.getElementById("changeContactNotificationText").innerHTML = "Contact changes saved";
             break;
         case 'Delete':
-            document.getElementById("changeContactNotificationText").innerHTML="Contact deleted";
+            document.getElementById("changeContactNotificationText").innerHTML = "Contact deleted";
             break;
         default:
-            document.getElementById("changeContactNotificationText").innerHTML="Error adapting contact";
+            document.getElementById("changeContactNotificationText").innerHTML = "Error adapting contact";
     }
 }
 
@@ -209,7 +209,12 @@ function renderNotificationLayout() {
     <div class="contact-change-notification-container shift-in" id="contactChangeNotificationContainer">
         <div class="contact-change-notification"><p id='changeContactNotificationText'></p></div>
     </div>`;
-    document.getElementById("selectedContactContainer").appendChild(newDiv);
+    if (document.getElementById("selectedContactContainer") != null) {
+        document.getElementById("selectedContactContainer").appendChild(newDiv);
+    } else if (document.getElementById("addTaskContainer")) {
+        document.getElementById("addTaskContainer").appendChild(newDiv);
+    }
+
 }
 
 async function createContact() {
@@ -219,22 +224,29 @@ async function createContact() {
         let contactPhone = document.getElementById("contactPhoneInput").value;
         let color = getNewContactColor();
 
-
-        
         removeElementsByPartialClassName("add-contact");
         renderContactCreatedElement();
         await updateContactsArray(contactName, contactMail, contactPhone, color);
-       
-        renderContacts();
-        selectedContact=findContactIndex(contactMail, contactName, contactPhone);
-        if(selectedContact==-1){
-            selectedContact=null;
-        }else{
-            renderSelectedContactBody();
-            setCurrentShownMobileClass();
+
+        if (isContactPage() == false) {
+            setTimeout(function () {
+                window.location.href = "contact.html"; // Replace with your desired URL
+            }, 2000);
+        } else {
+
+            renderContacts();
+            selectedContact = findContactIndex(contactMail, contactName, contactPhone);
+            if (selectedContact == -1) {
+                selectedContact = null;
+            } else {
+                renderSelectedContactBody();
+                setCurrentShownMobileClass();
+            }
         }
+
+
     }
-    
+
 }
 
 function saveContact() {
@@ -247,19 +259,40 @@ function saveContact() {
         let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
         contacts[selectedContact] = contact;
 
-        
+
         renderContacts();
         removeElementsByPartialClassName("add-contact");
 
 
-       
+
         renderSelectedContactBody();
         renderContactSavedElement();
 
         setItem("contacts", contacts);
     }
-    
+
 }
+
+
+/**
+ * Checks whether the current page is "index.html" based on the URL.
+ *
+ * @returns {boolean} True if the current page is "index.html," otherwise false.
+ */
+function isContactPage() {
+    // Get the current URL
+    var currentURL = window.location.href;
+
+    // Check if the URL ends with "index.html"
+    if (currentURL.endsWith("contact.html")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
 
 /**
  * Find the index of a contact in the global `contacts` array based on email, name, and phone number.
@@ -271,13 +304,13 @@ function saveContact() {
  */
 function findContactIndex(email, name, phoneNumber) {
     for (let i = 0; i < contacts.length; i++) {
-      const contact = contacts[i];
-      if (contact.mail === email && contact.name === name && contact.phone === phoneNumber) {
-        return i; // Return the index when all criteria match
-      }
+        const contact = contacts[i];
+        if (contact.mail === email && contact.name === name && contact.phone === phoneNumber) {
+            return i; // Return the index when all criteria match
+        }
     }
     return -1; // Return -1 if no match is found
-  }
+}
 
 function updateContactsArray(contactName, contactMail, contactPhone, color) {
     if (contactName != "" & contactMail != "" & contactPhone != "") {
@@ -285,7 +318,7 @@ function updateContactsArray(contactName, contactMail, contactPhone, color) {
         contacts.push(contact);
     }
 
-    contacts=sortByUserName(contacts)
+    contacts = sortByUserName(contacts)
     setItem("contacts", contacts);
 }
 
@@ -394,7 +427,7 @@ function deleteContact(contactIndex) {
 }
 
 
-function unmarkAllUserElements(){
+function unmarkAllUserElements() {
     selectedElements = document.getElementsByClassName("selected");
     if (selectedElements.length > 0) {
         for (let index = 0; index < selectedElements.length; index++) {
@@ -428,7 +461,7 @@ function renderLetterHeader(list, currentLetter) {
 }
 
 function renderContactListItem(list, contactIndex) {
-    contacts=sortByUserName(contacts);
+    contacts = sortByUserName(contacts);
     let contact = contacts[contactIndex];
     contactName = contact["name"];
     contactMail = contact["mail"]
@@ -468,18 +501,18 @@ function sortByUserName(contacts) {
 
 
 
-function setCurrentShownMobileClass(){
-    if(selectedContact==null){
+function setCurrentShownMobileClass() {
+    if (selectedContact == null) {
         document.getElementById("selectedContactContainer").classList.add('contact-hide-on-mobile');
         document.getElementById("contactListSection").classList.remove('contact-hide-on-mobile');
-    }else{
+    } else {
         document.getElementById("selectedContactContainer").classList.remove('contact-hide-on-mobile');
         document.getElementById("contactListSection").classList.add('contact-hide-on-mobile');
     }
 }
 
-function unsetSelectedContact(){
-    selectedContact=null;
+function unsetSelectedContact() {
+    selectedContact = null;
     unmarkAllUserElements();
     setCurrentShownMobileClass();
 }

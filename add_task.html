@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="includeHTML(1);init();">
+<body onload="includeHTML(1);initAddTasks();">
     
     <div include-html="./assets/templates/add_contact.html"></div>
     <div w3-include-html="./assets/templates/header.html"></div>
@@ -37,38 +37,38 @@
 
                     <div class="task-description">
                         <label for="newTaskDescription">Description</label>
-                        <textarea id="newTaskDescription" placeholder="Enter a Description"></textarea>
+                        <textarea id="newTaskDescription" placeholder="Enter a Description" required></textarea>
                     </div>
 
-                    <div class="task-assigned-users">
-                        <label for="newTaskAssignedUser">Assigned to</label>
-                        <div id="newTaskAssignedUser">
-                            <div class="dropdown-field"><!-- onclick="changeAvailableUsersVisibility() -->
-                                <input type="text" id="dropDownUsersTextFieldInput" 
+                    <div class="task-assigned-contacts">
+                        <label for="newTaskAssignedContact">Assigned to</label>
+                        <div id="newTaskAssignedContact">
+                            <div class="dropdown-field"><!-- onclick="changeAvailableContactsVisibility() -->
+                                <input type="text" id="dropDownContactsTextFieldInput" 
                                     class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign">
-                                <!-- onchange="showAvailableUsers()" -->
-                                <img id='assignUsersDropDownIcon' class='dropdown-field-icon'
+                                <!-- onchange="showAvailableContacts()" -->
+                                <img id='assignContactsDropDownIcon' class='dropdown-field-icon'
                                     src="./assets/icons/arrow-drop.svg">
                             </div>
-                            <div class="dropdown-content" id="assignedUsersdropDownContent">
-                                <div id="selectAssignedUserList" class="contact-list">
+                            <div class="dropdown-content" id="assignedContactsdropDownContent">
+                                <div id="selectAssignedContactList" class="contact-list">
 
                                 </div>
                                 <div class='dropdown-button-container'>
                                     <button type="button" class="default-button dropdown-button"
-                                        onclick="includeAddContactHTML()">Add new contact
+                                        onclick="includeContactHTML('addContact')">Add new contact
                                         <img src='./assets/icons/person-add.svg'>
                                     </button>
                                 </div>
                             </div>
 
                         </div>
-                        <div id='assignedUserList'></div>
+                        <div id='assignedContactList'></div>
                     </div>
 
                 </div>
 
-                <div class="task-input-cell task-input-not-first-col">
+                <div class="task-input-col task-input-not-first-col">
 
                     <div class="task-date">
                         <label for="newTaskDate">Due Date</label>
@@ -101,7 +101,7 @@
 
                             <div class="task-category-list" id="taskCategoryList">
                                 <div class="task-category-item" data-value="Technical Task">Technical Task</div>
-                                <div class="task-category-item" data-value="User Story">User Story</div>
+                                <div class="task-category-item" data-value="Contact Story">Contact Story</div>
                             </div>
                         </div>
                     </div>
@@ -130,12 +130,12 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-options">
                 <button type='button' onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
                 <button type='button' id="createTask" onclick="submitTask()" class="default-button" disabled>
                     Create Task</button>
             </div>
+            
 
 
         </div>

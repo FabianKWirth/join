@@ -1,26 +1,32 @@
 let selectedTaskPriority = null //Priorities= urgent, medium, low
-let showAssignedUsers = false;
-let assignedUsers = [];
+let showAssignedContacts = false;
+let assignedContacts = [];
 let subTasks = [];
 
-let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate","taskCategoryValue"];
-let indirectInputFieldIds = ["assignedUserList", "taskCategoryList", "subtaskField", "editSubTaskField",];
-let unfinishedTaskData = {};
+let unfinishedTaskData = {"status":"toDo"};
 
-renderTaskInput();
+let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate","taskCategoryValue"];
+let indirectInputFieldIds = ["assignedContactList", "taskCategoryList", "subtaskField", "editSubTaskField"];
+
+
+
+async function initAddTasks(){
+    await getStorageData();
+    renderTaskInput();
+}
+
 
 function renderTaskInput() {
-    renderUserAssignmentDropDown();
-    setTaskData();
     loadEventListeners();
+    renderContactAssignmentDropDown();
 }
 
 function loadEventListeners() {
     setDropDownEventListeners();
     setSubTaskEventListeners();
     setSelectedCategoryEventListener();
-    setDropDownUsersTextFieldInputEventListener();
-    preventUserListFromCollapsingOnclick();
+    setDropDownContactsTextFieldInputEventListener();
+    preventContactListFromCollapsingOnclick();
     addFormDataChangesEventListener();
 }
 
@@ -38,7 +44,7 @@ function addFormDataChangesEventListener() {
 }
 
 function addListenersToDropDownSelections() {
-    let dropDownClasses = ["task-category-item", "assign-user-option"];
+    let dropDownClasses = ["task-category-item", "assign-contact-option"];
     dropDownClasses.forEach(className => {
         const categoryItems = document.querySelectorAll("." + className);
 
@@ -88,14 +94,14 @@ function addListenersToIndirectInputFields() {
 }
 
 /** 
- * Calls functions to save the data entered by the user into the unfinishedTaskData JSON array
+ * Calls functions to save the data entered by the contact into the unfinishedTaskData JSON array
  * Calls a function to check wether the Task can be created
  */
 function saveCurrentEntriesToTask() {
     saveGlobalVariables();
     saveDirectInputFields();
-
     checkIfFormSubmittable();
+    console.log(unfinishedTaskData);
 }
 
 /**
@@ -105,8 +111,8 @@ function saveCurrentEntriesToTask() {
  * 
  */
 function saveGlobalVariables() {
-    if (assignedUsers.length > 0) {
-        unfinishedTaskData["assignedUsers"] = assignedUsers;
+    if (assignedContacts.length > 0) {
+        unfinishedTaskData["assignedContacts"] = assignedContacts;
     }
 
     if (subTasks.length > 0) {
@@ -180,16 +186,16 @@ function checkIfdirectInputFieldIdsAreSet() {
     return isSubmittable;
 }
 
-function setDropDownUsersTextFieldInputEventListener() {
-    let inputField = document.getElementById("dropDownUsersTextFieldInput");
+function setDropDownContactsTextFieldInputEventListener() {
+    let inputField = document.getElementById("dropDownContactsTextFieldInput");
     inputField.addEventListener("input", function (event) {
-        showAvailableUsers(inputField.value);
+        showAvailableContacts(inputField.value);
     });
 }
 
 function setDropDownEventListeners() {
-    let eventSrcElementsId = ["dropDownUsersTextFieldInput", "assignUsersDropDownIcon", "taskCategoryName", "taskCategoryHeader"];
-    let eventTargets = ["assignedUsersdropDownContent", "assignedUsersdropDownContent", "taskCategoryList", "taskCategoryList"];
+    let eventSrcElementsId = ["dropDownContactsTextFieldInput", "assignContactsDropDownIcon", "taskCategoryName", "taskCategoryHeader","taskCategoryDropDownIcon"];
+    let eventTargets = ["assignedContactsdropDownContent", "assignedContactsdropDownContent", "taskCategoryList", "taskCategoryList","taskCategoryList"];
 
 
     document.addEventListener("click", function (event) {
@@ -212,7 +218,6 @@ function setDropDownEventListeners() {
         }
     });
 }
-
 
 
 function setSelectedCategoryEventListener() {
@@ -269,101 +274,110 @@ function renderTaskAddedElement() {
 }
 
 
-function renderUserAssignmentDropDown() {
-    const userList = document.getElementById('selectAssignedUserList');
+function renderContactAssignmentDropDown() {
+    const contactList = document.getElementById('selectAssignedContactList');
 
-    let additionalClass = 'first-user-option';
-    userList.innerHTML = "";
-    for (let i = 0; i < users.length; i++) {
-        const user = users[i];
+    let additionalClass = 'first-contact-option';
+    contactList.innerHTML = "";
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        console.log(contact);
+        let contactName = contact['name'];
+        let contactIcon = getContactIconHtml(contact);
 
-        let userName = user['username'];
-        //let userIcon=getUserIcon(user['username']);
-        let userIcon = getContactIconHtml(user);
-
-        userList.innerHTML +=/*html*/`
-        <div onclick='selectUser(this)' id='assignableUser${i}' class='assign-user-option ${additionalClass}'>
-            <div class='user-information'>
-                ${userIcon}
-                ${userName}
+        contactList.innerHTML +=/*html*/`
+        <div onclick='selectTaskContact(this)' id='assignableContact${i}' class='assign-contact-option ${additionalClass}'>
+            <div class='contact-information'>
+                ${contactIcon}
+                ${contactName}
             </div>
-            <img src="./assets/icons/checkbox-empty.svg" id="selectedUserCheckBox${i}" class="selected-user-checkbox">
+            <img src="./assets/icons/checkbox-empty.svg" id="selectedContactCheckBox${i}" class="selected-contact-checkbox">
         </div>`;
         additionalClass = "";
     }
+
+    console.log("loaded");
 }
 
-function showAvailableUsers(input) {
-    let additionalClass = 'first-user-option';
+function showAvailableContacts(input) {
+    let additionalClass = 'first-contact-option';
     console.log(input);
-    for (let i = 0; i < users.length; i++) {
-        const user = users[i];
-        if (user['username'].startsWith(input)) {
-            document.getElementById("assignableUser" + i).classList.remove('hide');
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        if (contact['name'].startsWith(input)) {
+            document.getElementById("assignableContact" + i).classList.remove('hide');
             if (additionalClass != "") {
-                document.getElementById("assignableUser" + i).classList.add('first-user-option');
+                document.getElementById("assignableContact" + i).classList.add('first-contact-option');
                 additionalClass = ""
             } else {
-                document.getElementById("assignableUser" + i).classList.remove('first-user-option');
+                document.getElementById("assignableContact" + i).classList.remove('first-contact-option');
             }
         } else {
-            document.getElementById("assignableUser" + i).classList.add('hide');
+            document.getElementById("assignableContact" + i).classList.add('hide');
 
         }
     }
-    makeAvailableUsersVisible();
+    makeAvailableContactsVisible();
 }
 
-function renderSelectedUserIcons() {
+function renderSelectedContactIcons() {
     let html = "";
-    for (let i = 0; i < assignedUsers.length; i++) {
-        const id = assignedUsers[i];
-        html += getContactIconHtml(users[id]);
+    for (let i = 0; i < assignedContacts.length; i++) {
+        const id = assignedContacts[i];
+        html += getContactIconHtml(contacts[id]);
     }
-    document.getElementById("assignedUserList").innerHTML = html;
+    document.getElementById("assignedContactList").innerHTML = html;
 }
 
-function selectUser(row) {
-    let userId = row.getAttribute("id").replace("assignableUser", "");
-    assignedUsers.push(userId);
-    row.onclick = () => unselectUser(row);
+function selectTaskContact(row) {
+    let contactId = row.getAttribute("id").replace("assignableContact", "");
+    assignedContacts.push(contactId);
+    row.onclick = () => unselectTaskContact(row);
     row.classList.add("selected-option");
-    document.getElementById("selectedUserCheckBox" + userId).src = './assets/icons/checkbox-filled.svg';
-    document.getElementById("selectedUserCheckBox" + userId).classList.add("white-symbol");
-    renderSelectedUserIcons();
+    document.getElementById("selectedContactCheckBox" + contactId).src = './assets/icons/checkbox-filled.svg';
+    document.getElementById("selectedContactCheckBox" + contactId).classList.add("white-symbol");
+    renderSelectedContactIcons();
+    unfinishedTaskData["assignedContacts"]=assignedContacts;
 }
 
-function unselectUser(row) {
-    let userId = row.getAttribute("id").replace("assignableUser", "");
-    const indexToRemove = assignedUsers.indexOf(userId);
+function unselectTaskContact(row) {
+    let contactId = row.getAttribute("id").replace("assignableContact", "");
+    const indexToRemove = assignedContacts.indexOf(contactId);
     if (indexToRemove !== -1) {
-        assignedUsers.splice(indexToRemove, 1);
+        assignedContacts.splice(indexToRemove, 1);
     }
-    row.onclick = () => selectUser(row);
+    row.onclick = () => selectTaskContact(row);
+
+    renderUnselectionOfContactFromTask(row,contactId);
+
+    renderSelectedContactIcons();
+    unfinishedTaskData["assignedContacts"]=assignedContacts;
+}
+
+function renderUnselectionOfContactFromTask(row,contactId){
     row.classList.remove("selected-option");
-    document.getElementById("selectedUserCheckBox" + userId).src = './assets/icons/checkbox-empty.svg';
-    document.getElementById("selectedUserCheckBox" + userId).classList.remove("white-symbol");
-    renderSelectedUserIcons();
+    document.getElementById("selectedContactCheckBox" + contactId).src = './assets/icons/checkbox-empty.svg';
+    document.getElementById("selectedContactCheckBox" + contactId).classList.remove("white-symbol");
 }
 
-function changeAvailableUsersVisibility() {
-    if (showAssignedUsers == false) {
-        makeAvailableUsersVisible();
+function changeAvailableContactsVisibility() {
+    if (showAssignedContacts == false) {
+        makeAvailableContactsVisible();
     } else {
-        makeAvailableUsersInvisible();
+        makeAvailableContactsInvisible();
     }
 }
 
-function makeAvailableUsersVisible() {
-    showAssignedUsers = true;
-    document.getElementById("assignedUsersdropDownContent").classList.remove("hide");
-    rotateIconBy180("assignUsersDropDownIcon");
+function makeAvailableContactsVisible() {
+    showAssignedContacts = true;
+    document.getElementById("assignedContactsdropDownContent").classList.remove("hide");
+    rotateIconBy180("assignContactsDropDownIcon");
 }
 
-function makeAvailableUsersInvisible() {
-    showAssignedUsers = false;
-    document.getElementById("assignedUsersdropDownContent").classList.add("hide");
-    rotateIconBy180("assignUsersDropDownIcon");
+function makeAvailableContactsInvisible() {
+    showAssignedContacts = false;
+    document.getElementById("assignedContactsdropDownContent").classList.add("hide");
+    rotateIconBy180("assignContactsDropDownIcon");
 }
 
 
@@ -451,8 +465,13 @@ function setPrioButtonSelectStatusById(type, selectStatus = false) {
 
 function createSubTask() {
     subTaskName = document.getElementById("subtaskField").value;
+    subtask=
+    {
+        "name":subTaskName,
+        "isComplete":0
+    }
     if (subTaskName != "") {
-        subTasks.push(subTaskName);
+        subTasks.push(subtask);
     }
     renderSubTasksList();
 }
@@ -471,7 +490,7 @@ function deleteSubTask(element) {
 function approveSubTask(element) {
     let i = element.id.replace("approveSubTask", "");
     let editSubTaskInputfield = document.getElementById(`editSubtaskField${i}`);
-    subTasks[i] = editSubTaskInputfield.value;
+    subTasks[i]['name'] = editSubTaskInputfield.value;
     editSubTaskInputfield.innerHtml = "";
     setElementHtml("editSubTaskField", "");
     renderSubTasksList();
@@ -479,7 +498,7 @@ function approveSubTask(element) {
 
 function editSubTask(element) {
     let i = element.id.replace("editSubTask", "");
-    let valueToEdit = subTasks[i];
+    let valueToEdit = subTasks[i]['name'];
     document.getElementById("editSubTaskField").innerHTML =/*html*/`
     <input type='text' class='edit-subtask-field' id='editSubtaskField${i}' value='${valueToEdit}'>
     <div class='edit-subtask-menu'>
@@ -494,10 +513,10 @@ function getSubTasksListHtml() {
     if (subTasks.length > 0) {
         let html = "<uol>";
         for (let i = 0; i < subTasks.length; i++) {
-            const element = subTasks[i];
+            const subtask = subTasks[i];
             html += /*html*/ `
             <li class='shown-subtask' id='shownSubtask${i}'>
-                ${element}
+                ${subtask['name']}
                 <div class='shown-subtask-menu'>
                     <img src="./assets/icons/trashcan-icon.svg" id="deleteSubTask${i}"  class="animated-icon" onclick='deleteSubTask(this)'>
                     <div class="approve-subtask-menu-border"></div>
@@ -530,9 +549,9 @@ function setSubTaskEventListeners() {
     });
 }
 
-function preventUserListFromCollapsingOnclick() {
-    let selectAssignedUserList = document.getElementById("selectAssignedUserList");
-    selectAssignedUserList.addEventListener('click', function (event) {
+function preventContactListFromCollapsingOnclick() {
+    let selectAssignedContactList = document.getElementById("selectAssignedContactList");
+    selectAssignedContactList.addEventListener('click', function (event) {
         event.stopPropagation();
     });
 }
@@ -579,16 +598,32 @@ async function submitTask() {
 }
 
 function emptyAddTaskForm() {
+   
+    resertDirectInputFields();
+    resetIndirectInputs();
+
+    renderSelectedContactIcons();
+    renderContactAssignmentDropDown();
+}
+
+
+function resertDirectInputFields(){
+    directInputFieldIds.forEach(directInputFieldId => {
+        let field=document.getElementById(directInputFieldId);
+        if(field){
+            field.value="";
+        }
+    });
+}
+
+function resetIndirectInputs(){
     selectedTaskPriority = null //Priorities= urgent, medium, low
-
-    showAssignedUsers = false;
-    assignedUsers = [];
-    renderSelectedUserIcons();
-    renderUserAssignmentDropDown();
-
     subTasks = [];
     renderSubTasksList();
     resetSubTaskInput();
+
+    showAssignedContacts = false;
+    assignedContacts = [];
 
     setPrioButtonSelectStatusById("urgent", false);
     setPrioButtonSelectStatusById("medium", false);
