@@ -13,11 +13,12 @@
     <link rel="stylesheet" href="css/sidebar-responsive.css">
     <link rel="icon" type="image/x-icon" href="../assets\image\join-logo.svg">
     <script src="script.js"></script>
-    <script src=".js/summary.js"></script>
+    <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
+    <script src="./js/board.js"></script>
 </head>
 
-<body onload="includeHTML(2)">
+<body onload="includeHTML(2); updateBoardHTML()">
 
     <div w3-include-html="assets/templates/header.html"></div>
     <div w3-include-html="assets/templates/header_responsive.html"></div>
@@ -62,44 +63,21 @@
             </div>
         </div>
 
-        <div class="task-area">
-            <div class="creat-task-area">
-                <div class="task-card">
-                    <div class="card-category">User Story</div>
-                    <div>
-                        <h4>Kochwelt Page & Recipe Recommender</h4>
-                        <div class="card-description">Build start page with recipe recommendation...</div>
-                    </div>
-                    <div class="progress-bar-section">
-                        <div class="progress-bar">
-                            <div class="progress"></div>
-                        </div>
-                        <div class="progress-bar-subtasks">1/2 Subtasks</div>
-                    </div>
-                    <div class="task-card-bottom-section">
-                        <div class="task-card-users">
-                            <div class="circle-1">AM</div>
-                            <div class="circle-2">AM</div>
-                            <div class="circle-3">AM</div>
-                        </div>
-                        <img src="assets/icons/prio-medium.svg" alt="Prio Medium">
-                    </div>
-
+        <div class="task-field">
+            <div class="task-area">
+                <div id="todo" class="creat-task-area" ondrop="moveTo(event); removeHighlight('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')" data-category="Todo">
                 </div>
 
-            </div>
-            <div class="creat-task-area">
+                <div id="inProgress" class="creat-task-area" ondrop="moveTo(event); removeHighlight('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')" data-category="In progress">
+                </div>
 
-            </div>
-            <div class="creat-task-area">
+                <div id="awaitFeedback" class="creat-task-area" ondrop="moveTo(event); removeHighlight('awaitFeedback')" ondragleave="removeHighlight('awaitFeedback')" ondragover="allowDrop(event); highlight('awaitFeedback')" data-category="Await feedback">
+                </div>
 
-            </div>
-            <div class="creat-task-area">
-
+                <div id="done" class="creat-task-area" ondrop="moveTo(event); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')" data-category="Done">
+                </div>
             </div>
         </div>
-
-
     </div>
     
 </body>
