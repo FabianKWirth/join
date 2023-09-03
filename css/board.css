@@ -71,6 +71,7 @@
     padding: 6px 16px;
     border-radius: 10px;
     border: none;
+    cursor: pointer;
 }
 
 .add-task:hover {
@@ -83,6 +84,10 @@
     justify-content: space-between;
     margin: 48px 64px 0 0px;
     gap: 24px;
+}
+
+.plus-icon {
+    cursor: pointer;
 }
 
 .task-section {
@@ -136,6 +141,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
+    cursor: pointer;
 }
 
 .card-category {
