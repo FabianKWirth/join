@@ -1,4 +1,4 @@
-body{
+body {
     font-family: inter;
 }
 
@@ -12,7 +12,10 @@ body{
     padding-right: 40px;
     padding-bottom: 40px;
     overflow-y: scroll;
+    hyphens: auto;
+    word-wrap: break-word;
 }
+
 
 .break {
     margin-top: 80px;
@@ -61,27 +64,32 @@ a {
 }
 
 @media(max-width: 1000px) {
-    
-p {
-    font-size: 16px;
-    overflow-wrap: anywhere;
-}
 
-h3 {
-    font-size: 20px;
-}
+    p {
+        font-size: 16px;
+        overflow-wrap: anywhere;
+    }
 
-li {
-    font-size: 14px;
-}
+    h3 {
+        font-size: 20px;
+    }
 
-h1 {
-    font-size: 52px;
-}
+    li {
+        font-size: 14px;
+    }
 
-h2 {
-    font-size: 36px;
-}
+    h1 {
+        font-size: 52px;
+    }
+
+    h2 {
+        font-size: 36px;
+    }
+
+    #goBack {
+        top: 85px;
+        right: 24px;
+    }
 }
 
 @media(max-width: 800px) {
@@ -93,5 +101,16 @@ h2 {
         font-size: 40px;
     }
 
+    .privacy-policy-container {
+        margin: 96px 0 46px 16px;
+    }
 
+    #goBack {
+        top: 43px;
+        right: 16px;
+    }
+
+    .break {
+        margin-top: 40px;
+    }
 }
