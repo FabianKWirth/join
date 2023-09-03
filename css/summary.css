@@ -19,7 +19,6 @@
 }
 
 .headline-h1 span {
-    font-weight: 400;
     font-size: 27px;
 }
 
@@ -55,8 +54,6 @@
 
 .task-text {
     font-size: 20px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
     color: #2A3647;
 }
 
@@ -85,7 +82,6 @@
 
 .font-16 {
     font-size: 16px;
-    font-weight: 400;
     color: #2A3647;
 }
 
@@ -116,7 +112,7 @@
     justify-content: center;
 }
 
-.greeting-time {
+#greeting-time {
     font-size: 47px;
     font-weight: 500;
 }

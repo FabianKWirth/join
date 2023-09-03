@@ -36,9 +36,7 @@
     height: 30px;
     position: relative;
     font-size: 20px;
-    font-weight: 400;
     line-height: 24px;
-    font-family: 'Inter', sans-serif;
     color: black;
     width: 200px;
     padding-right: 94px;
@@ -67,7 +65,6 @@
     gap: 4px;
     font-size: 21px;
     font-weight: 700;
-    font-family: 'Inter', sans-serif;
     background-color: #2A3647;
     text-decoration: none;
     color: #FFFFFF;
@@ -97,7 +94,6 @@
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
-    font-family: 'Inter', sans-serif;
 }
 
 .task-field {
@@ -146,8 +142,6 @@
     padding: 4px 16px;
     background-color: #0038FF;
     font-size: 16px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
     color: #FFFFFF;
     border-radius: 8px;
 }
@@ -155,7 +149,6 @@
 h4 {
     font-size: 16px;
     font-weight: 700;
-    font-family: 'Inter', sans-serif;
     color: #2A3647;
     margin: 0;
     padding-bottom: 8px;
@@ -164,8 +157,6 @@ h4 {
 .card-description {
     color: #A8A8A8;
     font-size: 16px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
 }
 
 .progress-bar-section {
@@ -175,26 +166,24 @@ h4 {
 }
 
 .progress-bar {
-    width: 60%; /* Breite der Fortschrittsleiste */
-    height: 8px; /* Höhe der Fortschrittsleiste */
-    background-color: #F4F4F4; /* Hintergrundfarbe der Fortschrittsleiste */
-    border-radius: 10px; /* Abgerundete Ecken */
-    margin: 10px 0; /* Abstand oben und unten */
-    overflow: hidden; /* Verhindert, dass der Fortschritt über den Rand hinausgeht */
+    width: 60%;
+    height: 8px;
+    background-color: #F4F4F4;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
     margin-right: 11px;
   }
   
   .progress {
-    width: 50%; /* Anpassen der Breite entsprechend dem Fortschritt (zum Beispiel 50%) */
-    height: 100%; /* Die Höhe sollte gleich der Höhe der Fortschrittsleiste sein */
-    background-color: #4589FF; /* Farbe des Fortschritts */
-    transition: width 0.3s ease-in-out; /* Animieren Sie die Breitenänderung */
+    width: 50%;
+    height: 100%;
+    background-color: #4589FF;
+    transition: width 0.3s ease-in-out;
   }
   
   .progress-bar-subtasks {
     font-size: 12px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
   }
 
 .circle-1 {
@@ -241,8 +230,6 @@ h4 {
     align-items: center;
     color: #FFFFFF;
     font-size: 12px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
 }
 
 .drag-area-highlight {
@@ -261,5 +248,6 @@ h4 {
     background-color: #E7E7E7;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
 }
 

@@ -3,7 +3,7 @@ let currentDraggedElement;
 let task = [{
     'id': 0,
     'title': 'Putzen',
-    'category': 'Todo',
+    'category': 'In progress',
     'text': 'Kochwelt Page & Recipe Recommender'
   }, {
     'id': 1,
@@ -23,6 +23,12 @@ let task = [{
   }];
 
 
+  /**
+ * Updates the HTML representation of the entire task board by updating individual categories.
+ *
+ * @function
+ * @returns {void}
+ */
 function updateBoardHTML() {
     updateTodoHTML();
     updateInProgressHTML();
@@ -31,6 +37,14 @@ function updateBoardHTML() {
 }
 
 
+/**
+ * Updates the HTML view of tasks in the 'Todo' category.
+ * This function filters tasks in the 'Todo' category, generates HTML elements
+ * for each task, and updates the presentation in the DOM accordingly.
+ *
+ * @function
+ * @returns {void}
+ */
 function updateTodoHTML() {
     let todo = task.filter(t => t['category'] == 'Todo');
 
@@ -47,6 +61,14 @@ function updateTodoHTML() {
 }
 
 
+/**
+ * Updates the HTML view of tasks in the 'In progress' category.
+ * This function filters tasks in the 'In progress' category, generates HTML elements
+ * for each task, and updates the presentation in the DOM accordingly.
+ *
+ * @function
+ * @returns {void}
+ */
 function updateInProgressHTML() {
     let inProgress = task.filter(t => t['category'] == 'In progress');
 
@@ -63,6 +85,14 @@ function updateInProgressHTML() {
 }
 
 
+/**
+ * Updates the HTML view of tasks in the 'Await feedback' category.
+ * This function filters tasks in the 'Await feedback' category, generates HTML elements
+ * for each task, and updates the presentation in the DOM accordingly.
+ *
+ * @function
+ * @returns {void}
+ */
 function updateAwaitFeedbackHTML() {
     let awaitFeedback = task.filter(t => t['category'] == 'Await feedback');
 
@@ -78,6 +108,15 @@ function updateAwaitFeedbackHTML() {
     }
 }
 
+
+/**
+ * Updates the HTML view of tasks in the 'Done' category.
+ * This function filters tasks in the 'Done' category, generates HTML elements
+ * for each task, and updates the presentation in the DOM accordingly.
+ *
+ * @function
+ * @returns {void}
+ */
 function updateDoneHTML() {
     let done = task.filter(t => t['category'] == 'Done');
 
@@ -93,22 +132,58 @@ function updateDoneHTML() {
     }
 }
 
+
+/**
+ * Renders HTML to display a message when there are no tasks to do.
+ *
+ * @function
+ * @returns {string} The HTML code for displaying the message.
+ */
 function renderNoTaskToDo() {
     return `<div class="noToDo">No tasks To Do</div>`;
 }
 
+
+/**
+ * Renders HTML to display a message when there are no tasks in progress.
+ *
+ * @function
+ * @returns {string} The HTML code for displaying the message.
+ */
 function renderNoInProgress() {
     return `<div class="noToDo">No tasks In progress</div>`;
 }
 
+
+/**
+ * Renders HTML to display a message when there are no tasks awaiting feedback.
+ *
+ * @function
+ * @returns {string} The HTML code for displaying the message.
+ */
 function renderNoAwaitFeedback() {
     return `<div class="noToDo">No tasks Await feedback</div>`;
 }
 
+
+/**
+ * Renders HTML to display a message when there are no tasks marked as done.
+ *
+ * @function
+ * @returns {string} The HTML code for displaying the message.
+ */
 function renderNoDone() {
     return `<div class="noToDo">No tasks Done</div>`;
 }
 
+
+/**
+ * Generates HTML code for displaying a task card based on the provided task element.
+ *
+ * @function
+ * @param {Object} element - The task element containing information about the task.
+ * @returns {string} The HTML code for the task card.
+ */
 function generateHTML(element) {
     return `
         <div draggable="true" ondragstart="startDragging(${element['id']})" class="task-card">
@@ -136,23 +211,61 @@ function generateHTML(element) {
 }
 
 
-
+/**
+ * Adds a CSS class to highlight a DOM element with the specified ID.
+ *
+ * @function
+ * @param {string} id - The ID of the DOM element to highlight.
+ * @returns {void}
+ */
 function highlight(id) {
     document.getElementById(id).classList.add('drag-area-highlight');
 }
 
+
+/**
+ * Removes a CSS class to remove the highlight from a DOM element with the specified ID.
+ *
+ * @function
+ * @param {string} id - The ID of the DOM element to remove the highlight from.
+ * @returns {void}
+ */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
 
+
+/**
+ * Sets the currently dragged element to the specified ID.
+ *
+ * @function
+ * @param {string} id - The ID of the element being dragged.
+ * @returns {void}
+ */
 function startDragging(id) {
     currentDraggedElement = id;
 }
 
+
+/**
+ * Prevents the default behavior of a drop event to allow dropping content.
+ *
+ * @function
+ * @param {Event} ev - The drop event object.
+ * @returns {void}
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+
+/**
+ * Moves a task to a different category based on the specified event and category data.
+ *
+ * @function
+ * @param {Event} ev - The event object triggering the move.
+ * @returns {void}
+ */
 function moveTo(ev) {
     ev.preventDefault();
 
@@ -163,7 +276,6 @@ function moveTo(ev) {
         updateBoardHTML();
     }
 }
-
 
 
 document.getElementById('search-input').addEventListener('keydown', function(event) {
@@ -177,7 +289,12 @@ document.getElementById('search').addEventListener('click', function() {
 });
 
 
-
+/**
+ * Filters and updates the 'Todo' category based on a search query.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterToDo() {
     let searchInput = document.getElementById('search-input').value;
     searchInput = searchInput.toLowerCase();
@@ -186,75 +303,166 @@ function filterToDo() {
 
     let todo = task.filter(t => t['category'] == 'Todo');
 
-        if (todo.length > 0){
-            for (let i = 0; i < todo.length; i++) {
-                let element = todo[i];
-                if (element['text'].toLowerCase().includes(searchInput)) {
-                    list.innerHTML += generateHTML(element);
-                } else {
-                    list.innerHTML += renderNoTaskToDo();
-                }
-            }
-        }
+    renderSearchListToDo(todo, list, searchInput);
 } 
 
+
+/**
+ * Renders a filtered list of 'Todo' category tasks based on a search query.
+ *
+ * @function
+ * @param {Array} todo - An array of tasks in the 'Todo' category.
+ * @param {HTMLElement} list - The HTML list element where the filtered tasks will be displayed.
+ * @param {string} searchInput - The search query to filter tasks.
+ * @returns {void}
+ */
+function renderSearchListToDo(todo, list, searchInput) {
+    searchElementsFound = false;
+
+    if (todo.length > 0){
+        for (let i = 0; i < todo.length; i++) {
+            let element = todo[i];
+            if (element['text'].toLowerCase().includes(searchInput)) {
+                list.innerHTML += generateHTML(element);
+                searchElementsFound = true;
+            }
+        }
+    }
+    if (!searchElementsFound) {
+        list.innerHTML = renderNoTaskToDo();
+    }
+}
+
+
+/**
+ * Filters and updates the 'In Progress' category based on a search query.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterInProgress() {
     let searchInput = document.getElementById('search-input').value;
     searchInput = searchInput.toLowerCase();
     let list = document.getElementById('inProgress');
     list.innerHTML = '';
 
-    let todo = task.filter(t => t['category'] == 'In progress');
-
-        if (todo.length > 0){
-            for (let i = 0; i < todo.length; i++) {
-                let element = todo[i];
-                if (element['text'].toLowerCase().includes(searchInput)) {
-                    list.innerHTML += generateHTML(element);
-                } else {
-                    list.innerHTML += renderNoTaskToDo();
-                }
-            }
-        }
+    let progress = task.filter(t => t['category'] == 'In progress')
+ 
+    renderSearchListInProgress(progress, list, searchInput)
 } 
 
+
+/**
+ * Renders a filtered list of 'In Progress' category tasks based on a search query.
+ *
+ * @function
+ * @param {Array} progress - An array of tasks in the 'In Progress' category.
+ * @param {HTMLElement} list - The HTML list element where the filtered tasks will be displayed.
+ * @param {string} searchInput - The search query to filter tasks.
+ * @returns {void}
+ */
+function renderSearchListInProgress(progress, list, searchInput) {
+    searchElementsFound = false;
+
+    if (progress.length > 0){
+        for (let i = 0; i < progress.length; i++) {
+            let element = progress[i];
+            if (element['text'].toLowerCase().includes(searchInput)) {
+                list.innerHTML += generateHTML(element);
+                searchElementsFound = true;
+            }
+        }
+    }
+    if (!searchElementsFound) {
+        list.innerHTML = renderNoInProgress();
+    }
+}
+
+
+/**
+ * Filters and updates the 'Await Feedback' category based on a search query.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterAwaitFeedback() {
     let searchInput = document.getElementById('search-input').value;
     searchInput = searchInput.toLowerCase();
     let list = document.getElementById('awaitFeedback');
     list.innerHTML = '';
 
-    let todo = task.filter(t => t['category'] == 'Await feedback');
+    let feedback = task.filter(t => t['category'] == 'Await feedback');
+    renderSearchListAwaitFeedback(feedback, list, searchInput);
 
-        if (todo.length > 0){
-            for (let i = 0; i < todo.length; i++) {
-                let element = todo[i];
-                if (element['text'].toLowerCase().includes(searchInput)) {
-                    list.innerHTML += generateHTML(element);
-                } else {
-                    list.innerHTML += renderNoTaskToDo();
-                }
-            }
-        }
 } 
 
 
+/**
+ * Renders a filtered list of 'Await Feedback' category tasks based on a search query.
+ *
+ * @function
+ * @param {Array} feedback - An array of tasks in the 'Await Feedback' category.
+ * @param {HTMLElement} list - The HTML list element where the filtered tasks will be displayed.
+ * @param {string} searchInput - The search query to filter tasks.
+ * @returns {void}
+ */
+function renderSearchListAwaitFeedback(feedback, list, searchInput) {
+    searchElementsFound = false;
+
+    if (feedback.length > 0){
+        for (let i = 0; i < feedback.length; i++) {
+            let element = feedback[i];
+            if (element['text'].toLowerCase().includes(searchInput)) {
+                list.innerHTML += generateHTML(element);
+                searchElementsFound = true;
+            }        
+        }
+    } 
+    if (!searchElementsFound) {
+        list.innerHTML = renderNoAwaitFeedback();
+    }
+}
+
+
+/**
+ * Filters and updates the 'Done' category based on a search query.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterDone() {
     let searchInput = document.getElementById('search-input').value;
     searchInput = searchInput.toLowerCase();
     let list = document.getElementById('done');
     list.innerHTML = '';
 
-    let todo = task.filter(t => t['category'] == 'Done');
+    let done = task.filter(t => t['category'] == 'Done');
+    renderSearchListDone(done, list, searchInput);
+} 
 
-        if (todo.length > 0){
-            for (let i = 0; i < todo.length; i++) {
-                let element = todo[i];
+
+/**
+ * Renders a filtered list of 'Done' category tasks based on a search query.
+ *
+ * @function
+ * @param {Array} done - An array of tasks in the 'Done' category.
+ * @param {HTMLElement} list - The HTML list element where the filtered tasks will be displayed.
+ * @param {string} searchInput - The search query to filter tasks.
+ * @returns {void}
+ */
+function renderSearchListDone(done, list, searchInput) {
+    searchElementsFound = false;
+
+        if (done.length > 0){
+            for (let i = 0; i < done.length; i++) {
+                let element = done[i];
                 if (element['text'].toLowerCase().includes(searchInput)) {
                     list.innerHTML += generateHTML(element);
-                } else {
-                    list.innerHTML += renderNoTaskToDo();
+                    searchElementsFound = true;
                 }
             }
         }
-} 
+        if (!searchElementsFound) {
+            list.innerHTML = renderNoDone();
+        }
+}
