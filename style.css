@@ -30,14 +30,14 @@ h3 {
 
 .circle {
     width: 42px;
-    height: 42px;
+    min-width: 42px;
     border-radius: 50%;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    /* Makes the element a circle */
+    aspect-ratio: 1 / 1
 }
 
 .circle-text {

@@ -1,6 +1,3 @@
-
-<script src="./js/contacts.js"></script>
-<link rel="stylesheet" href="css/contact.css">
 <div class="add-contact-overlay">
 
 </div>
@@ -12,20 +9,24 @@
                 <img src="../assets/image/join-logo-white.svg">
                 <h1 id='contactTemplateTitle'></h1>
                 <h4>Tasks are better with a team!</h4>
+                <div class="add-contact-blue-line"></div>
             </div>
         </div>
         <div id="contactCredentials">
             <img src="../assets/icons/empty-user-avatar.png">
         </div>
-        <form class="add-contact-card-form" onsubmit="return false;">
-            <div><input type="text" id="contactNameInput" placeholder="Name" required><img src="../assets/icons/person-icon.svg">
+        <form class="add-contact-card-form" id="changeContact">
+            <div><input type="text" id="contactNameInput" placeholder="Name" required><img
+                    src="../assets/icons/person-icon.svg">
             </div>
-            <div><input type="email" id="contactMailInput" placeholder="Email" required><img src="../assets/icons/mail-icon.svg">
+            <div><input type="email" id="contactMailInput" placeholder="Email" required><img
+                    src="../assets/icons/mail-icon.svg">
             </div>
-            <div><input type="tel" id="contactPhoneInput" placeholder="Phone" required><img src="../assets/icons/call-icon.svg">
+            <div><input type="tel" id="contactPhoneInput" placeholder="Phone" required><img
+                    src="../assets/icons/call-icon.svg">
             </div>
             <div id="addContactFormActions">
-                
+
             </div>
         </form>
         <img id='closeAddContactCardIcon' onclick="removeElementsByPartialClassName('add-contact')"
@@ -33,4 +34,7 @@
 
     </div>
 </div>
+
+<div class="contact-change-notification-container" id="changeContactNotification">
+
 </div>

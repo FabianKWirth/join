@@ -1,5 +1,5 @@
 let selectedContact = null;
-let selectedContactListElement= null;
+let selectedContactListElement = null;
 
 async function includeContactHTML(type) {
     let includeElements = document.querySelectorAll('[include-html]');
@@ -18,12 +18,10 @@ async function includeContactHTML(type) {
     removeScrollFromBody();
 
     if (type == 'addContact') {
-
-
         buttonsToSet =
             [
                 {
-                    "class": "alternative-button",
+                    "class": "alternative-button clear-button",
                     "function": "removeElementsByPartialClassName(\"add-contact\")",
                     "innerHtml": "Clear"
                 },
@@ -39,8 +37,6 @@ async function includeContactHTML(type) {
         {
             "contactTemplateTitle": "Add contact"
         };
-
-
     }
 
 
@@ -132,6 +128,7 @@ function setContactFormButtons(buttonsToSet) {
     };
 }
 
+
 function removeScrollFromBody() {
     let elements = document.getElementsByTagName("body");
     Array.from(elements).forEach(element => {
@@ -162,40 +159,134 @@ function removeElementsByPartialClassName(partialClassName) {
     });
 }
 
+function renderContactCreatedElement() {
+    renderNotificationLayout();
+    setNotificationValue("Created");
+    setTimeout(function () {
+        document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
+        document.getElementById("contactChangeNotificationContainer").remove();
+    }, 2000);
+    
+}
 
-function createContact() {
-    let contactName = document.getElementById("contactNameInput").value;
-    let contactMail = document.getElementById("contactMailInput").value;
-    let contactPhone = document.getElementById("contactPhoneInput").value;
-    let color = getNewContactColor();
-    updateContactsArray(contactName, contactMail, contactPhone, color);
-    let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
+function renderContactSavedElement() {
+    renderNotificationLayout();
+    setNotificationValue("Changed");
+    setTimeout(function () {
+        document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
+        document.getElementById("contactChangeNotificationContainer").remove();
+    }, 2000);
+}
 
-    setItem("contacts", contacts);
-    renderContacts();
-    removeElementsByPartialClassName("add-contact");
+function renderContactDeleteElement() {
+    renderNotificationLayout();
+    setNotificationValue("Delete");
+    setTimeout(function () {
+        document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
+        document.getElementById("contactChangeNotificationContainer").remove();
+    }, 2000);
+}
+
+function setNotificationValue(input) {
+    switch(input){
+        case 'Created':
+            document.getElementById("changeContactNotificationText").innerHTML="Contact successfully created";
+            break;
+        case 'Changed':
+            document.getElementById("changeContactNotificationText").innerHTML="Contact changes saved";
+            break;
+        case 'Delete':
+            document.getElementById("changeContactNotificationText").innerHTML="Contact deleted";
+            break;
+        default:
+            document.getElementById("changeContactNotificationText").innerHTML="Error adapting contact";
+    }
+}
+
+function renderNotificationLayout() {
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML +=/*html*/`
+    <div class="contact-change-notification-container shift-in" id="contactChangeNotificationContainer">
+        <div class="contact-change-notification"><p id='changeContactNotificationText'></p></div>
+    </div>`;
+    document.getElementById("selectedContactContainer").appendChild(newDiv);
+}
+
+async function createContact() {
+    if (document.getElementById("changeContact").reportValidity()) {
+        let contactName = document.getElementById("contactNameInput").value;
+        let contactMail = document.getElementById("contactMailInput").value;
+        let contactPhone = document.getElementById("contactPhoneInput").value;
+        let color = getNewContactColor();
+
+
+        
+        removeElementsByPartialClassName("add-contact");
+        renderContactCreatedElement();
+        await updateContactsArray(contactName, contactMail, contactPhone, color);
+       
+        renderContacts();
+        selectedContact=findContactIndex(contactMail, contactName, contactPhone);
+        if(selectedContact==-1){
+            selectedContact=null;
+        }else{
+            renderSelectedContactBody();
+            setCurrentShownMobileClass();
+        }
+    }
+    
 }
 
 function saveContact() {
-    let contactName = document.getElementById("contactNameInput").value;
-    let contactMail = document.getElementById("contactMailInput").value;
-    let contactPhone = document.getElementById("contactPhoneInput").value;
-    let color = contacts[selectedContact]["color"];
+    if (document.getElementById("changeContact").reportValidity()) {
+        let contactName = document.getElementById("contactNameInput").value;
+        let contactMail = document.getElementById("contactMailInput").value;
+        let contactPhone = document.getElementById("contactPhoneInput").value;
+        let color = contacts[selectedContact]["color"];
 
-    let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
-    contacts[selectedContact] = contact;
+        let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
+        contacts[selectedContact] = contact;
 
-    setItem("contacts", contacts);
-    renderContacts();
-    removeElementsByPartialClassName("add-contact");
-    renderSelectedContactBody();
+        
+        renderContacts();
+        removeElementsByPartialClassName("add-contact");
+
+
+       
+        renderSelectedContactBody();
+        renderContactSavedElement();
+
+        setItem("contacts", contacts);
+    }
+    
 }
+
+/**
+ * Find the index of a contact in the global `contacts` array based on email, name, and phone number.
+ *
+ * @param {string} email - The email address to search for.
+ * @param {string} name - The name to search for.
+ * @param {string} phoneNumber - The phone number to search for.
+ * @returns {number} - The index of the matching contact, or -1 if not found.
+ */
+function findContactIndex(email, name, phoneNumber) {
+    for (let i = 0; i < contacts.length; i++) {
+      const contact = contacts[i];
+      if (contact.mail === email && contact.name === name && contact.phone === phoneNumber) {
+        return i; // Return the index when all criteria match
+      }
+    }
+    return -1; // Return -1 if no match is found
+  }
 
 function updateContactsArray(contactName, contactMail, contactPhone, color) {
     if (contactName != "" & contactMail != "" & contactPhone != "") {
         let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
         contacts.push(contact);
     }
+
+    contacts=sortByUserName(contacts)
+    setItem("contacts", contacts);
 }
 
 
@@ -213,12 +304,12 @@ function updateContactsArray(contactName, contactMail, contactPhone, color) {
 async function initContacts() {
     await init();
     renderContacts();
+    setCurrentShownMobileClass();
 
 }
 
 
 function renderContacts() {
-    contacts = sortByUserName(contacts);
     let currentLetter = "";
 
     let list = document.getElementById("contactList");
@@ -280,9 +371,6 @@ function renderSelectedContactBody() {
             <p>${contactPhone}</p>
         </div>
     </div> `;
-
-
-
 }
 
 function emptySelectedContactBody() {
@@ -292,6 +380,7 @@ function emptySelectedContactBody() {
 
 function selectContact(contactIndex) {
     selectedContact = contactIndex;
+    setCurrentShownMobileClass();
     renderSelectedContactBody();
 }
 
@@ -301,11 +390,11 @@ function deleteContact(contactIndex) {
     renderContacts();
     emptySelectedContactBody();
     removeElementsByPartialClassName("add-contact");
+    renderContactDeleteElement();
 }
 
 
-function markUserElementAsSelected(element) {
-
+function unmarkAllUserElements(){
     selectedElements = document.getElementsByClassName("selected");
     if (selectedElements.length > 0) {
         for (let index = 0; index < selectedElements.length; index++) {
@@ -313,8 +402,13 @@ function markUserElementAsSelected(element) {
             selectedElement.classList.remove("selected");
         }
     }
+}
+
+function markUserElementAsSelected(element) {
+
+    unmarkAllUserElements();
     element.classList.add("selected");
-    selectedContactListElement=element;
+    selectedContactListElement = element;
 }
 
 
@@ -334,16 +428,17 @@ function renderLetterHeader(list, currentLetter) {
 }
 
 function renderContactListItem(list, contactIndex) {
+    contacts=sortByUserName(contacts);
     let contact = contacts[contactIndex];
     contactName = contact["name"];
     contactMail = contact["mail"]
     let userIcon = getContactIconHtml(contact);
     list.innerHTML +=/*html*/`
-    <div class="user-element" onclick='selectContact("${contactIndex}");markUserElementAsSelected(this)'>
+    <div class="contact-element" onclick='selectContact("${contactIndex}");markUserElementAsSelected(this)'>
         ${userIcon}
         <div>
         <p>${contactName}</p>
-        <p class='contact-list-mail-text'>${contactMail}</a>
+        <div class='contact-list-mail-text'>${contactMail}</div>
         </div>
     </div>
     `
@@ -369,4 +464,22 @@ function sortByUserName(contacts) {
         }
         return 0;
     });
+}
+
+
+
+function setCurrentShownMobileClass(){
+    if(selectedContact==null){
+        document.getElementById("selectedContactContainer").classList.add('contact-hide-on-mobile');
+        document.getElementById("contactListSection").classList.remove('contact-hide-on-mobile');
+    }else{
+        document.getElementById("selectedContactContainer").classList.remove('contact-hide-on-mobile');
+        document.getElementById("contactListSection").classList.add('contact-hide-on-mobile');
+    }
+}
+
+function unsetSelectedContact(){
+    selectedContact=null;
+    unmarkAllUserElements();
+    setCurrentShownMobileClass();
 }
