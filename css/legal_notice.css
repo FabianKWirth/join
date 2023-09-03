@@ -63,6 +63,15 @@ a {
     display: none !important;
 }
 
+.steps-cont {
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+.help-end{
+margin-bottom: 34px;
+}
+
 @media(max-width: 1000px) {
 
     p {
@@ -112,5 +121,9 @@ a {
 
     .break {
         margin-top: 40px;
+    }
+
+    .steps-cont {
+        font-size: 16px;
     }
 }
