@@ -179,6 +179,12 @@ function ShowMenu() {
     document.getElementById('header-menu').classList.toggle('dNone');
 }
 
+function ShowMenuResponsive() {
+    let menu = document.getElementById('header-menu-responsive');
+    menu.classList.toggle('hidden');
+    menu.classList.toggle('visible');
+}
+
 function openSummary() {
     window.location.href = `./summary.html?name=${username}`;
 }
@@ -210,4 +216,9 @@ function stopClickEvenPropagnationForElementById(elementId) {
             event.stopPropagation();
         });
     }
+}
+
+
+function animateSubMenu() {
+
 }
