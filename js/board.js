@@ -3,19 +3,23 @@ let currentDraggedElement;
 let task = [{
     'id': 0,
     'title': 'Putzen',
-    'category': 'In progress'
+    'category': 'Todo',
+    'text': 'Kochwelt Page & Recipe Recommender'
   }, {
     'id': 1,
     'title': 'Kochen',
-    'category': 'In progress'
+    'category': 'In progress',
+    'text': 'HTML Base Template Creation'
   }, {
     'id': 2,
     'title': 'Einkaufen',
-    'category': 'Await feedback'
+    'category': 'Await feedback',
+    'text': 'CSS Architecture Planning'
   }, {
     'id': 3,
     'title': 'Staubsaugen',
-    'category': 'Done'
+    'category': 'Done',
+    'text': 'Daily Kochwelt Recipe'
   }];
 
 
@@ -110,7 +114,7 @@ function generateHTML(element) {
         <div draggable="true" ondragstart="startDragging(${element['id']})" class="task-card">
             <div class="card-category">User Story</div> 
             <div>
-                <h4>Kochwelt Page & Recipe Recommender</h4>
+                <h4>${element['text']}</h4>
                 <div class="card-description">Build start page with recipe recommendation...</div>
             </div>
             <div class="progress-bar-section">
@@ -159,3 +163,98 @@ function moveTo(ev) {
         updateBoardHTML();
     }
 }
+
+
+
+document.getElementById('search-input').addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
+    }
+});
+
+document.getElementById('search').addEventListener('click', function() {
+    filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
+});
+
+
+
+function filterToDo() {
+    let searchInput = document.getElementById('search-input').value;
+    searchInput = searchInput.toLowerCase();
+    let list = document.getElementById('todo');
+    list.innerHTML = '';
+
+    let todo = task.filter(t => t['category'] == 'Todo');
+
+        if (todo.length > 0){
+            for (let i = 0; i < todo.length; i++) {
+                let element = todo[i];
+                if (element['text'].toLowerCase().includes(searchInput)) {
+                    list.innerHTML += generateHTML(element);
+                } else {
+                    list.innerHTML += renderNoTaskToDo();
+                }
+            }
+        }
+} 
+
+function filterInProgress() {
+    let searchInput = document.getElementById('search-input').value;
+    searchInput = searchInput.toLowerCase();
+    let list = document.getElementById('inProgress');
+    list.innerHTML = '';
+
+    let todo = task.filter(t => t['category'] == 'In progress');
+
+        if (todo.length > 0){
+            for (let i = 0; i < todo.length; i++) {
+                let element = todo[i];
+                if (element['text'].toLowerCase().includes(searchInput)) {
+                    list.innerHTML += generateHTML(element);
+                } else {
+                    list.innerHTML += renderNoTaskToDo();
+                }
+            }
+        }
+} 
+
+function filterAwaitFeedback() {
+    let searchInput = document.getElementById('search-input').value;
+    searchInput = searchInput.toLowerCase();
+    let list = document.getElementById('awaitFeedback');
+    list.innerHTML = '';
+
+    let todo = task.filter(t => t['category'] == 'Await feedback');
+
+        if (todo.length > 0){
+            for (let i = 0; i < todo.length; i++) {
+                let element = todo[i];
+                if (element['text'].toLowerCase().includes(searchInput)) {
+                    list.innerHTML += generateHTML(element);
+                } else {
+                    list.innerHTML += renderNoTaskToDo();
+                }
+            }
+        }
+} 
+
+
+function filterDone() {
+    let searchInput = document.getElementById('search-input').value;
+    searchInput = searchInput.toLowerCase();
+    let list = document.getElementById('done');
+    list.innerHTML = '';
+
+    let todo = task.filter(t => t['category'] == 'Done');
+
+        if (todo.length > 0){
+            for (let i = 0; i < todo.length; i++) {
+                let element = todo[i];
+                if (element['text'].toLowerCase().includes(searchInput)) {
+                    list.innerHTML += generateHTML(element);
+                } else {
+                    list.innerHTML += renderNoTaskToDo();
+                }
+            }
+        }
+} 

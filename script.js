@@ -26,6 +26,7 @@ let contactIconColors = [
   "#FFBB2B",
 ];
 
+
 /*
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
@@ -213,10 +214,6 @@ function stopClickEvenPropagnationForElementById(elementId) {
     }
 }
 
-
-function animateSubMenu() {
-
-}
 
 /**
  * If the user is on the legal_notice.html page, the Icons get display: none.

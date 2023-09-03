@@ -15,7 +15,7 @@
     <script src="script.js"></script>
     <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
-    <script src="./js/board.js"></script>
+    <!-- <script src="./js/board.js"></script> -->
 </head>
 
 <body onload="includeHTML(2); updateBoardHTML()">
@@ -33,9 +33,9 @@
             </div>
             <div class="head-section-right">
                 <div class="input-section">
-                    <input type="text" placeholder="Find Task">
+                    <input id="search-input" type="text" placeholder="Find Task">
                     <img class="input-line" src="assets/image/board/input-line.svg" alt="Line">
-                    <img class="input-search" src="assets/image/board/search.svg" alt="Search Icon">
+                    <img id="search" class="input-search" src="assets/image/board/search.svg" alt="Search Icon">
                 </div>
 
                 <button class="add-task" href="#">
@@ -80,5 +80,6 @@
         </div>
     </div>
     
+    <script src="./js/board.js"></script>
 </body>
 </html>
