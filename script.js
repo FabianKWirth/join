@@ -181,12 +181,17 @@ function setUserHeaderInitials() {
  */
 function ShowMenu() {
   document.getElementById("header-menu").classList.toggle("dNone");
+  document.getElementById("overlay").classList.remove("dNone");
 }
 
 function ShowMenuResponsive() {
   let menu = document.getElementById('header-menu-responsive');
   menu.classList.toggle('hidden');
   menu.classList.toggle('visible');
+}
+
+function closeMenu() {
+  document.getElementById("header-menu").classList.add("dNone");
 }
 
 function openSummary() {
