@@ -1,7 +1,18 @@
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
+const today = new Date();
+
+
 function greetUser() {
     greetingTime();
     greetingUser()
+    todaysDate()
+    
 }
+
 
 
 function greetingTime() {
@@ -57,4 +68,16 @@ function hoverOffLeftButton() {
     let check = document.getElementById('button-left-hover2');
     circle.src = 'assets/image/Summary/blue-button-summary.svg';
     check.src = 'assets/image/Summary/pencil-1.svg';
+}
+
+function formatDate(date) {
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${monthNames[monthIndex]} ${day}, ${year}`;
+}
+
+function todaysDate() {
+    document.getElementById("upcoming-deadline").textContent = formatDate(today);
 }
