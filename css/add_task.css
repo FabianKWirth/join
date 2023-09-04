@@ -101,13 +101,13 @@
     flex-direction: column;
     justify-content: flex-start;
     border: 1px solid #D1D1D1;
+    border-radius: 10px;
 
 }
 
 .dropdown-field {
     z-index: 200;
     height: 50px;
-    font-size: 20px;
     width: calc(100% + 42px);
     background-color: rgba(255, 255, 255, 0);
     display: flex;
@@ -129,7 +129,6 @@
 .dropdown-field-icon {
     width: 48px;
     height: 48px;
-    font-size: 20px;
     position: absolute;
     right: 0px;
 }
@@ -143,7 +142,6 @@
 }
 
 #assignedContactList {
-    width: 440px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -159,12 +157,8 @@
     align-items: center;
     flex-direction: column;
     background-color: white;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     z-index: 100;
-}
-
-.first-contact-option {
     padding-top: 20px;
 }
 
@@ -291,6 +285,10 @@
     margin: 8px 16px;
 }
 
+.prio-radio-option{
+    display: none;
+}
+
 .priority-button {
     display: flex;
     align-items: center;
@@ -305,7 +303,6 @@
     background-color: white;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    
 }
 
 .priority-button:hover {

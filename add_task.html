@@ -17,134 +17,20 @@
 
 </head>
 
-<body onload="includeHTML(1);initAddTasks();">
+<body onload="includeHTML(1);includeTasksHtml();">
     
     <div include-html="./assets/templates/add_contact.html"></div>
+    <div include-tasks-html="./assets/templates/add_task_template.html"></div>
     <div w3-include-html="./assets/templates/header.html"></div>
     <div w3-include-html="assets/templates/header_responsive.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
     <div class="sidebar-responsive" w3-include-html="assets/templates/sidebar-responsive.html"></div>
+    
 
-    <form onsubmit="return false;" id="addTaskContainer">
-        <div class="add-task" onchange="saveCurrentEntriesToTask()">
-            <h1>Add Task</h1>
-            <div class="task-input-container">
-                <div class="task-input-col">
-                    <div class="task-title">
-                        <label for="newTaskTitle">Title</label>
-                        <input type="text" id="newTaskTitle" placeholder="Enter a title" required>
-                    </div>
-
-                    <div class="task-description">
-                        <label for="newTaskDescription">Description</label>
-                        <textarea id="newTaskDescription" placeholder="Enter a Description" required></textarea>
-                    </div>
-
-                    <div class="task-assigned-contacts">
-                        <label for="newTaskAssignedContact">Assigned to</label>
-                        <div id="newTaskAssignedContact">
-                            <div class="dropdown-field"><!-- onclick="changeAvailableContactsVisibility() -->
-                                <input type="text" id="dropDownContactsTextFieldInput" 
-                                    class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign">
-                                <!-- onchange="showAvailableContacts()" -->
-                                <img id='assignContactsDropDownIcon' class='dropdown-field-icon'
-                                    src="./assets/icons/arrow-drop.svg">
-                            </div>
-                            <div class="dropdown-content" id="assignedContactsdropDownContent">
-                                <div id="selectAssignedContactList" class="contact-list">
-
-                                </div>
-                                <div class='dropdown-button-container'>
-                                    <button type="button" class="default-button dropdown-button"
-                                        onclick="includeContactHTML('addContact')">Add new contact
-                                        <img src='./assets/icons/person-add.svg'>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div id='assignedContactList'></div>
-                    </div>
-
-                </div>
-
-                <div class="task-input-col task-input-not-first-col">
-
-                    <div class="task-date">
-                        <label for="newTaskDate">Due Date</label>
-                        <input type="date" id="newTaskDate" placeholder="dd/mm/yy" pattern="\d{4}-\d{2}-\d{2}">
-                    </div>
-
-                    <div class="task-priority">
-                        <label for="newTaskPriority">Prio</label>
-                        <div id='newTaskPriority'>
-                            <button id='urgentButton' type="button" class="priority-button" value="urgent"
-                                onclick="setPrioButtonSelected('urgent')">Urgent<img id='urgentIcon' class='prio-icon'
-                                    src="./assets/icons/prio-urgent.svg"></button>
-                            <button id='mediumButton' type="button" class="priority-button" value="medium"
-                                onclick="setPrioButtonSelected('medium')">Medium<img id='mediumIcon' class='prio-icon'
-                                    src="./assets/icons/prio-medium.svg"></button>
-                            <button id='lowButton' type="button" class="priority-button" value="low"
-                                onclick="setPrioButtonSelected('low')">Low<img id='lowIcon' class='prio-icon'
-                                    src="./assets/icons/prio-low.svg"></button>
-                        </div>
-                    </div>
-
-                    <div class="task-category">
-                        <label for="taskCategory">Category</label>
-                        <input type='hidden' id='taskCategoryValue'>
-                        <div class="task-category-header toggle-dropdown" id="taskCategoryHeader"
-                            onclick="rotateIconBy180('taskCategoryDropDownIcon');">
-                            <p id="taskCategoryName">Select Task Category</p>
-                            <img id='taskCategoryDropDownIcon' class='dropdown-field-icon'
-                                src="./assets/icons/arrow-drop.svg">
-
-                            <div class="task-category-list" id="taskCategoryList">
-                                <div class="task-category-item" data-value="Technical Task">Technical Task</div>
-                                <div class="task-category-item" data-value="Contact Story">Contact Story</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-subtask">
-                        <label for="newTaskSubTask">Subtasks</label>
-                        <div class="subtask-field">
-                            <input type="text" class="subtask-input-field" id="subtaskField" placeholder="Add new Subtask">
-                            <input type='hidden' id='subtaskValues'>
-                            <img id='enterSubtaskCreation' class="animated-icon" src="./assets/icons/puls-icon.svg">
-                            <div id='approveSubtaskMenu' class="approve-subtask-menu hide">
-                                <img src="./assets/icons/x-icon.svg" id="declineEnteredTaskIcon" class="animated-icon"
-                                    onclick="resetSubTaskInput()">
-                                <div class="approve-subtask-menu-border"></div>
-                                <img src='./assets/icons/checkmark-icon.svg' id="approveEnteredTaskIcon"
-                                    class="animated-icon" onclick="createSubTask()">
-                            </div>
-                        </div>
-                        <div class="subtask-display">
-                            <input type='hidden' id="activeSubtasks">
-                            <div id="currentSelectedSubtasks">
-
-                            </div>
-                            <div id="editSubTaskField"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-options">
-                <button type='button' onclick="emptyAddTaskForm()" class="alternative-button">Clear</button>
-                <button type='button' id="createTask" onclick="submitTask()" class="default-button" disabled>
-                    Create Task</button>
-            </div>
-            
-
-
-        </div>
-    </form>
-
-    <script src="./script.js"></script>
-    <script src="./js/add_task.js"></script>
-    <script src="./js/contacts.js"></script>
-    <script src="./js/storage.js"></script>
-</body>
+</body>  
+<script src="./script.js"></script>
+<script src="./js/add_task.js"></script>
+<script src="./js/contacts.js"></script>
+<script src="./js/storage.js"></script>
 
 </html>

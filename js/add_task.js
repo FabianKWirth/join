@@ -3,14 +3,27 @@ let showAssignedContacts = false;
 let assignedContacts = [];
 let subTasks = [];
 
-let unfinishedTaskData = {"status":"toDo"};
+let unfinishedTaskData = { "status": "toDo" };
 
-let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate","taskCategoryValue"];
+let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate", "taskCategoryValue"];
 let indirectInputFieldIds = ["assignedContactList", "taskCategoryList", "subtaskField", "editSubTaskField"];
 
+async function includeTasksHtml() {
+    let includeElements = document.querySelectorAll('[include-tasks-html]');
+    for (let i = 0; i < includeElements.length; i++) {
+        const element = includeElements[i];
+        file = element.getAttribute("include-tasks-html"); // "includes/header.html"
+        let resp = await fetch(file);
+        if (resp.ok) {
+            element.innerHTML = await resp.text();
+        } else {
+            element.innerHTML = 'Page not found';
+        }
+    }
+    initAddTasks();
+}
 
-
-async function initAddTasks(){
+async function initAddTasks() {
     await getStorageData();
     renderTaskInput();
 }
@@ -28,6 +41,7 @@ function loadEventListeners() {
     setDropDownContactsTextFieldInputEventListener();
     preventContactListFromCollapsingOnclick();
     addFormDataChangesEventListener();
+    loadValidationEventListener();
 }
 
 function addSaveEvent(eventType, element) {
@@ -100,7 +114,6 @@ function addListenersToIndirectInputFields() {
 function saveCurrentEntriesToTask() {
     saveGlobalVariables();
     saveDirectInputFields();
-    checkIfFormSubmittable();
     console.log(unfinishedTaskData);
 }
 
@@ -136,55 +149,9 @@ function saveDirectInputFields() {
     }
 }
 
-/** 
- * Calls functions to see whether all required input field are set 
- * Calls function setCreateTaskStatus enable/disable the "Create Task" button;
- * 
- * @returns {boolean} true if form is submittable; false if not;
- * 
- * */
-function checkIfFormSubmittable() {
-    if (checkIfPrioIsSet() && checkIfdirectInputFieldIdsAreSet()) {
-        setCreateTaskStatus("Enabled");
-        return true;
-    } else {
-        setCreateTaskStatus("Disabled");
-        return false;
-    }
-}
 
-function checkIfPrioIsSet() {
-    let isSubmittable = true;
-    if (selectedTaskPriority != null) {
-        unfinishedTaskData["priority"] = selectedTaskPriority;
-    } else {
-        isSubmittable = false;
-    }
 
-    return isSubmittable;
-}
 
-/**
- * Checks if the values of the specific input fields of the global array directInputFieldIds, identified by their IDs,
- * are set (not empty).
- *
- * @returns {boolean} Returns true if all the identified input fields have non-empty values,
- *                    otherwise returns false.
- */
-function checkIfdirectInputFieldIdsAreSet() {
-
-    let isSubmittable = true;
-
-    for (let index = 0; index < directInputFieldIds.length; index++) {
-
-        const inputValue = document.getElementById(directInputFieldIds[index]).value;
-        if (inputValue === "") {
-            isSubmittable = false;
-        }
-    }
-
-    return isSubmittable;
-}
 
 function setDropDownContactsTextFieldInputEventListener() {
     let inputField = document.getElementById("dropDownContactsTextFieldInput");
@@ -194,8 +161,8 @@ function setDropDownContactsTextFieldInputEventListener() {
 }
 
 function setDropDownEventListeners() {
-    let eventSrcElementsId = ["dropDownContactsTextFieldInput", "assignContactsDropDownIcon", "taskCategoryName", "taskCategoryHeader","taskCategoryDropDownIcon"];
-    let eventTargets = ["assignedContactsdropDownContent", "assignedContactsdropDownContent", "taskCategoryList", "taskCategoryList","taskCategoryList"];
+    let eventSrcElementsId = ["dropDownContactsTextFieldInput", "assignContactsDropDownIcon", "taskCategoryName", "taskCategoryHeader", "taskCategoryDropDownIcon"];
+    let eventTargets = ["assignedContactsdropDownContent", "assignedContactsdropDownContent", "taskCategoryList", "taskCategoryList", "taskCategoryList"];
 
 
     document.addEventListener("click", function (event) {
@@ -265,6 +232,7 @@ function setCreateTaskStatus(status) {
     } else {
         document.getElementById("createTask").disabled = false;
     }
+    document.getElementById("createTask").disabled = false;
 }
 
 function renderTaskAddedElement() {
@@ -277,7 +245,7 @@ function renderTaskAddedElement() {
 function renderContactAssignmentDropDown() {
     const contactList = document.getElementById('selectAssignedContactList');
 
-    let additionalClass = 'first-contact-option';
+
     contactList.innerHTML = "";
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
@@ -286,14 +254,13 @@ function renderContactAssignmentDropDown() {
         let contactIcon = getContactIconHtml(contact);
 
         contactList.innerHTML +=/*html*/`
-        <div onclick='selectTaskContact(this)' id='assignableContact${i}' class='assign-contact-option ${additionalClass}'>
+        <div onclick='selectTaskContact(this)' id='assignableContact${i}' class='assign-contact-option'>
             <div class='contact-information'>
                 ${contactIcon}
                 ${contactName}
             </div>
             <img src="./assets/icons/checkbox-empty.svg" id="selectedContactCheckBox${i}" class="selected-contact-checkbox">
         </div>`;
-        additionalClass = "";
     }
 
     console.log("loaded");
@@ -337,24 +304,26 @@ function selectTaskContact(row) {
     document.getElementById("selectedContactCheckBox" + contactId).src = './assets/icons/checkbox-filled.svg';
     document.getElementById("selectedContactCheckBox" + contactId).classList.add("white-symbol");
     renderSelectedContactIcons();
-    unfinishedTaskData["assignedContacts"]=assignedContacts;
+    unfinishedTaskData["assignedContacts"] = assignedContacts;
 }
 
 function unselectTaskContact(row) {
     let contactId = row.getAttribute("id").replace("assignableContact", "");
+
     const indexToRemove = assignedContacts.indexOf(contactId);
     if (indexToRemove !== -1) {
         assignedContacts.splice(indexToRemove, 1);
     }
+
     row.onclick = () => selectTaskContact(row);
 
-    renderUnselectionOfContactFromTask(row,contactId);
+    renderUnselectionOfContactFromTask(row, contactId);
 
     renderSelectedContactIcons();
-    unfinishedTaskData["assignedContacts"]=assignedContacts;
+    unfinishedTaskData["assignedContacts"] = assignedContacts;
 }
 
-function renderUnselectionOfContactFromTask(row,contactId){
+function renderUnselectionOfContactFromTask(row, contactId) {
     row.classList.remove("selected-option");
     document.getElementById("selectedContactCheckBox" + contactId).src = './assets/icons/checkbox-empty.svg';
     document.getElementById("selectedContactCheckBox" + contactId).classList.remove("white-symbol");
@@ -407,34 +376,25 @@ function setTaskData() {
     }
 }
 
-/**
- * Sets the selected state of a button and updates the associated priority value.
- *
- * This function sets the selected state for a button among a group of buttons
- * based on the provided `currentButton`. The selected button's appearance is
- * updated to indicate its selection status, and the associated priority value
- * is updated accordingly.
- *
- * @param {HTMLButtonElement} currentButton - The button to be set as selected.
- */
+
 function setPrioButtonSelected(currentButtonValue) {
-    /**
-     * @type {HTMLCollectionOf<HTMLButtonElement>}
-     */
+
     let buttons = document.getElementById("newTaskPriority").getElementsByTagName("button");
     for (let i = 0; i < buttons.length; i++) {
-        /**
-         * @type {HTMLButtonElement}
-         */
         const button = buttons[i];
         if (button.value === currentButtonValue) {
             setPrioButtonSelectStatusById(button.value, true);
+            document.getElementById("priorityStatus").value = button.value;
         } else {
             setPrioButtonSelectStatusById(button.value, false);
         }
     }
 }
 
+
+/**
+* Adds special visual apperance to button of current selected type
+*/
 function setPrioButtonSelectStatusById(type, selectStatus = false) {
 
     if (selectStatus == true) {
@@ -465,10 +425,10 @@ function setPrioButtonSelectStatusById(type, selectStatus = false) {
 
 function createSubTask() {
     subTaskName = document.getElementById("subtaskField").value;
-    subtask=
+    subtask =
     {
-        "name":subTaskName,
-        "isComplete":0
+        "name": subTaskName,
+        "isComplete": 0
     }
     if (subTaskName != "") {
         subTasks.push(subtask);
@@ -589,16 +549,19 @@ function rotateIconBy180(elementName) {
 }
 
 async function submitTask() {
-    tasks.push(unfinishedTaskData);
-    renderTaskAddedElement();
-    await setItem("tasks", tasks);
-    setTimeout(function () {
-        window.location.href = "board.html"; // Replace with your desired URL
-    }, 2000);
+    console.log("Trying to Commit Task");
+    if (checkIfFormSubmittable()) {
+        tasks.push(unfinishedTaskData);
+        renderTaskAddedElement();
+        await setItem("tasks", tasks);
+        setTimeout(function () {
+            window.location.href = "board.html"; // Replace with your desired URL
+        }, 2000);
+    }
 }
 
 function emptyAddTaskForm() {
-   
+
     resertDirectInputFields();
     resetIndirectInputs();
 
@@ -607,16 +570,16 @@ function emptyAddTaskForm() {
 }
 
 
-function resertDirectInputFields(){
+function resertDirectInputFields() {
     directInputFieldIds.forEach(directInputFieldId => {
-        let field=document.getElementById(directInputFieldId);
-        if(field){
-            field.value="";
+        let field = document.getElementById(directInputFieldId);
+        if (field) {
+            field.value = "";
         }
     });
 }
 
-function resetIndirectInputs(){
+function resetIndirectInputs() {
     selectedTaskPriority = null //Priorities= urgent, medium, low
     subTasks = [];
     renderSubTasksList();
@@ -631,4 +594,164 @@ function resetIndirectInputs(){
 
     setElementHtml("taskCategoryName", "Select Task Category");
     setElementHtml("taskCategoryValue", "");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////VALIDATION
+
+/**
+ * Validates the new task title input.
+ */
+
+/** 
+ * Calls functions to see whether all required input field are set 
+ * Calls function setCreateTaskStatus enable/disable the "Create Task" button;
+ * 
+ * @returns {boolean} true if form is submittable; false if not;
+ * 
+ * */
+function checkIfFormSubmittable() {
+    console.log("VildateInputs");
+    if (
+        validateTaskTitle()
+        & validateTaskDescription()
+        & validateTaskDate()
+        & validateTaskCategory()
+        & validateTaskPriority()
+    ) {
+        setCreateTaskStatus("Enabled");
+        return true;
+    } else {
+        setCreateTaskStatus("Disabled");
+        return false;
+    }
+}
+
+function checkIfPrioIsSet() {
+    let isSubmittable = true;
+    if (selectedTaskPriority != null) {
+        unfinishedTaskData["priority"] = selectedTaskPriority;
+    } else {
+        isSubmittable = false;
+    }
+
+    return isSubmittable;
+}
+
+
+// Attach these validation functions to the input fields' input or change events
+function loadValidationEventListener() {
+    document.getElementById("newTaskTitle").addEventListener("input", validateTaskTitle);
+    document.getElementById("newTaskDescription").addEventListener("input", validateTaskDescription);
+    document.getElementById("newTaskDate").addEventListener("focusout", validateTaskDate);
+    document.getElementById("taskCategoryValue").addEventListener("change", validateTaskCategory);
+    document.getElementById("taskPriority").addEventListener("change", validateTaskPriority);
+}
+
+
+/**
+ * Validates the new task title input.
+ * @returns {number} 1 if valid, 0 if invalid
+ */
+function validateTaskTitle() {
+    /** @type {HTMLInputElement} */
+    const taskTitleInput = document.getElementById("newTaskTitle");
+    /** @type {string} */
+    const taskTitleValue = taskTitleInput.value.trim();
+
+    if (taskTitleValue === "") {
+        taskTitleInput.reportValidity("Please enter a task title.");
+    } else {
+        taskTitleInput.reportValidity("");
+    }
+}
+
+/**
+ * Validates the new task description input.
+ * @returns {number} 1 if valid, 0 if invalid
+ */
+function validateTaskDescription() {
+    /** @type {HTMLInputElement} */
+    const taskDescriptionInput = document.getElementById("newTaskDescription");
+    /** @type {string} */
+    const taskDescriptionValue = taskDescriptionInput.value.trim();
+
+    if (taskDescriptionValue === "") {
+        taskDescriptionInput.reportValidity("Please enter a task description.");
+        return 0;
+    } else {
+        taskDescriptionInput.reportValidity("");
+        return 1;
+    }
+}
+
+
+
+
+/**
+ * Validates the new task date input.
+ * @returns {number} 1 if valid, 0 if invalid
+ */
+function validateTaskDate() {
+    /** @type {HTMLInputElement} */
+    const taskDateInput = document.getElementById("newTaskDate");
+    /** @type {string} */
+    const taskDateValue = taskDateInput.value;
+
+    if (taskDateValue == "" || taskDateValue === "yyyy-mm-dd") {
+        taskDateInput.reportValidity("Please select a task date.");
+        console.log("taskDateInvalide");
+        return 0;
+    } else {
+        taskDateInput.reportValidity("");
+        console.log(taskDateValue);
+        console.log("taskDateValide");
+        return 1;
+    }
+}
+
+
+function validateTaskPriority() {
+    /** @type {HTMLSelectElement} */
+    const taskCategoryInput = document.getElementById("taskPriority");
+    /** @type {string} */
+    const taskCategoryValue = taskCategoryInput.value;
+
+    if(selectedTaskPriority == null){
+        document.getElementById("taskPriority").reportValidity("Category is not selected");
+    }
+}
+
+function validateTaskCategory() {
+    /** @type {HTMLSelectElement} */
+    const taskCategoryInput = document.getElementById("taskCategoryValue");
+    /** @type {string} */
+    const taskCategoryValue = taskCategoryInput.value;
+    if (taskCategoryValue == "") {
+        document.getElementById("taskCategoryHeader").reportValidity("Category is not selected");
+    }
 }
