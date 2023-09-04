@@ -88,12 +88,16 @@ function getNewContactColor() {
 }
 
 function getContactIconHtml(contact) {
+  if(contact){
   let userSignature = getContactInitials(contact);
-
+  console.log(contact);
   const iconHtml = `<div class="circle" style="background-color:${contact["color"]}">
         <span class='circle-text'>${userSignature}</span>
     </div>`;
   return iconHtml;
+  }else{
+    return "";
+  }
 }
 
 function getContactInitials(contact) {
@@ -180,9 +184,9 @@ function ShowMenu() {
 }
 
 function ShowMenuResponsive() {
-    let menu = document.getElementById('header-menu-responsive');
-    menu.classList.toggle('hidden');
-    menu.classList.toggle('visible');
+  let menu = document.getElementById('header-menu-responsive');
+  menu.classList.toggle('hidden');
+  menu.classList.toggle('visible');
 }
 
 function openSummary() {
@@ -206,12 +210,12 @@ function openHelp() {
 }
 
 function stopClickEvenPropagnationForElementById(elementId) {
-    let element = document.getElementById(elementId);
-    if (element != null) {
-        element.addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
-    }
+  let element = document.getElementById(elementId);
+  if (element != null) {
+    element.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
+  }
 }
 
 

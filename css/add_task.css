@@ -426,14 +426,11 @@
     justify-content: space-between;
 }
 
-
-
-
 .white-symbol {
     filter: brightness(0) invert(1);
 }
 
-.form-options {
+#formOptions {
     width: 100%;
     display: flex;
     justify-content: flex-end;
