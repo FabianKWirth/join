@@ -286,6 +286,21 @@ h4 {
     padding: 48px 40px;
 }
 
+.card-category-top-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-category-top-section img {
+    cursor: pointer;
+}
+
+.card-category-top-section:hover img {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+
 .card-category-overlay {
     padding: 4px 16px;
     background-color: #0038FF;
@@ -366,6 +381,11 @@ h4 {
     align-items: center;
     gap: 16px;
     padding: 6px 16px;
+}
+
+.subtask:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .subtasks-container {

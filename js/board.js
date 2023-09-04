@@ -471,9 +471,12 @@ function renderSearchListDone(done, list, searchInput) {
 function showTaskCard(id, title) {
     let showTaskCard = document.getElementById('showTaskCard');
     showTaskCard.innerHTML = `
-        <div class="overlayBoard">
+        <div id="overlayBoard" class="overlayBoard">
             <div class="task-card-overlay">
-                <div class="card-category-overlay">User Story</div> 
+                <div class="card-category-top-section">
+                    <div class="card-category-overlay">User Story</div> 
+                    <img onclick="closeBoardOverlay()" src="assets/icons/close.svg">
+                </div>
                 <div>
                     <h4 class="title-h4">${title}</h4>
                 </div>
@@ -514,11 +517,11 @@ function showTaskCard(id, title) {
                     </div>
                     <div class="subtasks-container">
                         <div class="subtask">
-                            <img src="assets/image/board/Check-button.svg">
+                            <img id="subtask1" onclick="subtaskChangeImg('subtask1')" src="assets/image/board/Check-button.svg">
                             <div>Implement Recipe Recommendation</div>
                         </div>
                         <div class="subtask">
-                            <img src="assets/image/board/Check-button-empty.svg">
+                            <img id="subtask2" onclick="subtaskChangeImg('subtask2')" src="assets/image/board/Check-button-empty.svg">
                             <div>Start Page Layout</div>
                         </div>
                     </div>
@@ -536,7 +539,20 @@ function showTaskCard(id, title) {
                 </div>
             </div>
         </div>
-
-    `
+    `;
 }
 
+function subtaskChangeImg(id) {
+    let subtaskField = document.getElementById(id);
+    let subtaskFieldSrc = subtaskField.src;
+
+    if (subtaskFieldSrc.indexOf('assets/image/board/Check-button.svg') !== -1) {
+        subtaskField.src = 'assets/image/board/Check-button-empty.svg';
+    } else {
+        subtaskField.src = 'assets/image/board/Check-button.svg';
+    }
+}
+
+function closeBoardOverlay() {
+    document.getElementById('overlayBoard').classList.add('dNone');
+}
