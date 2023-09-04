@@ -186,7 +186,7 @@ function renderNoDone() {
  */
 function generateHTML(element) {
     return `
-        <div draggable="true" ondragstart="startDragging(${element['id']})" class="task-card">
+        <div onclick="showTaskCard('${element['id']}', '${element['text']}')" draggable="true" ondragstart="startDragging(${element['id']})" class="task-card">
             <div class="card-category">User Story</div> 
             <div>
                 <h4>${element['text']}</h4>
@@ -466,3 +466,77 @@ function renderSearchListDone(done, list, searchInput) {
             list.innerHTML = renderNoDone();
         }
 }
+
+
+function showTaskCard(id, title) {
+    let showTaskCard = document.getElementById('showTaskCard');
+    showTaskCard.innerHTML = `
+        <div class="overlayBoard">
+            <div class="task-card-overlay">
+                <div class="card-category-overlay">User Story</div> 
+                <div>
+                    <h4 class="title-h4">${title}</h4>
+                </div>
+                <div class="card-description-overlay">Build start page with recipe recommendation...</div>
+                <div  class="card-description-overlay">
+                    <div>Due date:</div>
+                    <div>10/05/2023</div>
+                </div>
+                <div class="priority-container card-description-overlay">
+                    <div>Priority:</div>
+                    <div class="priority">
+                        <div>Medium</div>
+                        <img src="assets/icons/prio-medium.svg">
+                    </div>
+                </div>
+                <div class="assigned">
+                    <div>
+                        <div>Assigned To:</div>
+                    </div>
+                    <div>
+                        <div class="assigned-contacts">
+                            <div class="contact-circle">EM</div>
+                            <div>Emmanuel Mauer</div>
+                        </div>
+                        <div class="assigned-contacts">
+                            <div class="contact-circle">EM</div>
+                            <div>Emmanuel Mauer</div>
+                        </div>
+                        <div class="assigned-contacts">
+                            <div class="contact-circle">EM</div>
+                            <div>Emmanuel Mauer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="subtasks">
+                    <div>
+                        <div>Subtask</div>
+                    </div>
+                    <div class="subtasks-container">
+                        <div class="subtask">
+                            <img src="assets/image/board/Check-button.svg">
+                            <div>Implement Recipe Recommendation</div>
+                        </div>
+                        <div class="subtask">
+                            <img src="assets/image/board/Check-button-empty.svg">
+                            <div>Start Page Layout</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-container">
+                    <div class="edit">
+                        <img src="assets/icons/trashcan-icon.svg">
+                        <div>Delete</div>
+                    </div>
+                    <img src="assets/image/board/edit-line.svg">
+                    <div class="edit">
+                        <img src="assets/icons/pen-icon.svg"> 
+                        <div>Edit</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    `
+}
+

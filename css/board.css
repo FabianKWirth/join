@@ -257,3 +257,138 @@ h4 {
     font-family: 'Open Sans', sans-serif;
 }
 
+
+#showTaskCard {
+
+}
+
+.overlayBoard {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-card-overlay {
+    width: 525px;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 48px 40px;
+}
+
+.card-category-overlay {
+    padding: 4px 16px;
+    background-color: #0038FF;
+    font-size: 16px;
+    color: #FFFFFF;
+    border-radius: 8px;
+    font-size: 23px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title-h4 {
+    font-size: 61px;
+    font-weight: 700;
+    color: #000;
+
+}
+
+.card-description-overlay {
+    font-size: 20px;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    gap: 25px;
+}
+
+.priority-container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.priority {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 18px;
+}
+
+.assigned {
+    font-size: 20px;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.assigned-contacts {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 19px;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    padding: 7px 16px;
+}
+
+.contact-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #462F8A;
+    color: #FFFFFF;
+}
+
+.subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subtask {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 6px 16px;
+}
+
+.subtasks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.edit-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+
