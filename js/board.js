@@ -482,11 +482,11 @@ function showTaskCard(id, title) {
                 </div>
                 <div class="card-description-overlay">Build start page with recipe recommendation...</div>
                 <div  class="card-description-overlay">
-                    <div>Due date:</div>
+                    <div class="dark-gray">Due date:</div>
                     <div>10/05/2023</div>
                 </div>
                 <div class="priority-container card-description-overlay">
-                    <div>Priority:</div>
+                    <div class="dark-gray">Priority:</div>
                     <div class="priority">
                         <div>Medium</div>
                         <img src="assets/icons/prio-medium.svg">
@@ -494,7 +494,7 @@ function showTaskCard(id, title) {
                 </div>
                 <div class="assigned">
                     <div>
-                        <div>Assigned To:</div>
+                        <div class="dark-gray">Assigned To:</div>
                     </div>
                     <div>
                         <div class="assigned-contacts">
@@ -513,7 +513,7 @@ function showTaskCard(id, title) {
                 </div>
                 <div class="subtasks">
                     <div>
-                        <div>Subtask</div>
+                        <div class="dark-gray">Subtask</div>
                     </div>
                     <div class="subtasks-container">
                         <div class="subtask">
@@ -527,13 +527,13 @@ function showTaskCard(id, title) {
                     </div>
                 </div>
                 <div class="edit-container">
-                    <div class="edit">
-                        <img src="assets/icons/trashcan-icon.svg">
+                    <div class="edit" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImage')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImage')">
+                        <img id="trashImage" src="assets/icons/trashcan-icon.svg">
                         <div>Delete</div>
                     </div>
                     <img src="assets/image/board/edit-line.svg">
-                    <div class="edit">
-                        <img src="assets/icons/pen-icon.svg"> 
+                    <div class="edit" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImage')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImage')">
+                        <img id="editImage" src="assets/icons/pen-icon.svg"> 
                         <div>Edit</div>
                     </div>
                 </div>
@@ -556,3 +556,11 @@ function subtaskChangeImg(id) {
 function closeBoardOverlay() {
     document.getElementById('overlayBoard').classList.add('dNone');
 }
+
+
+function changeImage(newSrc, imageId) {
+    const image = document.getElementById(imageId);
+    image.src = newSrc;
+}
+
+

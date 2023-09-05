@@ -14,7 +14,6 @@
     align-items: center;
     justify-content: space-between;
     margin: 80px 88px 0 0px;
-
 }
 
 .head-section-right {
@@ -102,25 +101,19 @@
 }
 
 .task-field {
-    /* position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-    /* height: calc(100vh - 337px); */
     height: 100vh;
-    margin: 8px 64px 0 0px;
     overflow: hidden;
 }
 
 .task-area {
     display: flex;
     justify-content: space-between;
-    /* margin: 8px 64px 0 0px; */
     height: calc(100vh - 327px);
     gap: 24px;
     height: 100%;
     padding-bottom: 16px;
     overflow: scroll;
+    padding: 14px 64px 0 0px;
 }
 
 .creat-task-area {
@@ -131,6 +124,7 @@
     flex: 1 0 0;
     gap: 16px;
     border-radius: 24px;
+    /* padding-top: 10px; */
 }
 
 .task-card {
@@ -142,6 +136,11 @@
     align-items: flex-start;
     gap: 24px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.task-card:hover {
+    transform: rotate(5deg);
 }
 
 .card-category {
@@ -157,7 +156,6 @@ h4 {
     font-weight: 700;
     color: #2A3647;
     margin: 0;
-    padding-bottom: 8px;
 }
 
 .card-description {
@@ -312,7 +310,7 @@ h4 {
 }
 
 .title-h4 {
-    font-size: 61px;
+    font-size: 48px;
     font-weight: 700;
     color: #000;
 
@@ -340,6 +338,10 @@ h4 {
     padding: 4px 18px;
 }
 
+.dark-gray {
+    color: #2A3647;
+}
+
 .assigned {
     font-size: 20px;
     color: #000;
@@ -353,7 +355,7 @@ h4 {
     display: flex;
     align-items: center;
     gap: 16px;
-    font-size: 19px;
+    font-size: 18px;
     font-family: 'Open Sans', sans-serif;
     color: #000;
     padding: 7px 16px;
@@ -412,3 +414,44 @@ h4 {
     cursor: pointer;
 }
 
+.edit:hover {
+    color: #29ABE2;
+}
+
+@media(max-width: 1600px) {
+    .task-card-overlay {
+        gap: 14px;
+        width: 400px;
+    }
+    
+    .card-category-overlay {
+        font-size: 20px;
+    }
+
+    .title-h4 {
+        font-size: 32px;
+    }
+
+    .card-description-overlay {
+        font-size: 16px;
+    }
+    
+    .assigned {
+        font-size: 16px;
+    }
+
+    .contact-circle {
+        width: 38px;
+        height: 38px;
+    }
+
+    .subtasks-container {
+        gap: 0;
+    }
+
+}
+
+/* Ändere die Farbe des Pfads mit der ID "path" beim Hover über .trash */
+.trash:hover #path {
+    fill: #0038FF; /* Du kannst die Farbe nach deinen Wünschen anpassen */
+}
