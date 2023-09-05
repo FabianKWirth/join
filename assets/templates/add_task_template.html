@@ -1,11 +1,6 @@
 <body onload="includeHTML(1);initAddTasks();">
 
     <div include-html="./assets/templates/add_contact.html"></div>
-    <div w3-include-html="./assets/templates/header.html"></div>
-    <div w3-include-html="assets/templates/header_responsive.html"></div>
-    <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
-    <div class="sidebar-responsive" w3-include-html="assets/templates/sidebar-responsive.html"></div>
-
     <form id="addTaskContainer">
         <div class="add-task" onchange="saveCurrentEntriesToTask()">
             <h1>Add Task</h1>
@@ -24,26 +19,24 @@
                     <div class="task-assigned-contacts">
                         <label for="newTaskAssignedContact">Assigned to</label>
                         <div id="newTaskAssignedContact">
-                            <div class="dropdown-field"><!-- onclick="changeAvailableContactsVisibility() -->
-                                <input type="text" id="dropDownContactsTextFieldInput"
-                                    class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign">
-                                <!-- onchange="showAvailableContacts()" -->
-                                <img id='assignContactsDropDownIcon' class='dropdown-field-icon'
-                                    src="./assets/icons/arrow-drop.svg">
-                            </div>
-                            <div class="dropdown-content" id="assignedContactsdropDownContent">
+                            <input type="text" id="dropDownContactsTextFieldInput"
+                                class='dropdown-field-text toggle-dropdown' placeholder="Select contacts to assign">
+                            <img src="./assets/icons/arrow-drop.svg" class="dropdown-icon" alt="Dropdown Icon">
+                            <div id="assignedContactsDropDownContent">
                                 <div id="selectAssignedContactList" class="contact-list">
 
                                 </div>
-                                <div class='dropdown-button-container'>
+                                <div class='add-contact-button-container'>
                                     <button type="button" class="default-button dropdown-button"
                                         onclick="includeContactHTML('addContact')">Add new contact
                                         <img src='./assets/icons/person-add.svg'>
                                     </button>
+
                                 </div>
                             </div>
 
                         </div>
+
                         <div id='assignedContactList'></div>
                     </div>
 
@@ -62,20 +55,20 @@
                             <input type="hidden" id="priorityStatus">
                             <label>
                                 <input type="radio" id='taskPriority' class="prio-radio-option" required>
-                                <button type="button" id="urgentButton" value="urgent"  class="priority-button"
+                                <button type="button" id="urgentButton" value="urgent" class="priority-button"
                                     onclick="setPrioButtonSelected('urgent')">Urgent<img id='urgentIcon'
                                         class='prio-icon' src="./assets/icons/prio-urgent.svg"></button>
                             </label>
 
                             <label>
-                                <input type="radio" id='taskPriority'  class="prio-radio-option" required>
+                                <input type="radio" id='taskPriority' class="prio-radio-option" required>
                                 <button type="button" id='mediumButton' value="medium" class="priority-button"
                                     onclick="setPrioButtonSelected('medium')">Medium<img id='mediumIcon'
                                         class='prio-icon' src="./assets/icons/prio-medium.svg"></button>
                             </label>
 
                             <label>
-                                <input type="radio" id='taskPriority'  class="prio-radio-option" required>
+                                <input type="radio" id='taskPriority' class="prio-radio-option" required>
                                 <button type="button" id='lowButton' value="low" class="priority-button"
                                     onclick="setPrioButtonSelected('low')">Low<img id='lowIcon' class='prio-icon'
                                         src="./assets/icons/prio-low.svg"></button>
@@ -84,19 +77,20 @@
                     </div>
 
                     <div class="task-category">
-                        <label for="taskCategory">Category</label>
-                        <input type='hidden' id='taskCategoryValue'>
-                        <div class="task-category-header toggle-dropdown" id="taskCategoryHeader"
-                            onclick="rotateIconBy180('taskCategoryDropDownIcon');">
-                            <p id="taskCategoryName">Select Task Category</p>
-                            <img id='taskCategoryDropDownIcon' class='dropdown-field-icon'
-                                src="./assets/icons/arrow-drop.svg">
-                            <div class="task-category-list" id="taskCategoryList">
-                                <div class="task-category-item" data-value="Technical Task">Technical Task</div>
-                                <div class="task-category-item" data-value="Contact Story">Contact Story</div>
-                            </div>
+                        <label for="selectCategory">Category</label>
+                        <div class="category-select">
+                            <select required id="selectCategory" name="category">
+                                <option hidden disabled selected value="">Select a category</option>
+                                <option value="Technical Task" class="task-category-item">Technical Task</option>
+                                <option value="Contact Story" class="task-category-item">Contact Story</option>
+                            </select>
+                            <img src="./assets/icons/arrow-drop.svg" class="dropdown-icon" alt="Dropdown Icon">
                         </div>
                     </div>
+
+
+
+
 
                     <div class="task-subtask">
                         <label for="newTaskSubTask">Subtasks</label>

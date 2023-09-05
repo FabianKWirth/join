@@ -5,7 +5,7 @@ let subTasks = [];
 
 let unfinishedTaskData = { "status": "toDo" };
 
-let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate", "taskCategoryValue"];
+let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate", "selectCategory"];
 let indirectInputFieldIds = ["assignedContactList", "taskCategoryList", "subtaskField", "editSubTaskField"];
 
 async function includeTasksHtml() {
@@ -37,16 +37,19 @@ function renderTaskInput() {
 }
 
 function loadEventListeners() {
-    setDropDownEventListeners();
+    setSelectContactEventListeners();
     setSubTaskEventListeners();
-    setSelectedCategoryEventListener();
     setDropDownContactsTextFieldInputEventListener();
     preventContactListFromCollapsingOnclick();
     addFormDataChangesEventListener();
-    loadValidationEventListener();
+
+
+
+    setSelectedCategoryEventListeners();
 }
 
 function addSaveEvent(eventType, element) {
+    console.log("ElementTyp" + eventType + "   Element" + element)
     element.addEventListener(eventType, function (event) {
         saveCurrentEntriesToTask();
     });
@@ -56,11 +59,10 @@ function addFormDataChangesEventListener() {
     addListenersToDropDownSelections();
     addListenersToInputButtons();
     addListenersToDirectInputFields();
-    addListenersToIndirectInputFields();
 }
 
 function addListenersToDropDownSelections() {
-    let dropDownClasses = ["task-category-item", "assign-contact-option"];
+    let dropDownClasses = ["assign-contact-option"];
     dropDownClasses.forEach(className => {
         const categoryItems = document.querySelectorAll("." + className);
 
@@ -93,19 +95,6 @@ function addListenersToInputButtons() {
 function addListenersToDirectInputFields() {
     directInputFieldIds.forEach(directInputFieldId => {
         addSaveEvent("change", document.getElementById(directInputFieldId));
-    });
-}
-
-/**
- * Adds event listeners to specified input buttons having the ids save in the global array indirectInputFieldIds, invoking the 'addSaveEvent' function on click.
- * 
- * @function
- * @returns {void}
- */
-function addListenersToIndirectInputFields() {
-
-    indirectInputFieldIds.forEach(indirectInputFieldId => {
-        addSaveEvent("change", document.getElementById(indirectInputFieldId));
     });
 }
 
@@ -142,17 +131,17 @@ function saveGlobalVariables() {
 /** 
  * saves validated inputs of all elements having the ids of directInputFieldIds into the 'unfinishedTaskData' JSON array
 */
-function saveDirectInputFields() {    
+function saveDirectInputFields() {
     if (document.getElementById("newTaskTitle").value != "") {
-        unfinishedTaskData["taskName"]= document.getElementById("newTaskTitle").value;
+        unfinishedTaskData["taskName"] = document.getElementById("newTaskTitle").value;
     }
 
     if (document.getElementById("newTaskDescription").value != "") {
-        unfinishedTaskData["taskDescription"]= document.getElementById("newTaskDescription").value;
+        unfinishedTaskData["taskDescription"] = document.getElementById("newTaskDescription").value;
     }
-        
+
     if (document.getElementById("newTaskDate").value != "") {
-        unfinishedTaskData["taskDate"]= document.getElementById("newTaskDate").value;
+        unfinishedTaskData["taskDate"] = document.getElementById("newTaskDate").value;
     }
 }
 
@@ -169,47 +158,29 @@ function setDropDownContactsTextFieldInputEventListener() {
  * 
  * 
  */
-function setDropDownEventListeners() {
-    let eventSrcElementsId = ["dropDownContactsTextFieldInput", "assignContactsDropDownIcon", "taskCategoryName", "taskCategoryHeader", "taskCategoryDropDownIcon"];
-    let eventTargets = ["assignedContactsdropDownContent", "assignedContactsdropDownContent", "taskCategoryList", "taskCategoryList", "taskCategoryList"];
-
-    document.addEventListener("click", function (event) {
-        index = eventSrcElementsId.indexOf(event.target.id);
-        if (index != -1) {
-            console.log("his Happens");
-            addEventListenerToCategory(eventTargets, index);
-        } else {
-            for (let i = 0; i < eventTargets.length; i++) {
-                let eventTarget = eventTargets[i];
-                let element = document.getElementById(eventTarget);
-                console.log(element);
-                element.classList.remove("show-flex");
-                element.classList.remove("show-block");
-            }
-        }
+function setSelectContactEventListeners() {
+    element = document.getElementById("dropDownContactsTextFieldInput");
+    element.addEventListener("focus", function (event) {
+        elementToShow=document.getElementById("assignedContactsDropDownContent");
+        elementToShow.classList.toggle("show-flex");
     });
+
+    /*
+    element.addEventListener("click", function (event) {
+        elementToShow=document.getElementById("assignedContactsDropDownContent");
+        elementToShow.classList.remove("show-flex");
+    });
+    */
 }
 
-function addEventListenerToCategory(eventTargets, index) {
-    let element = document.getElementById(eventTargets[index]);
-    if (eventTargets[index] == "taskCategoryList") {
-        element.classList.toggle("show-block");
-    } else {
-        element.classList.toggle("show-flex");
-    }
-}
+function setSelectedCategoryEventListeners() {
+    const selectCategory = document.getElementById("selectCategory");
+    const dropdownIcon = document.querySelector(".dropdown-icon");
 
-
-function setSelectedCategoryEventListener() {
-    let dropdownItems = document.querySelectorAll(".task-category-item");
-    const taskCategoryValueElement = document.getElementById("taskCategoryValue");
-    dropdownItems.forEach(function (item) {
-        item.addEventListener("click", function () {
-            const selectedValue = item.getAttribute("data-value");
-            document.getElementById('taskCategoryName').innerHTML = selectedValue;
-            taskCategoryValueElement.value = selectedValue;
-        });
+    selectCategory.addEventListener("click", function () {
+        dropdownIcon.classList.toggle("rotate-180");
     });
+
 }
 
 /**
@@ -336,13 +307,13 @@ function changeAvailableContactsVisibility() {
 
 function makeAvailableContactsVisible() {
     showAssignedContacts = true;
-    document.getElementById("assignedContactsdropDownContent").classList.remove("hide");
+    document.getElementById("assignedContactsDropDownContent").classList.remove("hide");
     rotateIconBy180("assignContactsDropDownIcon");
 }
 
 function makeAvailableContactsInvisible() {
     showAssignedContacts = false;
-    document.getElementById("assignedContactsdropDownContent").classList.add("hide");
+    document.getElementById("assignedContactsDropDownContent").classList.add("hide");
     rotateIconBy180("assignContactsDropDownIcon");
 }
 
@@ -372,7 +343,6 @@ function setTaskData() {
         `;
     }
 }
-
 
 function setPrioButtonSelected(currentButtonValue) {
 
@@ -418,6 +388,8 @@ function setPrioButtonSelectStatusById(type, selectStatus = false) {
 
 
 
+
+/* subtask related functions */
 
 
 function createSubTask() {
@@ -506,24 +478,24 @@ function setSubTaskEventListeners() {
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 function preventContactListFromCollapsingOnclick() {
     let selectAssignedContactList = document.getElementById("selectAssignedContactList");
     selectAssignedContactList.addEventListener('click', function (event) {
         event.stopPropagation();
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -562,7 +534,7 @@ function emptyAddTaskForm() {
 
     resertDirectInputFields();
     resetIndirectInputs();
-    
+
     renderSelectedContactIcons();
     renderContactAssignmentDropDown();
 }
@@ -591,7 +563,7 @@ function resetIndirectInputs() {
     setPrioButtonSelectStatusById("low", false);
 
     setElementHtml("taskCategoryName", "Select Task Category");
-    setElementHtml("taskCategoryValue", "");
+    setElementHtml("selectCategory", "");
 }
 
 
@@ -617,7 +589,7 @@ function loadTask(taskId) {
     setSubTaskFieldValue(task);
 
     replaceCurrentAddTaskSubmit(taskId);
-    
+
 }
 
 function setNewTaskTitleFieldValue(task) {
@@ -628,80 +600,80 @@ function setNewTaskDescriptionFieldValue(task) {
     document.getElementById("newTaskDescription").value = task['taskDescription'];
 }
 
-function setAssignedContacts(task){
+function setAssignedContacts(task) {
     console.log(task);
 
     console.log(task["assignedContacts"]);
-    if(task["assignedContacts"]){
+    if (task["assignedContacts"]) {
         assignedContacts = task["assignedContacts"];
-    }else{
-        assignedContacts=[];
+    } else {
+        assignedContacts = [];
     }
     console.log(assignedContacts);
     renderSelectedContactIcons();
 }
 
 function setNewTaskDateFieldValue(task) {
-    console.log("TaskDat"+task);
+    console.log("TaskDat" + task);
     document.getElementById("newTaskDate").value = task['taskDate'];
 }
 
-function setPriorityValue(task){
-    currentButtonValue=task['priority'];
+function setPriorityValue(task) {
+    currentButtonValue = task['priority'];
     setPrioButtonSelected(currentButtonValue);
 }
 
-function setCategoryValue(task){
-    
-    let taskCategoryValue=(task["taskCategoryValue"]);
-    console.log(taskCategoryValue);
-    setElementHtml("taskCategoryName", taskCategoryValue);
-    setElementHtml("taskCategoryValue", taskCategoryValue);
+function setCategoryValue(task) {
+
+    let selectCategory = (task["selectCategory"]);
+    console.log(selectCategory);
+    setElementHtml("taskCategoryName", selectCategory);
+    setElementHtml("selectCategory", selectCategory);
 }
 
 function setSubTaskFieldValue(task) {
     subTasks = task['subTasks'];
     console.log(subTasks);
     if (subTasks) {
-         renderSubTasksList();
+        renderSubTasksList();
     }
 }
 
-  function replaceCurrentAddTaskSubmit(taskId) {
+function replaceCurrentAddTaskSubmit(taskId) {
     removeAllButtons('formOptions');
-    addSaveChangesButton('formOptions',taskId);
+    addSaveChangesButton('formOptions', taskId);
 }
 
 function removeAllButtons(parentId) {
     // Get the div element with the specified id
     var formOptionsDiv = document.getElementById(parentId);
-  
+
     // Get all buttons within the div
     var buttons = formOptionsDiv.getElementsByTagName("button");
-  
+
     // Loop through the buttons and remove them
     for (var i = buttons.length - 1; i >= 0; i--) {
-      var button = buttons[i];
-      button.parentNode.removeChild(button);
+        var button = buttons[i];
+        button.parentNode.removeChild(button);
     }
 }
 
-function addSaveChangesButton(parentNode,taskId){
+function addSaveChangesButton(parentNode, taskId) {
     console.log("here1");
-    let saveButton=document.getElementById(parentNode).appendChild(document.createElement("button"));
-    saveButton.onclick = function() {
+    let saveButton = document.getElementById(parentNode).appendChild(document.createElement("button"));
+    saveButton.onclick = function () {
         saveTaskChanges(taskId);
     };
-    saveButton.innerHTML="Ok<img src='./assets/icons/checkmark-icon.svg' class='white-symbol'>";
+    saveButton.innerHTML = "Ok<img src='./assets/icons/checkmark-icon.svg' class='white-symbol'>";
     saveButton.classList.add('default-button');
 }
 
-async function saveTaskChanges(taskId){
+async function saveTaskChanges(taskId) {
     console.log("here");
     saveCurrentEntriesToTask();
     if (checkIfFormSubmittable()) {
 
-        tasks[taskId]=unfinishedTaskData;
+        tasks[taskId] = unfinishedTaskData;
         renderTaskAddedElement();
         await setItem("tasks", tasks);
         setTimeout(function () {
@@ -754,12 +726,6 @@ function checkIfFormSubmittable() {
     } else {
         return false;
     }
-}
-
-// Attach these validation functions to the input fields' input or change events
-function loadValidationEventListener() {
-    document.getElementById("newTaskTitle").addEventListener("input", validateTaskTitle);
-    document.getElementById("newTaskDescription").addEventListener("input", validateTaskDescription);
 }
 
 
@@ -833,16 +799,16 @@ function validateTaskPriority() {
 
 
 /**
- * Checks if hidden input field taskCategoryValue is set; If not alerts user
+ * Checks if input field "selectCategory" is set; Adds tooltip to input field if invalid.
  * @returns {boolean} true if is set, false if is not set
  */
 function validateTaskCategory() {
     /** @type {HTMLSelectElement} */
-    const taskCategoryInput = document.getElementById("taskCategoryValue");
+    const taskCategoryElement = document.getElementById("selectCategory");
     /** @type {string} */
-    const taskCategoryValue = taskCategoryInput.value;
-    if (taskCategoryValue == "") {
-        alert("Task category is missing");
+    const selectCategoryValue = taskCategoryElement.value;
+    if (selectCategoryValue == "") {
+        taskCategoryElement.reportValidity();
         return false;
     } else {
         return true;
