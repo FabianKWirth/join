@@ -4,7 +4,9 @@ let tasks = [];
 
 let contacts = [];
 
-let username = "Tobias";
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+const username = params.name;
 
 let currentSelectedUser;
 
@@ -27,15 +29,10 @@ let contactIconColors = [
 ];
 
 
-/*
-const urlSearchParams = new URLSearchParams(window.location.search);
-const params = Object.fromEntries(urlSearchParams.entries());
-const username = params.name;
-const userInitials = getInitials({});
-*/
-
 async function init() {
   await getStorageData();
+
+  setUserHeaderInitials(username);
 }
 
 /**
@@ -88,14 +85,14 @@ function getNewContactColor() {
 }
 
 function getContactIconHtml(contact) {
-  if(contact){
-  let userSignature = getContactInitials(contact);
-  console.log(contact);
-  const iconHtml = `<div class="circle" style="background-color:${contact["color"]}">
+  if (contact) {
+    let userSignature = getContactInitials(contact);
+    console.log(contact);
+    const iconHtml = `<div class="circle" style="background-color:${contact["color"]}">
         <span class='circle-text'>${userSignature}</span>
     </div>`;
-  return iconHtml;
-  }else{
+    return iconHtml;
+  } else {
     return "";
   }
 }
@@ -155,8 +152,8 @@ function bgDarkLegalNotice(x) {
 /**
  * This function loads the account data from the server
  */
-function getUserInitials(user) {
-  const userNameParts = user["username"].split(" ");
+function getUserInitials(username) {
+  const userNameParts = username.split(" ");
   if (userNameParts[1] != null) {
     userSignature =
       userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
@@ -169,10 +166,10 @@ function getUserInitials(user) {
   return userSignature;
 }
 
-function setUserHeaderInitials() {
+function setUserHeaderInitials(username) {
   let myAccount = document.getElementById("myAccount");
   if (myAccount != null) {
-    myAccount.innerHTML = getUserInitials(user);
+    myAccount.innerHTML = getUserInitials(username);
   }
 }
 
