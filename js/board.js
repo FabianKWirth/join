@@ -53,6 +53,8 @@ function loadTasksHTML() {
         const task = tasks[index];
         console.log(tasks[0]['priority']);
         console.log(tasks[0]['subTasks'][1]['name']);
+        console.log(tasks[0]['assignedContacts'][0]);
+        console.log(contacts[10]['name']);
     
         if(task['status']=='toDo'){
             document.getElementById('todo').innerHTML+=generateHTML(task);
@@ -189,7 +191,8 @@ function renderNoDone() {
  */
 function generateHTML(task) {
     return `
-        <div onclick="showTaskCard('${task['taskCategoryValue']}', '${task['taskName']}', '${task['taskDescription']}', '${task['taskDate']}', '${task['priority']}', ${task['subTasks'][1]['name']})" draggable="true" ondragstart="startDragging(${task['id']})" class="task-card">
+        <div onclick="showTaskCard('${task['taskCategoryValue']}', '${task['taskName']}', '${task['taskDescription']}', '${task['taskDate']}', '${task['priority']}', assignedInicials(0), assignedInicials(1), assignedInicials(2), assignedTo(0), assignedTo(1), assignedTo(2), '${task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : ''}', '${task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : ''}',
+        )" draggable="true" ondragstart="startDragging(${task['id']})" class="task-card">
             <div class="card-category">${task['taskCategoryValue']}</div> 
             <div>
                 <h4>${task['taskName']}</h4>
@@ -471,7 +474,7 @@ function renderSearchListDone(done, list, searchInput) {
 }
 
 
-function showTaskCard(category, name, description, date, priority) {
+function showTaskCard(category, name, description, date, priority, initial0, initial1, initial2, assignedName0, assignedName1, assignedName2, subtask1, subtask2) {
     let showTaskCard = document.getElementById('showTaskCard');
     showTaskCard.innerHTML = `
         <div id="overlayBoard" class="overlayBoard">
@@ -500,17 +503,17 @@ function showTaskCard(category, name, description, date, priority) {
                         <div class="dark-gray">Assigned To:</div>
                     </div>
                     <div>
-                        <div class="assigned-contacts">
-                            <div class="contact-circle">EM</div>
-                            <div>Emmanuel Mauer</div>
+                        <div id="initial0" class="assigned-contacts">
+                            <div class="contact-circle">${initial0}</div>
+                            <div>${assignedName0}</div>
                         </div>
-                        <div class="assigned-contacts">
-                            <div class="contact-circle">EM</div>
-                            <div>Emmanuel Mauer</div>
+                        <div id="initial1" class="assigned-contacts">
+                            <div class="contact-circle">${initial1}</div>
+                            <div>${assignedName1}</div>
                         </div>
-                        <div class="assigned-contacts">
-                            <div class="contact-circle">EM</div>
-                            <div>Emmanuel Mauer</div>
+                        <div id="initial2" class="assigned-contacts">
+                            <div class="contact-circle">${initial2}</div>
+                            <div>${assignedName2}</div>
                         </div>
                     </div>
                 </div>
@@ -521,11 +524,11 @@ function showTaskCard(category, name, description, date, priority) {
                     <div class="subtasks-container">
                         <div class="subtask">
                             <img id="subtask1" onclick="subtaskChangeImg('subtask1')" src="assets/image/board/Check-button.svg">
-                            <div>Implement Recipe Recommendation</div>
+                            <div>${subtask1}</div>
                         </div>
                         <div class="subtask">
                             <img id="subtask2" onclick="subtaskChangeImg('subtask2')" src="assets/image/board/Check-button-empty.svg">
-                            <div>Start Page Layout</div>
+                            <div>${subtask2}</div>
                         </div>
                     </div>
                 </div>
@@ -564,6 +567,38 @@ function closeBoardOverlay() {
 function changeImage(newSrc, imageId) {
     const image = document.getElementById(imageId);
     image.src = newSrc;
+}
+
+function assignedTo(index) {
+    let indexInContacts = tasks[0]['assignedContacts'][index];
+    
+    if (contacts[indexInContacts] && contacts[indexInContacts]['name']) {
+        let contactName = contacts[indexInContacts]['name'];
+        return contactName;
+    } else {
+        return '';
+    }
+}
+
+
+function assignedInicials(index) {
+    let initials = tasks[0]['assignedContacts'][index];
+    
+    // Überprüfen, ob initials gültig ist und ob der Kontakt existiert
+    if (initials !== undefined && contacts[initials]) {
+        return getContactInitials(contacts[initials]);
+    } else {
+        // Hier kannst du das Div-Element ausblenden oder entfernen
+        var elementId = `initial${index}`; // Generiere die ID basierend auf dem Index
+        var divElement = document.getElementById(elementId);
+        console.log(divElement);
+        
+        if (divElement) {
+            divElement.style.display = 'none'; // Ausblenden des Div-Elements
+        }
+        
+        return ''; // Oder eine andere geeignete Rückgabewert, falls notwendig
+    }
 }
 
 
