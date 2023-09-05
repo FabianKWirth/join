@@ -1,41 +1,41 @@
-let currentDraggedElement; 
+let currentDraggedElement;
 
 let task = [{
     'id': 0,
     'title': 'Putzen',
     'category': 'In progress',
     'text': 'Kochwelt Page & Recipe Recommender'
-  }, {
+}, {
     'id': 1,
     'title': 'Kochen',
     'category': 'In progress',
     'text': 'HTML Base Template Creation'
-  }, {
+}, {
     'id': 2,
     'title': 'Einkaufen',
     'category': 'Await feedback',
     'text': 'CSS Architecture Planning'
-  }, {
+}, {
     'id': 3,
     'title': 'Staubsaugen',
     'category': 'Done',
     'text': 'Daily Kochwelt Recipe'
-  }];
+}];
 
 
-  /**
- * Updates the HTML representation of the entire task board by updating individual categories.
- *
- * @function
- * @returns {void}
- */
+/**
+* Updates the HTML representation of the entire task board by updating individual categories.
+*
+* @function
+* @returns {void}
+*/
 async function updateBoardHTML() {
-    await getStorageData();
-
-    updateTodoHTML();
+    await init();
+    loadTasksHTML();
     updateInProgressHTML();
     updateAwaitFeedbackHTML();
     updateDoneHTML();
+
 }
 
 
@@ -47,20 +47,21 @@ async function updateBoardHTML() {
  * @function
  * @returns {void}
  */
-function updateTodoHTML() {
-    let todo = task.filter(t => t['category'] == 'Todo');
 
-    document.getElementById('todo').innerHTML = '';
+function loadTasksHTML() {
+    for (let index = 0; index < tasks.length; index++) {
+        const task = tasks[index];
+        console.log(tasks[0]['priority']);
+        console.log(tasks[0]['subTasks'][1]['name']);
 
-    if (todo.length > 0){
-        for (let i = 0; i < todo.length; i++) {
-            let element = todo[i];
-            document.getElementById('todo').innerHTML += generateHTML(element);
+        if (task['status'] == 'toDo') {
+            document.getElementById('todo').innerHTML += generateHTML(task);
+        } else if (task['status'] == 'inProgress') {
+            document.getElementById('inProgress').innerHTML += generateHTML(task);
         }
-    } else {
-        document.getElementById('todo').innerHTML += renderNoTaskToDo();
     }
 }
+
 
 
 /**
@@ -83,7 +84,7 @@ function updateInProgressHTML() {
         }
     } else {
         document.getElementById('inProgress').innerHTML += renderNoInProgress();
-    } 
+    }
 }
 
 
@@ -186,13 +187,15 @@ function renderNoDone() {
  * @param {Object} element - The task element containing information about the task.
  * @returns {string} The HTML code for the task card.
  */
-function generateHTML(element) {
+function generateHTML(task) {
+
+    let assignedContactsIcons=getAssignedContactIcons(task['assignedContacts']);
     return `
-        <div onclick="showTaskCard('${element['id']}', '${element['text']}')" draggable="true" ondragstart="startDragging(${element['id']})" class="task-card">
-            <div class="card-category">User Story</div> 
+        <div onclick="showTaskCard('${task['taskCategoryValue']}', '${task['taskName']}', '${task['taskDescription']}', '${task['taskDate']}', '${task['priority']}', ${task['subTasks'][1]['name']})" draggable="true" ondragstart="startDragging(${task['id']})" class="task-card">
+            <div class="card-category">${task['taskCategoryValue']}</div> 
             <div>
-                <h4>${element['text']}</h4>
-                <div class="card-description">Build start page with recipe recommendation...</div>
+                <h4>${task['taskName']}</h4>
+                <div class="card-description">${task['taskDescription']}</div>
             </div>
             <div class="progress-bar-section">
                 <div class="progress-bar">
@@ -202,14 +205,28 @@ function generateHTML(element) {
             </div>
             <div class="task-card-bottom-section">
                 <div class="task-card-users">
-                    <div class="circle-1">AM</div>
-                    <div class="circle-2">AM</div>
-                    <div class="circle-3">AM</div>
+                ${assignedContactsIcons}
                 </div>
                 <img src="assets/icons/prio-medium.svg" alt="Prio Medium">
             </div>
         </div>
         `;
+}
+
+/**
+ * Generates HTML representations of contact icons for a list of assigned contacts.
+ *
+ * @param {Array<number>} assignedContacts - An array of contact IDs representing assigned contacts.
+ * @returns {string} - A string containing the HTML code for the contact icons.
+ */
+function getAssignedContactIcons(assignedContacts) {
+    let contactIconHtml = "";
+    if (assignedContacts != null) {
+        assignedContacts.forEach(assignedContact => {
+            contactIconHtml += getContactIconHtml(contacts[assignedContact]);
+        });
+    }
+    return contactIconHtml;
 }
 
 
@@ -280,13 +297,13 @@ function moveTo(ev) {
 }
 
 
-document.getElementById('search-input').addEventListener('keydown', function(event) {
+document.getElementById('search-input').addEventListener('keydown', function (event) {
     if (event.keyCode === 13) {
         filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
     }
 });
 
-document.getElementById('search').addEventListener('click', function() {
+document.getElementById('search').addEventListener('click', function () {
     filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
 });
 
@@ -306,7 +323,7 @@ function filterToDo() {
     let todo = task.filter(t => t['category'] == 'Todo');
 
     renderSearchListToDo(todo, list, searchInput);
-} 
+}
 
 
 /**
@@ -321,7 +338,7 @@ function filterToDo() {
 function renderSearchListToDo(todo, list, searchInput) {
     searchElementsFound = false;
 
-    if (todo.length > 0){
+    if (todo.length > 0) {
         for (let i = 0; i < todo.length; i++) {
             let element = todo[i];
             if (element['text'].toLowerCase().includes(searchInput)) {
@@ -349,9 +366,9 @@ function filterInProgress() {
     list.innerHTML = '';
 
     let progress = task.filter(t => t['category'] == 'In progress')
- 
+
     renderSearchListInProgress(progress, list, searchInput)
-} 
+}
 
 
 /**
@@ -366,7 +383,7 @@ function filterInProgress() {
 function renderSearchListInProgress(progress, list, searchInput) {
     searchElementsFound = false;
 
-    if (progress.length > 0){
+    if (progress.length > 0) {
         for (let i = 0; i < progress.length; i++) {
             let element = progress[i];
             if (element['text'].toLowerCase().includes(searchInput)) {
@@ -396,7 +413,7 @@ function filterAwaitFeedback() {
     let feedback = task.filter(t => t['category'] == 'Await feedback');
     renderSearchListAwaitFeedback(feedback, list, searchInput);
 
-} 
+}
 
 
 /**
@@ -411,15 +428,15 @@ function filterAwaitFeedback() {
 function renderSearchListAwaitFeedback(feedback, list, searchInput) {
     searchElementsFound = false;
 
-    if (feedback.length > 0){
+    if (feedback.length > 0) {
         for (let i = 0; i < feedback.length; i++) {
             let element = feedback[i];
             if (element['text'].toLowerCase().includes(searchInput)) {
                 list.innerHTML += generateHTML(element);
                 searchElementsFound = true;
-            }        
+            }
         }
-    } 
+    }
     if (!searchElementsFound) {
         list.innerHTML = renderNoAwaitFeedback();
     }
@@ -440,7 +457,7 @@ function filterDone() {
 
     let done = task.filter(t => t['category'] == 'Done');
     renderSearchListDone(done, list, searchInput);
-} 
+}
 
 
 /**
@@ -455,42 +472,42 @@ function filterDone() {
 function renderSearchListDone(done, list, searchInput) {
     searchElementsFound = false;
 
-        if (done.length > 0){
-            for (let i = 0; i < done.length; i++) {
-                let element = done[i];
-                if (element['text'].toLowerCase().includes(searchInput)) {
-                    list.innerHTML += generateHTML(element);
-                    searchElementsFound = true;
-                }
+    if (done.length > 0) {
+        for (let i = 0; i < done.length; i++) {
+            let element = done[i];
+            if (element['text'].toLowerCase().includes(searchInput)) {
+                list.innerHTML += generateHTML(element);
+                searchElementsFound = true;
             }
         }
-        if (!searchElementsFound) {
-            list.innerHTML = renderNoDone();
-        }
+    }
+    if (!searchElementsFound) {
+        list.innerHTML = renderNoDone();
+    }
 }
 
 
-function showTaskCard(id, title) {
+function showTaskCard(category, name, description, date, priority) {
     let showTaskCard = document.getElementById('showTaskCard');
     showTaskCard.innerHTML = `
         <div id="overlayBoard" class="overlayBoard">
             <div class="task-card-overlay">
                 <div class="card-category-top-section">
-                    <div class="card-category-overlay">User Story</div> 
+                    <div class="card-category-overlay">${category}</div> 
                     <img onclick="closeBoardOverlay()" src="assets/icons/close.svg">
                 </div>
                 <div>
-                    <h4 class="title-h4">${title}</h4>
+                    <h4 class="title-h4">${name}</h4>
                 </div>
-                <div class="card-description-overlay">Build start page with recipe recommendation...</div>
+                <div class="card-description-overlay">${description}</div>
                 <div  class="card-description-overlay">
                     <div class="dark-gray">Due date:</div>
-                    <div>10/05/2023</div>
+                    <div>${date}</div>
                 </div>
                 <div class="priority-container card-description-overlay">
                     <div class="dark-gray">Priority:</div>
                     <div class="priority">
-                        <div>Medium</div>
+                        <div>${priority}</div>
                         <img src="assets/icons/prio-medium.svg">
                     </div>
                 </div>
