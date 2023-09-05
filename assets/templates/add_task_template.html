@@ -51,30 +51,39 @@
 
                     <div class="task-priority">
                         <label for="newTaskPriority">Prio</label>
-                        <div id='newTaskPriority'>
-                            <input type="hidden" id="priorityStatus">
-                            <label>
-                                <input type="radio" id='taskPriority' class="prio-radio-option" required>
-                                <button type="button" id="urgentButton" value="urgent" class="priority-button"
-                                    onclick="setPrioButtonSelected('urgent')">Urgent<img id='urgentIcon'
-                                        class='prio-icon' src="./assets/icons/prio-urgent.svg"></button>
-                            </label>
 
-                            <label>
-                                <input type="radio" id='taskPriority' class="prio-radio-option" required>
-                                <button type="button" id='mediumButton' value="medium" class="priority-button"
-                                    onclick="setPrioButtonSelected('medium')">Medium<img id='mediumIcon'
-                                        class='prio-icon' src="./assets/icons/prio-medium.svg"></button>
-                            </label>
 
+
+                        <div id="newTaskPriority">
                             <label>
-                                <input type="radio" id='taskPriority' class="prio-radio-option" required>
-                                <button type="button" id='lowButton' value="low" class="priority-button"
-                                    onclick="setPrioButtonSelected('low')">Low<img id='lowIcon' class='prio-icon'
-                                        src="./assets/icons/prio-low.svg"></button>
+                                <input type="radio" name="priority" value="urgent" 
+                                onclick="setTaskPrio('urgent')" required>
+                                <div id="urgentButton" class="priority-button">
+                                    Urgent
+                                    <img id="urgentIcon" class="prio-icon" src="./assets/icons/prio-urgent.svg">
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="priority" value="medium" 
+                                onclick="setTaskPrio('medium')" required>
+                                <div id="mediumButton" class="priority-button">
+                                    Medium
+                                    <img id="mediumIcon" class="prio-icon"
+                                         src="./assets/icons/prio-medium.svg">
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="priority" value="low" 
+                                onclick="setTaskPrio('low')" required>
+                                <div id="lowButton" class="priority-button">
+                                    Low
+                                    <img id="lowIcon" class="prio-icon"
+                                        src="./assets/icons/prio-low.svg">
+                                </div>
                             </label>
                         </div>
                     </div>
+
 
                     <div class="task-category">
                         <label for="selectCategory">Category</label>

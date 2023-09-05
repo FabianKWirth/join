@@ -161,7 +161,7 @@ function setDropDownContactsTextFieldInputEventListener() {
 function setSelectContactEventListeners() {
     element = document.getElementById("dropDownContactsTextFieldInput");
     element.addEventListener("focus", function (event) {
-        elementToShow=document.getElementById("assignedContactsDropDownContent");
+        elementToShow = document.getElementById("assignedContactsDropDownContent");
         elementToShow.classList.toggle("show-flex");
     });
 
@@ -344,35 +344,9 @@ function setTaskData() {
     }
 }
 
-function setPrioButtonSelected(currentButtonValue) {
-
-    let buttons = document.getElementById("newTaskPriority").getElementsByTagName("button");
-    for (let i = 0; i < buttons.length; i++) {
-        const button = buttons[i];
-        if (button.value === currentButtonValue) {
-            setPrioButtonSelectStatusById(button.value, true);
-            document.getElementById("priorityStatus").value = button.value;
-        } else {
-            setPrioButtonSelectStatusById(button.value, false);
-        }
-    }
-}
-
-
-/**
-* Adds special visual apperance to button of current selected type
-*/
-function setPrioButtonSelectStatusById(type, selectStatus = false) {
-
-    if (selectStatus == true) {
-        document.getElementById(`${type}Button`).classList.add(`priority-button-${type}-selected`);
-        document.getElementById(`${type}Icon`).classList.add('white-symbol');
-        selectedTaskPriority = type;
-        unfinishedTaskData["priority"] = type;
-    } else {
-        document.getElementById(`${type}Button`).classList.remove(`priority-button-${type}-selected`);
-        document.getElementById(`${type}Icon`).classList.remove('white-symbol');
-    }
+function setTaskPrio(currentButtonValue) {
+    selectedTaskPriority = currentButtonValue;
+    unfinishedTaskData["priority"] = currentButtonValue;
 }
 
 
@@ -407,6 +381,19 @@ function createSubTask() {
 
 function resetSubTaskInput() {
     setElementValue("subtaskField", "");
+}
+
+/**
+ * Resets the priority button menu by unchecking all radio buttons.
+ */
+function resetPriorityMenu() {
+    /** @type {NodeListOf<HTMLInputElement>} */
+    const radioButtons = document.querySelectorAll('input[name="priority"]');
+
+    // Iterate through the radio buttons and uncheck them
+    radioButtons.forEach(button => {
+        button.checked = false;
+    });
 }
 
 function deleteSubTask(element) {
@@ -518,6 +505,7 @@ function rotateIconBy180(elementName) {
 }
 
 async function submitTask() {
+    console.log("here");
     saveCurrentEntriesToTask()
     if (checkIfFormSubmittable()) {
 
@@ -530,13 +518,46 @@ async function submitTask() {
     }
 }
 
-function emptyAddTaskForm() {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//reset
+
+function emptyAddTaskForm() {
     resertDirectInputFields();
-    resetIndirectInputs();
 
     renderSelectedContactIcons();
     renderContactAssignmentDropDown();
+
+    resetPriorityMenu();
+
+    resetIndirectInputs();
 }
 
 
@@ -557,13 +578,6 @@ function resetIndirectInputs() {
 
     showAssignedContacts = false;
     assignedContacts = [];
-
-    setPrioButtonSelectStatusById("urgent", false);
-    setPrioButtonSelectStatusById("medium", false);
-    setPrioButtonSelectStatusById("low", false);
-
-    setElementHtml("taskCategoryName", "Select Task Category");
-    setElementHtml("selectCategory", "");
 }
 
 
@@ -618,17 +632,30 @@ function setNewTaskDateFieldValue(task) {
     document.getElementById("newTaskDate").value = task['taskDate'];
 }
 
+/*
+function resetPriorityMenu() {
+
+    const radioButtons = document.querySelectorAll('input[name="priority"]');
+
+
+    radioButtons.forEach(button => {
+        button.checked = false;
+    });
+}
+*/
 function setPriorityValue(task) {
-    currentButtonValue = task['priority'];
-    setPrioButtonSelected(currentButtonValue);
+    let radioButtons=document.getElementsByName("priority");
+
+    radioButtons.forEach(button => {
+        if(button.value===task['priority']){
+            button.checked = true;
+        } 
+    });
 }
 
-function setCategoryValue(task) {
 
-    let selectCategory = (task["selectCategory"]);
-    console.log(selectCategory);
-    setElementHtml("taskCategoryName", selectCategory);
-    setElementHtml("selectCategory", selectCategory);
+function setCategoryValue(task) {
+    document.getElementById("selectCategory").value=task["taskCategoryValue"];
 }
 
 function setSubTaskFieldValue(task) {
@@ -758,6 +785,7 @@ function validateTaskDescription() {
     const taskDescriptionValue = taskDescriptionInput.value.trim();
 
     if (taskDescriptionValue === "") {
+        taskDescriptionInput.classList.add('inputCheck');
         taskDescriptionInput.reportValidity();
         return false;
     } else {
@@ -772,31 +800,28 @@ function validateTaskDescription() {
 function validateTaskDate() {
     /** @type {HTMLInputElement} */
     const taskDateInput = document.getElementById("newTaskDate");
+
     /** @type {string} */
     const taskDateValue = taskDateInput.value;
 
     if (taskDateValue == "" || taskDateValue === "yyyy-mm-dd") {
         taskDateInput.reportValidity();
+        taskDateInput.classList.add('input-check');
         return false;
     } else {
         return true;
     }
 }
 
-/**
- * Checks if global variable selectedTaskPriority is set; If not alerts user
- * @returns {boolean} true if is not null, false if is null
- */
+
+
 function validateTaskPriority() {
-
-    if (selectedTaskPriority == null) {
-        alert("Task priority is missing");
-        return false;
-    } else {
+    if(selectedTaskPriority!=null){
         return true;
+    }else{
+        return false;
     }
 }
-
 
 /**
  * Checks if input field "selectCategory" is set; Adds tooltip to input field if invalid.
