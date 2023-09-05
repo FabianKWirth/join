@@ -85,7 +85,6 @@ function getNewContactColor() {
 function getContactIconHtml(contact) {
   if (contact) {
     let userSignature = getContactInitials(contact);
-    console.log(contact);
     const iconHtml = `<div class="circle" style="background-color:${contact["color"]}">
         <span class='circle-text'>${userSignature}</span>
     </div>`;
@@ -237,4 +236,27 @@ function disableIcon() {
  */
 function goBack() {
   window.history.back();
+}
+
+
+/**
+ * Sets the inner HTML content of an HTML element with the provided ID.
+ *
+ * @param {string} elementId - The ID of the HTML element.
+ * @param {string} html - The HTML content to set.
+ * @returns {void}
+ */
+function setElementHtml(elementId, html) {
+  document.getElementById(elementId).innerHTML = html;
+}
+
+/**
+ * Sets the value of an HTML input element with the provided ID.
+ *
+ * @param {string} elementId - The ID of the input element.
+ * @param {string} value - The value to set.
+ * @returns {void}
+ */
+function setElementValue(elementId, value) {
+  document.getElementById(elementId).value = value;
 }
