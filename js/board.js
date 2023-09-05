@@ -30,12 +30,12 @@ let task = [{
  * @returns {void}
  */
 async function updateBoardHTML() {
-    await getStorageData();
-
-    updateTodoHTML();
+    await init();
+    loadTasksHTML();
     updateInProgressHTML();
     updateAwaitFeedbackHTML();
     updateDoneHTML();
+
 }
 
 
@@ -47,20 +47,21 @@ async function updateBoardHTML() {
  * @function
  * @returns {void}
  */
-function updateTodoHTML() {
-    let todo = task.filter(t => t['category'] == 'Todo');
 
-    document.getElementById('todo').innerHTML = '';
-
-    if (todo.length > 0){
-        for (let i = 0; i < todo.length; i++) {
-            let element = todo[i];
-            document.getElementById('todo').innerHTML += generateHTML(element);
+function loadTasksHTML() {
+    for (let index = 0; index < tasks.length; index++) {
+        const task = tasks[index];
+        console.log(tasks[0]['priority']);
+        console.log(tasks[0]['subTasks'][1]['name']);
+    
+        if(task['status']=='toDo'){
+            document.getElementById('todo').innerHTML+=generateHTML(task);
+        }else if(task['status']=='inProgress'){
+                document.getElementById('inProgress').innerHTML+=generateHTML(task);
+            }
         }
-    } else {
-        document.getElementById('todo').innerHTML += renderNoTaskToDo();
     }
-}
+
 
 
 /**
@@ -186,13 +187,13 @@ function renderNoDone() {
  * @param {Object} element - The task element containing information about the task.
  * @returns {string} The HTML code for the task card.
  */
-function generateHTML(element) {
+function generateHTML(task) {
     return `
-        <div onclick="showTaskCard('${element['id']}', '${element['text']}')" draggable="true" ondragstart="startDragging(${element['id']})" class="task-card">
-            <div class="card-category">User Story</div> 
+        <div onclick="showTaskCard('${task['taskCategoryValue']}', '${task['taskName']}', '${task['taskDescription']}', '${task['taskDate']}', '${task['priority']}', ${task['subTasks'][1]['name']})" draggable="true" ondragstart="startDragging(${task['id']})" class="task-card">
+            <div class="card-category">${task['taskCategoryValue']}</div> 
             <div>
-                <h4>${element['text']}</h4>
-                <div class="card-description">Build start page with recipe recommendation...</div>
+                <h4>${task['taskName']}</h4>
+                <div class="card-description">${task['taskDescription']}</div>
             </div>
             <div class="progress-bar-section">
                 <div class="progress-bar">
@@ -470,27 +471,27 @@ function renderSearchListDone(done, list, searchInput) {
 }
 
 
-function showTaskCard(id, title) {
+function showTaskCard(category, name, description, date, priority) {
     let showTaskCard = document.getElementById('showTaskCard');
     showTaskCard.innerHTML = `
         <div id="overlayBoard" class="overlayBoard">
             <div class="task-card-overlay">
                 <div class="card-category-top-section">
-                    <div class="card-category-overlay">User Story</div> 
+                    <div class="card-category-overlay">${category}</div> 
                     <img onclick="closeBoardOverlay()" src="assets/icons/close.svg">
                 </div>
                 <div>
-                    <h4 class="title-h4">${title}</h4>
+                    <h4 class="title-h4">${name}</h4>
                 </div>
-                <div class="card-description-overlay">Build start page with recipe recommendation...</div>
+                <div class="card-description-overlay">${description}</div>
                 <div  class="card-description-overlay">
                     <div class="dark-gray">Due date:</div>
-                    <div>10/05/2023</div>
+                    <div>${date}</div>
                 </div>
                 <div class="priority-container card-description-overlay">
                     <div class="dark-gray">Priority:</div>
                     <div class="priority">
-                        <div>Medium</div>
+                        <div>${priority}</div>
                         <img src="assets/icons/prio-medium.svg">
                     </div>
                 </div>
