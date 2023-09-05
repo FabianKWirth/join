@@ -29,7 +29,9 @@ let task = [{
  * @function
  * @returns {void}
  */
-function updateBoardHTML() {
+async function updateBoardHTML() {
+    await getStorageData();
+
     updateTodoHTML();
     updateInProgressHTML();
     updateAwaitFeedbackHTML();
