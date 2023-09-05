@@ -9,8 +9,7 @@ const today = new Date();
 function greetUser() {
     greetingTime();
     greetingUser()
-    todaysDate()
-    
+    todaysDate() 
 }
 
 
@@ -35,7 +34,6 @@ function greetingTime() {
 function greetingUser() {
     let greetingName = document.getElementById('greeting-name');
     greetingName.innerHTML = username;
-    // console.log(user);
 }
 
 
