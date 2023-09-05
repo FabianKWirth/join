@@ -4,6 +4,10 @@ let tasks = [];
 
 let contacts = [];
 
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+const username = params.name;
+
 let currentSelectedUser;
 
 let contactIconColors = [
@@ -25,16 +29,9 @@ let contactIconColors = [
 ];
 
 
-
-
-
-
 async function init() {
   await getStorageData();
 
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
-  const username = params.name;
   setUserHeaderInitials(username);
 }
 
@@ -170,7 +167,6 @@ function getUserInitials(username) {
 }
 
 function setUserHeaderInitials(username) {
-  console.log(username);
   let myAccount = document.getElementById("myAccount");
   if (myAccount != null) {
     myAccount.innerHTML = getUserInitials(username);
