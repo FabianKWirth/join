@@ -23,19 +23,13 @@ let contactIconColors = [
   "#FF4646",
   "#FFBB2B",
 ];
-
-
-
-
-
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+const username = params.name;
+const userInitials = getUserInitials({ username: username });
 
 async function init() {
   await getStorageData();
-
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
-  const username = params.name;
-  setUserHeaderInitials(username);
 }
 
 /**
@@ -75,7 +69,7 @@ async function includeHTML(x) {
   }
   bgDark(x);
   bgDarkLegalNotice(x);
-  //setUserHeaderInitials();
+  setUserHeaderInitials();
   disableIcon();
 }
 
@@ -155,8 +149,8 @@ function bgDarkLegalNotice(x) {
 /**
  * This function loads the account data from the server
  */
-function getUserInitials(username) {
-  const userNameParts = username.split(" ");
+function getUserInitials(user) {
+  const userNameParts = user["username"].split(" ");
   if (userNameParts[1] != null) {
     userSignature =
       userNameParts[0][0].toUpperCase() + userNameParts[1][0].toUpperCase();
@@ -169,12 +163,9 @@ function getUserInitials(username) {
   return userSignature;
 }
 
-function setUserHeaderInitials(username) {
-  console.log(username);
+function setUserHeaderInitials() {
   let myAccount = document.getElementById("myAccount");
-  if (myAccount != null) {
-    myAccount.innerHTML = getUserInitials(username);
-  }
+  myAccount.innerHTML = userInitials;
 }
 
 /**
@@ -186,9 +177,9 @@ function ShowMenu() {
 }
 
 function ShowMenuResponsive() {
-  let menu = document.getElementById('header-menu-responsive');
-  menu.classList.toggle('hidden');
-  menu.classList.toggle('visible');
+  let menu = document.getElementById("header-menu-responsive");
+  menu.classList.toggle("hidden");
+  menu.classList.toggle("visible");
 }
 
 function closeMenu() {
@@ -218,20 +209,23 @@ function openHelp() {
 function stopClickEvenPropagnationForElementById(elementId) {
   let element = document.getElementById(elementId);
   if (element != null) {
-    element.addEventListener('click', function (event) {
+    element.addEventListener("click", function (event) {
       event.stopPropagation();
     });
   }
 }
-
 
 /**
  * If the user is on the legal_notice.html page, the Icons get display: none.
  */
 function disableIcon() {
   let container = document.getElementById("header-icon");
-  let container2 = document.getElementById('myAccount-responsive')
-  if (window.location.href == 'http://127.0.0.1:5501/legal-notice.html' || window.location.href == 'http://gruppe-671.developerakademie.net/join/legal-notice.html') {
+  let container2 = document.getElementById("myAccount-responsive");
+  if (
+    window.location.href == "http://127.0.0.1:5501/legal-notice.html" ||
+    window.location.href ==
+      "http://gruppe-671.developerakademie.net/join/legal-notice.html"
+  ) {
     container.classList.add("d-none");
     container2.classList.add("d-none");
   }
