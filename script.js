@@ -23,6 +23,7 @@ let contactIconColors = [
   "#FF4646",
   "#FFBB2B",
 ];
+
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 const username = params.name;

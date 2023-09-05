@@ -9,8 +9,7 @@ const today = new Date();
 function greetUser() {
     greetingTime();
     greetingUser()
-    todaysDate()
-    
+    todaysDate() 
 }
 
 
