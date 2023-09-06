@@ -247,18 +247,31 @@ function generateHTML(task, index) {
 
 
 
-/**
- * Generates HTML representations of contact icons for a list of assigned contacts.
- *
- * @param {Array<number>} assignedContacts - An array of contact IDs representing assigned contacts.
- * @returns {string} - A string containing the HTML code for the contact icons.
- */
+
 function getAssignedContactIcons(assignedContacts) {
+
     let contactIconHtml = "";
+    let firstItem = true;
+
     if (assignedContacts != null) {
         assignedContacts.forEach(assignedContact => {
-            contactIconHtml += getContactIconHtml(contacts[assignedContact]);
+
+            let contactIcon = getContactIconHtml(contacts[assignedContact]);
+           
+
+            if (firstItem == true) {
+
+                contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-1"');
+
+                firstItem = false;
+            } else {
+                contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
+            }
+            console.log(contactIcon);
+            contactIconHtml+=contactIcon;
+
         });
+
     }
     return contactIconHtml;
 }
