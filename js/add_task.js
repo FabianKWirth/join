@@ -34,8 +34,6 @@ let unfinishedTaskData = { "status": "toDo" };
  */
 let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate", "selectCategory"];
 
-
-
 /**
  * Asynchronously includes HTML content from specified files into elements with the attribute 'include-tasks-html'.
  * It iterates through all elements with the 'include-tasks-html' attribute, fetches the content of the specified file,
@@ -172,25 +170,3 @@ function resetPriorityMenu() {
         button.checked = false;
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

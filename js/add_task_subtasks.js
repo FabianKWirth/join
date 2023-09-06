@@ -20,6 +20,16 @@ function createSubTask() {
 }
 
 /**
+ * Displays the 'approveSubtaskMenu' and hides the 'enterSubtaskCreation' menu.
+ * 
+ * @returns {void}
+ */
+function approveSubtaskMenu() {
+    document.getElementById("approveSubtaskMenu").classList.remove("hide");
+    document.getElementById("enterSubtaskCreation").classList.add("hide");
+}
+
+/**
  * Deletes a subtask from the 'subTasks' array based on the provided element's ID.
  * After deletion, it clears any editing interface and re-renders the list of subtasks.
  *

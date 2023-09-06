@@ -412,7 +412,6 @@ function filterAwaitFeedback() {
 
     let feedback = task.filter(t => t['category'] == 'Await feedback');
     renderSearchListAwaitFeedback(feedback, list, searchInput);
-
 }
 
 
@@ -553,7 +552,7 @@ function showTaskCard(category, name, description, date, priority, initial0, ini
                     <img src="assets/image/board/edit-line.svg">
                     <div class="edit" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImage')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImage')">
                         <img id="editImage" src="assets/icons/pen-icon.svg"> 
-                        <div>Edit</div>
+                        <div onclick="openEditTaskTemplate(1)">Edit</div>
                     </div>
                 </div>
             </div>
@@ -628,14 +627,50 @@ function assignedInicials(index) {
 
 //// Task related 
 
-function openAddTask() {
+function openAddTaskTemplate() {
 
     document.body.innerHTML +=/*html*/`
     <div id="addTaskOverlay">
     </div>
 
     <div id="addTaskWrapper">
-        <div id="addTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div>
+        <div id="addTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
     </div>`;
     includeTasksHtml();
+
+    includeEventlistenerToCloseAddTask();
+}
+
+function includeEventlistenerToCloseAddTask() {
+    const addTaskOverlay = document.getElementById('addTaskWrapper');
+    addTaskOverlay.addEventListener('click', function (event) {
+        if (event.target === this) {
+            // Clicked on the addTaskOverlay (not its children)
+            removeAddTaskElements();
+        }
+    });
+}
+
+function removeAddTaskElements() {
+    const addTaskOverlay = document.getElementById('addTaskOverlay');
+    const addTaskWrapper = document.getElementById('addTaskWrapper');
+
+    // Remove both elements
+    addTaskOverlay.remove();
+    addTaskWrapper.remove();
+}
+
+async function openEditTaskTemplate(taskId) {
+
+    document.body.innerHTML +=/*html*/`
+    <div id="addTaskOverlay">
+    </div>
+
+    <div id="addTaskWrapper">
+        <div id="editTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
+    </div>`;
+
+    await includeTasksHtml();
+    loadTask(taskId);
+    includeEventlistenerToCloseAddTask()
 }

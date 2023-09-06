@@ -199,14 +199,14 @@
     background-color: #FF7A00;
 }
 
-.board-setion .circle-2{
+.board-setion .circle-2 {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#1FD7C1;
+    background-color: #1FD7C1;
     margin-left: -13px;
 }
 
@@ -254,9 +254,7 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-.board-setion #showTaskCard {
-
-}
+.board-setion #showTaskCard {}
 
 .board-setion .overlayBoard {
     position: fixed;
@@ -419,6 +417,21 @@
     fill: #0038FF;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #addTaskOverlay {
     position: fixed;
     left: 0;
@@ -441,31 +454,52 @@
     align-items: center;
     left: 0;
     top: 0;
-    height: 100vh;
     width: 100%;
     right: 0;
     bottom: 0;
     z-index: 999;
-    overflow: hidden;
     animation: rightToCenter 0.5s ease-in-out forwards;
+    font-family: 'Inter', sans-serif;
 }
 
 #addTaskCard {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     max-width: 90%;
     height: 594px;
-    width:80%;
+    max-width: 80%;
     background-color: white;
     gap: 32px;
     z-index: 1000;
     border-radius: 30px;
-    overflow: hidden;
+    overflow: scroll;
     position: relative;
 }
 
-#addTaskCard #addTaskContainer{
+#editTaskCard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+    max-width: 90%;
+    height: 605px;
+    
+    width: 525px;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 48px 40px;
+
+    z-index: 1000;
+    border-radius: 30px;
+    overflow: scroll;
+    position: relative;
+}
+
+#addTaskCard #addTaskContainer {
     position: relative;
 }
 
