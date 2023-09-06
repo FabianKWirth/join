@@ -1,26 +1,26 @@
 let currentDraggedElement;
 
-let task = [{
-    'id': 0,
-    'title': 'Putzen',
-    'category': 'In progress',
-    'text': 'Kochwelt Page & Recipe Recommender'
-}, {
-    'id': 1,
-    'title': 'Kochen',
-    'category': 'In progress',
-    'text': 'HTML Base Template Creation'
-}, {
-    'id': 2,
-    'title': 'Einkaufen',
-    'category': 'Await feedback',
-    'text': 'CSS Architecture Planning'
-}, {
-    'id': 3,
-    'title': 'Staubsaugen',
-    'category': 'Done',
-    'text': 'Daily Kochwelt Recipe'
-}];
+// let task = [{
+//     'id': 0,
+//     'title': 'Putzen',
+//     'category': 'In progress',
+//     'text': 'Kochwelt Page & Recipe Recommender'
+// }, {
+//     'id': 1,
+//     'title': 'Kochen',
+//     'category': 'In progress',
+//     'text': 'HTML Base Template Creation'
+// }, {
+//     'id': 2,
+//     'title': 'Einkaufen',
+//     'category': 'Await feedback',
+//     'text': 'CSS Architecture Planning'
+// }, {
+//     'id': 3,
+//     'title': 'Staubsaugen',
+//     'category': 'Done',
+//     'text': 'Daily Kochwelt Recipe'
+// }];
 
 
 /**
@@ -57,6 +57,8 @@ function loadTasksToDoHTML() {
 
         if (task['status'] == 'toDo') {
             document.getElementById('todo').innerHTML += generateHTML(task, index);
+        } else if (task['status'] == 'inProgress') {
+            document.getElementById('inProgress').innerHTML += generateHTML(task, index);
         } else {
             document.getElementById('todo').innerHTML = renderNoTaskToDo(task);
         }
@@ -64,9 +66,9 @@ function loadTasksToDoHTML() {
     // console.log('es ist', tasks[0]['status'])
     
 
-    loadTasksInProgressHTML(task);
-    loadTasksAwaitFeedbackHTML(task);
-    loadTasksDoneHTML(task);
+    // loadTasksInProgressHTML(task);
+    // loadTasksAwaitFeedbackHTML(task);
+    // loadTasksDoneHTML(task);
 }
 
     function loadTasksInProgressHTML(task) {
@@ -150,20 +152,20 @@ function loadTasksToDoHTML() {
  * @function
  * @returns {void}
  */
-function updateDoneHTML() {
-    let done = task.filter(t => t['category'] == 'Done');
+// function updateDoneHTML() {
+//     let done = task.filter(t => t['category'] == 'Done');
 
-    document.getElementById('done').innerHTML = '';
+//     document.getElementById('done').innerHTML = '';
 
-    if (done.length > 0) {
-        for (let i = 0; i < done.length; i++) {
-            let element = done[i];
-            document.getElementById('done').innerHTML += generateHTML(element);
-        }
-    } else {
-        document.getElementById('done').innerHTML += renderNoDone();
-    }
-}
+//     if (done.length > 0) {
+//         for (let i = 0; i < done.length; i++) {
+//             let element = done[i];
+//             document.getElementById('done').innerHTML += generateHTML(element);
+//         }
+//     } else {
+//         document.getElementById('done').innerHTML += renderNoDone();
+//     }
+// }
 
 
 /**
@@ -247,7 +249,7 @@ function generateHTML(task, index) {
     }
 
     return `
-        <div onclick="showTaskCard('${task['taskCategoryValue']}', '${task['taskName']}', '${task['taskDescription']}', '${task['taskDate']}', '${task['priority']}', assignedInicials(0), assignedInicials(1), assignedInicials(2), assignedTo(0), assignedTo(1), assignedTo(2), '${task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : ''}', '${task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : ''}')" draggable="true" ondragstart="startDragging(${index})" class="task-card">
+        <div onclick="showTaskCard(${index})" draggable="true" ondragstart="startDragging(${index})" class="task-card">
             <div class="card-category">${task['taskCategoryValue']}</div> 
             <div>
                 <h4>${task['taskName']}</h4>
@@ -347,7 +349,7 @@ function moveTo(ev) {
         tasks[currentDraggedElement]['status'] = category;
         console.log('task ist', tasks[currentDraggedElement]['status'])
         console.log('es ist jetzt', tasks[0]['status'])
-        // saveGlobalVariables();
+        setItem('tasks', tasks);
         updateBoardHTML();
     }
 }
@@ -541,8 +543,25 @@ function renderSearchListDone(done, list, searchInput) {
 }
 
 
-function showTaskCard(category, name, description, date, priority, initial0, initial1, initial2, assignedName0, assignedName1, assignedName2, subtask1, subtask2) {
+function showTaskCard(index) {
+    let task = tasks[index];
+    console.log('task ist', task)
+
+    
+    console.log('hier übergeben',task)
+    const category = task['taskCategoryValue'];
+    const name = task['taskName'];
+    const description = task['taskDescription'];
+    const date = task['taskDate'];
+    const priority = task['priority'];
+    const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
+    const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
+    const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
+    const subtask2 = task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : '';
+    let assignedName = '';
+
     let showTaskCard = document.getElementById('showTaskCard');
+    console.log('prioritiy ist', priority)
     let priorityImageSrc = getPriorityImageSrc(priority);
 
     showTaskCard.innerHTML = `
@@ -573,16 +592,16 @@ function showTaskCard(category, name, description, date, priority, initial0, ini
                     </div>
                     <div>
                         <div id="initial0" class="assigned-contacts">
-                            <div class="contact-circle">${initial0}</div>
-                            <div>${assignedName0}</div>
+                            <div class="contact-circle"></div>
+                            <div>${assignedName}</div>
                         </div>
                         <div id="initial1" class="assigned-contacts">
-                            <div class="contact-circle">${initial1}</div>
-                            <div>${assignedName1}</div>
+                            <div class="contact-circle"></div>
+                            <div>${assignedName}</div>
                         </div>
                         <div id="initial2" class="assigned-contacts">
-                            <div class="contact-circle">${initial2}</div>
-                            <div>${assignedName2}</div>
+                            <div class="contact-circle"></div>
+                            <div>${assignedName}</div>
                         </div>
                     </div>
                 </div>
