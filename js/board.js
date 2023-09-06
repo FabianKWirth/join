@@ -189,7 +189,7 @@ function renderNoDone() {
  */
 function generateHTML(task) {
 
-    let assignedContactsIcons=getAssignedContactIcons(task['assignedContacts']);
+    let assignedContactsIcons = getAssignedContactIcons(task['assignedContacts']);
     return `
         <div onclick="showTaskCard('${task['taskCategoryValue']}', '${task['taskName']}', '${task['taskDescription']}', '${task['taskDate']}', '${task['priority']}', assignedInicials(0), assignedInicials(1), assignedInicials(2), assignedTo(0), assignedTo(1), assignedTo(2), '${task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : ''}', '${task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : ''}',
         )" draggable="true" ondragstart="startDragging(${task['id']})" class="task-card">
@@ -370,7 +370,6 @@ function filterInProgress() {
 
     renderSearchListInProgress(progress, list, searchInput)
 }
-
 
 /**
  * Renders a filtered list of 'In Progress' category tasks based on a search query.
@@ -585,7 +584,7 @@ function changeImage(newSrc, imageId) {
 
 function assignedTo(index) {
     let indexInContacts = tasks[0]['assignedContacts'][index];
-    
+
     if (contacts[indexInContacts] && contacts[indexInContacts]['name']) {
         let contactName = contacts[indexInContacts]['name'];
         return contactName;
@@ -597,7 +596,7 @@ function assignedTo(index) {
 
 function assignedInicials(index) {
     let initials = tasks[0]['assignedContacts'][index];
-    
+
     // Überprüfen, ob initials gültig ist und ob der Kontakt existiert
     if (initials !== undefined && contacts[initials]) {
         return getContactInitials(contacts[initials]);
@@ -606,13 +605,37 @@ function assignedInicials(index) {
         var elementId = `initial${index}`; // Generiere die ID basierend auf dem Index
         var divElement = document.getElementById(elementId);
         console.log(divElement);
-        
+
         if (divElement) {
             divElement.style.display = 'none'; // Ausblenden des Div-Elements
         }
-        
+
         return ''; // Oder eine andere geeignete Rückgabewert, falls notwendig
     }
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+//// Task related 
+
+function openAddTask() {
+
+    document.body.innerHTML +=/*html*/`
+    <div id="addTaskOverlay">
+    </div>
+
+    <div id="addTaskWrapper">
+        <div id="addTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div>
+    </div>`;
+    includeTasksHtml();
+}

@@ -101,3 +101,7 @@ h3 {
 .hide-overflow{
     overflow: hidden;
 }
+
+.hide {
+    display: none;
+}

@@ -1,4 +1,4 @@
-.body {
+.board-setion {
     position: absolute;
     left: 0;
     right: 0;
@@ -9,25 +9,25 @@
     overflow-y: scroll;
 }
 
-.head-section {
+.board-setion .head-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 80px 88px 0 0px;
 }
 
-.head-section-right {
+.board-setion .head-section-right {
     display: flex;
 }
 
-.input-section {
+.board-setion .input-section {
     position: relative;
     display: flex;
     align-items: center;
     width: 312px;
 }
 
-.input-section input {
+.board-setion .input-section input {
     padding: 8px 94px 8px 16px;
     border-radius: 10px;
     border: 1px solid #A8A8A8;
@@ -41,24 +41,24 @@
     padding-right: 94px;
 }
 
-.input-line {
+.board-setion .input-line {
     position: absolute;
     right: 60px;
 }
 
-.input-search {
+.board-setion .input-search {
     position: absolute;
     right: 15px;
     cursor: pointer;
 }
 
-.head-section-right {
+.board-setion .head-section-right {
     display: flex;
     align-items: center;
     gap: 32px;
 }
 
-.add-task {
+.board-setion .add-task {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -73,23 +73,23 @@
     cursor: pointer;
 }
 
-.add-task:hover {
+.board-setion .add-task:hover {
     background-color: #29ABE2;
     box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
 }
 
-.task-board {
+.board-setion .task-board {
     display: flex;
     justify-content: space-between;
     margin: 48px 64px 0 0px;
     gap: 24px;
 }
 
-.plus-icon {
+.board-setion .plus-icon {
     cursor: pointer;
 }
 
-.task-section {
+.board-setion .task-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,12 +100,12 @@
     line-height: 24px;
 }
 
-.task-field {
+.board-setion .task-field {
     height: 100vh;
     overflow: hidden;
 }
 
-.task-area {
+.board-setion .task-area {
     display: flex;
     justify-content: space-between;
     height: calc(100vh - 327px);
@@ -116,7 +116,7 @@
     padding: 18px 64px 0 0px;
 }
 
-.creat-task-area {
+.board-setion .creat-task-area {
     width: 244px;
     min-height: 200px;
     display: flex;
@@ -126,7 +126,7 @@
     border-radius: 24px;
 }
 
-.task-card {
+.board-setion .task-card {
     padding: 16px;
     background-color: #FFFFFF;
     border-radius: 24px;
@@ -138,11 +138,11 @@
     transition: transform 0.3s ease;
 }
 
-.task-card:hover {
+.board-setion .task-card:hover {
     transform: rotate(5deg);
 }
 
-.card-category {
+.board-setion .card-category {
     padding: 4px 16px;
     background-color: #0038FF;
     font-size: 16px;
@@ -150,25 +150,25 @@
     border-radius: 8px;
 }
 
-h4 {
+.board-setion h4 {
     font-size: 16px;
     font-weight: 700;
     color: #2A3647;
     margin: 0;
 }
 
-.card-description {
+.board-setion .card-description {
     color: #A8A8A8;
     font-size: 16px;
 }
 
-.progress-bar-section {
+.board-setion .progress-bar-section {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.progress-bar {
+.board-setion .progress-bar {
     width: 60%;
     height: 8px;
     background-color: #F4F4F4;
@@ -176,20 +176,20 @@ h4 {
     margin: 10px 0;
     overflow: hidden;
     margin-right: 11px;
-  }
-  
-  .progress {
+}
+
+.board-setion .progress {
     width: 50%;
     height: 100%;
     background-color: #4589FF;
     transition: width 0.3s ease-in-out;
-  }
-  
-  .progress-bar-subtasks {
-    font-size: 12px;
-  }
+}
 
-.circle-1 {
+.board-setion .progress-bar-subtasks {
+    font-size: 12px;
+}
+
+.board-setion .circle-1 {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -199,7 +199,7 @@ h4 {
     background-color: #FF7A00;
 }
 
-.circle-2{
+.board-setion .circle-2{
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -210,7 +210,7 @@ h4 {
     margin-left: -13px;
 }
 
-.circle-3 {
+.board-setion .circle-3 {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -221,12 +221,12 @@ h4 {
     margin-left: -13px;
 }
 
-.task-card-users {
+.board-setion .task-card-users {
     display: flex;
     gap: 5px;
 }
 
-.task-card-bottom-section {
+.board-setion .task-card-bottom-section {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -235,12 +235,12 @@ h4 {
     font-size: 12px;
 }
 
-.drag-area-highlight {
+.board-setion .drag-area-highlight {
     border: 2px gray dashed;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.noToDo {
+.board-setion .noToDo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -254,12 +254,11 @@ h4 {
     font-family: 'Open Sans', sans-serif;
 }
 
-
-#showTaskCard {
+.board-setion #showTaskCard {
 
 }
 
-.overlayBoard {
+.board-setion .overlayBoard {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -272,7 +271,7 @@ h4 {
     align-items: center;
 }
 
-.task-card-overlay {
+.board-setion .task-card-overlay {
     width: 525px;
     background-color: #FFFFFF;
     border-radius: 30px;
@@ -283,22 +282,22 @@ h4 {
     padding: 48px 40px;
 }
 
-.card-category-top-section {
+.board-setion .card-category-top-section {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.card-category-top-section img {
+.board-setion .card-category-top-section img {
     cursor: pointer;
 }
 
-.card-category-top-section:hover img {
+.board-setion .card-category-top-section:hover img {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 50%;
 }
 
-.card-category-overlay {
+.board-setion .card-category-overlay {
     padding: 4px 16px;
     background-color: #0038FF;
     font-size: 16px;
@@ -308,14 +307,13 @@ h4 {
     font-family: 'Open Sans', sans-serif;
 }
 
-.title-h4 {
+.board-setion .title-h4 {
     font-size: 48px;
     font-weight: 700;
     color: #000;
-
 }
 
-.card-description-overlay {
+.board-setion .card-description-overlay {
     font-size: 20px;
     color: #000;
     font-family: 'Inter', sans-serif;
@@ -323,13 +321,13 @@ h4 {
     gap: 25px;
 }
 
-.priority-container {
+.board-setion .priority-container {
     display: flex;
     align-items: center;
     gap: 25px;
 }
 
-.priority {
+.board-setion .priority {
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -337,11 +335,11 @@ h4 {
     padding: 4px 18px;
 }
 
-.dark-gray {
+.board-setion .dark-gray {
     color: #2A3647;
 }
 
-.assigned {
+.board-setion .assigned {
     font-size: 20px;
     color: #000;
     font-family: 'Inter', sans-serif;
@@ -350,7 +348,7 @@ h4 {
     gap: 8px;
 }
 
-.assigned-contacts {
+.board-setion .assigned-contacts {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -360,7 +358,7 @@ h4 {
     padding: 7px 16px;
 }
 
-.contact-circle {
+.board-setion .contact-circle {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -371,32 +369,32 @@ h4 {
     color: #FFFFFF;
 }
 
-.subtasks {
+.board-setion .subtasks {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.subtask {
+.board-setion .subtask {
     display: flex;
     align-items: center;
     gap: 16px;
     padding: 6px 16px;
 }
 
-.subtask:hover {
+.board-setion .subtask:hover {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
-.subtasks-container {
+.board-setion .subtasks-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
 }
 
-.edit-container {
+.board-setion .edit-container {
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -404,7 +402,7 @@ h4 {
     gap: 8px;
 }
 
-.edit {
+.board-setion .edit {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -413,44 +411,72 @@ h4 {
     cursor: pointer;
 }
 
-.edit:hover {
+.board-setion .edit:hover {
     color: #29ABE2;
 }
 
-@media(max-width: 1600px) {
-    .task-card-overlay {
-        gap: 14px;
-        width: 400px;
-    }
-    
-    .card-category-overlay {
-        font-size: 20px;
-    }
-
-    .title-h4 {
-        font-size: 32px;
-    }
-
-    .card-description-overlay {
-        font-size: 16px;
-    }
-    
-    .assigned {
-        font-size: 16px;
-    }
-
-    .contact-circle {
-        width: 38px;
-        height: 38px;
-    }
-
-    .subtasks-container {
-        gap: 0;
-    }
-
+.board-setion .trash:hover #path {
+    fill: #0038FF;
 }
 
-/* Ändere die Farbe des Pfads mit der ID "path" beim Hover über .trash */
-.trash:hover #path {
-    fill: #0038FF; /* Du kannst die Farbe nach deinen Wünschen anpassen */
+#addTaskOverlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    z-index: 900;
+    opacity: 0.2;
+    overflow: hidden;
+}
+
+#addTaskWrapper {
+    position: fixed;
+    display: flex;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    overflow: hidden;
+    animation: rightToCenter 0.5s ease-in-out forwards;
+}
+
+#addTaskCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    height: 594px;
+    width:80%;
+    background-color: white;
+    gap: 32px;
+    z-index: 1000;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+#addTaskCard #addTaskContainer{
+    position: relative;
+}
+
+
+
+@keyframes rightToCenter {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
