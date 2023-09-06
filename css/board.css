@@ -197,7 +197,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #FF7A00;
 }
 
 .board-section .circle-2 {
@@ -207,7 +206,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1FD7C1;
     margin-left: -13px;
 }
 
@@ -218,7 +216,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #462F8A;
     margin-left: -13px;
 }
 

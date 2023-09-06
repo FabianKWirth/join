@@ -615,7 +615,7 @@ function getAssignedContacts(assignedContacts) {
         for (let i = 0; i < assignedContacts.length; i++) {
             const assignedContact = assignedContacts[i];
 
-            assignedContactsHTML += /*html*/` <div class='assigned-contact'>
+            assignedContactsHTML += /*html*/` <div class='assigned-contacts'>
                 <div class='contact-circle'>${getContactIconHtml(contacts[assignedContact])}</div>
                 ${contacts[assignedContact]['name']}
                 </div>`;

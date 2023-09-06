@@ -184,6 +184,7 @@ function ShowMenuResponsive() {
 
 function closeMenu() {
   document.getElementById("header-menu").classList.add("dNone");
+  document.getElementById("overlay").classList.add("dNone");
 }
 
 function openSummary() {
