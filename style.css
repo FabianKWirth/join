@@ -35,7 +35,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 1 / 1
+    aspect-ratio: 1 / 1;
 }
 
 .circle-text {

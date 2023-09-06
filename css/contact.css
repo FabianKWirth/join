@@ -449,6 +449,7 @@ h4 {
 }
 
 .contact-name-row .circle {
+    /* min-width: 42px; */
     font-weight: 500;
     font-size: 47px;
 }

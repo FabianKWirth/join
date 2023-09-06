@@ -192,8 +192,7 @@
 
 .board-section .circle-1 {
     width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    min-width: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,18 +200,7 @@
 
 .board-section .circle-2 {
     width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: -13px;
-}
-
-.board-section .circle-3 {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    min-width: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
