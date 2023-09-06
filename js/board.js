@@ -59,6 +59,10 @@ function loadTasksToDoHTML() {
             document.getElementById('todo').innerHTML += generateHTML(task, index);
         } else if (task['status'] == 'inProgress') {
             document.getElementById('inProgress').innerHTML += generateHTML(task, index);
+        } else if (task['status'] == 'awaitFeedback') {
+            document.getElementById('awaitFeedback').innerHTML += generateHTML(task, index);
+        } else if (task['status'] == 'done') {
+            document.getElementById('done').innerHTML += generateHTML(task, index);
         } else {
             document.getElementById('todo').innerHTML = renderNoTaskToDo(task);
         }
