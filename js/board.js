@@ -31,7 +31,7 @@ let currentDraggedElement;
 */
 async function updateBoardHTML() {
     await init();
-    loadTasksToDoHTML();
+    loadTasksHTML();
     console.log('es ist jetzt übergeben', tasks[0]['status'])
 
     // updateInProgressHTML();
@@ -49,7 +49,11 @@ async function updateBoardHTML() {
  * @returns {void}
  */
 
-function loadTasksToDoHTML() {
+function loadTasksHTML() {
+    document.getElementById('todo').innerHTML = '';
+    document.getElementById('inProgress').innerHTML  = '';
+    document.getElementById('awaitFeedback').innerHTML  = '';
+    document.getElementById('done').innerHTML  = '';
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
         // console.log(task['priority']);
@@ -68,36 +72,8 @@ function loadTasksToDoHTML() {
         }
     }
     // console.log('es ist', tasks[0]['status'])
-    
-
-    // loadTasksInProgressHTML(task);
-    // loadTasksAwaitFeedbackHTML(task);
-    // loadTasksDoneHTML(task);
 }
-
-    function loadTasksInProgressHTML(task) {
-        if (task['status'] == 'inProgress') {
-            document.getElementById('inProgress').innerHTML += generateHTML(task);
-        } else {
-            document.getElementById('inProgress').innerHTML = renderNoInProgress();
-        }
-    }
-
-    function loadTasksAwaitFeedbackHTML(task) {
-        if (task['status'] == 'awaitFeedback') {
-            document.getElementById('awaitFeedback').innerHTML += generateHTML(task);
-        } else {
-            document.getElementById('awaitFeedback').innerHTML = renderNoAwaitFeedback();
-        }
-    }
-
-    function loadTasksDoneHTML(task) {
-        if (task['status'] == 'done') {
-            document.getElementById('done').innerHTML += generateHTML(task);
-        } else {
-            document.getElementById('done').innerHTML = renderNoDone();
-        }
-    }
+// 
 
 
 /**
@@ -254,7 +230,7 @@ function generateHTML(task, index) {
 
     return `
         <div onclick="showTaskCard(${index})" draggable="true" ondragstart="startDragging(${index})" class="task-card">
-            <div class="card-category">${task['taskCategoryValue']}</div> 
+            <div class="card-category ${categoryClass}">${task['taskCategoryValue']}</div> 
             <div>
                 <h4>${task['taskName']}</h4>
                 <div class="card-description">${task['taskDescription']}</div>
@@ -354,7 +330,7 @@ function moveTo(ev) {
         console.log('task ist', tasks[currentDraggedElement]['status'])
         console.log('es ist jetzt', tasks[0]['status'])
         setItem('tasks', tasks);
-        updateBoardHTML();
+        loadTasksHTML();
     }
 }
 
@@ -558,6 +534,7 @@ function showTaskCard(index) {
     const description = task['taskDescription'];
     const date = task['taskDate'];
     const priority = task['priority'];
+    let assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
     const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
     const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
     const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
@@ -606,7 +583,7 @@ function showTaskCard(index) {
                         <div id="initial2" class="assigned-contacts">
                             <div class="contact-circle"></div>
                             <div>${assignedName}</div>
-                        </div>
+                        </div>${assignedContactsHTML}
                     </div>
                 </div>
                 <div class="subtasks">
@@ -638,6 +615,20 @@ function showTaskCard(index) {
             </div>
         </div>
     `;
+    includeEventlistenerToCloseOverlayBoard();
+}
+
+function getAssignedContacts(assignedContacts) {
+    let assignedContactsHTML = '';
+    
+    if (assignedContacts) {
+        for (let i = 0; i < assignedContacts.length; i++) {
+            const assignedContact = assignedContacts[i];
+        
+            assignedContactsHTML += getContactIconHtml(contacts[assignedContact]);
+            console.log(contacts[assignedContact]);
+        }
+    }
 }
 
 function getPriorityImageSrc(priority) {
@@ -744,13 +735,32 @@ function includeEventlistenerToCloseAddTask() {
     });
 }
 
+function includeEventlistenerToCloseOverlayBoard() {
+    const addTaskOverlay = document.getElementById('overlayBoard');
+    addTaskOverlay.addEventListener('click', function (event) {
+        if (event.target === this) {
+            // Clicked on the addTaskOverlay (not its children)
+            removeOverlayBoard();
+        }
+    });
+}
+
 function removeAddTaskElements() {
     const addTaskOverlay = document.getElementById('addTaskOverlay');
     const addTaskWrapper = document.getElementById('addTaskWrapper');
+    const overlayBoard = document.getElementById('overlayBoard');
 
     // Remove both elements
     addTaskOverlay.remove();
     addTaskWrapper.remove();
+    overlayBoard.remove();
+}
+
+function removeOverlayBoard() {
+    const overlayBoard = document.getElementById('overlayBoard');
+
+    // Remove both elements
+    overlayBoard.remove();
 }
 
 async function openEditTaskTemplate(taskId) {
