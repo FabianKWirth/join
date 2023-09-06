@@ -31,10 +31,10 @@ let task = [{
 */
 async function updateBoardHTML() {
     await init();
-    loadTasksHTML();
-    updateInProgressHTML();
-    updateAwaitFeedbackHTML();
-    updateDoneHTML();
+    loadTasksToDOHTML();
+    // updateInProgressHTML();
+    // updateAwaitFeedbackHTML();
+    // updateDoneHTML();
 
 }
 
@@ -48,20 +48,47 @@ async function updateBoardHTML() {
  * @returns {void}
  */
 
-function loadTasksHTML() {
+function loadTasksToDOHTML() {
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-        console.log(tasks[0]['priority']);
-        console.log(tasks[0]['subTasks'][1]['name']);
+        // console.log(task['priority']);
+        // console.log(task['subTasks'][1]['name']);
 
         if (task['status'] == 'toDo') {
             document.getElementById('todo').innerHTML += generateHTML(task);
-        } else if (task['status'] == 'inProgress') {
-            document.getElementById('inProgress').innerHTML += generateHTML(task);
+        } else {
+            document.getElementById('todo').innerHTML += generateHTML(task);
         }
     }
+
+    loadTasksInProgressHTML(task);
+    loadTasksAwaitFeedbackHTML(task);
+    loadTasksDoneHTML(task);
 }
 
+    function loadTasksInProgressHTML(task) {
+        if (task['status'] == 'inProgress') {
+            document.getElementById('inProgress').innerHTML += generateHTML(task);
+        } else {
+            document.getElementById('inProgress').innerHTML += renderNoInProgress();
+        }
+    }
+
+    function loadTasksAwaitFeedbackHTML(task) {
+        if (task['status'] == 'awaitFeedback') {
+            document.getElementById('awaitFeedback').innerHTML += generateHTML(task);
+        } else {
+            document.getElementById('awaitFeedback').innerHTML += renderNoAwaitFeedback();
+        }
+    }
+
+    function loadTasksDoneHTML(task) {
+        if (task['status'] == 'done') {
+            document.getElementById('done').innerHTML += generateHTML(task);
+        } else {
+            document.getElementById('done').innerHTML += renderNoDone();
+        }
+    }
 
 
 /**
@@ -572,7 +599,7 @@ function subtaskChangeImg(id) {
 }
 
 function closeBoardOverlay() {
-    document.getElementById('overlayBoard').classList.add('dNone');
+    document.getElementById('overlayBoard').style.display = 'none';
 }
 
 

@@ -108,7 +108,7 @@
 .board-setion .task-area {
     display: flex;
     justify-content: space-between;
-    height: calc(100vh - 327px);
+    /* height: calc(100vh - 327px); */
     gap: 24px;
     height: 100%;
     padding-bottom: 16px;
