@@ -622,8 +622,6 @@ function getAssignedContacts(assignedContacts) {
             console.log(getContactIconHtml(contacts[assignedContact]));
         }
     }
-
-    return assignedContactsHTML;
 }
 
 function getPriorityImageSrc(priority) {
