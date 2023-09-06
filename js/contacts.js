@@ -92,6 +92,11 @@ function setCurrentContactValues() {
 }
 
 
+/**
+ * Sets the contact credentials for the selected contact element.
+ * This function updates the content of an HTML element with the id 'contactCredentials'
+ * based on the selected contact's data.
+ */
 function setContactCredentials() {
     if (selectedContact != null) {
         document.getElementById('contactCredentials').innerHTML = getContactIconHtml(contacts[selectedContact]);
@@ -129,17 +134,25 @@ function setContactFormButtons(buttonsToSet) {
 }
 
 
+/**
+ * Removes the "hide-overflow" class from the <body> element(s) to enable scrolling
+ * when necessary. This function can be used to re-enable scrolling on the page.
+ */
 function removeScrollFromBody() {
     let elements = document.getElementsByTagName("body");
     Array.from(elements).forEach(element => {
-        element.classList.remove("hide-overflow");
+        element.classList.add("hide-overflow");
     });
 }
 
+/**
+ * Adds the "hide-overflow" class to the <body> element(s) to disable scrolling
+ * when necessary. This function can be used to prevent scrolling on the page.
+ */
 function addScrollToBody() {
     let elements = document.getElementsByTagName("body");
     Array.from(elements).forEach(element => {
-        element.classList.add("hide-overflow");
+        element.classList.remove("hide-overflow");
     });
 }
 
@@ -159,34 +172,65 @@ function removeElementsByPartialClassName(partialClassName) {
     });
 }
 
+/**
+ * Renders a notification element for a contact creation event.
+ * The notification displays a "Created" message and automatically fades out
+ * and removes itself after 2 seconds.
+ */
 function renderContactCreatedElement() {
     renderNotificationLayout();
     setNotificationValue("Created");
     setTimeout(function () {
-        document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
-        document.getElementById("contactChangeNotificationContainer").remove();
+        removeNotificationLayout();
     }, 2000);
-
 }
 
+/**
+ * Renders a notification element for a contact save (change) event.
+ * The notification displays a "Changed" message and automatically fades out
+ * and removes itself after 2 seconds.
+ */
 function renderContactSavedElement() {
     renderNotificationLayout();
     setNotificationValue("Changed");
     setTimeout(function () {
-        document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
-        document.getElementById("contactChangeNotificationContainer").remove();
+        removeNotificationLayout();
     }, 2000);
 }
 
+
+/**
+ * Renders a notification element for a contact delete event.
+ * The notification displays a "Delete" message and automatically fades out
+ * and removes itself after 2 seconds.
+ */
 function renderContactDeleteElement() {
     renderNotificationLayout();
     setNotificationValue("Delete");
+
     setTimeout(function () {
-        document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
-        document.getElementById("contactChangeNotificationContainer").remove();
+        removeNotificationLayout();
     }, 2000);
 }
 
+/**
+ * Removes the notification layout by adding the "shift-out" class to
+ * the notification container element and then removing it from the DOM
+ * after 1 second. This function is typically called after the notification
+ * has served its purpose and should be hidden.
+ */
+function removeNotificationLayout() {
+    document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
+    setTimeout(function () {
+        document.getElementById("contactChangeNotificationContainer").remove()
+    }, 1000);
+}
+
+/**
+ * Sets the notification text based on the provided input.
+ *
+ * @param {string} input - The input string that determines the notification message.
+ */
 function setNotificationValue(input) {
     switch (input) {
         case 'Created':
@@ -203,6 +247,10 @@ function setNotificationValue(input) {
     }
 }
 
+/**
+ * Renders the notification layout within the selected contact container
+ * or add task container if available.
+ */
 function renderNotificationLayout() {
     let newDiv = document.createElement("div");
     newDiv.innerHTML +=/*html*/`
@@ -214,7 +262,6 @@ function renderNotificationLayout() {
     } else if (document.getElementById("addTaskContainer")) {
         document.getElementById("addTaskContainer").appendChild(newDiv);
     }
-
 }
 
 async function createContact() {
@@ -228,25 +275,25 @@ async function createContact() {
         renderContactCreatedElement();
         await updateContactsArray(contactName, contactMail, contactPhone, color);
 
-        if (isContactPage() == false) {
-            setTimeout(function () {
-                window.location.href = "contact.html"; // Replace with your desired URL
-            }, 2000);
-        } else {
-
-            renderContacts();
-            selectedContact = findContactIndex(contactMail, contactName, contactPhone);
-            if (selectedContact == -1) {
-                selectedContact = null;
-            } else {
-                renderSelectedContactBody();
-                setCurrentShownMobileClass();
-            }
-        }
-
-
+        renderContactPageOfCurrentContact();
     }
+}
 
+function renderContactPageOfCurrentContact(contactName, contactMail, contactPhone) {
+    if (isContactPage() == false) {
+        setTimeout(function () {
+            openContacts();
+        }, 2000);
+    } else {
+        renderContacts();
+        selectedContact = findContactIndex(contactMail, contactName, contactPhone);
+        if (selectedContact == -1) {
+            selectedContact = null;
+        } else {
+            renderSelectedContactBody();
+            setCurrentShownMobileClass();
+        }
+    }
 }
 
 function saveContact() {
@@ -258,7 +305,7 @@ function saveContact() {
 
         let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
         contacts[selectedContact] = contact;
-
+        setItem("contacts", contacts);
 
         renderContacts();
         removeElementsByPartialClassName("add-contact");
@@ -268,7 +315,7 @@ function saveContact() {
         renderSelectedContactBody();
         renderContactSavedElement();
 
-        setItem("contacts", contacts);
+        
     }
 
 }

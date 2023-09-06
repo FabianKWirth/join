@@ -209,7 +209,7 @@ h4 {
     }
 
     to {
-        transform: translateY(300%);
+        transform: translateX(300%);
     }
 }
 
@@ -481,8 +481,6 @@ h4 {
     filter: invert(54%) sepia(64%) saturate(1501%) hue-rotate(164deg) brightness(100%) contrast(78%);
     font-weight: 700;
 }
-
-
 
 .contact-information {
     font-size: 20px;

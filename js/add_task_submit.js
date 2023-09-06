@@ -7,7 +7,7 @@
  * @returns {Promise<void>} A promise that resolves when the task submission and storage update are complete.
  */
 async function submitTask() {
-    saveCurrentEntriesToTask()
+    saveCurrentEntriesToTask();
     if (checkIfFormSubmittable()) {
         tasks.push(unfinishedTaskData);
         renderTaskAddedElement();
@@ -83,6 +83,10 @@ function saveDirectInputFields() {
     if (document.getElementById("newTaskDate").value != "") {
         unfinishedTaskData["taskDate"] = document.getElementById("newTaskDate").value;
     }
+
+    if (document.getElementById("selectCategory").value != "") {
+        unfinishedTaskData["taskCategoryValue"] = document.getElementById("selectCategory").value;
+    }
 }
 
 
@@ -142,6 +146,7 @@ function resetIndirectInputs() {
 function loadTask(taskId) {
     let task = tasks[taskId];
 
+    document.getElementById("addTaskTitle").innerHTML='Edit Task';
     unfinishedTaskData = task;
     setNewTaskTitleFieldValue(task);
     setNewTaskDescriptionFieldValue(task);
@@ -185,8 +190,6 @@ function setNewTaskDescriptionFieldValue(task) {
  * @returns {void}
  */
 function setAssignedContacts(task) {
-
-    console.log(task["assignedContacts"]);
     if (task["assignedContacts"]) {
         assignedContacts = task["assignedContacts"];
     } else {
@@ -248,7 +251,6 @@ function setCategoryValue(task) {
  */
 function setSubTaskFieldValue(task) {
     subTasks = task['subTasks'];
-    console.log(subTasks);
     if (subTasks) {
         renderSubTasksList();
     }
@@ -352,7 +354,6 @@ function checkIfFormSubmittable() {
     }
 }
 
-
 /**
  * Validates the new task title input. Adds tooltip to input field if invalid.
  * @returns {number} true if valid, false if invalid
@@ -365,7 +366,6 @@ function validateTaskTitle() {
 
     if (taskTitleValue === "") {
         taskTitleInput.reportValidity();
-        console.log("Titel");
         return false;
         
     } else {
@@ -386,7 +386,6 @@ function validateTaskDescription() {
     if (taskDescriptionValue === "") {
         taskDescriptionInput.classList.add('inputCheck');
         taskDescriptionInput.reportValidity();
-        console.log("Description");
         return false;
     } else {
         return true;
@@ -407,7 +406,6 @@ function validateTaskDate() {
     if (taskDateValue == "" || taskDateValue === "yyyy-mm-dd") {
         taskDateInput.reportValidity();
         taskDateInput.classList.add('input-check');
-        console.log("Date");
         return false;
     } else {
         return true;
@@ -423,7 +421,6 @@ function validateTaskPriority() {
     if (selectedTaskPriority != null) {
         return true;
     } else {
-        console.log("Prio");
         return false;
     }
 }
@@ -439,7 +436,6 @@ function validateTaskCategory() {
     const selectCategoryValue = taskCategoryElement.value;
     if (selectCategoryValue == "") {
         taskCategoryElement.reportValidity();
-        console.log("Categrory");
         return false;
     } else {
         return true;
