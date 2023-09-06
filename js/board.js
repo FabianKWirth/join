@@ -51,9 +51,9 @@ async function updateBoardHTML() {
 
 function loadTasksHTML() {
     document.getElementById('todo').innerHTML = '';
-    document.getElementById('inProgress').innerHTML  = '';
-    document.getElementById('awaitFeedback').innerHTML  = '';
-    document.getElementById('done').innerHTML  = '';
+    document.getElementById('inProgress').innerHTML = '';
+    document.getElementById('awaitFeedback').innerHTML = '';
+    document.getElementById('done').innerHTML = '';
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
         // console.log(task['priority']);
@@ -527,14 +527,15 @@ function showTaskCard(index) {
     let task = tasks[index];
     console.log('task ist', task)
 
-    
-    console.log('hier übergeben',task)
+
+    console.log('hier übergeben', task)
     const category = task['taskCategoryValue'];
     const name = task['taskName'];
     const description = task['taskDescription'];
     const date = task['taskDate'];
     const priority = task['priority'];
     let assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
+    console.log(assignedContactsHTML);
     const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
     const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
     const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
@@ -572,18 +573,7 @@ function showTaskCard(index) {
                         <div class="dark-gray">Assigned To:</div>
                     </div>
                     <div>
-                        <div id="initial0" class="assigned-contacts">
-                            <div class="contact-circle"></div>
-                            <div>${assignedName}</div>
-                        </div>
-                        <div id="initial1" class="assigned-contacts">
-                            <div class="contact-circle"></div>
-                            <div>${assignedName}</div>
-                        </div>
-                        <div id="initial2" class="assigned-contacts">
-                            <div class="contact-circle"></div>
-                            <div>${assignedName}</div>
-                        </div>${assignedContactsHTML}
+                    ${assignedContactsHTML}
                     </div>
                 </div>
                 <div class="subtasks">
@@ -620,15 +610,20 @@ function showTaskCard(index) {
 
 function getAssignedContacts(assignedContacts) {
     let assignedContactsHTML = '';
-    
+
     if (assignedContacts) {
         for (let i = 0; i < assignedContacts.length; i++) {
             const assignedContact = assignedContacts[i];
-        
-            assignedContactsHTML += getContactIconHtml(contacts[assignedContact]);
-            console.log(contacts[assignedContact]);
+
+            assignedContactsHTML += /*html*/` <div class='assigned-contact'>
+                <div class='contact-circle'>${getContactIconHtml(contacts[assignedContact])}</div>
+                ${contacts[assignedContact]['name']}
+                </div>`;
+            console.log(getContactIconHtml(contacts[assignedContact]));
         }
     }
+
+    return assignedContactsHTML;
 }
 
 function getPriorityImageSrc(priority) {
