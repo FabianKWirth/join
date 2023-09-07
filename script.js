@@ -74,14 +74,25 @@ async function includeHTML(x) {
   disableIcon();
 }
 
+/**
+ * Retrieves a new contact icon color from a predefined list.
+ *
+ * @function
+ * @returns {string} A hexadecimal color value representing the new contact icon color.
+ */
 function getNewContactColor() {
   const currentContactIconColorIndex = contacts.length % contactIconColors.length;
-
   let color = contactIconColors[currentContactIconColorIndex + 1];
-
   return color;
 }
 
+/**
+ * Generates an HTML representation of a contact's icon based on their initials and color.
+ *
+ * @function
+ * @param {Object} contact - The contact object for which to generate the icon.
+ * @returns {string} A string containing the HTML code for the contact's icon.
+ */
 function getContactIconHtml(contact) {
   if (contact) {
     let userSignature = getContactInitials(contact);
@@ -94,6 +105,13 @@ function getContactIconHtml(contact) {
   }
 }
 
+/**
+ * Generates the initials of a contact based on their name.
+ *
+ * @function
+ * @param {Object} contact - The contact object for which to generate the initials.
+ * @returns {string} A string containing the contact's initials in uppercase.
+ */
 function getContactInitials(contact) {
   const contactNameParts = contact["name"].split(" ");
   if (contactNameParts[1] != null) {
@@ -163,6 +181,14 @@ function getUserInitials(user) {
   return userSignature;
 }
 
+
+/**
+ * Generates the initials of a contact based on their name.
+ *
+ * @function
+ * @param {Object} contact - The contact object for which to generate the initials.
+ * @returns {string} A string containing the contact's initials in uppercase.
+ */
 function setUserHeaderInitials() {
   let myAccount = document.getElementById("myAccount");
   myAccount.innerHTML = userInitials;
