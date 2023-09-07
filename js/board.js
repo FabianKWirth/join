@@ -239,8 +239,11 @@ function allowDrop(ev) {
  */
 function moveTo(ev) {
     ev.preventDefault();
-
-    const category = ev.target.getAttribute('data-category');
+    console.log(ev);
+    let category = ev.target.getAttribute('data-category');
+    if(category == null){
+        category=ev.target.parentNode.getAttribute('data-category');
+    }
     console.log('die kategorie ist', category)
 
     if (category && currentDraggedElement !== undefined) {

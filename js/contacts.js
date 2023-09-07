@@ -495,7 +495,12 @@ function markUserElementAsSelected(element) {
 
 
 
-
+/**
+ * Renders a letter header and a horizontal line in the specified list element.
+ *
+ * @param {HTMLElement} list - The list element where the letter header and line will be added.
+ * @param {string} currentLetter - The letter to display in the header.
+ */
 function renderLetterHeader(list, currentLetter) {
 
     list.innerHTML +=/*html*/`
@@ -507,6 +512,12 @@ function renderLetterHeader(list, currentLetter) {
     </div>`;
 }
 
+/**
+ * Renders a contact list item and adds it to the specified list element.
+ *
+ * @param {HTMLElement} list - The list element where the contact item will be added.
+ * @param {number} contactIndex - The index of the contact to render from the contacts array.
+ */
 function renderContactListItem(list, contactIndex) {
     contacts = sortByUserName(contacts);
     let contact = contacts[contactIndex];
@@ -547,7 +558,11 @@ function sortByUserName(contacts) {
 }
 
 
-
+/**
+ * Sets the appropriate CSS class to show or hide contact-related elements on mobile devices.
+ * If no contact is selected (selectedContact is null), it hides the selected contact container
+ * and shows the contact list section on mobile. If a contact is selected, it does the opposite.
+ */
 function setCurrentShownMobileClass() {
     if (selectedContact == null) {
         document.getElementById("selectedContactContainer").classList.add('contact-hide-on-mobile');
@@ -558,6 +573,10 @@ function setCurrentShownMobileClass() {
     }
 }
 
+
+/**
+ * Unsets the selected contact, unmarks all user elements, and sets the current shown mobile class.
+ */
 function unsetSelectedContact() {
     selectedContact = null;
     unmarkAllUserElements();
