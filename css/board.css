@@ -107,7 +107,7 @@
 }
 
 .board-section .task-field {
-    height: 100vh;
+    height: calc(100vh - 350px); 
     overflow: hidden;
     position: relative;
 }
@@ -277,7 +277,7 @@
 
 .board-section .task-card-overlay {
     width: 525px;
-    height: 80%;
+    max-height: 80%;
     background-color: #FFFFFF;
     border-radius: 30px;
     display: flex;

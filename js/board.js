@@ -135,7 +135,7 @@ function generateHTML(task, index) {
     }
 
     return `
-        <div onclick="showTaskCard(${index})" draggable="true" ondragstart="startDragging(${index})" class="task-card">
+        <div onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
             <div class="card-category ${categoryClass}">${task['taskCategoryValue']}</div> 
             <div>
                 <h4>${task['taskName']}</h4>
@@ -173,7 +173,6 @@ function getAssignedContactIcons(assignedContacts) {
             } else {
                 contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
             }
-            console.log(contactIcon);
             contactIconHtml+=contactIcon;
 
         });
@@ -246,8 +245,6 @@ function moveTo(ev) {
 
     if (category && currentDraggedElement !== undefined) {
         tasks[currentDraggedElement]['status'] = category;
-        console.log('task ist', tasks[currentDraggedElement]['status'])
-        console.log('es ist jetzt', tasks[0]['status'])
         setItem('tasks', tasks);
         loadTasksHTML();
     }
@@ -444,10 +441,6 @@ function renderSearchListDone(done, list, searchInput) {
 
 function showTaskCard(index) {
     let task = tasks[index];
-    console.log('task ist', task)
-
-
-    console.log('hier übergeben', task)
     const category = task['taskCategoryValue'];
     const name = task['taskName'];
     const description = task['taskDescription'];
