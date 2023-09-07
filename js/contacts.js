@@ -1,418 +1,45 @@
 let selectedContact = null;
 let selectedContactListElement = null;
 
-async function includeContactHTML(type) {
-    let includeElements = document.querySelectorAll('[include-html]');
-    for (let i = 0; i < includeElements.length; i++) {
-        const element = includeElements[i];
-        file = element.getAttribute("include-html");
-        let resp = await fetch(file);
-        if (resp.ok) {
-            element.innerHTML = await resp.text();
-        } else {
-            element.innerHTML = 'Page not found';
-        }
-    }
-
-    window.scrollTo(0, 0);
-    removeScrollFromBody();
-
-    if (type == 'addContact') {
-        buttonsToSet =
-            [
-                {
-                    "class": "alternative-button clear-button",
-                    "function": "removeElementsByPartialClassName(\"add-contact\")",
-                    "innerHtml": "Clear"
-                },
-                {
-                    "class": "default-button",
-                    "function": "createContact()",
-                    "innerHtml": "Create Contact"
-                }
-            ];
-
-        //Create Contact config
-        textToSet =
-        {
-            "contactTemplateTitle": "Add contact"
-        };
-    }
-
-
-    if (type == 'editContact') {
-        // Edit Contact config
-
-        buttonsToSet = [
-            {
-                "class": 'alternative-button',
-                "function": "deleteContact()",
-                "innerHtml": "Delete"
-            },
-            {
-                "class": "default-button",
-                "function": "saveContact()",
-                "innerHtml": "Save"
-            }
-        ];
-
-        textToSet =
-        {
-            "contactTemplateTitle": "Edit contact"
-        };
-    }
-
-
-    setContactFormButtons(buttonsToSet);
-    setContactFormText(textToSet);
-
-    if (type == 'editContact') {
-        setContactCredentials();
-        setCurrentContactValues();
-    }
-
-    document.addEventListener("click", function (event) {
-        removeElementsByPartialClassName("add-contact");
-        addScrollToBody();
-    })
-    stopClickEvenPropagnationForElementById("contactCard");
-
-}
-
-
-function setCurrentContactValues() {
-    currentContact = contacts[selectedContact];
-    let name = currentContact['name'];
-    let mail = currentContact['mail'];
-    let phone = currentContact['phone'];
-
-    document.getElementById("contactNameInput").value = name;
-    document.getElementById("contactMailInput").value = mail;
-    document.getElementById("contactPhoneInput").value = phone;
-}
-
-
 /**
- * Sets the contact credentials for the selected contact element.
- * This function updates the content of an HTML element with the id 'contactCredentials'
- * based on the selected contact's data.
+ * Initializes the contacts application, including data initialization, rendering the contact list,
+ * and setting the current mobile display class.
+ * This function ensures that the application is properly initialized and ready to display contacts.
  */
-function setContactCredentials() {
-    if (selectedContact != null) {
-        document.getElementById('contactCredentials').innerHTML = getContactIconHtml(contacts[selectedContact]);
-    }
-}
-
-/**
- * Sets inner html values based on a provided object mapping element IDs to text content.
- *
- * @param {Object} textToSet - An object mapping element IDs to text content.
- */
-function setContactFormText(textToSet) {
-    let elementIds = Object.keys(textToSet);
-
-    elementIds.forEach(elementId => {
-        document.getElementById(elementId).innerHTML = textToSet[elementId];
-    });
-}
-
-/**
- * Sets click event handlers for HTML elements based on a provided object mapping element IDs to function names.
- *
- * @param {Object} buttonsToSet - An object mapping element IDs to function names.
- */
-function setContactFormButtons(buttonsToSet) {
-    elementToSet = document.getElementById("addContactFormActions");
-    for (let i = 0; i < buttonsToSet.length; i++) {
-        button = buttonsToSet[i];
-        elementToSet.innerHTML +=/*html*/`
-            <button 
-            class='${button['class']}' 
-            onclick='${button['function']}'>${button['innerHtml']}
-            </button>`;
-    };
-}
-
-
-/**
- * Removes the "hide-overflow" class from the <body> element(s) to enable scrolling
- * when necessary. This function can be used to re-enable scrolling on the page.
- */
-function removeScrollFromBody() {
-    let elements = document.getElementsByTagName("body");
-    Array.from(elements).forEach(element => {
-        element.classList.add("hide-overflow");
-    });
-}
-
-/**
- * Adds the "hide-overflow" class to the <body> element(s) to disable scrolling
- * when necessary. This function can be used to prevent scrolling on the page.
- */
-function addScrollToBody() {
-    let elements = document.getElementsByTagName("body");
-    Array.from(elements).forEach(element => {
-        element.classList.remove("hide-overflow");
-    });
-}
-
-/**
- * Removes all elements whose class names contain a specified substring.
- *
- * @param {string} partialClassName - The partial class name to search for.
- */
-function removeElementsByPartialClassName(partialClassName) {
-    /**
-     * @type {NodeListOf<HTMLElement>}
-     */
-    var elements = document.querySelectorAll('[class*="' + partialClassName + '"]');
-
-    elements.forEach(function (element) {
-        element.remove();
-    });
-}
-
-/**
- * Renders a notification element for a contact creation event.
- * The notification displays a "Created" message and automatically fades out
- * and removes itself after 2 seconds.
- */
-function renderContactCreatedElement() {
-    renderNotificationLayout();
-    setNotificationValue("Created");
-    setTimeout(function () {
-        removeNotificationLayout();
-    }, 2000);
-}
-
-/**
- * Renders a notification element for a contact save (change) event.
- * The notification displays a "Changed" message and automatically fades out
- * and removes itself after 2 seconds.
- */
-function renderContactSavedElement() {
-    renderNotificationLayout();
-    setNotificationValue("Changed");
-    setTimeout(function () {
-        removeNotificationLayout();
-    }, 2000);
-}
-
-
-/**
- * Renders a notification element for a contact delete event.
- * The notification displays a "Delete" message and automatically fades out
- * and removes itself after 2 seconds.
- */
-function renderContactDeleteElement() {
-    renderNotificationLayout();
-    setNotificationValue("Delete");
-
-    setTimeout(function () {
-        removeNotificationLayout();
-    }, 2000);
-}
-
-/**
- * Removes the notification layout by adding the "shift-out" class to
- * the notification container element and then removing it from the DOM
- * after 1 second. This function is typically called after the notification
- * has served its purpose and should be hidden.
- */
-function removeNotificationLayout() {
-    document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
-    setTimeout(function () {
-        document.getElementById("contactChangeNotificationContainer").remove()
-    }, 1000);
-}
-
-/**
- * Sets the notification text based on the provided input.
- *
- * @param {string} input - The input string that determines the notification message.
- */
-function setNotificationValue(input) {
-    switch (input) {
-        case 'Created':
-            document.getElementById("changeContactNotificationText").innerHTML = "Contact successfully created";
-            break;
-        case 'Changed':
-            document.getElementById("changeContactNotificationText").innerHTML = "Contact changes saved";
-            break;
-        case 'Delete':
-            document.getElementById("changeContactNotificationText").innerHTML = "Contact deleted";
-            break;
-        default:
-            document.getElementById("changeContactNotificationText").innerHTML = "Error adapting contact";
-    }
-}
-
-/**
- * Renders the notification layout within the selected contact container
- * or add task container if available.
- */
-function renderNotificationLayout() {
-    let newDiv = document.createElement("div");
-    newDiv.innerHTML +=/*html*/`
-    <div class="contact-change-notification-container shift-in" id="contactChangeNotificationContainer">
-        <div class="contact-change-notification"><p id='changeContactNotificationText'></p></div>
-    </div>`;
-    if (document.getElementById("selectedContactContainer") != null) {
-        document.getElementById("selectedContactContainer").appendChild(newDiv);
-    } else if (document.getElementById("addTaskContainer")) {
-        document.getElementById("addTaskContainer").appendChild(newDiv);
-    }
-}
-
-async function createContact() {
-    if (document.getElementById("changeContact").reportValidity()) {
-        let contactName = document.getElementById("contactNameInput").value;
-        let contactMail = document.getElementById("contactMailInput").value;
-        let contactPhone = document.getElementById("contactPhoneInput").value;
-        let color = getNewContactColor();
-
-        removeElementsByPartialClassName("add-contact");
-        renderContactCreatedElement();
-        await updateContactsArray(contactName, contactMail, contactPhone, color);
-
-        renderContactPageOfCurrentContact();
-    }
-}
-
-function renderContactPageOfCurrentContact(contactName, contactMail, contactPhone) {
-    if (isContactPage() == false) {
-        setTimeout(function () {
-            openContacts();
-        }, 2000);
-    } else {
-        renderContacts();
-        selectedContact = findContactIndex(contactMail, contactName, contactPhone);
-        if (selectedContact == -1) {
-            selectedContact = null;
-        } else {
-            renderSelectedContactBody();
-            setCurrentShownMobileClass();
-        }
-    }
-}
-
-function saveContact() {
-    if (document.getElementById("changeContact").reportValidity()) {
-        let contactName = document.getElementById("contactNameInput").value;
-        let contactMail = document.getElementById("contactMailInput").value;
-        let contactPhone = document.getElementById("contactPhoneInput").value;
-        let color = contacts[selectedContact]["color"];
-
-        let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
-        contacts[selectedContact] = contact;
-        setItem("contacts", contacts);
-
-        renderContacts();
-        removeElementsByPartialClassName("add-contact");
-
-
-
-        renderSelectedContactBody();
-        renderContactSavedElement();
-
-        
-    }
-
-}
-
-
-/**
- * Checks whether the current page is "index.html" based on the URL.
- *
- * @returns {boolean} True if the current page is "index.html," otherwise false.
- */
-function isContactPage() {
-    // Get the current URL
-    var currentURL = window.location.href;
-
-    // Check if the URL ends with "index.html"
-    if (currentURL.endsWith("contact.html")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-
-
-/**
- * Find the index of a contact in the global `contacts` array based on email, name, and phone number.
- *
- * @param {string} email - The email address to search for.
- * @param {string} name - The name to search for.
- * @param {string} phoneNumber - The phone number to search for.
- * @returns {number} - The index of the matching contact, or -1 if not found.
- */
-function findContactIndex(email, name, phoneNumber) {
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        if (contact.mail === email && contact.name === name && contact.phone === phoneNumber) {
-            return i; // Return the index when all criteria match
-        }
-    }
-    return -1; // Return -1 if no match is found
-}
-
-function updateContactsArray(contactName, contactMail, contactPhone, color) {
-    if (contactName != "" & contactMail != "" & contactPhone != "") {
-        let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
-        contacts.push(contact);
-    }
-
-    contacts = sortByUserName(contacts)
-    setItem("contacts", contacts);
-}
-
-
-
-
-
-
-
-
-
-////////////////////////CONTACTS PAGE
-
-
-
 async function initContacts() {
     await init();
     renderContacts();
     setCurrentShownMobileClass();
-
 }
 
-
+/**
+ * Renders the list of contacts by iterating through the 'contacts' array.
+ * The contacts are grouped by the first letter of their names, and a letter header
+ * is displayed for each group. Each contact item is rendered using 'renderContactListItem'.
+ * If a selected contact element is defined, it is marked as selected.
+ */
 function renderContacts() {
     let currentLetter = "";
-
     let list = document.getElementById("contactList");
     list.innerHTML = "";
     for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-
-        let thisCurrentLetter = contact["name"].charAt(0);
-        thisCurrentLetter = thisCurrentLetter.toUpperCase();
-
+        let thisCurrentLetter = contacts[i]["name"].charAt(0).toUpperCase();
         if (currentLetter != thisCurrentLetter) {
             currentLetter = thisCurrentLetter;
             renderLetterHeader(list, currentLetter);
         }
         renderContactListItem(list, i);
     }
-
     if (selectedContactListElement != null) {
-        markUserElementAsSelected(selectedContactListElement);
+        markContactElementAsSelected(selectedContactListElement);
     }
-
 }
 
+/**
+ * Renders the body of the selected contact in the contact details view.
+ * This function populates the selected contact's name, icon, email, and phone information,
+ * and adds edit and delete options to the contact menu.
+ */
 function renderSelectedContactBody() {
     let contactElement = document.getElementById("selectedContactBody");
     let contact = contacts[selectedContact];
@@ -453,17 +80,32 @@ function renderSelectedContactBody() {
     </div> `;
 }
 
+/**
+ * Empties the content of the selected contact's body in the contact details view.
+ * This function clears the innerHTML of the element with the ID "selectedContactBody,"
+ * effectively removing any previously displayed contact information.
+ */
 function emptySelectedContactBody() {
     let contactElement = document.getElementById("selectedContactBody");
     contactElement.innerHTML = "";
 }
 
+/**
+ * Selects a contact based on its index and updates the display accordingly.
+ *
+ * @param {number} contactIndex - The index of the contact to be selected.
+ */
 function selectContact(contactIndex) {
     selectedContact = contactIndex;
     setCurrentShownMobileClass();
     renderSelectedContactBody();
 }
 
+/**
+ * Deletes a contact from the 'contacts' array, updates local storage, and refreshes the display.
+ *
+ * @param {number} contactIndex - The index of the contact to be deleted.
+ */
 function deleteContact(contactIndex) {
     contacts.splice(contactIndex, 1);
     setItem("contacts", contacts);
@@ -473,7 +115,10 @@ function deleteContact(contactIndex) {
     renderContactDeleteElement();
 }
 
-
+/**
+ * Removes the "selected" class from all user elements in the document.
+ * This function searches for elements with the "selected" class and removes the class from each element.
+ */
 function unmarkAllUserElements() {
     selectedElements = document.getElementsByClassName("selected");
     if (selectedElements.length > 0) {
@@ -484,16 +129,18 @@ function unmarkAllUserElements() {
     }
 }
 
-function markUserElementAsSelected(element) {
-
+/**
+ * Marks a contact element as selected by adding the "selected" class.
+ * This function unmarks all other user elements, adds the "selected" class to the specified element,
+ * and updates the reference to the selected contact list element.
+ *
+ * @param {HTMLElement} element - The contact element to be marked as selected.
+ */
+function markContactElementAsSelected(element) {
     unmarkAllUserElements();
     element.classList.add("selected");
     selectedContactListElement = element;
 }
-
-
-
-
 
 /**
  * Renders a letter header and a horizontal line in the specified list element.
@@ -525,7 +172,7 @@ function renderContactListItem(list, contactIndex) {
     contactMail = contact["mail"]
     let userIcon = getContactIconHtml(contact);
     list.innerHTML +=/*html*/`
-    <div class="contact-element" onclick='selectContact("${contactIndex}");markUserElementAsSelected(this)'>
+    <div class="contact-element" onclick='selectContact("${contactIndex}");markContactElementAsSelected(this)'>
         ${userIcon}
         <div>
         <p>${contactName}</p>
@@ -535,7 +182,6 @@ function renderContactListItem(list, contactIndex) {
     `
     getContactIconHtml(contact);
 }
-
 
 /**
  * Sorts an array of contacts by their name in alphabetical order.
@@ -557,7 +203,6 @@ function sortByUserName(contacts) {
     });
 }
 
-
 /**
  * Sets the appropriate CSS class to show or hide contact-related elements on mobile devices.
  * If no contact is selected (selectedContact is null), it hides the selected contact container
@@ -572,7 +217,6 @@ function setCurrentShownMobileClass() {
         document.getElementById("contactListSection").classList.add('contact-hide-on-mobile');
     }
 }
-
 
 /**
  * Unsets the selected contact, unmarks all user elements, and sets the current shown mobile class.

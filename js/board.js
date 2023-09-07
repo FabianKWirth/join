@@ -254,7 +254,6 @@ function moveTo(ev) {
                 category = currentNode.getAttribute('data-category');
             }
         }
-
     }
     console.log('die kategorie ist', category)
 
@@ -546,7 +545,6 @@ function getAssignedContacts(assignedContacts) {
                 <div class='contact-circle'>${getContactIconHtml(contacts[assignedContact])}</div>
                 ${contacts[assignedContact]['name']}
                 </div>`;
-            console.log(getContactIconHtml(contacts[assignedContact]));
         }
     }
 }

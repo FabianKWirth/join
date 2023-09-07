@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Join</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/header-responsive.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/sidebar-responsive.css">
@@ -28,14 +28,18 @@
                 Add new contact
                 <img src='./assets/icons/person-add.svg'>
             </button>
-            <button type="button" class="default-button contact-button-mobile" onclick="includeContactHTML('addContact')">
+            <button type="button" class="default-button contact-button-mobile"
+                onclick="includeContactHTML('addContact')">
                 <img src='./assets/icons/person-add.svg'>
             </button>
             <div id="contactList" class="user-list scrollable"></div>
         </div>
         <div class="selected-contact-container" id="selectedContactContainer">
             <div class="selected-contact-header">
-                <h1>Contacts</h1><div class="horizontal-blue-line"></div><h4>Better with a team</h4><div class="vertical-blue-line"></div>
+                <h1>Contacts</h1>
+                <div class="horizontal-blue-line"></div>
+                <h4>Better with a team</h4>
+                <div class="vertical-blue-line"></div>
                 <img onclick="unsetSelectedContact()" id="goBack" src="assets/image/sidebar/arrow-left-line.svg">
             </div>
 
@@ -56,6 +60,8 @@
     <script src="./script.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/contacts.js"></script>
+    <script src="./js/contact_form.js"></script>
+    <script src="./js/contact_form_submit.js"></script>
 
 </body>
 

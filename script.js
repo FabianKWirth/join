@@ -75,7 +75,7 @@ async function includeHTML(x) {
 }
 
 function getNewContactColor() {
-  const currentContactIconColorIndex = contacts.length % contacts.length;
+  const currentContactIconColorIndex = contacts.length % contactIconColors.length;
 
   let color = contactIconColors[currentContactIconColorIndex + 1];
 
@@ -207,7 +207,7 @@ function openHelp() {
   window.location.href = `./help.html?name=${username}`;
 }
 
-function stopClickEvenPropagnationForElementById(elementId) {
+function stopClickEventPropagnationForElementById(elementId) {
   let element = document.getElementById(elementId);
   if (element != null) {
     element.addEventListener("click", function (event) {
