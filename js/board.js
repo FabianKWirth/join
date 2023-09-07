@@ -163,7 +163,7 @@ function getAssignedContactIcons(assignedContacts) {
         assignedContacts.forEach(assignedContact => {
 
             let contactIcon = getContactIconHtml(contacts[assignedContact]);
-           
+
 
             if (firstItem == true) {
 
@@ -173,7 +173,7 @@ function getAssignedContactIcons(assignedContacts) {
             } else {
                 contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
             }
-            contactIconHtml+=contactIcon;
+            contactIconHtml += contactIcon;
 
         });
 
@@ -240,9 +240,21 @@ function allowDrop(ev) {
 function moveTo(ev) {
     ev.preventDefault();
     console.log(ev);
-    let category = ev.target.getAttribute('data-category');
-    if(category == null){
-        category=ev.target.parentNode.getAttribute('data-category');
+
+    currentNode = ev.target;
+    let category = currentNode.getAttribute('data-category');
+    if (category == null) {
+        currentNode = currentNode.parentNode;
+        category = currentNode.getAttribute('data-category');
+        if (category == null) {
+            currentNode = currentNode.parentNode;
+            category = currentNode.getAttribute('data-category');
+            if (category == null) {
+                currentNode = currentNode.parentNode;
+                category = currentNode.getAttribute('data-category');
+            }
+        }
+
     }
     console.log('die kategorie ist', category)
 
