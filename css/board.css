@@ -52,6 +52,11 @@
     cursor: pointer;
 }
 
+.board-section .input-search:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+
 .board-section .head-section-right {
     display: flex;
     align-items: center;
@@ -71,6 +76,7 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    transition: all 0.1s ease-in-out;
 }
 
 .board-section .add-task:hover {
@@ -103,12 +109,22 @@
 .board-section .task-field {
     height: 100vh;
     overflow: hidden;
+    position: relative;
 }
 
 .board-section .task-area {
     display: flex;
     justify-content: space-between;
     /* height: calc(100vh - 327px); */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    
     gap: 24px;
     min-height: 100px;
     height: auto;
@@ -123,6 +139,7 @@
     height: auto; */
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
     flex: 1 0 0;
     gap: 16px;
     border-radius: 24px;
@@ -137,6 +154,7 @@
     align-items: flex-start;
     gap: 24px;
     cursor: pointer;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
 }
 
@@ -224,7 +242,8 @@
 .board-section .drag-area-highlight {
     border: 2px gray dashed;
     background-color: rgba(0, 0, 0, 0.1);
-    padding-bottom: 200px;
+    min-height: 200px;
+    /* padding-bottom: 200px; */
 }
 
 .board-section .noToDo {

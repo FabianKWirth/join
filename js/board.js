@@ -1,28 +1,5 @@
 let currentDraggedElement;
 
-// let task = [{
-//     'id': 0,
-//     'title': 'Putzen',
-//     'category': 'In progress',
-//     'text': 'Kochwelt Page & Recipe Recommender'
-// }, {
-//     'id': 1,
-//     'title': 'Kochen',
-//     'category': 'In progress',
-//     'text': 'HTML Base Template Creation'
-// }, {
-//     'id': 2,
-//     'title': 'Einkaufen',
-//     'category': 'Await feedback',
-//     'text': 'CSS Architecture Planning'
-// }, {
-//     'id': 3,
-//     'title': 'Staubsaugen',
-//     'category': 'Done',
-//     'text': 'Daily Kochwelt Recipe'
-// }];
-
-
 /**
 * Updates the HTML representation of the entire task board by updating individual categories.
 *
@@ -75,77 +52,6 @@ function loadTasksHTML() {
 }
 // 
 
-
-/**
- * Updates the HTML view of tasks in the 'In progress' category.
- * This function filters tasks in the 'In progress' category, generates HTML elements
- * for each task, and updates the presentation in the DOM accordingly.
- *
- * @function
- * @returns {void}
- */
-// function updateInProgressHTML() {
-//     let inProgress = task.filter(t => t['category'] == 'In progress');
-
-//     document.getElementById('inProgress').innerHTML = '';
-
-//     if (inProgress.length > 0) {
-//         for (let i = 0; i < inProgress.length; i++) {
-//             let element = inProgress[i];
-//             document.getElementById('inProgress').innerHTML += generateHTML(element);
-//         }
-//     } else {
-//         document.getElementById('inProgress').innerHTML += renderNoInProgress();
-//     }
-// }
-
-
-/**
- * Updates the HTML view of tasks in the 'Await feedback' category.
- * This function filters tasks in the 'Await feedback' category, generates HTML elements
- * for each task, and updates the presentation in the DOM accordingly.
- *
- * @function
- * @returns {void}
- */
-// function updateAwaitFeedbackHTML() {
-//     let awaitFeedback = task.filter(t => t['category'] == 'Await feedback');
-
-//     document.getElementById('awaitFeedback').innerHTML = '';
-
-//     if (awaitFeedback.length > 0) {
-//         for (let i = 0; i < awaitFeedback.length; i++) {
-//             let element = awaitFeedback[i];
-//             document.getElementById('awaitFeedback').innerHTML += generateHTML(element);
-//         }
-//     } else {
-//         document.getElementById('awaitFeedback').innerHTML += renderNoAwaitFeedback();
-//     }
-// }
-
-
-/**
- * Updates the HTML view of tasks in the 'Done' category.
- * This function filters tasks in the 'Done' category, generates HTML elements
- * for each task, and updates the presentation in the DOM accordingly.
- *
- * @function
- * @returns {void}
- */
-// function updateDoneHTML() {
-//     let done = task.filter(t => t['category'] == 'Done');
-
-//     document.getElementById('done').innerHTML = '';
-
-//     if (done.length > 0) {
-//         for (let i = 0; i < done.length; i++) {
-//             let element = done[i];
-//             document.getElementById('done').innerHTML += generateHTML(element);
-//         }
-//     } else {
-//         document.getElementById('done').innerHTML += renderNoDone();
-//     }
-// }
 
 
 /**
