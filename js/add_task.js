@@ -26,7 +26,7 @@ let subTasks = [];
  * Represents data for an unfinished task, including its status.
  * @type {Object}
  */
-let unfinishedTaskData = { "status": "toDo" };
+let unfinishedTaskData = {};
 
 /**
  * An array containing the IDs of direct input fields in the Add Task form.
@@ -43,7 +43,7 @@ let directInputFieldIds = ["newTaskTitle", "newTaskDescription", "newTaskDate", 
  * @returns {Promise<void>}
  * @throws {Error} Throws an error if the fetch operation fails.
  */
-async function includeTasksHtml() {
+async function includeTasksHtml(status="toDo") {
     let includeElements = document.querySelectorAll('[include-tasks-html]');
     for (let i = 0; i < includeElements.length; i++) {
         const element = includeElements[i];
@@ -55,7 +55,7 @@ async function includeTasksHtml() {
             element.innerHTML = 'Page not found';
         }
     }
-    initAddTasks();
+    initAddTasks(status);
 }
 
 /**
@@ -65,12 +65,13 @@ async function includeTasksHtml() {
  * 
  * @returns {Promise<void>} A promise that resolves when the initialization is complete.
  */
-async function initAddTasks() {
+async function initAddTasks(status) {
     if (users != []) {
         await getStorageData();
     }
     loadEventListeners();
     renderContactAssignmentDropDown();
+    unfinishedTaskData= {"status": status};
 }
 
 /**
@@ -82,8 +83,8 @@ async function initAddTasks() {
  */
 function loadEventListeners() {
     setSelectContactEventListeners();
-    setSubTaskEventListeners();
     setShowAvailableContactsEventListener();
+    setSubTaskEventListeners();
     setSelectedCategoryEventListeners();
 }
 
@@ -145,28 +146,5 @@ function setSelectContactEventListeners() {
     });
 }
 
-/**
- * Sets the selected task priority to the provided value and updates the unfinished task data.
- *
- * @param {string} currentButtonValue - The priority value to set for the task.
- * @returns {void}
- */
-function setTaskPrio(currentButtonValue) {
-    selectedTaskPriority = currentButtonValue;
-    unfinishedTaskData["priority"] = currentButtonValue;
-}
 
-/**
- * Resets the priority selection menu by unchecking all radio buttons.
- *
- * @returns {void}
- */
-function resetPriorityMenu() {
-    /** @type {NodeListOf<HTMLInputElement>} */
-    const radioButtons = document.querySelectorAll('input[name="priority"]');
 
-    // Iterate through the radio buttons and uncheck them
-    radioButtons.forEach(button => {
-        button.checked = false;
-    });
-}

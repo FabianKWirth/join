@@ -1,5 +1,3 @@
-//CONTACTS
-
 /**
  * Renders the contact assignment dropdown list by populating it with contact options.
  * This function dynamically generates HTML for each contact option, including the contact's icon and name,
@@ -128,4 +126,15 @@ function renderUnselectionOfContactFromTask(row, contactId) {
     row.classList.remove("selected-option");
     document.getElementById("selectedContactCheckBox" + contactId).src = './assets/icons/checkbox-empty.svg';
     document.getElementById("selectedContactCheckBox" + contactId).classList.remove("white-symbol");
+}
+
+/**
+ * Sets the selected task priority to the provided value and updates the unfinished task data.
+ *
+ * @param {string} currentButtonValue - The priority value to set for the task.
+ * @returns {void}
+ */
+function setTaskPrio(currentButtonValue) {
+    selectedTaskPriority = currentButtonValue;
+    unfinishedTaskData["priority"] = currentButtonValue;
 }

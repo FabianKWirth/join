@@ -33,8 +33,6 @@ function renderTaskAddedElement() {
     }
 }
 
-
-
 /** 
  * Calls functions to save the data entered by the contact into the unfinishedTaskData JSON array
  * Calls a function to check wether the Task can be created
@@ -101,10 +99,12 @@ function saveDirectInputFields() {
  */
 function emptyAddTaskForm() {
     resetDirectInputFields();
+    resetIndirectInputs();
     renderSelectedContactIcons();
     renderContactAssignmentDropDown();
-    resetPriorityMenu();
-    resetIndirectInputs();
+    resetPriority();
+
+    unfinishedTaskData = { "status": "toDo" };
 }
 
 /**
@@ -141,8 +141,30 @@ function resetIndirectInputs() {
     assignedContacts = [];
 }
 
+/**
+ * Resets the priority selection menu by unchecking all radio buttons.
+ *
+ * @returns {void}
+ */
+function resetPriority() {
+    let selectedTaskPriority = null;
 
-//LOAD GIVEN TASKS
+    /** @type {NodeListOf<HTMLInputElement>} */
+    const radioButtons = document.querySelectorAll('input[name="priority"]');
+
+    // Iterate through the radio buttons and uncheck them
+    radioButtons.forEach(button => {
+        button.checked = false;
+    });
+}
+
+
+/**
+ * Loads a task with the given taskId and populates the Add Task form with its data for editing.
+ *
+ * @param {number} taskId - The ID of the task to load.
+ * @returns {void}
+ */
 function loadTask(taskId) {
     let task = tasks[taskId];
 
@@ -158,7 +180,6 @@ function loadTask(taskId) {
     setSubTaskFieldValue(task);
 
     replaceCurrentAddTaskSubmit(taskId);
-
 }
 
 /**
@@ -304,9 +325,14 @@ function addSaveChangesButton(parentNode, taskId) {
         </button>`;
 }
 
+/**
+ * Saves changes made to a task with the given taskId.
+ *
+ * @param {number} taskId - The ID of the task to save changes for.
+ * @returns {Promise<void>}
+ */
 async function saveTaskChanges(taskId) {
     saveCurrentEntriesToTask();
-
     if (checkIfFormSubmittable()) {
 
         tasks[taskId] = unfinishedTaskData;
