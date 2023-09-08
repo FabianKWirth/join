@@ -464,6 +464,7 @@ function showTaskCard(index) {
     console.log(assignedContactsHTML);
     const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
     const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
+    let subtasksHTML = getSubtasks(task['subTasks'], task);
     const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
     const subtask2 = task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : '';
     let assignedName = '';
@@ -502,18 +503,13 @@ function showTaskCard(index) {
                     ${assignedContactsHTML}
                     </div>
                 </div>
-                <div class="subtasks">
+                <div id="subtask-area" class="subtasks">
                     <div>
                         <div class="dark-gray">Subtask</div>
                     </div>
                     <div class="subtasks-container">
-                        <div class="subtask">
-                            <img id="subtask1" onclick="subtaskChangeImg('subtask1')" src="assets/image/board/Check-button.svg">
-                            <div>${subtask1}</div>
-                        </div>
-                        <div class="subtask">
-                            <img id="subtask2" onclick="subtaskChangeImg('subtask2')" src="assets/image/board/Check-button-empty.svg">
-                            <div>${subtask2}</div>
+                        <div class="subtasks-container">
+                            ${subtasksHTML}
                         </div>
                     </div>
                 </div>
@@ -547,6 +543,7 @@ function getAssignedContacts(assignedContacts) {
                 </div>`;
         }
     }
+    return assignedContactsHTML;
 }
 
 function getPriorityImageSrc(priority) {
@@ -613,6 +610,26 @@ function assignedInicials(index) {
 
         return ''; // Oder eine andere geeignete Rückgabewert, falls notwendig
     }
+}
+
+
+function getSubtasks(subtasks) {
+    let subtasksHTML = '';
+   
+    if (subtasks) {
+        for (let i = 0; i < subtasks.length; i++) {
+            const subtask = subtasks[i];
+            const subtaskId = `subtask${i + 1}`;
+
+                subtasksHTML += `
+                    <div class="subtask">
+                        <img id="${subtaskId}" onclick="subtaskChangeImg('${subtaskId}', ${i}), saveSubtask(${i})" src="assets/icons/checkbox-empty.svg">
+                        <div>${subtask['name']}</div>
+                    </div>
+                    `;             
+        }
+    }
+    return subtasksHTML;
 }
 
 
@@ -695,3 +712,86 @@ async function openEditTaskTemplate(taskId) {
     loadTask(taskId);
     includeEventlistenerToCloseAddTask()
 }
+
+
+
+
+
+
+
+
+// function showTaskCard(index) {
+//     let task = tasks[index];
+//     const category = task['taskCategoryValue'];
+//     const name = task['taskName'];
+//     const description = task['taskDescription'];
+//     const date = task['taskDate'];
+//     const priority = task['priority'];
+//     let assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
+//     console.log(assignedContactsHTML);
+//     const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
+//     const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
+//     let subtasksHTML = getSubtasks(task['subTasks'], task);
+//     const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
+//     const subtask2 = task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : '';
+//     let assignedName = '';
+
+//     let showTaskCard = document.getElementById('showTaskCard');
+//     console.log('prioritiy ist', priority)
+//     let priorityImageSrc = getPriorityImageSrc(priority);
+
+//     showTaskCard.innerHTML = `
+//         <div id="overlayBoard" class="overlayBoard">
+//             <div class="task-card-overlay">
+//                 <div class="card-category-top-section">
+//                     <div class="card-category-overlay">${category}</div> 
+//                     <img onclick="closeBoardOverlay()" src="assets/icons/close.svg">
+//                 </div>
+//                 <div>
+//                     <h4 class="title-h4">${name}</h4>
+//                 </div>
+//                 <div class="card-description-overlay">${description}</div>
+//                 <div  class="card-description-overlay">
+//                     <div class="dark-gray">Due date:</div>
+//                     <div>${date}</div>
+//                 </div>
+//                 <div class="priority-container card-description-overlay">
+//                     <div class="dark-gray">Priority:</div>
+//                     <div class="priority">
+//                         <div>${priority}</div>
+//                         <img src="${priorityImageSrc}">
+//                     </div>
+//                 </div>
+//                 <div class="assigned">
+//                     <div>
+//                         <div class="dark-gray">Assigned To:</div>
+//                     </div>
+//                     <div>
+//                         ${assignedContactsHTML}
+//                     </div>
+//                 </div>
+//                 <div class="subtasks">
+//                     <div>
+//                         <div class="dark-gray">Subtask</div>
+//                     </div>
+//                     <div class="subtasks-container">
+//                         ${subtasksHTML}
+//                     </div>
+//                     </div>
+//                 </div>
+//                 <div class="edit-container">
+//                     <div class="edit" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImage')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImage')">
+//                         <img id="trashImage" src="assets/icons/trashcan-icon.svg">
+//                         <div>Delete</div>
+//                     </div>
+//                     <img src="assets/image/board/edit-line.svg">
+//                     <div class="edit" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImage')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImage')">
+//                         <img id="editImage" src="assets/icons/pen-icon.svg"> 
+//                         <div onclick="openEditTaskTemplate(1)">Edit</div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     `;
+//     includeEventlistenerToCloseOverlayBoard();
+// }

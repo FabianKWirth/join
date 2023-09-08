@@ -11,7 +11,8 @@ function createSubTask() {
     subtask =
     {
         "name": subTaskName,
-        "isComplete": 0
+        "isComplete": 0,
+        "subtaskStatus": false
     }
     if (subTaskName != "") {
         subTasks.push(subtask);
