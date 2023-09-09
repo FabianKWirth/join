@@ -116,9 +116,9 @@ function generateHTML(task, index) {
         categoryClass = 'category-contact-story';
     }
 
-    if (subtaskCount >= 0) {
+    if (subtaskCount > 0) {
         for (let i = 0; i < subtaskCount; i++) {
-            if (task['subTasks'][i]['subtaskStatus'] === true) {
+            if (task['subTasks'][i]['isComplete'] === 1) {
                 completedSubtaskCount++;
             }
         }
@@ -616,13 +616,13 @@ function getSubtasks(subtasks, task, index) {
         for (let i = 0; i < subtasks.length; i++) {
             const subtask = subtasks[i];
             const subtaskId = `subtask${i + 1}`;
-            let subtaskStatus = subtasks[i]['subtaskStatus'];
-            let subtaskImgSrc = ''; // Hier wird der Bild-Quelltext initialisiert
+            let subtaskStatus = subtasks[i]['isComplete'];
+            let subtaskImgSrc = '';
 
-            if (subtaskStatus === false) {
+            if (subtaskStatus === 0) {
                 subtaskImgSrc = 'assets/icons/checkbox-empty.svg';
             } else {
-                subtaskImgSrc = 'assets/icons/checkbox-filled.svg'; // Setzen Sie hier die Quelle für das Bild, wenn subtaskStatus true ist
+                subtaskImgSrc = 'assets/icons/checkbox-filled.svg';
             }
 
             subtasksHTML += `
@@ -642,16 +642,18 @@ function getSubtasks(subtasks, task, index) {
 
 
 function saveSubtask(subtaskStatus, i, index) {
-    if (subtaskStatus == false) {
-        subtaskStatus = true;
+    if (subtaskStatus == 0) {
+        subtaskStatus = 1;
     } else {
-        subtaskStatus = false;
+        subtaskStatus = 0;
     }
 
     if (subtaskStatus !== undefined) {
-        tasks[index]['subTasks'][i]['subtaskStatus'] = subtaskStatus;
+        tasks[index]['subTasks'][i]['isComplete'] = subtaskStatus;
         setItem('tasks', tasks);
     }
+
+    showTaskCard(index);
 }
 
 
