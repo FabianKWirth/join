@@ -432,6 +432,10 @@
     display: none !important;
 }
 
+.subtaskTitel {
+    display: block;
+}
+
 
 
 

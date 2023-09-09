@@ -455,7 +455,6 @@ function renderSearchListDone(done, list, searchInput) {
     }
 }
 
-
 function showTaskCard(index) {
     let task = tasks[index];
     const category = task['taskCategoryValue'];
@@ -464,6 +463,8 @@ function showTaskCard(index) {
     const date = task['taskDate'];
     const priority = task['priority'];
     let assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
+    let getAssignedText = getAssignedContainer(task['assignedContacts']);
+    let getSubtaskText = getSubtaskContainer(task['subTasks']);
     let subtasksHTML = getSubtasks(task['subTasks'], task, index);
 
     let showTaskCard = document.getElementById('showTaskCard');
@@ -491,17 +492,13 @@ function showTaskCard(index) {
                         <img src="${priorityImageSrc}">
                     </div>
                 </div>
-                <div class="assigned">
-                    <div>
-                        <div class="dark-gray">Assigned To:</div>
-                    </div>
-                    <div>
-                    ${assignedContactsHTML}
-                    </div>
+                <div id="assign" class="assigned">
+                        ${getAssignedText}
+                        ${assignedContactsHTML}
                 </div>
-                <div id="subtask-area" class="subtasks">
-                    <div>
-                        <div class="dark-gray">Subtask</div>
+                <div class="subtasks">
+                    <div id="subtaskTitel" class="subtaskTitel">
+                        ${getSubtaskText}
                     </div>
                     <div class="subtasks-container">
                         <div class="subtasks-container">
@@ -540,6 +537,18 @@ function getAssignedContacts(assignedContacts) {
         }
     }
     return assignedContactsHTML;
+}
+
+function getAssignedContainer(assignedContacts) {
+    let assigned = '';
+
+
+    if (assignedContacts) {
+        assigned = `
+        <div class="dark-gray">Assigned To:</div>
+            `;
+    } 
+    return assigned;
 }
 
 function getPriorityImageSrc(priority) {
@@ -609,6 +618,17 @@ function assignedInicials(index) {
 }
 
 
+function getSubtaskContainer(subtasks) {
+    let subtask = '';
+
+    if (subtasks) {
+        subtask = `
+            <div class="dark-gray">Subtask</div>
+            `;
+    } 
+    return subtask;
+}
+
 function getSubtasks(subtasks, task, index) {
     let subtasksHTML = '';
 
@@ -625,16 +645,22 @@ function getSubtasks(subtasks, task, index) {
                 subtaskImgSrc = 'assets/icons/checkbox-filled.svg';
             }
 
+            // subtaskTitel = `
+            // <div class="dark-gray">Subtask</div>
+            // `;
+
             subtasksHTML += `
-                <div  class="subtask" onclick="subtaskChangeImg('${subtaskId}'); saveSubtask(${subtaskStatus}, ${i}, ${index}), loadTasksHTML()">
+                <div class="subtask" onclick="subtaskChangeImg('${subtaskId}'); saveSubtask(${subtaskStatus}, ${i}, ${index}), loadTasksHTML()">
                     <img id="${subtaskId}" src="${subtaskImgSrc}">
                     <div>${subtask['name']}</div>
                 </div>
             `;
+
         }
     }
     return subtasksHTML;
 }
+
 
 
 
