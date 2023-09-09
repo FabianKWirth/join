@@ -108,13 +108,12 @@ function renderNoDone() {
 function generateHTML(task, index) {
     let assignedContactsIcons = getAssignedContactIcons(task['assignedContacts']);
     priority = task['priority'];
-    // console.log(priority)
     let subtaskCount = task['subTasks'] ? task['subTasks'].length : 0;
-    let completedSubtaskCount = task['subtasks'] ? task['subtasks'].filter(subtask => subtask.subtaskStatus === true).length : 0;
+    let completedSubtaskCount = 0;
+    
     console.log('abgeschlossen sind', completedSubtaskCount)
     let progressBarHTML = '';
     let priorityImageSrc = getPriorityImageSrc(priority);
-    // console.log(priorityImageSrc)
 
 
     let categoryClass = '';
@@ -125,6 +124,12 @@ function generateHTML(task, index) {
     }
 
     if (subtaskCount > 0) {
+        for (let i = 0; i < subtaskCount; i++) {
+            if (task['subTasks'][i]['subtaskStatus'] === true) {
+                completedSubtaskCount++;
+            }
+        }
+    
         let progressPercentage = (completedSubtaskCount / subtaskCount) * 100;
         progressBarHTML = `
             <div class="progress-bar-section">
@@ -478,7 +483,7 @@ function showTaskCard(index) {
             <div id="taskCard${index}" class="task-card-overlay">
                 <div class="card-category-top-section">
                     <div class="card-category-overlay">${category}</div> 
-                    <img onclick="closeBoardOverlay()" src="assets/icons/close.svg">
+                    <img onclick="closeBoardOverlay(), loadTasksHTML();" src="assets/icons/close.svg">
                 </div>
                 <div>
                     <h4 class="title-h4">${name}</h4>
