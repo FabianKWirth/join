@@ -614,22 +614,27 @@ function assignedInicials(index) {
 
 function getSubtasks(subtasks, task) {
     let subtasksHTML = '';
-    
-    console.log('geht task?', subtasks)
-    
 
+    console.log('geht task?', subtasks);
+    console.log('heute ist task', task);
 
     if (subtasks) {
         for (let i = 0; i < subtasks.length; i++) {
             const subtask = subtasks[i];
             const subtaskId = `subtask${i + 1}`;
-            console.log('geht task wirklich?', subtasks[i]['subtaskStatus'])
+            console.log('geht task wirklich?', subtasks[i]['subtaskStatus']);
             let subtaskStatus = subtasks[i]['subtaskStatus'];
-            // let subtaskStatusImg = subtaskStatus(subtaskStatus);
+            let subtaskImgSrc = ''; // Hier wird der Bild-Quelltext initialisiert
+
+            if (subtaskStatus === false) {
+                subtaskImgSrc = 'assets/icons/checkbox-empty.svg';
+            } else {
+                subtaskImgSrc = 'assets/icons/checkbox-filled.svg'; // Setzen Sie hier die Quelle für das Bild, wenn subtaskStatus true ist
+            }
 
             subtasksHTML += `
                 <div class="subtask">
-                    <img id="${subtaskId}" onclick="subtaskChangeImg('${subtaskId}', ${i}); saveSubtask(${subtaskStatus}, ${i})" src="assets/icons/checkbox-empty.svg">
+                    <img id="${subtaskId}" onclick="subtaskChangeImg('${subtaskId}', ${i}); saveSubtask(${subtaskStatus}, ${i})" src="${subtaskImgSrc}">
                     <div>${subtask['name']}</div>
                 </div>
             `;
@@ -637,6 +642,7 @@ function getSubtasks(subtasks, task) {
     }
     return subtasksHTML;
 }
+
 
 // assets/icons/checkbox-empty.svg
 
