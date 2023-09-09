@@ -9,7 +9,6 @@ let currentDraggedElement;
 async function updateBoardHTML() {
     await init();
     loadTasksHTML();
-    console.log('es ist jetzt übergeben', tasks[0]['status'])
 
     // updateInProgressHTML();
     // updateAwaitFeedbackHTML();
@@ -33,8 +32,6 @@ function loadTasksHTML() {
     document.getElementById('done').innerHTML = '';
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-        // console.log(task['priority']);
-        // console.log(task['subTasks'][1]['name']);
 
         if (task['status'] == 'toDo') {
             document.getElementById('todo').innerHTML += generateHTML(task, index);
@@ -48,10 +45,7 @@ function loadTasksHTML() {
             document.getElementById('todo').innerHTML = renderNoTaskToDo(task);
         }
     }
-    // console.log('es ist', tasks[0]['status'])
 }
-// 
-
 
 
 /**
@@ -111,7 +105,6 @@ function generateHTML(task, index) {
     let subtaskCount = task['subTasks'] ? task['subTasks'].length : 0;
     let completedSubtaskCount = 0;
     
-    console.log('abgeschlossen sind', completedSubtaskCount)
     let progressBarHTML = '';
     let priorityImageSrc = getPriorityImageSrc(priority);
 
@@ -123,7 +116,7 @@ function generateHTML(task, index) {
         categoryClass = 'category-contact-story';
     }
 
-    if (subtaskCount > 0) {
+    if (subtaskCount >= 0) {
         for (let i = 0; i < subtaskCount; i++) {
             if (task['subTasks'][i]['subtaskStatus'] === true) {
                 completedSubtaskCount++;
@@ -245,7 +238,6 @@ function allowDrop(ev) {
  */
 function moveTo(ev) {
     ev.preventDefault();
-    console.log(ev);
 
     currentNode = ev.target;
     let category = currentNode.getAttribute('data-category');
@@ -261,7 +253,6 @@ function moveTo(ev) {
             }
         }
     }
-    console.log('die kategorie ist', category)
 
     if (category && currentDraggedElement !== undefined) {
         tasks[currentDraggedElement]['status'] = category;
@@ -290,12 +281,14 @@ document.getElementById('search').addEventListener('click', function () {
  */
 function filterToDo() {
     let searchInput = document.getElementById('search-input').value;
-    searchInput = searchInput.toLowerCase();
-    let list = document.getElementById('todo');
-    list.innerHTML = '';
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('todo');
+        list.innerHTML = '';
 
-    let todo = tasks.filter(t => t['status'] == 'toDo');
-    renderSearchListToDo(todo, list, searchInput);
+        let todo = tasks.filter(t => t['status'] == 'toDo');
+        renderSearchListToDo(todo, list, searchInput);
+    }
 }
 
 
@@ -334,13 +327,14 @@ function renderSearchListToDo(todo, list, searchInput) {
  */
 function filterInProgress() {
     let searchInput = document.getElementById('search-input').value;
-    searchInput = searchInput.toLowerCase();
-    let list = document.getElementById('inProgress');
-    list.innerHTML = '';
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('inProgress');
+        list.innerHTML = '';
 
-    let progress = tasks.filter(t => t['status'] == 'inProgress')
-
-    renderSearchListInProgress(progress, list, searchInput)
+        let progress = tasks.filter(t => t['status'] == 'inProgress')
+        renderSearchListInProgress(progress, list, searchInput)
+    }
 }
 
 /**
@@ -359,7 +353,7 @@ function renderSearchListInProgress(progress, list, searchInput) {
         for (let i = 0; i < progress.length; i++) {
             let element = progress[i];
             if (element['taskName'].toLowerCase().includes(searchInput)) {
-                list.innerHTML += generateHTML(element);
+                list.innerHTML += generateHTML(element, i);
                 searchElementsFound = true;
             }
         }
@@ -378,12 +372,14 @@ function renderSearchListInProgress(progress, list, searchInput) {
  */
 function filterAwaitFeedback() {
     let searchInput = document.getElementById('search-input').value;
-    searchInput = searchInput.toLowerCase();
-    let list = document.getElementById('awaitFeedback');
-    list.innerHTML = '';
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('awaitFeedback');
+        list.innerHTML = '';
 
-    let feedback = tasks.filter(t => t['status'] == 'awaitFeedback');
-    renderSearchListAwaitFeedback(feedback, list, searchInput);
+        let feedback = tasks.filter(t => t['status'] == 'awaitFeedback');
+        renderSearchListAwaitFeedback(feedback, list, searchInput);
+    }
 }
 
 
@@ -403,7 +399,7 @@ function renderSearchListAwaitFeedback(feedback, list, searchInput) {
         for (let i = 0; i < feedback.length; i++) {
             let element = feedback[i];
             if (element['taskName'].toLowerCase().includes(searchInput)) {
-                list.innerHTML += generateHTML(element);
+                list.innerHTML += generateHTML(element, i);
                 searchElementsFound = true;
             }
         }
@@ -422,12 +418,14 @@ function renderSearchListAwaitFeedback(feedback, list, searchInput) {
  */
 function filterDone() {
     let searchInput = document.getElementById('search-input').value;
-    searchInput = searchInput.toLowerCase();
-    let list = document.getElementById('done');
-    list.innerHTML = '';
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('done');
+        list.innerHTML = '';
 
-    let done = tasks.filter(t => t['status'] == 'done');
-    renderSearchListDone(done, list, searchInput);
+        let done = tasks.filter(t => t['status'] == 'done');
+        renderSearchListDone(done, list, searchInput);
+    }
 }
 
 
@@ -447,7 +445,7 @@ function renderSearchListDone(done, list, searchInput) {
         for (let i = 0; i < done.length; i++) {
             let element = done[i];
             if (element['taskName'].toLowerCase().includes(searchInput)) {
-                list.innerHTML += generateHTML(element);
+                list.innerHTML += generateHTML(element, i);
                 searchElementsFound = true;
             }
         }
@@ -466,20 +464,13 @@ function showTaskCard(index) {
     const date = task['taskDate'];
     const priority = task['priority'];
     let assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
-    console.log(assignedContactsHTML);
-    const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
-    const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
     let subtasksHTML = getSubtasks(task['subTasks'], task, index);
-    const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
-    const subtask2 = task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : '';
-    let assignedName = '';
 
     let showTaskCard = document.getElementById('showTaskCard');
-    console.log('prioritiy ist', priority)
     let priorityImageSrc = getPriorityImageSrc(priority);
 
     showTaskCard.innerHTML = `
-        <div id="overlayBoard" class="overlayBoard">
+        <div id="overlayBoard" class="overlayBoard" onclick="loadTasksHTML()">
             <div id="taskCard${index}" class="task-card-overlay">
                 <div class="card-category-top-section">
                     <div class="card-category-overlay">${category}</div> 
@@ -572,7 +563,8 @@ function subtaskChangeImg(id) {
         subtaskField.src = 'assets/image/board/Check-button-empty.svg';
     } else {
         subtaskField.src = 'assets/image/board/Check-button.svg';
-    }  
+    }
+      
 }
 
 function closeBoardOverlay() {
@@ -607,7 +599,6 @@ function assignedInicials(index) {
         // Hier kannst du das Div-Element ausblenden oder entfernen
         var elementId = `initial${index}`; // Generiere die ID basierend auf dem Index
         var divElement = document.getElementById(elementId);
-        console.log(divElement);
 
         if (divElement) {
             divElement.style.display = 'none'; // Ausblenden des Div-Elements
@@ -621,14 +612,10 @@ function assignedInicials(index) {
 function getSubtasks(subtasks, task, index) {
     let subtasksHTML = '';
 
-    console.log('geht task?', subtasks);
-    console.log('heute ist task', task);
-
     if (subtasks) {
         for (let i = 0; i < subtasks.length; i++) {
             const subtask = subtasks[i];
             const subtaskId = `subtask${i + 1}`;
-            console.log('geht task wirklich?', subtasks[i]['subtaskStatus']);
             let subtaskStatus = subtasks[i]['subtaskStatus'];
             let subtaskImgSrc = ''; // Hier wird der Bild-Quelltext initialisiert
 
@@ -639,8 +626,8 @@ function getSubtasks(subtasks, task, index) {
             }
 
             subtasksHTML += `
-                <div class="subtask">
-                    <img id="${subtaskId}" onclick="subtaskChangeImg('${subtaskId}', ${i}); saveSubtask(${subtaskStatus}, ${i}, ${index})" src="${subtaskImgSrc}">
+                <div  class="subtask" onclick="subtaskChangeImg('${subtaskId}'); saveSubtask(${subtaskStatus}, ${i}, ${index}), loadTasksHTML()">
+                    <img id="${subtaskId}" src="${subtaskImgSrc}">
                     <div>${subtask['name']}</div>
                 </div>
             `;
@@ -655,40 +642,18 @@ function getSubtasks(subtasks, task, index) {
 
 
 function saveSubtask(subtaskStatus, i, index) {
-    console.log('der task status ist', subtaskStatus)
-    // subtaskStatus = true;
-
     if (subtaskStatus == false) {
         subtaskStatus = true;
     } else {
         subtaskStatus = false;
     }
 
-    console.log('der neue task status ist', subtaskStatus)
-    console.log('i ist gleich', i);
-
-
     if (subtaskStatus !== undefined) {
         tasks[index]['subTasks'][i]['subtaskStatus'] = subtaskStatus;
-        console.log('jetzt aber entgültig',subtaskStatus)
         setItem('tasks', tasks);
-        console.log('fetch subtaskStatus', tasks);
-
-        console.log('task zweitens', subtaskStatus)
-        // getItem('tasks', tasks);
-
     }
-
-
-
-    // console.log('subtask hat den status', task['subTasks'][0]);
 }
 
-    // if (category && currentDraggedElement !== undefined) {
-    //     tasks[currentDraggedElement]['status'] = category;
-    //     setItem('tasks', tasks);
-    //     loadTasksHTML();
-    // }
 
 
 
@@ -768,4 +733,8 @@ async function openEditTaskTemplate(taskId) {
     loadTask(taskId);
     includeEventlistenerToCloseAddTask()
 }
+
+
+
+
 

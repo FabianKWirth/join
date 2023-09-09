@@ -4,16 +4,18 @@
     right: 0;
     top: 0;
     bottom: 0;
-    margin: 96px 0 0 328px;
+    margin: 96px 0 0 314px;
     font-family: 'Inter', sans-serif;
-    overflow-y: scroll;
+    overflow: hidden;
+    /* overflow: scroll; */
+    /* overflow-y: scroll; */
 }
 
 .board-section .head-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 80px 88px 0 0px;
+    margin: 80px 88px 0 15px;
 }
 
 .board-section .head-section-right {
@@ -87,8 +89,8 @@
 .board-section .task-board {
     display: flex;
     justify-content: space-between;
-    margin: 48px 64px 0 0px;
-    gap: 24px;
+    padding: 48px 64px 10px 15px;
+    /* max-width: 1000px; */
 }
 
 .board-section .plus-icon {
@@ -99,53 +101,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex: 1 0 0;
-    width: 244px;
+    min-width: 244px;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
 }
 
 .board-section .task-field {
-    height: calc(100vh - 350px); 
+    /* height: calc(100vh - 350px);  */
     overflow: hidden;
     position: relative;
+}
+
+.board-section .sroll-area {
+    height: 1000px;
+    overflow-y: scroll;
 }
 
 .board-section .task-area {
     display: flex;
     justify-content: space-between;
-    /* height: calc(100vh - 327px); */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    
-    gap: 24px;
-    min-height: 100px;
+    /* overflow: scroll; */
+    padding: 15px 64px 400px 15px;
     height: auto;
-    padding-bottom: 16px;
-    overflow: scroll;
-    padding: 18px 64px 0 0px;
 }
 
 .board-section .creat-task-area {
-    width: 244px;
-    /* min-height: 100px;
-    height: auto; */
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;
-    flex: 1 0 0;
     gap: 16px;
     border-radius: 24px;
 }
 
 .board-section .task-card {
+    width: 244px;
     padding: 16px;
     background-color: #FFFFFF;
     border-radius: 24px;
@@ -156,6 +145,7 @@
     cursor: pointer;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
+    box-sizing: border-box;
 }
 
 .board-section .task-card:hover {
@@ -243,7 +233,7 @@
     border: 2px gray dashed;
     background-color: rgba(0, 0, 0, 0.1);
     min-height: 200px;
-    /* padding-bottom: 200px; */
+    padding-bottom: 16px;
 }
 
 .board-section .noToDo {
@@ -286,6 +276,7 @@
     align-items: flex-start;
     padding: 48px 40px;
     overflow: scroll;
+    z-index: 90;
 }
 
 .board-section .card-category-top-section {
@@ -386,6 +377,7 @@
     align-items: center;
     gap: 16px;
     padding: 6px 16px;
+    cursor: pointer;
 }
 
 .board-section .subtask:hover {
