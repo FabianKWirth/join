@@ -110,7 +110,8 @@ function generateHTML(task, index) {
     priority = task['priority'];
     // console.log(priority)
     let subtaskCount = task['subTasks'] ? task['subTasks'].length : 0;
-    let completedSubtaskCount = task['subTasks'] ? task['subTasks'].filter(subtask => subtask.completed).length : 0;
+    let completedSubtaskCount = task['subtasks'] ? task['subtasks'].filter(subtask => subtask.subtaskStatus === true).length : 0;
+    console.log('abgeschlossen sind', completedSubtaskCount)
     let progressBarHTML = '';
     let priorityImageSrc = getPriorityImageSrc(priority);
     // console.log(priorityImageSrc)
@@ -463,7 +464,7 @@ function showTaskCard(index) {
     console.log(assignedContactsHTML);
     const initials = [assignedInicials(0), assignedInicials(1), assignedInicials(2)];
     const assignedNames = [assignedTo(0), assignedTo(1), assignedTo(2)];
-    let subtasksHTML = getSubtasks(task['subTasks'], task);
+    let subtasksHTML = getSubtasks(task['subTasks'], task, index);
     const subtask1 = task['subTasks'] && task['subTasks'][0] ? task['subTasks'][0]['name'] : '';
     const subtask2 = task['subTasks'] && task['subTasks'][1] ? task['subTasks'][1]['name'] : '';
     let assignedName = '';
@@ -474,7 +475,7 @@ function showTaskCard(index) {
 
     showTaskCard.innerHTML = `
         <div id="overlayBoard" class="overlayBoard">
-            <div class="task-card-overlay">
+            <div id="taskCard${index}" class="task-card-overlay">
                 <div class="card-category-top-section">
                     <div class="card-category-overlay">${category}</div> 
                     <img onclick="closeBoardOverlay()" src="assets/icons/close.svg">
@@ -612,7 +613,7 @@ function assignedInicials(index) {
 }
 
 
-function getSubtasks(subtasks, task) {
+function getSubtasks(subtasks, task, index) {
     let subtasksHTML = '';
 
     console.log('geht task?', subtasks);
@@ -634,7 +635,7 @@ function getSubtasks(subtasks, task) {
 
             subtasksHTML += `
                 <div class="subtask">
-                    <img id="${subtaskId}" onclick="subtaskChangeImg('${subtaskId}', ${i}); saveSubtask(${subtaskStatus}, ${i})" src="${subtaskImgSrc}">
+                    <img id="${subtaskId}" onclick="subtaskChangeImg('${subtaskId}', ${i}); saveSubtask(${subtaskStatus}, ${i}, ${index})" src="${subtaskImgSrc}">
                     <div>${subtask['name']}</div>
                 </div>
             `;
@@ -644,34 +645,45 @@ function getSubtasks(subtasks, task) {
 }
 
 
-// assets/icons/checkbox-empty.svg
-
-function subtaskStatus(i) {
-    alert(i)
-    // if tasks[i]['subTasks'][0]['subtaskStatus']
-}
 
 
 
 
-async function saveSubtask(subtaskStatus, i) {
+function saveSubtask(subtaskStatus, i, index) {
     console.log('der task status ist', subtaskStatus)
-    subtaskStatus = true;
+    // subtaskStatus = true;
 
-    // console.log('hallo', tasks[11]['taskName'])
+    if (subtaskStatus == false) {
+        subtaskStatus = true;
+    } else {
+        subtaskStatus = false;
+    }
 
-    // alert(tasks[i]['subTasks'][0]['subtaskStatus'])
-    tasks[i]['subTasks'][0]['subtaskStatus'] = subtaskStatus;
-    await setItem('tasks', tasks);
-    console.log(tasks);
+    console.log('der neue task status ist', subtaskStatus)
+    console.log('i ist gleich', i);
 
-    console.log('task zweitens', subtaskStatus)
+
+    if (subtaskStatus !== undefined) {
+        tasks[index]['subTasks'][i]['subtaskStatus'] = subtaskStatus;
+        console.log('jetzt aber entgültig',subtaskStatus)
+        setItem('tasks', tasks);
+        console.log('fetch subtaskStatus', tasks);
+
+        console.log('task zweitens', subtaskStatus)
+        // getItem('tasks', tasks);
+
+    }
 
 
 
     // console.log('subtask hat den status', task['subTasks'][0]);
 }
 
+    // if (category && currentDraggedElement !== undefined) {
+    //     tasks[currentDraggedElement]['status'] = category;
+    //     setItem('tasks', tasks);
+    //     loadTasksHTML();
+    // }
 
 
 
