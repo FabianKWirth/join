@@ -133,6 +133,7 @@ function generateHTML(task, index) {
             </div>`;
     }
 
+
     return `
         <div onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
             <div class="card-category ${categoryClass}">${task['taskCategoryValue']}</div> 
@@ -271,9 +272,21 @@ document.getElementById('search-input').addEventListener('keydown', function (ev
     }
 });
 
+document.getElementById('search-input-responsive').addEventListener('keydown', function (event) {
+    if (event.keyCode === 13) {
+        filterToDoResponsive();
+    }
+});
+
 document.getElementById('search').addEventListener('click', function () {
     filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
 });
+
+document.getElementById('search-responsive').addEventListener('click', function () {
+    filterToDoResponsive();
+});
+
+
 
 
 /**
@@ -284,6 +297,20 @@ document.getElementById('search').addEventListener('click', function () {
  */
 function filterToDo() {
     let searchInput = document.getElementById('search-input').value;
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('todo');
+        list.innerHTML = '';
+
+        let todo = tasks.filter(t => t['status'] == 'toDo');
+        renderSearchListToDo(todo, list, searchInput);
+    } else {
+        loadTasksHTML();
+    }
+}
+
+function filterToDoResponsive() {
+    let searchInput = document.getElementById('search-input-responsive').value;
     if (searchInput > '') {
         searchInput = searchInput.toLowerCase();
         let list = document.getElementById('todo');

@@ -4,7 +4,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    margin: 96px 0 0 314px;
+    margin: 96px 64px 0 314px;
     font-family: 'Inter', sans-serif;
     overflow: hidden;
     /* overflow: scroll; */
@@ -120,6 +120,7 @@
 
 .board-section .addTask-responive-img {
     display: none;
+    cursor: pointer;
 }
 
 .board-section .task-board {
@@ -181,7 +182,7 @@
     flex-direction: column;
     flex: 1;
     gap: 20px;
-    /* border-radius: 24px; */
+    border-radius: 24px;
 }
 
 .board-section .task-card {
@@ -563,6 +564,7 @@
         overflow-x: scroll;
         /* padding-right: 30px; */
         padding-bottom: 26px;
+        border-radius: 0;
     }
 
     .board-section .addTask-responive-img {
@@ -581,6 +583,10 @@
     .board-section .input-section-repsonsive {
         display: flex;
     }
+
+    .board-section .noToDo {
+        width: 100%;
+    }
 }
 
 @media(max-width: 800px) {
@@ -589,11 +595,11 @@
     }
 
     .board-section .head-section {
-        margin: 48px 0 0 0;
+        margin: 48px 30px 0 15px;
     }
 
     .board-section .task-area {
-        padding: 0 0 420px 0;
+        padding: 0 0 400px 0;
     }
 }
 
