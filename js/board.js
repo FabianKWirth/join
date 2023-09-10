@@ -36,22 +36,6 @@ function loadTasksHTML() {
     let done = tasks.filter(t => t['status'] == 'done');
 
 
-    // for (let index = 0; index < tasks.length; index++) {
-    //     const task = tasks[index];
-
-    //     if (task['status'] == 'toDo') {
-    //         document.getElementById('todo').innerHTML += generateHTML(task, index);
-    //     } else if (task['status'] == 'inProgress') {
-    //         document.getElementById('inProgress').innerHTML += generateHTML(task, index);
-    //     } else if (task['status'] == 'awaitFeedback') {
-    //         document.getElementById('awaitFeedback').innerHTML += generateHTML(task, index);
-    //     } else if (task['status'] == 'done') {
-    //         document.getElementById('done').innerHTML += generateHTML(task, index);
-    //     } else {
-    //         document.getElementById('todo').innerHTML = renderNoTaskToDo();
-    //     }
-    // }
-
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
         if (todo.length > 0) {
@@ -319,7 +303,6 @@ document.getElementById('search-input-responsive').addEventListener('keydown', f
     }
 });
 
-// Event-Handler für Klick (beibehalten)
 document.getElementById('search').addEventListener('click', function () {
     filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
 });
@@ -328,14 +311,14 @@ document.getElementById('search-responsive').addEventListener('click', function 
     filterToDoResponsive(); filterInProgressResponsive(); filterAwaitFeedbackResponsive(); filterDoneResponsive();
 });
 
-// Neue Event-Handler für Touch-Geräte hinzufügen
+
 document.getElementById('search').addEventListener('touchend', function (event) {
-    event.preventDefault(); // Verhindert das Standardverhalten des Touch-Events (z. B. Scrollen)
+    event.preventDefault(); 
     filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
 });
 
 document.getElementById('search-responsive').addEventListener('touchend', function (event) {
-    event.preventDefault(); // Verhindert das Standardverhalten des Touch-Events (z. B. Scrollen)
+    event.preventDefault();
     filterToDoResponsive(); filterInProgressResponsive(); filterAwaitFeedbackResponsive(); filterDoneResponsive();
 });
 
