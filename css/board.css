@@ -559,22 +559,13 @@
         min-width: 150px;
     }
 
-    .board-section .addTask-responive-img {
-        display: block;
-    }
-
-    .board-section .add-task,
-    .board-section .input-section {
-        display: none;
-    }
-
     h1 {
         font-size: 47px;
     }
 
-    .board-section .input-section-repsonsive {
+    /* .board-section .input-section-repsonsive {
         display: flex;
-    }
+    } */
 
     .board-section .noToDo {
         width: 100%;
@@ -589,6 +580,25 @@
         margin: 80px 0px 0 0px;
     }
 }
+
+
+@media(max-width: 1050px) {
+    .board-section .addTask-responive-img {
+        display: block;
+    }
+    
+    .board-section .add-task,
+    .board-section .input-section {
+        display: none;
+    }
+
+    .board-section .input-section-repsonsive {
+        display: flex;
+    }
+}
+
+
+
 
 @media(max-width: 800px) {
     .board-section {
