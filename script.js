@@ -70,8 +70,8 @@ async function includeHTML(x) {
   }
   bgDark(x);
   bgDarkLegalNotice(x);
-  setUserHeaderInitials();
   disableIcon();
+  setUserHeaderInitials();
 }
 
 /**
@@ -191,7 +191,9 @@ function getUserInitials(user) {
  */
 function setUserHeaderInitials() {
   let myAccount = document.getElementById("myAccount");
+  let myAccountResponsiv = document.getElementById("myAccount-responsive");
   myAccount.innerHTML = userInitials;
+  myAccountResponsiv.innerHTML = userInitials;
 }
 
 /**
