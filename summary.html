@@ -16,7 +16,7 @@
 
 </head>
 
-<body onload="init(); includeHTML(0); greetUser()">
+<body onload="initSummary()">
 
     <div w3-include-html="assets/templates/header.html"></div>
     <div w3-include-html="assets/templates/header_responsive.html"></div>
@@ -35,7 +35,7 @@
             <div class="summery-elements">
                 <div class="summery-container">
                     <a class="tasks-top box-left backgroundBlack" onclick="openBoard()">
-                        <h2 id="tasks-in-board">5</h2>
+                        <h2 id="tasks-in-board"></h2>
                         <div class="task-text">
                             Tasks in
                             <br />
@@ -43,7 +43,7 @@
                         </div>
                     </a>
                     <a class="tasks-top box-middle backgroundBlack" onclick="openBoard()">
-                        <h2 id="tasks-in-progress">2</h2>
+                        <h2 id="tasks-in-progress"></h2>
                         <div class="task-text">
                             Tasks in
                             <br />
@@ -51,7 +51,7 @@
                         </div>
                     </a>
                     <a class="tasks-top box-right backgroundBlack" onclick="openBoard()">
-                        <h2 id="awaiting-feedback">2</h2>
+                        <h2 id="awaiting-feedback"></h2>
                         <div class="task-text">
                             Awaiting
                             <br />
@@ -64,7 +64,7 @@
                         <div class="summary-field">
                             <img src="assets/image/Summary/prio-height.svg" alt="">
                             <div>
-                                <h2 id="urgent">1</h2>
+                                <h2 id="urgent"></h2>
                                 <div class="font-16">Urgent</div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                             <img id="button-left-hover2" class="task-bottom-img1"
                                 src="assets/image/Summary/pencil-1.svg" alt="">
                             <div>
-                                <h2 id="to-do">1</h2>
+                                <h2 id="to-do"></h2>
                                 <div class="font-16">To-do</div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <img id="button-right-hover2" class="task-bottom-img2"
                                 src="assets/image/Summary/check-icon-white.svg" alt="">
                             <div>
-                                <h2 id="done">1</h2>
+                                <h2 id="done"></h2>
                                 <div class="font-16">Done</div>
                             </div>
                         </div>
