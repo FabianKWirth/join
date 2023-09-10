@@ -30,23 +30,63 @@ function loadTasksHTML() {
     document.getElementById('inProgress').innerHTML = '';
     document.getElementById('awaitFeedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
+    let todo = tasks.filter(t => t['status'] == 'toDo');
+    let inProgress = tasks.filter(t => t['status'] == 'inProgress');
+    let awaitFeedback = tasks.filter(t => t['status'] == 'awaitFeedback');
+    let done = tasks.filter(t => t['status'] == 'done');
+
+
+    // for (let index = 0; index < tasks.length; index++) {
+    //     const task = tasks[index];
+
+    //     if (task['status'] == 'toDo') {
+    //         document.getElementById('todo').innerHTML += generateHTML(task, index);
+    //     } else if (task['status'] == 'inProgress') {
+    //         document.getElementById('inProgress').innerHTML += generateHTML(task, index);
+    //     } else if (task['status'] == 'awaitFeedback') {
+    //         document.getElementById('awaitFeedback').innerHTML += generateHTML(task, index);
+    //     } else if (task['status'] == 'done') {
+    //         document.getElementById('done').innerHTML += generateHTML(task, index);
+    //     } else {
+    //         document.getElementById('todo').innerHTML = renderNoTaskToDo();
+    //     }
+    // }
+
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-
-        if (task['status'] == 'toDo') {
-            document.getElementById('todo').innerHTML += generateHTML(task, index);
-        } else if (task['status'] == 'inProgress') {
-            document.getElementById('inProgress').innerHTML += generateHTML(task, index);
-        } else if (task['status'] == 'awaitFeedback') {
-            document.getElementById('awaitFeedback').innerHTML += generateHTML(task, index);
-        } else if (task['status'] == 'done') {
-            document.getElementById('done').innerHTML += generateHTML(task, index);
+        if (todo.length > 0) {
+            if (task['status'] == 'toDo') {
+                document.getElementById('todo').innerHTML += generateHTML(task, index);
+            }
         } else {
-            document.getElementById('todo').innerHTML = renderNoTaskToDo(task);
+            document.getElementById('todo').innerHTML = renderNoTaskToDo();
+        }
+
+        if (inProgress.length > 0) {
+            if (task['status'] == 'inProgress') {
+                document.getElementById('inProgress').innerHTML += generateHTML(task, index);
+            }
+        } else {
+            document.getElementById('inProgress').innerHTML = renderNoInProgress();
+        }
+
+        if (awaitFeedback.length > 0) {
+            if (task['status'] == 'awaitFeedback') {
+                document.getElementById('awaitFeedback').innerHTML += generateHTML(task, index);
+            }
+        } else {
+            document.getElementById('awaitFeedback').innerHTML = renderNoAwaitFeedback();
+        }
+
+        if (done.length > 0) {
+            if (task['status'] == 'done') {
+                document.getElementById('done').innerHTML += generateHTML(task, index);
+            }
+        } else {
+            document.getElementById('done').innerHTML = renderNoDone();
         }
     }
 }
-
 
 /**
  * Renders HTML to display a message when there are no tasks to do.
@@ -55,7 +95,7 @@ function loadTasksHTML() {
  * @returns {string} The HTML code for displaying the message.
  */
 function renderNoTaskToDo() {
-    return `<div class="noToDo">No tasks To Do</div>`;
+    return `<div class="noToDo">No tasks To do</div>`;
 }
 
 
@@ -266,6 +306,7 @@ function moveTo(ev) {
 }
 
 
+// Event-Handler für Tastatureingabe (beibehalten)
 document.getElementById('search-input').addEventListener('keydown', function (event) {
     if (event.keyCode === 13) {
         filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
@@ -278,13 +319,26 @@ document.getElementById('search-input-responsive').addEventListener('keydown', f
     }
 });
 
+// Event-Handler für Klick (beibehalten)
 document.getElementById('search').addEventListener('click', function () {
     filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
 });
 
 document.getElementById('search-responsive').addEventListener('click', function () {
-    filterToDoResponsive();
+    filterToDoResponsive(); filterInProgressResponsive(); filterAwaitFeedbackResponsive(); filterDoneResponsive();
 });
+
+// Neue Event-Handler für Touch-Geräte hinzufügen
+document.getElementById('search').addEventListener('touchend', function (event) {
+    event.preventDefault(); // Verhindert das Standardverhalten des Touch-Events (z. B. Scrollen)
+    filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
+});
+
+document.getElementById('search-responsive').addEventListener('touchend', function (event) {
+    event.preventDefault(); // Verhindert das Standardverhalten des Touch-Events (z. B. Scrollen)
+    filterToDoResponsive(); filterInProgressResponsive(); filterAwaitFeedbackResponsive(); filterDoneResponsive();
+});
+
 
 
 
@@ -367,6 +421,18 @@ function filterInProgress() {
     }
 }
 
+function filterInProgressResponsive() {
+    let searchInput = document.getElementById('search-input-responsive').value;
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('inProgress');
+        list.innerHTML = '';
+
+        let inProgress = tasks.filter(t => t['status'] == 'inProgress');
+        renderSearchListToDo(inProgress, list, searchInput);
+    }
+}
+
 /**
  * Renders a filtered list of 'In Progress' category tasks based on a search query.
  *
@@ -409,6 +475,18 @@ function filterAwaitFeedback() {
 
         let feedback = tasks.filter(t => t['status'] == 'awaitFeedback');
         renderSearchListAwaitFeedback(feedback, list, searchInput);
+    }
+}
+
+function filterAwaitFeedbackResponsive() {
+    let searchInput = document.getElementById('search-input-responsive').value;
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('awaitFeedback');
+        list.innerHTML = '';
+
+        let awaitFeedback = tasks.filter(t => t['status'] == 'awaitFeedback');
+        renderSearchListToDo(awaitFeedback, list, searchInput);
     }
 }
 
@@ -455,6 +533,18 @@ function filterDone() {
 
         let done = tasks.filter(t => t['status'] == 'done');
         renderSearchListDone(done, list, searchInput);
+    }
+}
+
+function filterDoneResponsive() {
+    let searchInput = document.getElementById('search-input-responsive').value;
+    if (searchInput > '') {
+        searchInput = searchInput.toLowerCase();
+        let list = document.getElementById('done');
+        list.innerHTML = '';
+
+        let done = tasks.filter(t => t['status'] == 'done');
+        renderSearchListToDo(done, list, searchInput);
     }
 }
 

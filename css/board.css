@@ -8,7 +8,7 @@
     font-family: 'Inter', sans-serif;
     overflow: hidden;
     /* overflow: scroll; */
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
 }
 
 .board-section .head-section {
@@ -17,7 +17,7 @@
     justify-content: space-between;
     max-width: 1300px;
     /* min-width: 721px; */
-    margin: 80px 0 0 15px;
+    margin: 80px 30px 0 15px;
 }
 
 .board-section .head-section-right {
@@ -79,7 +79,7 @@
     font-size: 20px;
     line-height: 24px;
     color: black;
-    width: 700px;
+    width: 100%;
 
     /* margin-right: 50px; */
 
@@ -127,7 +127,7 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding: 48px 64px 10px 15px;
+    padding: 48px 30px 10px 15px;
     max-width: 1300px;
 }
 
@@ -140,7 +140,7 @@
     justify-content: space-between;
     flex: 1;
     align-items: center;
-    min-width: 190px;
+    min-width: 220px;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
@@ -172,12 +172,12 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding: 15px 64px 400px 15px;
+    padding: 15px 30px 400px 15px;
     max-width: 1300px;
 }
 
 .board-section .creat-task-area {
-    min-width: 190px;
+    min-width: 220px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -231,7 +231,7 @@
 }
 
 .board-section .progress-bar {
-    width: 60%;
+    width: 57%;
     height: 8px;
     background-color: #F4F4F4;
     border-radius: 10px;
@@ -491,7 +491,15 @@
 }
 
 
-@media(max-width: 1300px) {
+@media(max-width: 1356px) {
+    .board-section {
+        margin: 96px 16px 0 260px;
+    }
+
+    .board-section .task-board {
+        padding: 48px 30px 10px 15px;
+    }
+
     .board-section .input-section input {
         width: 120px;
     }
@@ -508,40 +516,21 @@
 
 }
 
-@media(max-width: 1180px) {
+@media(max-width: 1250px) {
     .board-section {
-        margin: 96px 16px 0 260px;
+        margin: 96px 30px 0 260px;
     }
 
-    .board-section .creat-task-area {
-        min-width: 150px;
-        /* overflow-x: scroll; */
-        /* padding-right: 100px; */
-    }
-
-    .board-section .task-area {
-        box-sizing: border-box;
-        /* min-width: 740px; */
-        padding: 15px 0 400px 0;
-    }
-
-    .board-section .task-board {
-        padding: 48px 30px 10px 15px;
-
-    }
-
-    .board-section .head-section {
-        margin: 80px 0 0 15px;
-    }
-}
-
-@media(max-width: 1025px) {
     .board-section .task-area {
         display: block;
+        /* margin: 96px 16px 0 260px; */
+        box-sizing: border-box;
+        padding: 15px 0px 50px 0px;
     }
 
     .board-section .task-board {
         display: none;
+        padding: 48px 30px 10px 30px;
     }
 
     .board-section .task-section-responsive {
@@ -563,8 +552,10 @@
         flex-direction: row;
         overflow-x: scroll;
         /* padding-right: 30px; */
-        padding-bottom: 26px;
+        /* padding-bottom: 26px; */
+        padding: 13px 0;
         border-radius: 0;
+        min-width: 150px;
     }
 
     .board-section .addTask-responive-img {
@@ -587,6 +578,15 @@
     .board-section .noToDo {
         width: 100%;
     }
+
+    .board-section .sroll-area {
+        overflow-y: hidden;
+        height: auto;
+    }
+
+    .board-section .head-section {
+        margin: 80px 0px 0 0px;
+    }
 }
 
 @media(max-width: 800px) {
@@ -595,11 +595,11 @@
     }
 
     .board-section .head-section {
-        margin: 48px 30px 0 15px;
+        margin: 48px 0 0 0;
     }
 
     .board-section .task-area {
-        padding: 0 0 400px 0;
+        padding: 0 0 150px 0;
     }
 }
 
