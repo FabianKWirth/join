@@ -1,20 +1,21 @@
 .sidebar {
     width: 232px;
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
     position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: #2A3647;
-    padding: 64px 0;
     font-family: 'Inter', sans-serif;
     z-index: 3;
+    font-weight: 400;
 }
 
 .sidebar a {
     font-size: 16px;
-    font-weight: 400;
 }
 
 .sidebar-top {
@@ -80,8 +81,7 @@
 
 .sidebar-bottom span {
     font-size: 16px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
+    /* font-weight: 400; */
     width: 110px;
 }
 

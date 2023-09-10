@@ -15,7 +15,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 80px 88px 0 15px;
+    max-width: 1300px;
+    min-width: 809px;
+    margin: 80px 64px 0 15px;
 }
 
 .board-section .head-section-right {
@@ -26,7 +28,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 312px;
+    /* width: 312px; */
 }
 
 .board-section .input-section input {
@@ -89,8 +91,9 @@
 .board-section .task-board {
     display: flex;
     justify-content: space-between;
+    gap: 16px;
     padding: 48px 64px 10px 15px;
-    /* max-width: 1000px; */
+    max-width: 1300px;
 }
 
 .board-section .plus-icon {
@@ -100,17 +103,17 @@
 .board-section .task-section {
     display: flex;
     justify-content: space-between;
+    flex: 1;
     align-items: center;
-    min-width: 244px;
+    min-width: 190px;
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
 }
 
 .board-section .task-field {
-    /* height: calc(100vh - 350px);  */
     overflow: hidden;
-    position: relative;
+    /* position: relative; */
 }
 
 .board-section .sroll-area {
@@ -121,20 +124,23 @@
 .board-section .task-area {
     display: flex;
     justify-content: space-between;
-    /* overflow: scroll; */
+    gap: 16px;
     padding: 15px 64px 400px 15px;
-    height: auto;
+    max-width: 1300px;
 }
 
 .board-section .creat-task-area {
+    min-width: 190px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    flex: 1;
+    gap: 20px;
     border-radius: 24px;
 }
 
 .board-section .task-card {
-    width: 244px;
+    min-width: 100%;
+    max-width: 300px;
     padding: 16px;
     background-color: #FFFFFF;
     border-radius: 24px;
@@ -227,6 +233,8 @@
     align-items: center;
     color: #FFFFFF;
     font-size: 12px;
+
+
 }
 
 .board-section .drag-area-highlight {
@@ -434,6 +442,55 @@
 
 .subtaskTitel {
     display: block;
+}
+
+
+@media(max-width: 1300px) {
+    .board-section .input-section input {
+        width: 120px;
+    }
+
+    .board-section .circle-1 {
+        width: 28px;
+        min-width: 28px;
+    }
+
+    .board-section .circle-2 {
+        width: 28px;
+        min-width: 28px;
+    }
+
+}
+
+@media(max-width: 1180px) {
+    .board-section {
+        margin: 96px 0 0 260px;
+    }
+
+    .board-section .creat-task-area {
+        min-width: 150px;
+    }
+
+    .board-section .task-area {
+        box-sizing: border-box;
+        min-width: 740px;
+        padding: 15px 30px 400px 15px;
+    }
+
+    .board-section .task-board {
+        padding: 48px 30px 10px 15px;
+
+    }
+
+    .board-section .head-section {
+        margin: 80px 30px 0 15px;
+    }
+}
+
+@media(max-width: 1025px) {
+    .board-section .task-area {
+        display: block;
+    }
 }
 
 

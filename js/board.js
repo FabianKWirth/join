@@ -154,31 +154,34 @@ function generateHTML(task, index) {
 
 
 function getAssignedContactIcons(assignedContacts) {
-
     let contactIconHtml = "";
     let firstItem = true;
+    let insertedContacts = 0; // Zähler für die eingefügten Kontakte
 
     if (assignedContacts != null) {
         assignedContacts.forEach(assignedContact => {
+            if (insertedContacts < 5) {
+                let contactIcon = getContactIconHtml(contacts[assignedContact]);
 
-            let contactIcon = getContactIconHtml(contacts[assignedContact]);
+                if (firstItem == true) {
+                    contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-1"');
+                    firstItem = false;
+                } else {
+                    contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
+                }
 
-
-            if (firstItem == true) {
-
-                contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-1"');
-
-                firstItem = false;
+                contactIconHtml += contactIcon;
+                insertedContacts++; // Erhöhe den Zähler für eingefügte Kontakte
             } else {
-                contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
+                // Optional: Hier können Sie eine Meldung ausgeben oder andere Aktionen ausführen, wenn die Grenze erreicht ist.
+                console.log("Maximale Anzahl von Kontakten erreicht.");
             }
-            contactIconHtml += contactIcon;
-
         });
-
     }
+
     return contactIconHtml;
 }
+
 
 
 /**
@@ -766,3 +769,35 @@ async function openEditTaskTemplate(taskId) {
 
 
 
+
+
+
+
+
+
+// function getAssignedContactIcons(assignedContacts) {
+
+//     let contactIconHtml = "";
+//     let firstItem = true;
+
+//     if (assignedContacts != null) {
+//         assignedContacts.forEach(assignedContact => {
+
+//             let contactIcon = getContactIconHtml(contacts[assignedContact]);
+
+
+//             if (firstItem == true) {
+
+//                 contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-1"');
+
+//                 firstItem = false;
+//             } else {
+//                 contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
+//             }
+//             contactIconHtml += contactIcon;
+
+//         });
+
+//     }
+//     return contactIconHtml;
+// }
