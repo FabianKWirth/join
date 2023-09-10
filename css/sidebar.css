@@ -21,6 +21,7 @@
 .sidebar-top {
     display: flex;
     flex-direction: column;
+    padding-top: 64px;
 }
 
 .sidebar-logo {

@@ -16,8 +16,8 @@
     align-items: center;
     justify-content: space-between;
     max-width: 1300px;
-    min-width: 809px;
-    margin: 80px 64px 0 15px;
+    /* min-width: 721px; */
+    margin: 80px 0 0 15px;
 }
 
 .board-section .head-section-right {
@@ -61,6 +61,36 @@
     border-radius: 50%;
 }
 
+.board-section .input-section-repsonsive {
+    position: relative;
+    align-items: center;
+    display: none;
+    margin: 42px 0 0 0;
+    padding-bottom: 20px;
+}
+
+.board-section .input-section-repsonsive input {
+    padding: 8px 50px 8px 16px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A8;
+    outline: none;
+    height: 30px;
+    position: relative;
+    font-size: 20px;
+    line-height: 24px;
+    color: black;
+    width: 700px;
+
+    /* margin-right: 50px; */
+
+    /* padding-right: 94px; */
+}
+
+/* .board-section .input-line-responsive {
+    position: absolute;
+    right: 60px;
+} */
+
 .board-section .head-section-right {
     display: flex;
     align-items: center;
@@ -88,6 +118,10 @@
     box-shadow: 0px 4px 9px -1px rgba(0, 0, 0, 0.4);
 }
 
+.board-section .addTask-responive-img {
+    display: none;
+}
+
 .board-section .task-board {
     display: flex;
     justify-content: space-between;
@@ -111,6 +145,17 @@
     line-height: 24px;
 }
 
+.task-section-responsive {
+    display: none;
+    justify-content: space-between;
+    /* flex: 1; */
+    align-items: center;
+    min-width: 190px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
 .board-section .task-field {
     overflow: hidden;
     /* position: relative; */
@@ -119,6 +164,7 @@
 .board-section .sroll-area {
     height: 1000px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .board-section .task-area {
@@ -135,7 +181,7 @@
     flex-direction: column;
     flex: 1;
     gap: 20px;
-    border-radius: 24px;
+    /* border-radius: 24px; */
 }
 
 .board-section .task-card {
@@ -258,7 +304,6 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-.board-section #showTaskCard {}
 
 .board-section .overlayBoard {
     position: fixed;
@@ -464,17 +509,19 @@
 
 @media(max-width: 1180px) {
     .board-section {
-        margin: 96px 0 0 260px;
+        margin: 96px 16px 0 260px;
     }
 
     .board-section .creat-task-area {
         min-width: 150px;
+        /* overflow-x: scroll; */
+        /* padding-right: 100px; */
     }
 
     .board-section .task-area {
         box-sizing: border-box;
-        min-width: 740px;
-        padding: 15px 30px 400px 15px;
+        /* min-width: 740px; */
+        padding: 15px 0 400px 0;
     }
 
     .board-section .task-board {
@@ -483,7 +530,7 @@
     }
 
     .board-section .head-section {
-        margin: 80px 30px 0 15px;
+        margin: 80px 0 0 15px;
     }
 }
 
@@ -491,7 +538,65 @@
     .board-section .task-area {
         display: block;
     }
+
+    .board-section .task-board {
+        display: none;
+    }
+
+    .board-section .task-section-responsive {
+        display: flex;
+        padding-bottom: 16px;
+        font-size: 27px;
+    }
+
+    .board-section .task-card {
+       min-width: 220px;
+        box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.08);
+    }
+
+    .board-section .task-card:hover {
+        transform: none;
+    }
+
+    .board-section .creat-task-area {
+        flex-direction: row;
+        overflow-x: scroll;
+        /* padding-right: 30px; */
+        padding-bottom: 26px;
+    }
+
+    .board-section .addTask-responive-img {
+        display: block;
+    }
+
+    .board-section .add-task,
+    .board-section .input-section {
+        display: none;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    .board-section .input-section-repsonsive {
+        display: flex;
+    }
 }
+
+@media(max-width: 800px) {
+    .board-section {
+        margin: 80px 16px 0 16px;
+    }
+
+    .board-section .head-section {
+        margin: 48px 0 0 0;
+    }
+
+    .board-section .task-area {
+        padding: 0 0 420px 0;
+    }
+}
+
 
 
 
