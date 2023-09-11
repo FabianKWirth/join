@@ -24,7 +24,6 @@ async function updateBoardHTML() {
  * @function
  * @returns {void}
  */
-
 function loadTasksHTML() {
     document.getElementById('todo').innerHTML = '';
     document.getElementById('inProgress').innerHTML = '';
@@ -572,74 +571,35 @@ function renderSearchListDone(done, list, searchInput) {
     }
 }
 
+/**
+ * Display a detailed task card for a specific task.
+ *
+ * @param {number} index - The index of the task to display.
+ */
 function showTaskCard(index) {
-    let task = tasks[index];
-    const category = task['taskCategoryValue'];
-    const name = task['taskName'];
-    const description = task['taskDescription'];
-    const date = task['taskDate'];
-    const priority = task['priority'];
-    let assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
-    let getAssignedText = getAssignedContainer(task['assignedContacts']);
-    let getSubtaskText = getSubtaskContainer(task['subTasks']);
-    let subtasksHTML = getSubtasks(task['subTasks'], task, index);
+    const task = tasks[index];
+    const categoryClass = getCategoryClass(task);
+    const { taskCategoryValue: category, taskName: name, taskDescription: description, taskDate: date, priority } = task;
+    const assignedContactsHTML = getAssignedContacts(task['assignedContacts']);
+    const getAssignedText = getAssignedContainer(task['assignedContacts']);
+    const getSubtaskText = getSubtaskContainer(task['subTasks']);
+    const subtasksHTML = getSubtasks(task['subTasks'], task, index);
 
-    let showTaskCard = document.getElementById('showTaskCard');
-    let priorityImageSrc = getPriorityImageSrc(priority);
+    const showTaskCard = document.getElementById('showTaskCard');
+    const priorityImageSrc = getPriorityImageSrc(priority);
 
-    showTaskCard.innerHTML = `
-        <div id="overlayBoard" class="overlayBoard" onclick="loadTasksHTML()">
-            <div id="taskCard${index}" class="task-card-overlay">
-                <div class="card-category-top-section">
-                    <div class="card-category-overlay">${category}</div> 
-                    <img onclick="closeBoardOverlay(), loadTasksHTML();" src="assets/icons/close.svg">
-                </div>
-                <div>
-                    <h4 class="title-h4">${name}</h4>
-                </div>
-                <div class="card-description-overlay">${description}</div>
-                <div  class="card-description-overlay">
-                    <div class="dark-gray">Due date:</div>
-                    <div>${date}</div>
-                </div>
-                <div class="priority-container card-description-overlay">
-                    <div class="dark-gray">Priority:</div>
-                    <div class="priority">
-                        <div>${priority}</div>
-                        <img src="${priorityImageSrc}">
-                    </div>
-                </div>
-                <div id="assign" class="assigned">
-                        ${getAssignedText}
-                        ${assignedContactsHTML}
-                </div>
-                <div class="subtasks">
-                    <div id="subtaskTitel" class="subtaskTitel">
-                        ${getSubtaskText}
-                    </div>
-                    <div class="subtasks-container">
-                        <div class="subtasks-container">
-                            ${subtasksHTML}
-                        </div>
-                    </div>
-                </div>
-                <div class="edit-container">
-                    <div class="edit" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImage')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImage')">
-                        <img id="trashImage" src="assets/icons/trashcan-icon.svg">
-                        <div>Delete</div>
-                    </div>
-                    <img src="assets/image/board/edit-line.svg">
-                    <div class="edit" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImage')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImage')">
-                        <img id="editImage" src="assets/icons/pen-icon.svg"> 
-                        <div onclick="openEditTaskTemplate(1)">Edit</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    showTaskCard.innerHTML = generateTaskCardHTML(index, categoryClass, category, name, description, date, priority, priorityImageSrc, getAssignedText, assignedContactsHTML, getSubtaskText, subtasksHTML);
+
     includeEventlistenerToCloseOverlayBoard();
 }
 
+
+/**
+ * Generates HTML for assigned contacts.
+ *
+ * @param {Array} assignedContacts - An array of assigned contact IDs.
+ * @returns {string} The HTML code for assigned contacts.
+ */
 function getAssignedContacts(assignedContacts) {
     let assignedContactsHTML = '';
 
@@ -656,31 +616,61 @@ function getAssignedContacts(assignedContacts) {
     return assignedContactsHTML;
 }
 
+
+
+/**
+ * Generates an "Assigned To" container if assigned contacts are present.
+ *
+ * @param {Array} assignedContacts - An array of assigned contact IDs.
+ * @returns {string} The HTML code for the "Assigned To" container or an empty string if no assigned contacts are present.
+ */
 function getAssignedContainer(assignedContacts) {
     let assigned = '';
-
 
     if (assignedContacts) {
         assigned = `
         <div class="dark-gray">Assigned To:</div>
-            `;
-    } 
+        `;
+    }
     return assigned;
 }
 
+
+
+/**
+ * Returns the image source (URL) for a given priority level.
+ *
+ * @param {string} priority - The priority level ('low', 'medium', or 'urgent').
+ * @returns {string} The image source URL corresponding to the priority level. Returns an empty string for unknown priority levels.
+ */
 function getPriorityImageSrc(priority) {
+    let imageSrc = '';
+
     switch (priority.toLowerCase()) {
         case 'low':
-            return 'assets/icons/prio-low.svg';
+            imageSrc = 'assets/icons/prio-low.svg';
+            break;
         case 'medium':
-            return 'assets/icons/prio-medium.svg';
+            imageSrc = 'assets/icons/prio-medium.svg';
+            break;
         case 'urgent':
-            return 'assets/icons/prio-urgent.svg';
+            imageSrc = 'assets/icons/prio-urgent.svg';
+            break;
         default:
-            return '';
+            imageSrc = '';
+            break;
     }
+
+    return imageSrc;
 }
 
+
+
+/**
+ * Changes the image of a subtask field to mark its status (completed/incomplete).
+ *
+ * @param {string} id - The ID of the subtask field whose image should be changed.
+ */
 function subtaskChangeImg(id) {
     let subtaskField = document.getElementById(id);
     let subtaskFieldSrc = subtaskField.src;
@@ -690,19 +680,36 @@ function subtaskChangeImg(id) {
     } else {
         subtaskField.src = 'assets/image/board/Check-button.svg';
     }
-      
 }
 
+
+
+/**
+ * Closes the overlay window on the board.
+ */
 function closeBoardOverlay() {
     document.getElementById('overlayBoard').style.display = 'none';
 }
 
 
+/**
+ * Changes the source (URL) of an image with the specified ID to a new source.
+ *
+ * @param {string} newSrc - The new image source (URL).
+ * @param {string} imageId - The ID of the image element to be changed.
+ */
 function changeImage(newSrc, imageId) {
     const image = document.getElementById(imageId);
     image.src = newSrc;
 }
 
+
+/**
+ * Returns the name of the contact assigned to a task based on the provided index.
+ *
+ * @param {number} index - The index of the assigned contact within the task.
+ * @returns {string} The name of the assigned contact or an empty string if no contact is assigned.
+ */
 function assignedTo(index) {
     let indexInContacts = tasks[0]['assignedContacts'][index];
 
@@ -715,26 +722,35 @@ function assignedTo(index) {
 }
 
 
+/**
+ * Returns the initials of the contact assigned to a task based on the provided index.
+ *
+ * @param {number} index - The index of the assigned contact within the task.
+ * @returns {string} The initials of the assigned contact or an empty string if no contact is assigned or available.
+ */
 function assignedInicials(index) {
     let initials = tasks[0]['assignedContacts'][index];
 
-    // Überprüfen, ob initials gültig ist und ob der Kontakt existiert
     if (initials !== undefined && contacts[initials]) {
         return getContactInitials(contacts[initials]);
     } else {
-        // Hier kannst du das Div-Element ausblenden oder entfernen
-        var elementId = `initial${index}`; // Generiere die ID basierend auf dem Index
+        var elementId = `initial${index}`;
         var divElement = document.getElementById(elementId);
 
         if (divElement) {
-            divElement.style.display = 'none'; // Ausblenden des Div-Elements
+            divElement.style.display = 'none';
         }
-
-        return ''; // Oder eine andere geeignete Rückgabewert, falls notwendig
+        return '';
     }
 }
 
 
+/**
+ * Generates a "Subtask" container if there are subtasks present.
+ *
+ * @param {Array} subtasks - An array of subtasks.
+ * @returns {string} The HTML code for the "Subtask" container or an empty string if no subtasks are present.
+ */
 function getSubtaskContainer(subtasks) {
     let subtask = '';
 
@@ -746,6 +762,15 @@ function getSubtaskContainer(subtasks) {
     return subtask;
 }
 
+
+/**
+ * Generates HTML for subtasks if they are present in a task.
+ *
+ * @param {Array} subtasks - An array of subtasks.
+ * @param {Object} task - The task object containing subtasks.
+ * @param {number} index - The index of the task.
+ * @returns {string} The HTML code for subtasks or an empty string if no subtasks are present.
+ */
 function getSubtasks(subtasks, task, index) {
     let subtasksHTML = '';
 
@@ -762,28 +787,20 @@ function getSubtasks(subtasks, task, index) {
                 subtaskImgSrc = 'assets/icons/checkbox-filled.svg';
             }
 
-            // subtaskTitel = `
-            // <div class="dark-gray">Subtask</div>
-            // `;
-
-            subtasksHTML += `
-                <div class="subtask" onclick="subtaskChangeImg('${subtaskId}'); saveSubtask(${subtaskStatus}, ${i}, ${index}), loadTasksHTML()">
-                    <img id="${subtaskId}" src="${subtaskImgSrc}">
-                    <div>${subtask['name']}</div>
-                </div>
-            `;
-
+            subtasksHTML += renderSubtask(subtaskId, subtaskStatus, i, index, subtaskImgSrc, subtask);
         }
     }
     return subtasksHTML;
 }
 
 
-
-
-
-
-
+/**
+ * Saves the status of a subtask (completed or incomplete) and updates it in the task data.
+ *
+ * @param {number} subtaskStatus - The status of the subtask (0 for incomplete, 1 for completed).
+ * @param {number} i - The index of the subtask within the task.
+ * @param {number} index - The index of the task.
+ */
 function saveSubtask(subtaskStatus, i, index) {
     if (subtaskStatus == 0) {
         subtaskStatus = 1;
@@ -798,8 +815,6 @@ function saveSubtask(subtaskStatus, i, index) {
 
     showTaskCard(index);
 }
-
-
 
 
 
@@ -878,40 +893,3 @@ async function openEditTaskTemplate(taskId) {
     loadTask(taskId);
     includeEventlistenerToCloseAddTask()
 }
-
-
-
-
-
-
-
-
-
-
-
-// function getAssignedContactIcons(assignedContacts) {
-
-//     let contactIconHtml = "";
-//     let firstItem = true;
-
-//     if (assignedContacts != null) {
-//         assignedContacts.forEach(assignedContact => {
-
-//             let contactIcon = getContactIconHtml(contacts[assignedContact]);
-
-
-//             if (firstItem == true) {
-
-//                 contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-1"');
-
-//                 firstItem = false;
-//             } else {
-//                 contactIcon = contactIcon.replace(/class="circle"/g, 'class="circle circle-2"');
-//             }
-//             contactIconHtml += contactIcon;
-
-//         });
-
-//     }
-//     return contactIconHtml;
-// }
