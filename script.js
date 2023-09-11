@@ -208,11 +208,19 @@ function ShowMenuResponsive() {
   let menu = document.getElementById("header-menu-responsive");
   menu.classList.toggle("hidden");
   menu.classList.toggle("visible");
+  document.getElementById("overlay-responsive").classList.remove("dNone");
 }
 
 function closeMenu() {
   document.getElementById("header-menu").classList.add("dNone");
   document.getElementById("overlay").classList.add("dNone");
+}
+
+function closeMenuResponsive() {
+  document.getElementById("overlay-responsive").classList.add("dNone");
+  let menu = document.getElementById("header-menu-responsive");
+  menu.classList.toggle("hidden");
+  menu.classList.toggle("visible");
 }
 
 function openSummary() {
