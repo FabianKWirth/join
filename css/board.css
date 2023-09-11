@@ -589,6 +589,39 @@
     .board-section .task-area {
         padding: 0 0 150px 0;
     }
+
+    .board-section .task-card-overlay {
+        max-height: 65%;
+    }
+
+    .board-section .overlayBoard {
+        top: -30px;
+    }
+
+    .board-section .title-h4 {
+        font-size: 42px;
+    }
+}
+
+@media(max-width: 700px) {
+    .board-section .task-card-overlay {
+        width: 70%;
+    }
+}
+
+@media(max-width: 410px) {
+    .board-section .title-h4 {
+        font-size: 34px;
+    }
+
+    .board-section .overlayBoard {
+        top: 0px;
+    }
+    
+    .board-section .task-card-overlay {
+        max-height: 75%;
+    }
+
 }
 
 
