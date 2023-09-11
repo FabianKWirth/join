@@ -117,28 +117,34 @@ function renderNoDone() {
 
 
 /**
- * Generates HTML code for displaying a task card based on the provided task element.
+ * Generates HTML for a task card.
  *
- * @function
- * @param {Object} element - The task element containing information about the task.
+ * @param {Object} task - The task object.
+ * @param {number} index - The index of the task.
  * @returns {string} The HTML code for the task card.
  */
 function generateHTML(task, index) {
-    let assignedContactsIcons = getAssignedContactIcons(task['assignedContacts']);
-    priority = task['priority'];
-    let subtaskCount = task['subTasks'] ? task['subTasks'].length : 0;
+    const assignedContactsIcons = getAssignedContactIcons(task['assignedContacts']);
+    const priority = task['priority'];
+    const subtaskCount = task['subTasks'] ? task['subTasks'].length : 0;
+    const completedSubtaskCount = countCompletedSubtasks(task);
+    const progressBarHTML = generateProgressBarHTML(completedSubtaskCount, subtaskCount);
+    const categoryClass = getCategoryClass(task);
+    const priorityImageSrc = getPriorityImageSrc(priority);
+
+    return renderTaskCards(index, task, categoryClass, progressBarHTML, assignedContactsIcons, priorityImageSrc);
+}
+
+
+/**
+ * Counts the number of completed subtasks in a task.
+ *
+ * @param {Object} task - The task object.
+ * @returns {number} The number of completed subtasks.
+ */
+function countCompletedSubtasks(task) {
     let completedSubtaskCount = 0;
-    
-    let progressBarHTML = '';
-    let priorityImageSrc = getPriorityImageSrc(priority);
-
-
-    let categoryClass = '';
-    if (task['taskCategoryValue'] === 'Technical Task') {
-        categoryClass = 'category-technical';
-    } else if (task['taskCategoryValue'] === 'Contact Story') {
-        categoryClass = 'category-contact-story';
-    }
+    const subtaskCount = task['subTasks'] ? task['subTasks'].length : 0;
 
     if (subtaskCount > 0) {
         for (let i = 0; i < subtaskCount; i++) {
@@ -146,33 +152,45 @@ function generateHTML(task, index) {
                 completedSubtaskCount++;
             }
         }
-    
-        let progressPercentage = (completedSubtaskCount / subtaskCount) * 100;
-        progressBarHTML = `
-            <div class="progress-bar-section">
-                <div class="progress-bar">
-                    <div class="progress" style="width: ${progressPercentage}%;"></div>
-                </div>
-                <div class="progress-bar-subtasks">${completedSubtaskCount}/${subtaskCount} Subtasks</div>
-            </div>`;
     }
 
+    return completedSubtaskCount;
+}
 
-    return `
-        <div onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
-            <div class="card-category ${categoryClass}">${task['taskCategoryValue']}</div> 
-            <div>
-                <h4>${task['taskName']}</h4>
-                <div class="card-description">${task['taskDescription']}</div>
-            </div>
-            ${progressBarHTML}
-            <div class="task-card-bottom-section">
-                <div class="task-card-users">
-                    ${assignedContactsIcons}
-                </div>
-                <img src="${priorityImageSrc}" alt="Prio">
-            </div>
-        </div>`;
+
+/**
+ * Generates HTML for a progress bar based on completed and total subtasks.
+ *
+ * @param {number} completedSubtaskCount - The number of completed subtasks.
+ * @param {number} subtaskCount - The total number of subtasks.
+ * @returns {string} The HTML code for the progress bar.
+ */
+function generateProgressBarHTML(completedSubtaskCount, subtaskCount) {
+    let progressBarHTML = '';
+
+    if (subtaskCount > 0) {
+        const progressPercentage = (completedSubtaskCount / subtaskCount) * 100;
+        progressBarHTML = renderProgressBar(progressPercentage, completedSubtaskCount, subtaskCount);
+    }
+
+    return progressBarHTML;
+}
+
+
+/**
+ * Determines and returns the CSS class based on the task's category value.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The CSS class corresponding to the task's category.
+ */
+function getCategoryClass(task) {
+    let categoryClass = '';
+    if (task['taskCategoryValue'] === 'Technical Task') {
+        categoryClass = 'category-technical';
+    } else if (task['taskCategoryValue'] === 'Contact Story') {
+        categoryClass = 'category-contact-story';
+    }
+    return categoryClass;
 }
 
 
@@ -185,7 +203,7 @@ function getAssignedContactIcons(assignedContacts) {
 
     if (assignedContacts != null) {
         assignedContacts.forEach(assignedContact => {
-            if (insertedContacts < 5) {
+            if (insertedContacts < 7) {
                 let contactIcon = getContactIconHtml(contacts[assignedContact]);
 
                 if (firstItem == true) {
@@ -196,14 +214,10 @@ function getAssignedContactIcons(assignedContacts) {
                 }
 
                 contactIconHtml += contactIcon;
-                insertedContacts++; // Erhöhe den Zähler für eingefügte Kontakte
-            } else {
-                // Optional: Hier können Sie eine Meldung ausgeben oder andere Aktionen ausführen, wenn die Grenze erreicht ist.
-                console.log("Maximale Anzahl von Kontakten erreicht.");
+                insertedContacts++;
             }
         });
     }
-
     return contactIconHtml;
 }
 

@@ -74,7 +74,7 @@
                 <div class="task-area">
                     <div class="task-section-responsive">
                         <span>To do</span>
-                        <img id="plus-img-1" onmouseover="changeImage('assets/image/board/plus-button-blue.svg', 'plus-img-1')" onmouseout="changeImage('assets/image/board/plus-button.svg', 'plus-img-1')" class="plus-icon" src="assets/image/board/plus-button.svg" alt="Plus Icon">
+                        <img id="plus-img-1-responsive" onmouseover="changeImage('assets/image/board/plus-button-blue.svg', 'plus-img-1-responsive')" onmouseout="changeImage('assets/image/board/plus-button.svg', 'plus-img-1-responsive')" class="plus-icon" src="assets/image/board/plus-button.svg" alt="Plus Icon">
                     </div>
                     <div id="todo" class="creat-task-area" ondrop="moveTo(event); removeHighlight('todo')"
                         ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')"
@@ -83,7 +83,7 @@
 
                     <div class="task-section-responsive">
                         <span>In progress</span>
-                        <img id="plus-img-2" onmouseover="changeImage('assets/image/board/plus-button-blue.svg', 'plus-img-2')" onmouseout="changeImage('assets/image/board/plus-button.svg', 'plus-img-2')" class="plus-icon" src="assets/image/board/plus-button.svg" alt="Plus Icon">
+                        <img id="plus-img-2-responsive" onmouseover="changeImage('assets/image/board/plus-button-blue.svg', 'plus-img-2-responsive')" onmouseout="changeImage('assets/image/board/plus-button.svg', 'plus-img-2-responsive')" class="plus-icon" src="assets/image/board/plus-button.svg" alt="Plus Icon">
                     </div>
                     <div id="inProgress" class="creat-task-area" ondrop="moveTo(event); removeHighlight('inProgress')"
                         ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlight('inProgress')"
@@ -92,7 +92,7 @@
 
                     <div class="task-section-responsive">
                         <span>Await feedback</span>
-                        <img id="plus-img-3" onmouseover="changeImage('assets/image/board/plus-button-blue.svg', 'plus-img-3')" onmouseout="changeImage('assets/image/board/plus-button.svg', 'plus-img-3')" class="plus-icon" src="assets/image/board/plus-button.svg" alt="Plus Icon">
+                        <img id="plus-img-3-responsive" onmouseover="changeImage('assets/image/board/plus-button-blue.svg', 'plus-img-3-responsive')" onmouseout="changeImage('assets/image/board/plus-button.svg', 'plus-img-3-responsive')" class="plus-icon" src="assets/image/board/plus-button.svg" alt="Plus Icon">
                     </div>
                     <div id="awaitFeedback" class="creat-task-area" ondrop="moveTo(event); removeHighlight('awaitFeedback')"
                         ondragleave="removeHighlight('awaitFeedback')"
@@ -122,6 +122,7 @@
     <script src="./js/add_task_submit.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/board.js"></script>
+    <script src="./js/board_render.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/contact_form.js"></script>
     <script src="./js/contact_form_submit.js"></script>
