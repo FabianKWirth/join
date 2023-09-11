@@ -9,17 +9,13 @@ let currentDraggedElement;
 async function updateBoardHTML() {
     await init();
     loadTasksHTML();
-
-    // updateInProgressHTML();
-    // updateAwaitFeedbackHTML();
-    // updateDoneHTML();
 }
 
 
 /**
- * Updates the HTML view of tasks in the 'Todo' category.
- * This function filters tasks in the 'Todo' category, generates HTML elements
- * for each task, and updates the presentation in the DOM accordingly.
+ * Updates the HTML view of task sections ('Todo', 'In Progress', 'Awaiting Feedback', 'Done').
+ * This function clears the content of each section, filters tasks based on their status,
+ * and generates and inserts HTML elements for each task in the corresponding sections.
  *
  * @function
  * @returns {void}
@@ -29,47 +25,21 @@ function loadTasksHTML() {
     document.getElementById('inProgress').innerHTML = '';
     document.getElementById('awaitFeedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
-    let todo = tasks.filter(t => t['status'] == 'toDo');
-    let inProgress = tasks.filter(t => t['status'] == 'inProgress');
-    let awaitFeedback = tasks.filter(t => t['status'] == 'awaitFeedback');
-    let done = tasks.filter(t => t['status'] == 'done');
 
+    const todo = tasks.filter(t => t['status'] == 'toDo');
+    const inProgress = tasks.filter(t => t['status'] == 'inProgress');
+    const awaitFeedback = tasks.filter(t => t['status'] == 'awaitFeedback');
+    const done = tasks.filter(t => t['status'] == 'done');
 
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-        if (todo.length > 0) {
-            if (task['status'] == 'toDo') {
-                document.getElementById('todo').innerHTML += generateHTML(task, index);
-            }
-        } else {
-            document.getElementById('todo').innerHTML = renderNoTaskToDo();
-        }
-
-        if (inProgress.length > 0) {
-            if (task['status'] == 'inProgress') {
-                document.getElementById('inProgress').innerHTML += generateHTML(task, index);
-            }
-        } else {
-            document.getElementById('inProgress').innerHTML = renderNoInProgress();
-        }
-
-        if (awaitFeedback.length > 0) {
-            if (task['status'] == 'awaitFeedback') {
-                document.getElementById('awaitFeedback').innerHTML += generateHTML(task, index);
-            }
-        } else {
-            document.getElementById('awaitFeedback').innerHTML = renderNoAwaitFeedback();
-        }
-
-        if (done.length > 0) {
-            if (task['status'] == 'done') {
-                document.getElementById('done').innerHTML += generateHTML(task, index);
-            }
-        } else {
-            document.getElementById('done').innerHTML = renderNoDone();
-        }
+        renderTodoTaskHTML(todo, task, index);
+        renderInProgressTaskHTML(inProgress, task, index);
+        renderAwaitFeedbackTaskHTML(awaitFeedback, task, index);
+        renderDoneTaskHTML(done, task, index);
     }
 }
+
 
 /**
  * Renders HTML to display a message when there are no tasks to do.
@@ -193,16 +163,20 @@ function getCategoryClass(task) {
 }
 
 
-
-
+/**
+ * Generates HTML for assigned contact icons based on the provided assigned contacts.
+ *
+ * @param {Array|null} assignedContacts - An array of assigned contact IDs.
+ * @returns {string} The HTML code for assigned contact icons.
+ */
 function getAssignedContactIcons(assignedContacts) {
     let contactIconHtml = "";
     let firstItem = true;
-    let insertedContacts = 0; // Zähler für die eingefügten Kontakte
+    let insertedContacts = 0; // Counter for inserted contacts
 
     if (assignedContacts != null) {
         assignedContacts.forEach(assignedContact => {
-            if (insertedContacts < 7) {
+            if (insertedContacts < 6) {
                 let contactIcon = getContactIconHtml(contacts[assignedContact]);
 
                 if (firstItem == true) {
@@ -219,7 +193,6 @@ function getAssignedContactIcons(assignedContacts) {
     }
     return contactIconHtml;
 }
-
 
 
 /**
@@ -303,40 +276,95 @@ function moveTo(ev) {
 }
 
 
-// Event-Handler für Tastatureingabe (beibehalten)
+/**
+ * Adds an event listener to the 'search-input' element to filter tasks when the Enter key is pressed.
+ *
+ * @function
+ * @param {Event} event - The keydown event object.
+ * @returns {void}
+ */
 document.getElementById('search-input').addEventListener('keydown', function (event) {
     if (event.keyCode === 13) {
-        filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
+        filterToDo();
+        filterInProgress();
+        filterAwaitFeedback();
+        filterDone();
     }
 });
 
+
+/**
+ * Adds an event listener to the 'search-input-responsive' element to filter tasks when the Enter key is pressed.
+ *
+ * @function
+ * @param {Event} event - The keydown event object.
+ * @returns {void}
+ */
 document.getElementById('search-input-responsive').addEventListener('keydown', function (event) {
     if (event.keyCode === 13) {
         filterToDoResponsive();
     }
 });
 
+
+/**
+ * Adds an event listener to the 'search' element to trigger task filters when clicked.
+ *
+ * @function
+ * @returns {void}
+ */
 document.getElementById('search').addEventListener('click', function () {
-    filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
+    filterToDo();
+    filterInProgress();
+    filterAwaitFeedback();
+    filterDone();
 });
 
+
+/**
+ * Adds an event listener to the 'search-responsive' element to trigger task filters when clicked.
+ *
+ * @function
+ * @returns {void}
+ */
 document.getElementById('search-responsive').addEventListener('click', function () {
-    filterToDoResponsive(); filterInProgressResponsive(); filterAwaitFeedbackResponsive(); filterDoneResponsive();
+    filterToDoResponsive();
+    filterInProgressResponsive();
+    filterAwaitFeedbackResponsive();
+    filterDoneResponsive();
 });
 
 
+/**
+ * Adds an event listener to the 'search' element to trigger task filters when touched.
+ *
+ * @function
+ * @param {Event} event - The touch event.
+ * @returns {void}
+ */
 document.getElementById('search').addEventListener('touchend', function (event) {
-    event.preventDefault(); 
-    filterToDo(); filterInProgress(); filterAwaitFeedback(); filterDone();
+    event.preventDefault();
+    filterToDo();
+    filterInProgress();
+    filterAwaitFeedback();
+    filterDone();
 });
 
+
+/**
+ * Adds an event listener to the 'search-responsive' element to trigger responsive task filters when touched.
+ *
+ * @function
+ * @param {Event} event - The touch event.
+ * @returns {void}
+ */
 document.getElementById('search-responsive').addEventListener('touchend', function (event) {
     event.preventDefault();
-    filterToDoResponsive(); filterInProgressResponsive(); filterAwaitFeedbackResponsive(); filterDoneResponsive();
+    filterToDoResponsive();
+    filterInProgressResponsive();
+    filterAwaitFeedbackResponsive();
+    filterDoneResponsive();
 });
-
-
-
 
 
 /**
@@ -359,8 +387,18 @@ function filterToDo() {
     }
 }
 
+
+/**
+ * Filters and updates the 'Todo' task section in a responsive manner based on a search input.
+ * This function retrieves the search input value, converts it to lowercase, clears the 'Todo' section content,
+ * and filters 'Todo' tasks that match the search criteria. It then renders the filtered tasks in the section.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterToDoResponsive() {
     let searchInput = document.getElementById('search-input-responsive').value;
+
     if (searchInput > '') {
         searchInput = searchInput.toLowerCase();
         let list = document.getElementById('todo');
@@ -417,8 +455,18 @@ function filterInProgress() {
     }
 }
 
+
+/**
+ * Filters and updates the 'In Progress' task section in a responsive manner based on a search input.
+ * This function retrieves the search input value, converts it to lowercase, clears the 'In Progress' section content,
+ * and filters 'In Progress' tasks that match the search criteria. It then renders the filtered tasks in the section.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterInProgressResponsive() {
     let searchInput = document.getElementById('search-input-responsive').value;
+
     if (searchInput > '') {
         searchInput = searchInput.toLowerCase();
         let list = document.getElementById('inProgress');
@@ -428,6 +476,7 @@ function filterInProgressResponsive() {
         renderSearchListToDo(inProgress, list, searchInput);
     }
 }
+
 
 /**
  * Renders a filtered list of 'In Progress' category tasks based on a search query.
@@ -474,8 +523,18 @@ function filterAwaitFeedback() {
     }
 }
 
+
+/**
+ * Filters and updates the 'Await Feedback' task section in a responsive manner based on a search input.
+ * This function retrieves the search input value, converts it to lowercase, clears the 'Await Feedback' section content,
+ * and filters 'Await Feedback' tasks that match the search criteria. It then renders the filtered tasks in the section.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterAwaitFeedbackResponsive() {
     let searchInput = document.getElementById('search-input-responsive').value;
+
     if (searchInput > '') {
         searchInput = searchInput.toLowerCase();
         let list = document.getElementById('awaitFeedback');
@@ -532,8 +591,18 @@ function filterDone() {
     }
 }
 
+
+/**
+ * Filters and updates the 'Done' task section in a responsive manner based on a search input.
+ * This function retrieves the search input value, converts it to lowercase, clears the 'Done' section content,
+ * and filters 'Done' tasks that match the search criteria. It then renders the filtered tasks in the section.
+ *
+ * @function
+ * @returns {void}
+ */
 function filterDoneResponsive() {
     let searchInput = document.getElementById('search-input-responsive').value;
+
     if (searchInput > '') {
         searchInput = searchInput.toLowerCase();
         let list = document.getElementById('done');
@@ -571,6 +640,7 @@ function renderSearchListDone(done, list, searchInput) {
     }
 }
 
+
 /**
  * Display a detailed task card for a specific task.
  *
@@ -606,16 +676,12 @@ function getAssignedContacts(assignedContacts) {
     if (assignedContacts) {
         for (let i = 0; i < assignedContacts.length; i++) {
             const assignedContact = assignedContacts[i];
-
-            assignedContactsHTML += /*html*/` <div class='assigned-contacts'>
-                <div class='contact-circle'>${getContactIconHtml(contacts[assignedContact])}</div>
-                ${contacts[assignedContact]['name']}
-                </div>`;
+        
+            assignedContactsHTML += getAssignedContactsRenderHTML(contacts, assignedContact);
         }
     }
     return assignedContactsHTML;
 }
-
 
 
 /**
@@ -634,7 +700,6 @@ function getAssignedContainer(assignedContacts) {
     }
     return assigned;
 }
-
 
 
 /**
@@ -665,7 +730,6 @@ function getPriorityImageSrc(priority) {
 }
 
 
-
 /**
  * Changes the image of a subtask field to mark its status (completed/incomplete).
  *
@@ -681,7 +745,6 @@ function subtaskChangeImg(id) {
         subtaskField.src = 'assets/image/board/Check-button.svg';
     }
 }
-
 
 
 /**
@@ -815,8 +878,6 @@ function saveSubtask(subtaskStatus, i, index) {
 
     showTaskCard(index);
 }
-
-
 
 
 
