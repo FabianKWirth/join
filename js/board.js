@@ -27,10 +27,10 @@ function loadTasksHTML(filter = null) {
     document.getElementById('awaitFeedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
 
-    const todo = tasks.filter(t => t['status'] == 'toDo');
-    const inProgress = tasks.filter(t => t['status'] == 'inProgress');
-    const awaitFeedback = tasks.filter(t => t['status'] == 'awaitFeedback');
-    const done = tasks.filter(t => t['status'] == 'done');
+    const todo = tasks.filter(t => t['status'] == 'toDo' && checkFilter(t, filter));
+    const inProgress = tasks.filter(t => t['status'] == 'inProgress' && checkFilter(t, filter));
+    const awaitFeedback = tasks.filter(t => t['status'] == 'awaitFeedback' && checkFilter(t, filter));
+    const done = tasks.filter(t => t['status'] == 'done' && checkFilter(t, filter));
 
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
@@ -310,9 +310,8 @@ document.getElementById('search-input').addEventListener('keydown', function (ev
  * @returns {void}
  */
 document.getElementById('search-input-responsive').addEventListener('keydown', function (event) {
-    if (event.keyCode === 13) {
-        filterToDoResponsive();
-    }
+    filter = document.getElementById("search-input").value;
+    loadTasksHTML(filter);
 });
 
 
@@ -326,11 +325,7 @@ function addSearchKlickEventlistener() {
      * @returns {void}
      */
     document.getElementById('search').addEventListener('click', function () {
-        //filterToDo();
-        //filterInProgress();
-        //filterAwaitFeedback();
-        //filterDone();
-        console.log("filter");
+
         filter = document.getElementById("search-input").value;
         loadTasksHTML(filter);
     });
@@ -346,10 +341,8 @@ function addSearchKlickEventlistener() {
  * @returns {void}
  */
 document.getElementById('search-responsive').addEventListener('click', function () {
-    //filterToDoResponsive();
-    //filterInProgressResponsive();
-    //filterAwaitFeedbackResponsive();
-    //filterDoneResponsive();
+    filter = document.getElementById("search-input").value;
+    loadTasksHTML(filter);
 });
 
 
@@ -361,11 +354,8 @@ document.getElementById('search-responsive').addEventListener('click', function 
  * @returns {void}
  */
 document.getElementById('search').addEventListener('touchend', function (event) {
-    //event.preventDefault();
-    //filterToDo();
-    //filterInProgress();
-    //filterAwaitFeedback();
-    //filterDone();
+    filter = document.getElementById("search-input").value;
+    loadTasksHTML(filter);
 });
 
 
