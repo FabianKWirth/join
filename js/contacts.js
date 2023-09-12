@@ -49,36 +49,42 @@ function renderSelectedContactBody() {
     let contactPhone = contact['phone'];
 
     contactElement.innerHTML =/*html*/`
-    <div class='contact-name-row'>
-        ${contactIcon}
-        <div>
-            <h2>  ${contactName}</h2>
-            <div class='contact-menu'>
-                <div id='editField' onclick='includeContactHTML("editContact")'>
-                    <img src='./assets/icons/pen-icon.svg'>
-                    Edit
-                </div>
-                <div id='deleteField' onclick='deleteContact(selectedContact)'>
-                    <img src='./assets/icons/trashcan-icon.svg'>
-                    Delete
+    <div class="contact-detail-area">
+        <div class='contact-name-row'>
+            ${contactIcon}
+            <div class="contacts-detail-container">
+                <h2>  ${contactName}</h2>
+                <div class="contact-menu">
+                    <div id="editField" onclick='includeContactHTML("editContact")'>
+                        <img src="./assets/icons/pen-icon.svg">
+                        Edit
+                    </div>
+                    <div id="deleteField" onclick='deleteContact(selectedContact)'>
+                        <img src="./assets/icons/trashcan-icon.svg">
+                        Delete
+                    </div>
                 </div>
             </div>
         </div>
-    </div> `;
 
-    contactElement.innerHTML +=/*html*/`
-    <div class='contact-details'>
-        <p class='contact-information'>Contact Information</p>
-        <div class='mail'>
-            <p><b>Email</b></p>
-            <p class='mail-text'>${contactMail}</p>
-        </div>
-        <div class='phone'>
-            <p><b>Phone</b></p>
-            <p>${contactPhone}</p>
-        </div>
-    </div> `;
+        <div class="contact-information-container">
+            <p>Contact Information</p>
+        </div> 
+
+        <div class="contact-details">
+            <div class="mail">
+                <p><b>Email</b></p>
+                <p class="mail-text">${contactMail}</p>
+            </div>
+            <div class="phone">
+                <p><b>Phone</b></p>
+                <p>${contactPhone}</p>
+            </div>
+        </div> 
+    </div>
+    `;
 }
+
 
 /**
  * Empties the content of the selected contact's body in the contact details view.
@@ -174,9 +180,9 @@ function renderContactListItem(list, contactIndex) {
     list.innerHTML +=/*html*/`
     <div class="contact-element" onclick='selectContact("${contactIndex}");markContactElementAsSelected(this)'>
         ${userIcon}
-        <div>
-        <p>${contactName}</p>
-        <div class='contact-list-mail-text'>${contactMail}</div>
+        <div class="contact-info">
+            <p class="contact-name">${contactName}</p>
+            <div class='contact-list-mail-text'>${contactMail}</div>
         </div>
     </div>
     `

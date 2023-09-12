@@ -8,7 +8,7 @@ h4 {
     line-height: 32px;
     text-align: left;
     color: #2A3647;
-
+    margin: 0;
 }
 
 .add-contact-overlay {
@@ -105,7 +105,7 @@ h4 {
     width: 120px;
     height: 120px;
     border-radius: 70px;
-    border: 3px;
+    border: 4px solid white;
 }
 
 #contactCredentials .circle {
@@ -120,6 +120,11 @@ h4 {
     font-size: 47px;
 }
 
+.contacts-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
 
 
@@ -309,27 +314,31 @@ h4 {
 }
 
 .contact-list-container {
+    background-color: #FFF;
     border-right: 1px solid #D1D1D1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
-    max-width: 100%;
-    width:800px;
+    /* width: 352px; */
+    /* max-width: 100%; */
+    /* width:800px; */
+    padding: 32px 24px;
+    box-shadow: 4px 0 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 #contactList {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 46px;
-    top: 0px;
-    left:0px;
-    width:100%;
-    height: 100%;
+    /* position: relative; */
+    /* display: flex;
+    flex-direction: column; */
+    justify-content: center;
+    align-items: flex-start;
+    /* padding-bottom: 46px; */
+    /* top: 0px;
+    left:0px; */
+    /* width:100%; */
+    /* height: 100%; */
     margin-top: 78px;
 }
 
@@ -342,32 +351,36 @@ h4 {
     align-items: center;
     width: 100%;
     height: 58px;
-    margin: 8px;
+    /* margin: 8px; */
 }
 
 .contact-list-letter-header p {
     font-weight: 400;
     font-size: 20px;
-    padding: 17px 36px 17px 36px;
+    padding: 17px 36px;
+    margin: 0;
 }
 
 .contact-list-horizontal-line {
-    width: 352px;
+    /* width: 352px; */
     background-color: #D1D1D1;
     margin: 8px;
-    padding:0.5px;
+    height: 1px;
+    width: 100%;
 }
 
 .contact-element {
+    width: 352px;
     display: flex;
     align-items: center;
     gap: 35px;
     height: 78px;
-    width: calc(100% - 112px);
+    /* width: calc(100% - 112px); */
     cursor: pointer;
     border-radius: 10px;
     padding: 15px 24px 15px 24px;
-    font-size: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 .contact-element:hover {
@@ -375,8 +388,19 @@ h4 {
 }
 
 .contact-element.selected {
-    background-color: #091931;
+    background-color: #2A3647;
     color: white;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contact-name {
+    font-size: 20px;
+    margin: 0;
 }
 
 .contact-list-mail-text {
@@ -396,15 +420,14 @@ h4 {
 .contact-button {
     position: absolute;
     top: 0px;
-    margin: 16px;
+    /* margin: 16px; */
     width: 352px;
 }
 
 .selected-contact-container {
     position: relative;
     width: calc(100% - 438px);
-    margin-left: 54px;
-    margin-right: 54px;
+    padding: 110px 43px;
 }
 
 .selected-contact-container h1 {
@@ -416,9 +439,8 @@ h4 {
 .selected-contact-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 30px;
-    margin-top: 30px;
+    margin-bottom: 35px;
 }
 
 .selected-contact-container h2 {
@@ -442,10 +464,16 @@ h4 {
     width: 59px;
 }
 
+.contact-detail-area {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
 .contact-name-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 54px;
 }
 
 .contact-name-row .circle {
@@ -461,7 +489,7 @@ h4 {
 
 .contact-menu {
     display: flex;
-    gap: 13px;
+    gap: 16px;
     font-size: 16px;
     width: 159px;
     justify-content: space-between;
@@ -483,12 +511,47 @@ h4 {
     font-weight: 700;
 }
 
-.contact-information {
+.contact-information-container {
+    height: 74px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-size: 20px;
 }
 
+.contact-information-container p {
+    margin: 0;
+}
+
 .contact-details {
+    display: flex;
+    flex-direction: column;
     gap: 22px;
+}
+
+.mail {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mail p {
+    margin: 0;
+}
+
+.mail-text {
+    color: #007CEE;
+    font-size: 16px;
+}
+
+.phone {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.phone p {
+    margin: 0;
 }
 
 #goBack {
