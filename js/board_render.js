@@ -104,7 +104,7 @@ function generateTaskCardHTML(index, categoryClass, category, name, description,
                     </div>
                 </div>
                 <div class="edit-container">
-                    <div class="edit" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImage')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImage')">
+                    <div class="edit" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImage')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImage')" onclick="deleteTask(${index})">
                         <img id="trashImage" src="assets/icons/trashcan-icon.svg">
                         <div>Delete</div>
                     </div>

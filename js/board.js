@@ -1,5 +1,4 @@
 let currentDraggedElement;
-
 /**
 * Updates the HTML representation of the entire task board by updating individual categories.
 *
@@ -196,9 +195,9 @@ function getAssignedContactIcons(assignedContacts) {
 
                 contactIconHtml += contactIcon;
                 insertedContacts++;
-            } 
+            }
         });
-    } 
+    }
     if (insertedContacts >= 6) {
         contactIconHtml += `<img class="plus-icon-contacts" src='assets/icons/puls-icon.svg'>`;
     }
@@ -286,24 +285,14 @@ function moveTo(ev) {
 }
 
 
-
-
-
-
-
-
-
-
-
 function addSearchKlickEventlistener() {
-
-/**
- * Adds an event listener to the 'search-input' element to filter tasks when the Enter key is pressed.
- *
- * @function
- * @param {Event} event - The keydown event object.
- * @returns {void}
- */
+    /**
+     * Adds an event listener to the 'search-input' element to filter tasks when the Enter key is pressed.
+     *
+     * @function
+     * @param {Event} event - The keydown event object.
+     * @returns {void}
+     */
     document.getElementById('search-input').addEventListener('keydown', function (event) {
         filter = document.getElementById("search-input").value;
         loadTasksHTML(filter);
@@ -372,7 +361,17 @@ function addSearchKlickEventlistener() {
 }
 
 
+async function deleteTask(taskIndex) {
+    tasks.splice([taskIndex], 1)
+    setItem("tasks", tasks);
+    removeOverlayBoard();
+    renderTaskDeletedElement();
+    
+    setTimeout(() => {
+        loadTasksHTML();
+    }, 500);
 
+}
 
 
 
@@ -831,14 +830,14 @@ function assignedInicials(index) {
  * @returns {string} The HTML code for the "Subtask" container or an empty string if no subtasks are present.
  */
 function getSubtaskContainer(subtasks) {
-    let subtask = '';
+    let subtasksHtml = '';
 
-    if (subtasks) {
-        subtask = `
+    if (subtasksHtml) {
+        subtasksHtml = `
             <div class="dark-gray">Subtask</div>
             `;
     }
-    return subtask;
+    return subtasksHtml;
 }
 
 
@@ -904,8 +903,10 @@ function saveSubtask(subtaskStatus, i, index) {
 
 //// Task related 
 
-function openAddTaskTemplate() {
-
+function openAddTaskTemplate(status=null) {
+    if(status==null){
+        status="toDo";
+    }
     document.body.innerHTML +=/*html*/`
     <div id="addTaskOverlay">
     </div>
@@ -913,7 +914,7 @@ function openAddTaskTemplate() {
     <div id="addTaskWrapper">
         <div id="addTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
     </div>`;
-    includeTasksHtml();
+    includeTasksHtml(status);
 
     includeEventlistenerToCloseAddTask();
 }
@@ -939,14 +940,13 @@ function includeEventlistenerToCloseOverlayBoard() {
 }
 
 function removeAddTaskElements() {
-    const addTaskOverlay = document.getElementById('addTaskOverlay');
     const addTaskWrapper = document.getElementById('addTaskWrapper');
     const overlayBoard = document.getElementById('overlayBoard');
 
     // Remove both elements
-    if(addTaskOverlay){addTaskOverlay.remove()};
-    if(addTaskWrapper){addTaskWrapper.remove();};
-    if(overlayBoard){overlayBoard.remove();};
+    removeTaskOverlay()
+    if (addTaskWrapper) { addTaskWrapper.remove(); };
+    if (overlayBoard) { overlayBoard.remove(); };
 
     addSearchKlickEventlistener();
 }
@@ -958,12 +958,23 @@ function removeOverlayBoard() {
     overlayBoard.remove();
 }
 
-async function openEditTaskTemplate(taskId) {
-
+function addTaskOverlay() {
     document.body.innerHTML +=/*html*/`
     <div id="addTaskOverlay">
-    </div>
+    </div>`;
+} 
 
+function removeTaskOverlay() {
+    const addTaskOverlay = document.getElementById('addTaskOverlay');
+    if (addTaskOverlay) { addTaskOverlay.remove(); };
+} 
+
+
+
+async function openEditTaskTemplate(taskId) {
+
+    addTaskOverlay()
+    document.body.innerHTML +=/*html*/`
     <div id="addTaskWrapper">
         <div id="editTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
     </div>`;

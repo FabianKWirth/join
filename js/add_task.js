@@ -23,7 +23,7 @@ let assignedContacts = [];
 let subTasks = [];
 
 /**
- * Represents data for an unfinished task, including its status.
+ * Represents data for an unfinished task;
  * @type {Object}
  */
 let unfinishedTaskData = {};

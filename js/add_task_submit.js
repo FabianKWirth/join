@@ -26,8 +26,8 @@ async function submitTask() {
  * @returns {void}
  */
 function renderTaskAddedElement() {
-    if(document.getElementById("addTaskContainer")!=null){
-    document.getElementById("addTaskContainer").innerHTML +=/*html*/`<div class="task-created-notification-container">
+    if (document.getElementById("addTaskContainer") != null) {
+        document.getElementById("addTaskContainer").innerHTML +=/*html*/`<div class="task-created-notification-container">
         <div class="task-created-notification"><p>Task added to board</p><img src="./assets/icons/board-icon.svg"></div>
     </div>`;
     }
@@ -147,7 +147,7 @@ function resetIndirectInputs() {
  * @returns {void}
  */
 function resetPriority() {
-    let selectedTaskPriority = null;
+    selectedTaskPriority = null;
 
     /** @type {NodeListOf<HTMLInputElement>} */
     const radioButtons = document.querySelectorAll('input[name="priority"]');
@@ -168,7 +168,7 @@ function resetPriority() {
 function loadTask(taskId) {
     let task = tasks[taskId];
 
-    document.getElementById("addTaskTitle").innerHTML='Edit Task';
+    document.getElementById("addTaskTitle").innerHTML = 'Edit Task';
     unfinishedTaskData = task;
     setNewTaskTitleFieldValue(task);
     setNewTaskDescriptionFieldValue(task);
@@ -271,7 +271,9 @@ function setCategoryValue(task) {
  * @returns {void}
  */
 function setSubTaskFieldValue(task) {
-    subTasks = task['subTasks'];
+    if (task['subTasks']) {
+        subTasks = task['subTasks'];
+    }
     if (subTasks) {
         renderSubTasksList();
     }
@@ -319,7 +321,7 @@ function removeAllButtons(parentId) {
  * @returns {void}
  */
 function addSaveChangesButton(parentNode, taskId) {
-    document.getElementById(parentNode).innerHTML+=/*html*/`
+    document.getElementById(parentNode).innerHTML +=/*html*/`
         <button type='button' onclick='saveTaskChanges(${taskId})' class='default-button'>
             Ok<img src='./assets/icons/checkmark-icon.svg' class='white-symbol'>
         </button>`;
@@ -344,20 +346,32 @@ async function saveTaskChanges(taskId) {
     }
 }
 
-/**
- * Saves changes to a task and redirects to a new URL if the form is submittable.
- *
- * @param {string} taskId - The ID of the task to be saved.
- * @returns {Promise<void>}
- * @async
- */
+
 function renderTaskChangesSavedElement() {
-    if(document.getElementById("addTaskContainer")!=null){
-    document.getElementById("addTaskContainer").innerHTML +=/*html*/`<div class="task-created-notification-container">
+    if (document.getElementById("addTaskContainer") != null) {
+        document.getElementById("addTaskContainer").innerHTML +=/*html*/`<div class="task-created-notification-container">
         <div class="task-created-notification"><p>Task saved</p><img src="./assets/icons/board-icon.svg"></div>
     </div>`;
     }
 }
+
+
+function renderTaskDeletedElement() {
+    document.body.innerHTML +=/*html*/`
+        <div id="addTaskContainer">
+            <div class="task-created-notification-container">
+                <div class="task-created-notification">
+                    <p>Task deleted</p><img src="./assets/icons/board-icon.svg">
+                </div>
+            </div>
+        </div>`;
+
+    setTimeout(() => {
+        document.getElementById("addTaskContainer").remove();
+    }, 200000);
+}
+
+
 
 /** 
  * Calls functions to see whether all required input field are set 
@@ -366,7 +380,6 @@ function renderTaskChangesSavedElement() {
  * 
  * */
 function checkIfFormSubmittable() {
-
     if (
         validateTaskTitle()
         & validateTaskDescription()
@@ -393,7 +406,7 @@ function validateTaskTitle() {
     if (taskTitleValue === "") {
         taskTitleInput.reportValidity();
         return false;
-        
+
     } else {
         return true;
     }
