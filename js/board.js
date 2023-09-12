@@ -291,12 +291,8 @@ function moveTo(ev) {
  * @returns {void}
  */
 document.getElementById('search-input').addEventListener('keydown', function (event) {
-    if (event.keyCode === 13) {
-        filterToDo();
-        filterInProgress();
-        filterAwaitFeedback();
-        filterDone();
-    }
+    filter = document.getElementById("search-input").value;
+    loadTasksHTML(filter);
 });
 
 
@@ -367,11 +363,8 @@ document.getElementById('search').addEventListener('touchend', function (event) 
  * @returns {void}
  */
 document.getElementById('search-responsive').addEventListener('touchend', function (event) {
-    //event.preventDefault();
-    //filterToDoResponsive();
-    //filterInProgressResponsive();
-    //filterAwaitFeedbackResponsive();
-    //filterDoneResponsive();
+    filter = document.getElementById("search-input").value;
+    loadTasksHTML(filter);
 });
 
 
@@ -385,7 +378,7 @@ function filterToDo() {
     let searchInput = document.getElementById('search-input').value;
     if (searchInput > '') {
         searchInput = searchInput.toLowerCase();
-        let list = document.getElementById('todo');
+        let list = document.getElementById('toDo');
         list.innerHTML = '';
 
         let todo = tasks.filter(t => t['status'] == 'toDo');
