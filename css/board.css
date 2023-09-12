@@ -254,6 +254,12 @@
     margin-left: -13px;
 }
 
+.board-section .plus-icon-contacts {
+    width: 32px;
+    height: 32px;
+    margin-left: -15px;
+}
+
 .board-section .task-card-users {
     display: flex;
     gap: 5px;
