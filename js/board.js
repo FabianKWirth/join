@@ -9,6 +9,7 @@ let currentDraggedElement;
 async function updateBoardHTML() {
     await init();
     loadTasksHTML();
+    addSearchKlickEventlistener();
 }
 
 
@@ -20,8 +21,8 @@ async function updateBoardHTML() {
  * @function
  * @returns {void}
  */
-function loadTasksHTML() {
-    document.getElementById('todo').innerHTML = '';
+function loadTasksHTML(filter = null) {
+    document.getElementById('toDo').innerHTML = '';
     document.getElementById('inProgress').innerHTML = '';
     document.getElementById('awaitFeedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
@@ -33,11 +34,18 @@ function loadTasksHTML() {
 
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-        renderTodoTaskHTML(todo, task, index);
-        renderInProgressTaskHTML(inProgress, task, index);
-        renderAwaitFeedbackTaskHTML(awaitFeedback, task, index);
-        renderDoneTaskHTML(done, task, index);
+        if (checkFilter(task, filter)) {
+            renderTodoTaskHTML(todo, task, index);
+            renderInProgressTaskHTML(inProgress, task, index);
+            renderAwaitFeedbackTaskHTML(awaitFeedback, task, index);
+            renderDoneTaskHTML(done, task, index);
+        }
     }
+}
+
+function checkFilter(task, filter) {
+    return (filter == null || task['taskName'].includes(filter) || task['taskDescription'].includes(filter))
+
 }
 
 
@@ -194,7 +202,6 @@ function getAssignedContactIcons(assignedContacts) {
     return contactIconHtml;
 }
 
-
 /**
  * Adds a CSS class to highlight a DOM element with the specified ID.
  *
@@ -293,6 +300,8 @@ document.getElementById('search-input').addEventListener('keydown', function (ev
 });
 
 
+
+
 /**
  * Adds an event listener to the 'search-input-responsive' element to filter tasks when the Enter key is pressed.
  *
@@ -307,18 +316,27 @@ document.getElementById('search-input-responsive').addEventListener('keydown', f
 });
 
 
-/**
- * Adds an event listener to the 'search' element to trigger task filters when clicked.
- *
- * @function
- * @returns {void}
- */
-document.getElementById('search').addEventListener('click', function () {
-    filterToDo();
-    filterInProgress();
-    filterAwaitFeedback();
-    filterDone();
-});
+
+
+function addSearchKlickEventlistener() {
+    /**
+     * Adds an event listener to the 'search' element to trigger task filters when clicked.
+     *
+     * @function
+     * @returns {void}
+     */
+    document.getElementById('search').addEventListener('click', function () {
+        //filterToDo();
+        //filterInProgress();
+        //filterAwaitFeedback();
+        //filterDone();
+        console.log("filter");
+        filter = document.getElementById("search-input").value;
+        loadTasksHTML(filter);
+    });
+}
+
+
 
 
 /**
@@ -328,10 +346,10 @@ document.getElementById('search').addEventListener('click', function () {
  * @returns {void}
  */
 document.getElementById('search-responsive').addEventListener('click', function () {
-    filterToDoResponsive();
-    filterInProgressResponsive();
-    filterAwaitFeedbackResponsive();
-    filterDoneResponsive();
+    //filterToDoResponsive();
+    //filterInProgressResponsive();
+    //filterAwaitFeedbackResponsive();
+    //filterDoneResponsive();
 });
 
 
@@ -343,11 +361,11 @@ document.getElementById('search-responsive').addEventListener('click', function 
  * @returns {void}
  */
 document.getElementById('search').addEventListener('touchend', function (event) {
-    event.preventDefault();
-    filterToDo();
-    filterInProgress();
-    filterAwaitFeedback();
-    filterDone();
+    //event.preventDefault();
+    //filterToDo();
+    //filterInProgress();
+    //filterAwaitFeedback();
+    //filterDone();
 });
 
 
@@ -359,11 +377,11 @@ document.getElementById('search').addEventListener('touchend', function (event) 
  * @returns {void}
  */
 document.getElementById('search-responsive').addEventListener('touchend', function (event) {
-    event.preventDefault();
-    filterToDoResponsive();
-    filterInProgressResponsive();
-    filterAwaitFeedbackResponsive();
-    filterDoneResponsive();
+    //event.preventDefault();
+    //filterToDoResponsive();
+    //filterInProgressResponsive();
+    //filterAwaitFeedbackResponsive();
+    //filterDoneResponsive();
 });
 
 
@@ -676,7 +694,7 @@ function getAssignedContacts(assignedContacts) {
     if (assignedContacts) {
         for (let i = 0; i < assignedContacts.length; i++) {
             const assignedContact = assignedContacts[i];
-        
+
             assignedContactsHTML += getAssignedContactsRenderHTML(contacts, assignedContact);
         }
     }
@@ -821,7 +839,7 @@ function getSubtaskContainer(subtasks) {
         subtask = `
             <div class="dark-gray">Subtask</div>
             `;
-    } 
+    }
     return subtask;
 }
 

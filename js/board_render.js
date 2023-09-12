@@ -119,7 +119,6 @@ function generateTaskCardHTML(index, categoryClass, category, name, description,
     `;
 }
 
-
 /**
  * Generates HTML code for a subtask within a task card.
  *
@@ -140,7 +139,6 @@ function renderSubtask(subtaskId, subtaskStatus, i, index, subtaskImgSrc, subtas
     `;
 }
 
-
 /**
  * Generates HTML code for assigned contacts within a task card.
  *
@@ -157,6 +155,9 @@ function getAssignedContactsRenderHTML(contacts, assignedContact) {
     `;
 }
 
+function renderTaskHTML(task, index){
+    document.getElementById('toDo').innerHTML += generateHTML(task, index);
+}
 
 /**
  * Renders the HTML for a task in the 'Todo' category based on the provided task, index, and filter.
@@ -169,10 +170,10 @@ function getAssignedContactsRenderHTML(contacts, assignedContact) {
 function renderTodoTaskHTML(todo, task, index) {
     if (todo.length > 0) {
         if (task['status'] == 'toDo') {
-            document.getElementById('todo').innerHTML += generateHTML(task, index);
+            document.getElementById('toDo').innerHTML += generateHTML(task, index);
         }
     } else {
-        document.getElementById('todo').innerHTML = renderNoTaskToDo();
+        document.getElementById('toDo').innerHTML = renderNoTaskToDo();
     }
 }
 
