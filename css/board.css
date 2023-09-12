@@ -243,6 +243,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid white !important;
 }
 
 .board-section .circle-2 {
