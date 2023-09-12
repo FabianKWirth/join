@@ -283,6 +283,17 @@ function moveTo(ev) {
 }
 
 
+
+
+
+
+
+
+
+
+
+function addSearchKlickEventlistener() {
+
 /**
  * Adds an event listener to the 'search-input' element to filter tasks when the Enter key is pressed.
  *
@@ -290,30 +301,12 @@ function moveTo(ev) {
  * @param {Event} event - The keydown event object.
  * @returns {void}
  */
-document.getElementById('search-input').addEventListener('keydown', function (event) {
-    filter = document.getElementById("search-input").value;
-    loadTasksHTML(filter);
-});
+    document.getElementById('search-input').addEventListener('keydown', function (event) {
+        filter = document.getElementById("search-input").value;
+        loadTasksHTML(filter);
+    });
 
 
-
-
-/**
- * Adds an event listener to the 'search-input-responsive' element to filter tasks when the Enter key is pressed.
- *
- * @function
- * @param {Event} event - The keydown event object.
- * @returns {void}
- */
-document.getElementById('search-input-responsive').addEventListener('keydown', function (event) {
-    filter = document.getElementById("search-input").value;
-    loadTasksHTML(filter);
-});
-
-
-
-
-function addSearchKlickEventlistener() {
     /**
      * Adds an event listener to the 'search' element to trigger task filters when clicked.
      *
@@ -325,47 +318,66 @@ function addSearchKlickEventlistener() {
         filter = document.getElementById("search-input").value;
         loadTasksHTML(filter);
     });
-}
 
-
-
-
-/**
- * Adds an event listener to the 'search-responsive' element to trigger task filters when clicked.
- *
- * @function
- * @returns {void}
- */
-document.getElementById('search-responsive').addEventListener('click', function () {
-    filter = document.getElementById("search-input").value;
-    loadTasksHTML(filter);
-});
-
-
-/**
+    /**
  * Adds an event listener to the 'search' element to trigger task filters when touched.
  *
  * @function
  * @param {Event} event - The touch event.
  * @returns {void}
  */
-document.getElementById('search').addEventListener('touchend', function (event) {
-    filter = document.getElementById("search-input").value;
-    loadTasksHTML(filter);
-});
+    document.getElementById('search').addEventListener('touchend', function (event) {
+        filter = document.getElementById("search-input").value;
+        loadTasksHTML(filter);
+    });
 
+    /**
+ * Adds an event listener to the 'search-responsive' element to trigger task filters when clicked.
+ *
+ * @function
+ * @returns {void}
+ */
+    document.getElementById('search-responsive').addEventListener('click', function () {
+        filter = document.getElementById("search-input").value;
+        loadTasksHTML(filter);
+    });
 
-/**
+    /**
+ * Adds an event listener to the 'search-input-responsive' element to filter tasks when the Enter key is pressed.
+ *
+ * @function
+ * @param {Event} event - The keydown event object.
+ * @returns {void}
+ */
+    document.getElementById('search-input-responsive').addEventListener('keydown', function (event) {
+        filter = document.getElementById("search-input").value;
+        loadTasksHTML(filter);
+    });
+
+    /**
  * Adds an event listener to the 'search-responsive' element to trigger responsive task filters when touched.
  *
  * @function
  * @param {Event} event - The touch event.
  * @returns {void}
  */
-document.getElementById('search-responsive').addEventListener('touchend', function (event) {
-    filter = document.getElementById("search-input").value;
-    loadTasksHTML(filter);
-});
+    document.getElementById('search-responsive').addEventListener('touchend', function (event) {
+        filter = document.getElementById("search-input").value;
+        loadTasksHTML(filter);
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -929,9 +941,11 @@ function removeAddTaskElements() {
     const overlayBoard = document.getElementById('overlayBoard');
 
     // Remove both elements
-    addTaskOverlay.remove();
-    addTaskWrapper.remove();
-    overlayBoard.remove();
+    if(addTaskOverlay){addTaskOverlay.remove()};
+    if(addTaskWrapper){addTaskWrapper.remove();};
+    if(overlayBoard){overlayBoard.remove();};
+
+    addSearchKlickEventlistener();
 }
 
 function removeOverlayBoard() {
