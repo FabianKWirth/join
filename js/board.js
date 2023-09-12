@@ -201,7 +201,6 @@ function getAssignedContactIcons(assignedContacts) {
     } 
     if (insertedContacts >= 6) {
         contactIconHtml += `<img class="plus-icon-contacts" src='assets/icons/puls-icon.svg'>`;
-
     }
     return contactIconHtml;
 }

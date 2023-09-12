@@ -256,9 +256,9 @@
 }
 
 .board-section .plus-icon-contacts {
-    width: 25px;
-    height: 25px;
-    margin-left: -15px;
+    width: 20px;
+    height: 20px;
+    margin-left: -12px;
 }
 
 .board-section .task-card-users {
@@ -530,7 +530,8 @@
     }
 
     .board-section .task-card {
-       min-width: 220px;
+        min-width: 220px;
+        width: 220px;
         box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.08);
         min-height: 222px;
     }
