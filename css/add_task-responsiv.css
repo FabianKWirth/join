@@ -4,6 +4,7 @@
     }
 
     #addTaskContainer #newTaskPriority {
+      
         flex-direction: column;
     }
 
@@ -21,6 +22,10 @@
 
     .task-input-col {
         padding: unset !important;
+    }
+
+    #addTaskContainer {
+        align-items: center;
     }
 }
 
@@ -87,6 +92,10 @@
 
     .alternative-button {
         display: none;
+    }
+
+    .add-task {
+        width: 100% !important;
     }
 }
 

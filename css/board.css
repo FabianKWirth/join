@@ -722,6 +722,12 @@
 }
 
 
+@media(max-width: 1250px) {
+    #addTaskCard {
+        max-width: 96%;
+    }
+}
+
 
 @keyframes rightToCenter {
     from {
