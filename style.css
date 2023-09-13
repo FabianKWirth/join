@@ -30,12 +30,13 @@ h3 {
 
 .circle {
     width: 42px;
+    min-width: 42px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     aspect-ratio: 1 / 1;
-    border: 2px solid white;
+    /* border: 2px solid white; */
     box-sizing: border-box;
 }
 

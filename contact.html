@@ -24,7 +24,7 @@
 
     <div class="contacts-container">
         <div class="contact-list-container" id="contactListSection">
-            <button type="button" class="default-button contact-button" onclick="includeContactHTML('addContact')">
+            <button style="margin: 0 0 22px 0;" type="button" class="default-button contact-button" onclick="includeContactHTML('addContact')">
                 Add new contact
                 <img src='./assets/icons/person-add.svg'>
             </button>
@@ -32,16 +32,22 @@
                 onclick="includeContactHTML('addContact')">
                 <img src='./assets/icons/person-add.svg'>
             </button>
+            <button type="button" class="default-button menu-button-mobile"
+                onclick="">
+                <img src='assets/icons/menuContactOptions.svg'>
+            </button>
             <div id="contactList" class="user-list scrollable"></div>
         </div>
         <div class="selected-contact-container" id="selectedContactContainer">
             <div class="selected-contact-header">
-                <h1>Contacts</h1>
+                <div>
+                    <h1>Contacts</h1>
+                 </div>
                 <div class="horizontal-blue-line"></div>
                 <h4>Better with a team</h4>
                 <div class="vertical-blue-line"></div>
-                <img onclick="unsetSelectedContact()" id="goBack" src="assets/image/sidebar/arrow-left-line.svg">
             </div>
+            <img onclick="unsetSelectedContact()" id="goBack" src="assets/image/sidebar/arrow-left-line.svg">
 
             <div class="selected-contact-body" id="selectedContactBody">
             </div>
