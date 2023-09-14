@@ -211,6 +211,13 @@ function ShowMenuResponsive() {
   document.getElementById("overlay-responsive").classList.remove("dNone");
 }
 
+function ShowContactMenuResponsive() {
+  let menu = document.getElementById("responsive-menu-container");
+  menu.classList.toggle("hidden-add-contact-menu-responsive");
+  menu.classList.toggle("visible-add-contact-menu-responsive");
+  document.getElementById("overlay-contact").classList.remove("dNone");
+}
+
 function closeMenu() {
   document.getElementById("header-menu").classList.add("dNone");
   document.getElementById("overlay").classList.add("dNone");
@@ -221,6 +228,13 @@ function closeMenuResponsive() {
   let menu = document.getElementById("header-menu-responsive");
   menu.classList.toggle("hidden");
   menu.classList.toggle("visible");
+}
+
+function closeContactMenuResponsive() {
+  document.getElementById("overlay-contact").classList.add("dNone");
+  let menu = document.getElementById("responsive-menu-container");
+  menu.classList.toggle("hidden-add-contact-menu-responsive");
+  menu.classList.toggle("visible-add-contact-menu-responsive");
 }
 
 function openSummary() {

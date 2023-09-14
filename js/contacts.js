@@ -232,3 +232,9 @@ function unsetSelectedContact() {
     unmarkAllUserElements();
     setCurrentShownMobileClass();
 }
+
+
+// function contactsMenuResponsive() {
+//     document.getElementById('addContactButtonResponsive').classList.toggle('dNone');
+//     document.getElementById('ContactMenuButtonResponsive').classList.toggle('dNone');
+// }

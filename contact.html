@@ -28,14 +28,8 @@
                 Add new contact
                 <img src='./assets/icons/person-add.svg'>
             </button>
-            <button type="button" class="default-button contact-button-mobile"
-                onclick="includeContactHTML('addContact')">
-                <img src='./assets/icons/person-add.svg'>
-            </button>
-            <button type="button" class="default-button menu-button-mobile"
-                onclick="">
-                <img src='assets/icons/menuContactOptions.svg'>
-            </button>
+            <img onclick="includeContactHTML('addContact')" class="contact-button-mobile dNone" src='./assets/icons/person-add.svg'>
+
             <div id="contactList" class="user-list scrollable"></div>
         </div>
         <div class="selected-contact-container" id="selectedContactContainer">
@@ -48,10 +42,21 @@
                 <div class="vertical-blue-line"></div>
             </div>
             <img onclick="unsetSelectedContact()" id="goBack" src="assets/image/sidebar/arrow-left-line.svg">
-
+            <img onclick="ShowContactMenuResponsive()" class="menu-button-mobile dNone" src='assets/icons/menuContactOptions.svg'>
             <div class="selected-contact-body" id="selectedContactBody">
             </div>
 
+            <div id="responsive-menu-container" class="responsive-menu-container hidden-add-contact-menu-responsive">
+                <div class="responsive-menu">
+                    <img src="assets/icons/pen-icon.svg" alt="Edit Icon">
+                    <div>Edit</div>
+                </div>
+                <div class="responsive-menu">
+                    <img src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
+                    <div>Delete</div>
+                </div>
+            </div>
+            <div onclick="closeContactMenuResponsive()" id="overlay-contact" class="dNone"></div>
 
 
         </div>

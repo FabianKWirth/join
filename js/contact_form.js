@@ -97,7 +97,7 @@ function getButtonsToSetConfig(type) {
                     "innerHtml": "Clear"
                 },
                 {
-                    "class": "default-button",
+                    "class": "default-button button-create-contact",
                     "function": "createContact()",
                     "innerHtml": "Create Contact"
                 }
