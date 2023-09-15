@@ -386,7 +386,7 @@
 #addTaskContainer #newTaskPriority {
     margin: 12px 0px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-direction: row;
     gap: 16px;
 }

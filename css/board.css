@@ -1,3 +1,7 @@
+.board-section::-webkit-scrollbar {
+    display: none !important;
+}
+
 .board-section {
     position: absolute;
     left: 0;
@@ -148,10 +152,8 @@
     overflow: hidden;
 }
 
-.board-section .sroll-area {
+.scroll-area {
     height: 1000px;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 .board-section .task-area {
@@ -504,7 +506,6 @@
         width: 28px;
         min-width: 28px;
     }
-
 }
 
 @media(max-width: 1250px) {
@@ -575,7 +576,7 @@
     .board-section .addTask-responive-img {
         display: block;
     }
-    
+
     .board-section .add-task,
     .board-section .input-section {
         display: none;
@@ -626,7 +627,7 @@
     .board-section .overlayBoard {
         top: 0px;
     }
-    
+
     .board-section .task-card-overlay {
         max-height: 75%;
     }
@@ -701,7 +702,7 @@
     align-items: start;
     max-width: 90%;
     height: 80%;
-    
+
     width: 525px;
     background-color: #FFFFFF;
     border-radius: 30px;
