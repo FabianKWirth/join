@@ -28,7 +28,7 @@ function renderLoginContainerTemplate() {
 function renderSignUpForm() {
   container.innerHTML = /*html*/ ` 
   <form onsubmit="return false" class="sign-up-form">
-  <img onclick="renderLoginContainer()" class="sign-up-arrow arrow" src="../assets/image/arrow-left-line.png">
+  <img onclick="renderLoginContainer()" class="sign-up-arrow arrow" src="./assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">Sign up</h2>
   <div class="seperator"></div></div><div class="input-container">
   <input required id="username" class="input-login person" type="text" placeholder="Name">
@@ -45,7 +45,7 @@ function renderSignUpForm() {
 function renderForgotPasswordForm() {
   container.innerHTML = /*html*/ `
   <form onsubmit="onSubmit(event)" class="forgot-password-form">
-  <img onclick="renderLoginContainer()" class="forgot-password-arrow arrow" src="../assets/image/arrow-left-line.png">
+  <img onclick="renderLoginContainer()" class="forgot-password-arrow arrow" src="./assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">I forgot my Password</h2><div class="seperator"></div></div>
   <p class="form-text">Don't worry! We will send you an email with the instructions to reset your password.</p>
   <input required name="email" id ="forgot-password-email" class="input-login email" name='forgot-password-email' type="email" placeholder="Email">

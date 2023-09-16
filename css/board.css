@@ -158,7 +158,7 @@
     overflow-x: hidden;
 }
 
-.scroll-area::-webkit-scrollbar{
+.scroll-area::-webkit-scrollbar {
     display: none;
 }
 
@@ -304,7 +304,6 @@
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
 }
-
 
 .board-section .overlayBoard {
     position: fixed;
@@ -470,7 +469,6 @@
     fill: #0038FF;
 }
 
-
 .category-technical {
     background-color: #0038FF;
     color: white;
@@ -488,7 +486,6 @@
 .subtaskTitel {
     display: block;
 }
-
 
 @media(max-width: 1356px) {
     .board-section {
@@ -637,25 +634,7 @@
     .board-section .task-card-overlay {
         max-height: 75%;
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #addTaskOverlay {
     position: fixed;
@@ -728,13 +707,11 @@
     position: relative;
 }
 
-
 @media(max-width: 1250px) {
     #addTaskCard {
         max-width: 96%;
     }
 }
-
 
 @keyframes rightToCenter {
     from {
