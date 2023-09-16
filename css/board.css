@@ -7,7 +7,6 @@
     margin: 96px 64px 0 314px;
     font-family: 'Inter', sans-serif;
     overflow: hidden;
-    overflow-y: scroll;
 }
 
 .board-section::-webkit-scrollbar {
@@ -177,6 +176,7 @@
     flex: 1;
     gap: 20px;
     border-radius: 24px;
+    padding-bottom: 50px;
 }
 
 .board-section .task-card {
@@ -560,9 +560,8 @@
         width: 100%;
     }
 
-    .board-section .sroll-area {
-        overflow-y: hidden;
-        height: auto;
+    .board-section .scroll-area {
+        height: 700px;
     }
 
     .board-section .head-section {
@@ -587,6 +586,11 @@
 
     .board-section .input-section-repsonsive {
         display: flex;
+        margin: 10px 0 0 0;
+    }
+
+    .board-section .scroll-area {
+        height: 600px;
     }
 }
 
@@ -613,6 +617,10 @@
 
     .board-section .title-h4 {
         font-size: 42px;
+    }
+
+    .board-section .scroll-area {
+        height: 700px;
     }
 }
 
