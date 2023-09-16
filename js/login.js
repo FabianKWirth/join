@@ -27,7 +27,7 @@ function renderLoginContainerTemplate() {
 
 function renderSignUpForm() {
   container.innerHTML = /*html*/ ` 
-  <form onsubmit="return false" class="sign-up-form">
+  <form onsubmit="checkPassword(); return false" class="sign-up-form">
   <img onclick="renderLoginContainer()" class="sign-up-arrow arrow" src="./assets/image/arrow-left-line.png">
   <div class="heading-seperator"><h2 class="login-heading">Sign up</h2>
   <div class="seperator"></div></div><div class="input-container">
@@ -37,8 +37,8 @@ function renderSignUpForm() {
   <input required id="confirmPassword" class="input-login password" type="password" placeholder="Confirm Password"></div>
   <span id="info"></span>
   <div class="accept-terms-checkbox"><input required class="login-checkbox" id="checkbox" type="checkbox">
-  <span>I accept the <a href="" class="forgot-password-span">Privacy policy</a></span></div>
-  <button id="sign-up-btn-form" onclick="return checkPassword()" type='button'>Sign up</button>
+  <span>I accept the <a href="./legal-notice.html" class="forgot-password-span">Privacy policy</a></span></div>
+  <button id="sign-up-btn-form" type='submit'>Sign up</button>
   </form>`;
 }
 
@@ -144,22 +144,17 @@ async function action(formData) {
     method: "post",
     body: formData,
   };
-  
   try {
     const response = await fetch(input, requestInit);
-
     if (response.ok) {
-      // Erfolgreiche Antwort (Statuscode 200-299)
       console.log("Request successful");
     } else {
-      // Fehlerhafte Antwort (Statuscode nicht im Bereich 200-299)
       console.error("Request failed with status:", response.status);
     }
-
     return response;
   } catch (error) {
     console.error("Fetch error:", error);
-    throw error; // Re-throw the error to be caught by the outer try...catch block
+    throw error; 
   }
 }
 

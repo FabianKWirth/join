@@ -7,7 +7,6 @@ async function addUser(){
     let password = document.getElementById('password');
 
     let user={'username': username.value, 'email': email.value, 'password': password.value};
-    user=assignNewUserColor(user);
     users.push(user);
     setItem("users",users);
     signedUp();
