@@ -14,7 +14,7 @@ function openAddTaskTemplate(status = null) {
     </div>
 
     <div id="addTaskWrapper">
-        <div id="addTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
+        <div id="addTaskCard" include-tasks-html="./assets/templates/add_task_template.html"></div>
     </div>`;
     includeTasksHtml(status);
 
@@ -112,7 +112,7 @@ async function openEditTaskTemplate(taskId) {
     addTaskOverlay();
     document.body.innerHTML +=/*html*/`
     <div id="addTaskWrapper">
-        <div id="editTaskCard" ><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
+        <div id="addTaskCard"><div include-tasks-html="./assets/templates/add_task_template.html"></div></div>
     </div>`;
 
     await includeTasksHtml();
