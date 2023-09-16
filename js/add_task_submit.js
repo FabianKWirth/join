@@ -368,7 +368,7 @@ function renderTaskDeletedElement() {
 
     setTimeout(() => {
         document.getElementById("addTaskContainer").remove();
-    }, 200000);
+    }, 1500);
 }
 
 
