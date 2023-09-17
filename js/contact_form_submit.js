@@ -4,8 +4,8 @@
  * The notification displays a "Created" message and automatically fades out
  * and removes itself after 2 seconds.
  */
-function renderContactCreatedElement() {
-    renderNotificationLayout();
+async function renderContactCreatedElement() {
+    await renderNotificationLayout();
     setNotificationValue("Created");
     setTimeout(function () {
         removeNotificationLayout();
@@ -17,8 +17,8 @@ function renderContactCreatedElement() {
  * The notification displays a "Changed" message and automatically fades out
  * and removes itself after 2 seconds.
  */
-function renderContactSavedElement() {
-    renderNotificationLayout();
+async function renderContactSavedElement() {
+    await renderNotificationLayout();
     setNotificationValue("Changed");
     setTimeout(function () {
         removeNotificationLayout();
@@ -30,8 +30,8 @@ function renderContactSavedElement() {
  * The notification displays a "Delete" message and automatically fades out
  * and removes itself after 2 seconds.
  */
-function renderContactDeleteElement() {
-    renderNotificationLayout();
+async function renderContactDeleteElement() {
+    await renderNotificationLayout();
     setNotificationValue("Delete");
 
     setTimeout(function () {
