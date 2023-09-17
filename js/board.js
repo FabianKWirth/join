@@ -8,7 +8,7 @@ let currentDraggedElement;
 async function updateBoardHTML() {
   await init();
   loadTasksHTML();
-  addSearchKlickEventlistener();
+  loadEventListeners();
 }
 async function boardInit() {
   await includeHTML(2);
@@ -263,6 +263,7 @@ function startDragging(id) {
   currentDraggedElement = id;
 }
 
+
 /**
  * Prevents the default behavior of a drop event to allow dropping content.
  *
@@ -273,6 +274,7 @@ function startDragging(id) {
 function allowDrop(ev) {
   ev.preventDefault();
 }
+
 
 /**
  * Moves a task to a different category based on the specified event and category data.
@@ -306,87 +308,6 @@ function moveTo(ev) {
   }
 }
 
-function addSearchKlickEventlistener() {
-  /**
-   * Adds an event listener to the 'search-input' element to filter tasks when the Enter key is pressed.
-   *
-   * @function
-   * @param {Event} event - The keydown event object.
-   * @returns {void}
-   */
-  document
-    .getElementById("search-input")
-    .addEventListener("keydown", function (event) {
-      filter = document.getElementById("search-input").value;
-      loadTasksHTML(filter);
-    });
-
-  /**
-   * Adds an event listener to the 'search' element to trigger task filters when clicked.
-   *
-   * @function
-   * @returns {void}
-   */
-  document.getElementById("search").addEventListener("click", function () {
-    filter = document.getElementById("search-input").value;
-    loadTasksHTML(filter);
-  });
-
-  /**
-   * Adds an event listener to the 'search' element to trigger task filters when touched.
-   *
-   * @function
-   * @param {Event} event - The touch event.
-   * @returns {void}
-   */
-  document
-    .getElementById("search")
-    .addEventListener("touchend", function (event) {
-      filter = document.getElementById("search-input").value;
-      loadTasksHTML(filter);
-    });
-
-  /**
-   * Adds an event listener to the 'search-responsive' element to trigger task filters when clicked.
-   *
-   * @function
-   * @returns {void}
-   */
-  document
-    .getElementById("search-responsive")
-    .addEventListener("click", function () {
-      filter = document.getElementById("search-input").value;
-      loadTasksHTML(filter);
-    });
-
-  /**
-   * Adds an event listener to the 'search-input-responsive' element to filter tasks when the Enter key is pressed.
-   *
-   * @function
-   * @param {Event} event - The keydown event object.
-   * @returns {void}
-   */
-  document
-    .getElementById("search-input-responsive")
-    .addEventListener("keydown", function (event) {
-      filter = document.getElementById("search-input").value;
-      loadTasksHTML(filter);
-    });
-
-  /**
-   * Adds an event listener to the 'search-responsive' element to trigger responsive task filters when touched.
-   *
-   * @function
-   * @param {Event} event - The touch event.
-   * @returns {void}
-   */
-  document
-    .getElementById("search-responsive")
-    .addEventListener("touchend", function (event) {
-      filter = document.getElementById("search-input").value;
-      loadTasksHTML(filter);
-    });
-}
 
 async function deleteTask(taskIndex) {
   tasks.splice([taskIndex], 1);
@@ -962,7 +883,7 @@ function renderTaskCardAgain(event) {
  */
 function newDataCategory(event, category, index) {
   event.stopPropagation();
-  
+
   if (category) {
     tasks[index]['status'] = category;
     setItem("tasks", tasks);

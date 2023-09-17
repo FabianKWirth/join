@@ -191,7 +191,8 @@ function renderMoveToInTaskCards(index) {
  * @param {number} index - The index of the task.
  */
 function renderTaskHTML(task, index){
-    document.getElementById('toDo').innerHTML += generateHTML(task, index);
+    let taskStatus=task['status'];
+    document.getElementById(taskStatus).innerHTML += generateHTML(task, index);
 }
 
 /**
