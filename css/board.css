@@ -574,6 +574,8 @@
         width: 28px;
         min-width: 28px;
     }
+
+
 }
 
 @media(max-width: 1250px) {
@@ -645,6 +647,10 @@
     .board-section .plus-icon-contacts {
         display: none;
     }
+
+    .board-section .plus-icon{
+        display: none;
+    }
  }
 
  @media (min-width: 1250px) {
@@ -671,6 +677,8 @@
     .board-section .scroll-area {
         height: 600px;
     }
+
+
 }
 
 @media(max-width: 800px) {

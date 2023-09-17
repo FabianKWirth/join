@@ -21,6 +21,7 @@ function openAddTaskTemplate(status = null) {
     includeEventlistenerToCloseAddTask();
 }
 
+
 /**
  * Attach an event listener to the "addTaskWrapper" element to close the "Add Task" template
  * when a click occurs on the overlay.
@@ -65,8 +66,6 @@ function removeAddTaskElements() {
     removeTaskOverlay();
     if (addTaskWrapper) { addTaskWrapper.remove(); };
     if (overlayBoard) { overlayBoard.remove(); };
-
-    addSearchKlickEventlistener();
 }
 
 

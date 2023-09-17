@@ -205,6 +205,7 @@ function addScrollToBody() {
     });
 }
 
+
 /**
  * Removes all elements whose class names contain a specified substring.
  *
@@ -250,6 +251,7 @@ function renderContactPageOfCurrentContact(contactName, contactMail, contactPhon
     }
 }
 
+
 /**
  * Checks whether the current page is "index.html" based on the URL.
  *
@@ -266,6 +268,7 @@ function isContactPage() {
         return false;
     }
 }
+
 
 /**
  * Find the index of a contact in the global `contacts` array based on email, name, and phone number.
