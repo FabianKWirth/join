@@ -1,3 +1,9 @@
+
+
+
+
+
+
 body {
     font-family: 'Inter', sans-serif;
 }
@@ -533,3 +539,21 @@ h4 {
     left: 0;
     right: 0;
 }
+
+@media (max-height: 800px) {
+    .visible-add-contact-menu-responsive {
+        bottom: 98px;
+    }
+}
+
+@media (max-height: 786px) {
+    .visible-add-contact-menu-responsive {
+        bottom: 170px;
+    }
+}
+
+/* @media (max-height: 740px) {
+    .visible-add-contact-menu-responsive {
+        bottom: 170px;
+    }
+} */
