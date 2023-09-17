@@ -2,8 +2,8 @@ let container = document.getElementById("login-container");
 let hasExecuted = false;
 
 async function loginInit() {
-  await init(); 
-  renderLoginContainer()
+  await init();
+  renderLoginContainer();
 }
 
 function renderLoginContainer() {
@@ -101,35 +101,45 @@ function login() {
   let email = document.getElementById("login-email");
   let password = document.getElementById("login-password");
   let user = users.find(
-    (u) => u.email == email.value && u.password == password.value);
+    (u) => u.email == email.value && u.password == password.value
+  );
 
   if (user) {
     window.location.href = `./summary.html?name=${user.username}`;
   } else message.innerHTML = "Wrong password or email! Try again.";
 }
 
-async function checkEmail(event) {
+/**
+ * Check's if the user is registred, if not a message is displayed.
+ */
+function checkEmail(event) {
   let message = document.getElementById("forgot-password-message");
   let email = document.getElementById("forgot-password-email");
   let user = users.find((u) => u.email == email.value);
+  checkEmailTemplate(message, user);
+}
 
+async function checkEmailTemplate(message, user) {
   if (user) {
     let formData = new FormData(event.target);
-  
-  try {
-    let response = await action(formData);
-    
-    if (response.ok) {
-      showMessage(message);
-    } else {
-      message.innerHTML = "This email is not registered.";
+    try {
+      let response = await action(formData);
+      if (response.ok) {
+        showMessage(message);
+      } else {
+        message.innerHTML = "This email is not registered.";
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
-  } catch (error) {
-    console.error("An error occurred:", error);
-  };
   }
 }
 
+/**
+ * Displays a message element for a brief period.
+ *
+ * @param {HTMLElement} message - The HTML element to display.
+ */
 function showMessage(message) {
   message.classList.remove("d-none");
 
@@ -138,31 +148,33 @@ function showMessage(message) {
   }, 4000);
 }
 
+/**
+ * Handles form submission by preventing the default behavior and calling checkEmail.
+ *
+ * @param {Event} event - The submit event.
+ */
 async function onSubmit(event) {
   event.preventDefault();
   checkEmail(event);
 }
 
+/**
+ * Performs an asynchronous action by sending a POST request with form data.
+ *
+ * @param {FormData} formData - The form data to send in the request.
+ * @returns {Promise<Response>} - A promise that resolves to the fetch response.
+ */
 async function action(formData) {
   const input = "http://gruppe-671.developerakademie.net/join/send_mail.php";
-  const requestInit = {
-    method: "post",
-    body: formData,
-  };
-  try {
-    const response = await fetch(input, requestInit);
-    if (response.ok) {
-      console.log("Request successful");
-    } else {
-      console.error("Request failed with status:", response.status);
-    }
-    return response;
-  } catch (error) {
-    console.error("Fetch error:", error);
-    throw error; 
-  }
+  const requestInit = { method: "post", body: formData };
+  const response = await fetch(input, requestInit);
+
+  if (response.ok) return response;
 }
 
+/**
+ * Redirects the user to a guest login page.
+ */
 function guestLogin() {
   window.location.href = `./summary.html?name=Guest`;
 }
