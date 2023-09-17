@@ -151,13 +151,18 @@ function renderSubtask(subtaskId, subtaskStatus, i, index, subtaskImgSrc, subtas
  * @returns {string} The HTML code for assigned contacts.
  */
 function getAssignedContactsRenderHTML(contacts, assignedContact) {
-    return `
-        <div class='assigned-contacts'>
-            <div class='contact-circle'>${getContactIconHtml(contacts[assignedContact])}</div>
-            ${contacts[assignedContact]['name']}
-        </div>
-    `;
+    if (assignedContact && contacts[assignedContact]) {
+        return `
+            <div class='assigned-contacts'>
+                <div class='contact-circle'>${getContactIconHtml(contacts[assignedContact])}</div>
+                ${contacts[assignedContact]['name']}
+            </div>
+        `;
+    } else {
+        return "";
+    }
 }
+
 
 
 /**
