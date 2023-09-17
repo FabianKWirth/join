@@ -58,18 +58,24 @@ function removeNotificationLayout() {
  * @param {string} input - The input string that determines the notification message.
  */
 function setNotificationValue(input) {
-    switch (input) {
-        case 'Created':
-            document.getElementById("changeContactNotificationText").innerHTML = "Contact successfully created";
-            break;
-        case 'Changed':
-            document.getElementById("changeContactNotificationText").innerHTML = "Contact changes saved";
-            break;
-        case 'Delete':
-            document.getElementById("changeContactNotificationText").innerHTML = "Contact deleted";
-            break;
-        default:
-            document.getElementById("changeContactNotificationText").innerHTML = "Error adapting contact";
+    const notifications = document.getElementsByClassName("change-contact-notification-text");
+
+    for (let i = 0; i < notifications.length; i++) {
+        const notification = notifications[i];
+        console.log(notification);
+        switch (input) {
+            case 'Created':
+                notification.innerHTML = "Contact successfully created";
+                break;
+            case 'Changed':
+                notification.innerHTML = "Contact changes saved";
+                break;
+            case 'Delete':
+                notification.innerHTML = "Contact deleted";
+                break;
+            default:
+                notification.innerHTML = "Error adapting contact";
+        }
     }
 }
 
@@ -81,7 +87,7 @@ function renderNotificationLayout() {
     let newDiv = document.createElement("div");
     newDiv.innerHTML +=/*html*/`
     <div class="contact-change-notification-container shift-in" id="contactChangeNotificationContainer">
-        <div class="contact-change-notification"><p id='changeContactNotificationText'></p></div>
+        <div class="contact-change-notification"><p class='change-contact-notification-text'></p></div>
     </div>`;
     if (document.getElementById("selectedContactContainer") != null) {
         document.getElementById("selectedContactContainer").appendChild(newDiv);
@@ -107,7 +113,7 @@ async function createContact() {
         removeElementsByPartialClassName("add-contact");
         await updateContactsArray(contactName, contactMail, contactPhone, color);
         updateList();
-        renderContactCreatedElement(); 
+        renderContactCreatedElement();
     }
 }
 
