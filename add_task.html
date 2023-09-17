@@ -15,10 +15,9 @@
     <link rel="stylesheet" href="css/add_task.css">
     <link rel="stylesheet" href="css/add_task-responsiv.css">
     <link rel="icon" type="image/x-icon" href="./assets/image/join-logo.svg">
-
 </head>
 
-<body onload="includeHTML(1);includeTasksHtml();">
+<body onload="addTaskInit()">
     <div w3-include-html="./assets/templates/header.html"></div>
     <div w3-include-html="assets/templates/header_responsive.html"></div>
     <div class="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
@@ -26,16 +25,17 @@
     <div class="add-task-page-container">
         <div include-tasks-html="./assets/templates/add_task_template.html"></div>
     </div>
-</body>
 
-<script src="./script.js"></script>
-<script src="./js/add_task.js"></script>
-<script src="./js/add_task_subtasks.js"></script>
-<script src="./js/add_task_assignment.js"></script>
-<script src="./js/add_task_submit.js"></script>
-<script src="./js/contacts.js"></script>
-<script src="./js/contact_form.js"></script>
-<script src="./js/contact_form_submit.js"></script>
-<script src="./js/storage.js"></script>
+    <script src="./script.js"></script>
+    <script src="./js/add_task.js"></script>
+    <script src="./js/add_task_subtasks.js"></script>
+    <script src="./js/add_task_assignment.js"></script>
+    <script src="./js/add_task_submit.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/contact_form.js"></script>
+    <script src="./js/contact_form_submit.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/username.js"></script>
+</body>
 
 </html>

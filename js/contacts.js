@@ -7,9 +7,15 @@ let selectedContactListElement = null;
  * This function ensures that the application is properly initialized and ready to display contacts.
  */
 async function initContacts() {
-    await init();
-    renderContacts();
-    setCurrentShownMobileClass();
+  await init();
+  renderContacts();
+  setCurrentShownMobileClass();
+}
+
+async function contactInit() {
+  await includeHTML(3);
+  initContacts();
+  setUserHeaderInitials();
 }
 
 /**
@@ -19,20 +25,20 @@ async function initContacts() {
  * If a selected contact element is defined, it is marked as selected.
  */
 function renderContacts() {
-    let currentLetter = "";
-    let list = document.getElementById("contactList");
-    list.innerHTML = "";
-    for (let i = 0; i < contacts.length; i++) {
-        let thisCurrentLetter = contacts[i]["name"].charAt(0).toUpperCase();
-        if (currentLetter != thisCurrentLetter) {
-            currentLetter = thisCurrentLetter;
-            renderLetterHeader(list, currentLetter);
-        }
-        renderContactListItem(list, i);
+  let currentLetter = "";
+  let list = document.getElementById("contactList");
+  list.innerHTML = "";
+  for (let i = 0; i < contacts.length; i++) {
+    let thisCurrentLetter = contacts[i]["name"].charAt(0).toUpperCase();
+    if (currentLetter != thisCurrentLetter) {
+      currentLetter = thisCurrentLetter;
+      renderLetterHeader(list, currentLetter);
     }
-    if (selectedContactListElement != null) {
-        markContactElementAsSelected(selectedContactListElement);
-    }
+    renderContactListItem(list, i);
+  }
+  if (selectedContactListElement != null) {
+    markContactElementAsSelected(selectedContactListElement);
+  }
 }
 
 /**
@@ -41,14 +47,14 @@ function renderContacts() {
  * and adds edit and delete options to the contact menu.
  */
 function renderSelectedContactBody() {
-    let contactElement = document.getElementById("selectedContactBody");
-    let contact = contacts[selectedContact];
-    let contactIcon = getContactIconHtml(contact);
-    let contactName = contact['name'];
-    let contactMail = contact['mail'];
-    let contactPhone = contact['phone'];
+  let contactElement = document.getElementById("selectedContactBody");
+  let contact = contacts[selectedContact];
+  let contactIcon = getContactIconHtml(contact);
+  let contactName = contact["name"];
+  let contactMail = contact["mail"];
+  let contactPhone = contact["phone"];
 
-    contactElement.innerHTML =/*html*/`
+  contactElement.innerHTML = /*html*/ `
     <div class="contact-detail-area">
         <div class='contact-name-row'>
             ${contactIcon}
@@ -85,15 +91,14 @@ function renderSelectedContactBody() {
     `;
 }
 
-
 /**
  * Empties the content of the selected contact's body in the contact details view.
  * This function clears the innerHTML of the element with the ID "selectedContactBody,"
  * effectively removing any previously displayed contact information.
  */
 function emptySelectedContactBody() {
-    let contactElement = document.getElementById("selectedContactBody");
-    contactElement.innerHTML = "";
+  let contactElement = document.getElementById("selectedContactBody");
+  contactElement.innerHTML = "";
 }
 
 /**
@@ -102,9 +107,9 @@ function emptySelectedContactBody() {
  * @param {number} contactIndex - The index of the contact to be selected.
  */
 function selectContact(contactIndex) {
-    selectedContact = contactIndex;
-    setCurrentShownMobileClass();
-    renderSelectedContactBody();
+  selectedContact = contactIndex;
+  setCurrentShownMobileClass();
+  renderSelectedContactBody();
 }
 
 /**
@@ -113,12 +118,12 @@ function selectContact(contactIndex) {
  * @param {number} contactIndex - The index of the contact to be deleted.
  */
 function deleteContact(contactIndex) {
-    contacts.splice(contactIndex, 1);
-    setItem("contacts", contacts);
-    renderContacts();
-    emptySelectedContactBody();
-    removeElementsByPartialClassName("add-contact");
-    renderContactDeleteElement();
+  contacts.splice(contactIndex, 1);
+  setItem("contacts", contacts);
+  renderContacts();
+  emptySelectedContactBody();
+  removeElementsByPartialClassName("add-contact");
+  renderContactDeleteElement();
 }
 
 /**
@@ -126,13 +131,13 @@ function deleteContact(contactIndex) {
  * This function searches for elements with the "selected" class and removes the class from each element.
  */
 function unmarkAllUserElements() {
-    selectedElements = document.getElementsByClassName("selected");
-    if (selectedElements.length > 0) {
-        for (let index = 0; index < selectedElements.length; index++) {
-            const selectedElement = selectedElements[index];
-            selectedElement.classList.remove("selected");
-        }
+  selectedElements = document.getElementsByClassName("selected");
+  if (selectedElements.length > 0) {
+    for (let index = 0; index < selectedElements.length; index++) {
+      const selectedElement = selectedElements[index];
+      selectedElement.classList.remove("selected");
     }
+  }
 }
 
 /**
@@ -143,9 +148,9 @@ function unmarkAllUserElements() {
  * @param {HTMLElement} element - The contact element to be marked as selected.
  */
 function markContactElementAsSelected(element) {
-    unmarkAllUserElements();
-    element.classList.add("selected");
-    selectedContactListElement = element;
+  unmarkAllUserElements();
+  element.classList.add("selected");
+  selectedContactListElement = element;
 }
 
 /**
@@ -155,8 +160,7 @@ function markContactElementAsSelected(element) {
  * @param {string} currentLetter - The letter to display in the header.
  */
 function renderLetterHeader(list, currentLetter) {
-
-    list.innerHTML +=/*html*/`
+  list.innerHTML += /*html*/ `
     <div class='contact-list-letter-header'>
         <p>${currentLetter}</p>
     </div>
@@ -172,12 +176,12 @@ function renderLetterHeader(list, currentLetter) {
  * @param {number} contactIndex - The index of the contact to render from the contacts array.
  */
 function renderContactListItem(list, contactIndex) {
-    contacts = sortByUserName(contacts);
-    let contact = contacts[contactIndex];
-    contactName = contact["name"];
-    contactMail = contact["mail"]
-    let userIcon = getContactIconHtml(contact);
-    list.innerHTML +=/*html*/`
+  contacts = sortByUserName(contacts);
+  let contact = contacts[contactIndex];
+  contactName = contact["name"];
+  contactMail = contact["mail"];
+  let userIcon = getContactIconHtml(contact);
+  list.innerHTML += /*html*/ `
     <div class="contact-element" onclick='selectContact("${contactIndex}");markContactElementAsSelected(this)'>
         ${userIcon}
         <div class="contact-info">
@@ -185,8 +189,8 @@ function renderContactListItem(list, contactIndex) {
             <div class='contact-list-mail-text'>${contactMail}</div>
         </div>
     </div>
-    `
-    getContactIconHtml(contact);
+    `;
+  getContactIconHtml(contact);
 }
 
 /**
@@ -195,18 +199,18 @@ function renderContactListItem(list, contactIndex) {
  * @returns {Array} A new array containing the sorted contacts.
  */
 function sortByUserName(contacts) {
-    return contacts.slice().sort((a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
+  return contacts.slice().sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
 
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
 }
 
 /**
@@ -215,24 +219,31 @@ function sortByUserName(contacts) {
  * and shows the contact list section on mobile. If a contact is selected, it does the opposite.
  */
 function setCurrentShownMobileClass() {
-    if (selectedContact == null) {
-        document.getElementById("selectedContactContainer").classList.add('contact-hide-on-mobile');
-        document.getElementById("contactListSection").classList.remove('contact-hide-on-mobile');
-    } else {
-        document.getElementById("selectedContactContainer").classList.remove('contact-hide-on-mobile');
-        document.getElementById("contactListSection").classList.add('contact-hide-on-mobile');
-    }
+  if (selectedContact == null) {
+    document
+      .getElementById("selectedContactContainer")
+      .classList.add("contact-hide-on-mobile");
+    document
+      .getElementById("contactListSection")
+      .classList.remove("contact-hide-on-mobile");
+  } else {
+    document
+      .getElementById("selectedContactContainer")
+      .classList.remove("contact-hide-on-mobile");
+    document
+      .getElementById("contactListSection")
+      .classList.add("contact-hide-on-mobile");
+  }
 }
 
 /**
  * Unsets the selected contact, unmarks all user elements, and sets the current shown mobile class.
  */
 function unsetSelectedContact() {
-    selectedContact = null;
-    unmarkAllUserElements();
-    setCurrentShownMobileClass();
+  selectedContact = null;
+  unmarkAllUserElements();
+  setCurrentShownMobileClass();
 }
-
 
 // function contactsMenuResponsive() {
 //     document.getElementById('addContactButtonResponsive').classList.toggle('dNone');

@@ -3,7 +3,8 @@ let email = "";
 /**
  * The variable email get a value on page laod.
  */
-function onPageLoad() {
+async function resetPasswordInit() {
+  await init();
   email = getEmailUrlParameter();
 }
 

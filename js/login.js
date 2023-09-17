@@ -1,6 +1,11 @@
 let container = document.getElementById("login-container");
 let hasExecuted = false;
 
+async function loginInit() {
+  await init(); 
+  renderLoginContainer()
+}
+
 function renderLoginContainer() {
   container.innerHTML = renderLoginContainerTemplate();
   removeAnimationClass();
@@ -37,7 +42,7 @@ function renderSignUpForm() {
   <input required id="confirmPassword" class="input-login password" type="password" placeholder="Confirm Password"></div>
   <span id="info"></span>
   <div class="accept-terms-checkbox"><input required class="login-checkbox" id="checkbox" type="checkbox">
-  <span>I accept the <a href="./legal-notice.html" class="forgot-password-span">Privacy policy</a></span></div>
+  <span>I accept the <a target="_blank" href="./legal-notice.html" class="forgot-password-span">Privacy policy</a></span></div>
   <button id="sign-up-btn-form" type='submit'>Sign up</button>
   </form>`;
 }

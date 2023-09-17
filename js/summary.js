@@ -22,10 +22,11 @@ const today = new Date();
 
 async function initSummary() {
   await init();
-  includeHTML(0);
+  await includeHTML(0);
   greetUser();
   filterTasks();
   todaysDate();
+  setUserHeaderInitials();
 }
 
 function greetUser() {
