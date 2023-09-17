@@ -26,6 +26,11 @@
     #addTaskContainer h1 {
         margin: 28px 64px 28px 64px;
     }
+
+    #addTaskContainer #formOptions {
+        width: 100%;
+        margin: 0;
+    }
 }
 
 @media (max-width: 1000px) {
@@ -91,6 +96,10 @@
 
     .add-task {
         width: 100% !important;
+    }
+
+    #addTaskContainer #formOptions {
+        width: 97%;
     }
 }
 
