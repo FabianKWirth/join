@@ -49,7 +49,7 @@ function removeNotificationLayout() {
     document.getElementById("contactChangeNotificationContainer").classList.add('shift-out');
     setTimeout(function () {
         document.getElementById("contactChangeNotificationContainer").remove()
-    }, 2000);
+    }, 1000);
 }
 
 /**
@@ -105,8 +105,9 @@ async function createContact() {
         let color = getNewContactColor();
 
         removeElementsByPartialClassName("add-contact");
-        renderContactCreatedElement();
         await updateContactsArray(contactName, contactMail, contactPhone, color);
+        updateList();
+        renderContactCreatedElement(); 
     }
 }
 
