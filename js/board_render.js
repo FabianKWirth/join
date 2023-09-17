@@ -269,35 +269,3 @@ function renderDoneTaskHTML(done, task, index) {
         document.getElementById('done').innerHTML = renderNoDone();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function renderTaskCards(index, task, categoryClass, progressBarHTML, assignedContactsIcons, priorityImageSrc) {
-//     return `
-//     <div onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
-//         <div id="taskMoveTo" class="task-moveTo">
-//             <div class="moveTo-img">
-//                 <img src="assets/icons/close.svg">
-//             </div>
-//             <span class="moveTo-h4">Move to</span>
-//             <div class="move-categorys">
-//                  <span class="move-task-button current-category">To-Do</span>
-//                 <span class="move-task-button">In Progress</span>
-//                 <span class="move-task-button">Awaiting Feedback</span>
-//                 <span class="move-task-button">Done</span>
-//             </div> 
-//         </div>
-//     </div>
-//     `;
-// }

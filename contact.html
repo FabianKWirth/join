@@ -51,12 +51,12 @@
             </div>
 
             <div id="responsive-menu-container" class="responsive-menu-container hidden-add-contact-menu-responsive">
-                <div class="responsive-menu">
-                    <img src="assets/icons/pen-icon.svg" alt="Edit Icon">
+                <div class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
+                    <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
                     <div>Edit</div>
                 </div>
-                <div class="responsive-menu">
-                    <img src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
+                <div onclick="deleteContact(selectedContact)" class="responsive-menu" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImageResponsive')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImageResponsive')">
+                    <img id="trashImageResponsive" src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
                     <div>Delete</div>
                 </div>
             </div>
@@ -70,5 +70,6 @@
     <script src="./js/contact_form.js"></script>
     <script src="./js/contact_form_submit.js"></script>
     <script src="./js/username.js"></script>
+    <script src="./js/board.js"></script>
 </body>
 </html>

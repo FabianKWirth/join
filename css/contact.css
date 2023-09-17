@@ -231,7 +231,13 @@ h4 {
     align-items: center;
     gap: 8px;
     padding: 8px;
+    cursor: pointer;
 }
+
+.responsive-menu:hover {
+    color: #29ABE2;
+}
+
 
 .hidden-add-contact-menu-responsive {
     opacity: 0;
@@ -247,6 +253,7 @@ h4 {
     bottom: 98px;
     transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, width 0.3s ease-in-out;
     position: fixed;
+    z-index: 1;
 }
 
 #overlay-contact {
