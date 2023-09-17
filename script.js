@@ -174,8 +174,8 @@ function ShowMenuResponsive() {
 
 function ShowContactMenuResponsive() {
   let menu = document.getElementById("responsive-menu-container");
-  menu.classList.toggle("hidden-add-contact-menu-responsive");
   menu.classList.toggle("visible-add-contact-menu-responsive");
+  menu.classList.toggle("hidden-add-contact-menu-responsive");
   document.getElementById("overlay-contact").classList.remove("dNone");
 }
 
