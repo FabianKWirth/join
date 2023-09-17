@@ -597,6 +597,7 @@
 @media(max-width: 800px) {
     .board-section {
         margin: 80px 16px 0 16px;
+        overflow-y: scroll;
     }
 
     .board-section .head-section {
@@ -620,7 +621,8 @@
     }
 
     .board-section .scroll-area {
-        height: 700px;
+        height: auto;
+        overflow-y: hidden;
     }
 }
 
