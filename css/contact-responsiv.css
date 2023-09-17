@@ -248,6 +248,7 @@
         border-radius: 50%;
         border: 1px solid #2A3647;
         padding: 12px;
+        object-fit: contain;
         position: fixed;
         right: 16px;
         bottom: 39px;
@@ -406,5 +407,12 @@
     .add-contact-card {
         width: 85%;
         height: 100%;
+    }
+}
+
+@media (max-height: 800px) {
+    .add-contact-container {
+        top: 20px;
+        bottom: 20px;
     }
 }

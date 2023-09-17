@@ -524,10 +524,6 @@
     margin-bottom: 10px;
 }
 
-.board-section .current-category {
-    opacity: 30%;
-}
-
 .board-section .move-categorys {
     width: 100%;
     display: flex;
@@ -543,7 +539,18 @@
     color: #FFFFFF;
     border-radius: 8px;
     text-align: center;
-}   
+}  
+
+.board-section .current-category {
+    opacity: 30%;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    user-select: none !important;
+}
+
+.board-section .move-task-button:hover {
+    background-color: #29ABE2;
+}
 
 @media(max-width: 1356px) {
     .board-section {
