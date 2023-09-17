@@ -110,9 +110,7 @@ function renderNoDone() {
  * @returns {string} The HTML code for the task card.
  */
 function generateHTML(task, index) {
-  const assignedContactsIcons = getAssignedContactIcons(
-    task["assignedContacts"]
-  );
+  const assignedContactsIcons = getAssignedContactIcons(task["assignedContacts"]);
   const priority = task["priority"];
   const subtaskCount = task["subTasks"] ? task["subTasks"].length : 0;
   const completedSubtaskCount = countCompletedSubtasks(task);
@@ -917,4 +915,57 @@ function saveSubtask(subtaskStatus, i, index) {
   }
 
   showTaskCard(index);
+}
+
+
+/**
+ * Displays the "Move To" dropdown menu in a task card and highlights the current category.
+ *
+ * @param {Event} event - The triggering event.
+ * @param {number} index - The index of the task card.
+ * @param {string} category - The target category ('toDo', 'inProgress', 'awaitFeedback', or 'done').
+ */
+function showMoveTo(event, index, category) {
+  event.stopPropagation();
+
+  document.getElementById(`taskCard${index}`).innerHTML = renderMoveToInTaskCards(index);
+
+  if (category == 'toDo') {
+    document.getElementById('moveToDo').classList.add('current-category');
+  } else if (category == 'inProgress') {
+    document.getElementById('moveInProgress').classList.add('current-category');
+  } else if (category == 'awaitFeedback') {
+    document.getElementById('moveAwaitFeedback').classList.add('current-category');
+  } else if (category == 'done') {
+    document.getElementById('moveDone').classList.add('current-category');
+  }
+}
+
+
+/**
+ * Re-renders the task card to update its content.
+ *
+ * @param {Event} event - The triggering event.
+ */
+function renderTaskCardAgain(event) {
+  event.stopPropagation();
+  loadTasksHTML();
+}
+
+
+/**
+ * Updates the data category for a task and reloads the task list.
+ *
+ * @param {Event} event - The triggering event.
+ * @param {string} category - The new target category for the task.
+ * @param {number} index - The index of the task to be updated.
+ */
+function newDataCategory(event, category, index) {
+  event.stopPropagation();
+  
+  if (category) {
+    tasks[index]['status'] = category;
+    setItem("tasks", tasks);
+    loadTasksHTML();
+  }
 }

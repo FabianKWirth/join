@@ -31,8 +31,11 @@ function renderProgressBar(progressPercentage, completedSubtaskCount, subtaskCou
  */
 function renderTaskCards(index, task, categoryClass, progressBarHTML, assignedContactsIcons, priorityImageSrc) {
     return `
-    <div onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
-        <div class="card-category ${categoryClass}">${task['taskCategoryValue']}</div> 
+    <div id="taskCard${index}" onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
+        <div class="task-headline">
+            <div class="card-category ${categoryClass}">${task['taskCategoryValue']}</div> 
+            <div class="move" onclick="showMoveTo(event, ${index}, '${task['status']}')">Move</div>
+        </div>
         <div>
             <h4>${task['taskName']}</h4>
             <div class="card-description">${task['taskDescription']}</div>
@@ -47,6 +50,7 @@ function renderTaskCards(index, task, categoryClass, progressBarHTML, assignedCo
     </div>
     `;
 }
+
 
 
 /**
@@ -155,6 +159,37 @@ function getAssignedContactsRenderHTML(contacts, assignedContact) {
     `;
 }
 
+
+/**
+ * Generates the HTML for the "Move To" dropdown menu in a task card.
+ *
+ * @param {number} index - The index of the task card.
+ * @returns {string} - The generated HTML for the "Move To" dropdown menu.
+ */
+function renderMoveToInTaskCards(index) {
+    return `
+        <div id="taskMoveTo" class="task-moveTo">
+            <div onclick="renderTaskCardAgain(event)" class="moveTo-img">
+                <img src="assets/icons/close.svg">
+            </div>
+            <span class="moveTo-h4">Move to</span>
+            <div class="move-categorys">
+                <span onclick="newDataCategory(event, 'toDo', ${index})" id="moveToDo" class="move-task-button">To-Do</span>
+                <span onclick="newDataCategory(event, 'inProgress', ${index})" id="moveInProgress" class="move-task-button">In Progress</span>
+                <span onclick="newDataCategory(event, 'awaitFeedback', ${index})" id="moveAwaitFeedback" class="move-task-button">Awaiting Feedback</span>
+                <span onclick="newDataCategory(event, 'done', ${index})" id="moveDone" class="move-task-button">Done</span>
+            </div> 
+        </div>
+    `;
+}
+
+
+/**
+ * Renders the HTML for a task and appends it to the 'toDo' section.
+ *
+ * @param {object} task - The task object to be rendered.
+ * @param {number} index - The index of the task.
+ */
 function renderTaskHTML(task, index){
     document.getElementById('toDo').innerHTML += generateHTML(task, index);
 }
@@ -233,3 +268,35 @@ function renderDoneTaskHTML(done, task, index) {
         document.getElementById('done').innerHTML = renderNoDone();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function renderTaskCards(index, task, categoryClass, progressBarHTML, assignedContactsIcons, priorityImageSrc) {
+//     return `
+//     <div onclick="showTaskCard(${index})" draggable="true" ondrop="moveTo(event)" ondragstart="startDragging(${index})" class="task-card" data-category="${task['status']}">
+//         <div id="taskMoveTo" class="task-moveTo">
+//             <div class="moveTo-img">
+//                 <img src="assets/icons/close.svg">
+//             </div>
+//             <span class="moveTo-h4">Move to</span>
+//             <div class="move-categorys">
+//                  <span class="move-task-button current-category">To-Do</span>
+//                 <span class="move-task-button">In Progress</span>
+//                 <span class="move-task-button">Awaiting Feedback</span>
+//                 <span class="move-task-button">Done</span>
+//             </div> 
+//         </div>
+//     </div>
+//     `;
+// }

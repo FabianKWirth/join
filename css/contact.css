@@ -1,9 +1,3 @@
-
-
-
-
-
-
 body {
     font-family: 'Inter', sans-serif;
 }
@@ -519,7 +513,7 @@ h4 {
 .hidden-add-contact-menu-responsive {
     opacity: 0;
     right: -200px;
-    bottom: 170px;
+    bottom: 98px;
     transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, width 0.3s ease-in-out;
     position: fixed;
 }
@@ -527,7 +521,7 @@ h4 {
 .visible-add-contact-menu-responsive {
     opacity: 1;
     right: 16px;
-    bottom: 170px;
+    bottom: 98px;
     transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, width 0.3s ease-in-out;
     position: fixed;
 }
@@ -540,14 +534,42 @@ h4 {
     right: 0;
 }
 
+@media (max-width: 800px) {
+    .visible-add-contact-menu-responsive {
+        bottom: 170px;
+    }
+
+    .hidden-add-contact-menu-responsive {
+        bottom: 170px;
+    }
+}
+
 @media (max-height: 800px) {
     .visible-add-contact-menu-responsive {
+        bottom: 98px;
+    }
+
+    .hidden-add-contact-menu-responsive {
+        bottom: 98px;
+    }
+}
+
+@media (max-height: 800px) {
+    .visible-add-contact-menu-responsive {
+        bottom: 98px;
+    }
+
+    .hidden-add-contact-menu-responsive {
         bottom: 98px;
     }
 }
 
 @media (max-height: 786px) {
     .visible-add-contact-menu-responsive {
+        bottom: 170px;
+    }
+
+    .hidden-add-contact-menu-responsive {
         bottom: 170px;
     }
 }
