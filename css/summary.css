@@ -14,11 +14,12 @@
     gap: 30px;
     margin: 80px 0 0 0px;
     background-color: #F6F7F8;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .headline-h1 span {
     font-size: 27px;
+    padding-right: 3px;
 }
 
 .summary-content {
@@ -109,6 +110,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-left: 40px;
 }
 
 #greeting-time {
@@ -187,6 +189,11 @@
     border-radius: 2px
 }
 
+.headline-h1 h1 {
+    margin-bottom: unset;
+    margin-block-end: 0.67em;
+}
+
 @media(max-width: 1200px) {
     .greeting {
         display: none;
@@ -205,6 +212,10 @@
 
     .summary-field {
         margin-left: 45px;
+    }
+
+    .headline-h1 span {
+        font-size: 23px;
     }
 }
 
@@ -233,6 +244,10 @@
         gap: 6px;
     }
 
+    .headline-h1 h1 {
+        margin-block-end: 0;
+    }
+
     .seperator {
         display: none;
     }
@@ -240,7 +255,7 @@
     .seperator-responsiv {
         display: inline;
         position: absolute;
-        top: 72px;
+        top: 100px;
         left: 35px;
     }
 }
@@ -317,7 +332,7 @@
     }
 
     .seperator-responsiv {
-        top: 53px;
+        top: 77px;
         left: 33px;
     }
 
