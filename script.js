@@ -172,13 +172,6 @@ function ShowMenuResponsive() {
   document.getElementById("overlay-responsive").classList.remove("dNone");
 }
 
-function ShowContactMenuResponsive() {
-  document.getElementById("overlay-contact").classList.remove("dNone");
-  let menu = document.getElementById("responsive-menu-container");
-  menu.classList.toggle("visible-add-contact-menu-responsive");
-  menu.classList.toggle("hidden-add-contact-menu-responsive");
-}
-
 function closeMenu() {
   document.getElementById("header-menu").classList.add("dNone");
   document.getElementById("overlay").classList.add("dNone");
@@ -191,7 +184,15 @@ function closeMenuResponsive() {
   menu.classList.toggle("visible");
 }
 
-function closeContactMenuResponsive() {
+function ShowContactMenuResponsive() {
+  document.getElementById("overlay-contact").classList.remove("dNone");
+  let menu = document.getElementById("responsive-menu-container");
+  menu.classList.toggle("visible-add-contact-menu-responsive");
+  menu.classList.toggle("hidden-add-contact-menu-responsive");
+}
+
+function closeContactMenuResponsive(event) {
+  event.stopPropagation();
   document.getElementById("overlay-contact").classList.add("dNone");
   let menu = document.getElementById("responsive-menu-container");
   menu.classList.toggle("visible-add-contact-menu-responsive");
