@@ -213,6 +213,7 @@ function sortByUserName(contacts) {
   });
 }
 
+
 /**
  * Sets the appropriate CSS class to show or hide contact-related elements on mobile devices.
  * If no contact is selected (selectedContact is null), it hides the selected contact container
@@ -245,12 +246,13 @@ function unsetSelectedContact() {
   setCurrentShownMobileClass();
 }
 
-// function contactsMenuResponsive() {
-//     document.getElementById('addContactButtonResponsive').classList.toggle('dNone');
-//     document.getElementById('ContactMenuButtonResponsive').classList.toggle('dNone');
-// }
 
 
+/**
+ * Toggles the mobile responsive contact menu.
+ * If the menu is empty, it populates it with edit and delete options.
+ * If the menu is already populated, it removes the menu.
+ */
 function toggleEditContactMenu() {
   let container = document.getElementById("responsiveMenuContainer");
   if (container.innerHTML == "") {
@@ -265,9 +267,37 @@ function toggleEditContactMenu() {
         <div>Delete</div>
     </div></div>`;
   } else {
-    container.classList.add("let-contact-menu-disappear");
-    setTimeout(() => {
-      container.innerHTML = "";
-    }, 500);
+    removeMobileContactMenu(container)
   }
+}
+
+
+/**
+ * Removes the mobile contact menu with a transition effect.
+ * @param {HTMLElement} container - The container element to remove the menu from.
+ */
+function removeMobileContactMenu(container) {
+  container.classList.add("let-contact-menu-disappear");
+  setTimeout(() => {
+    container.innerHTML = "";
+  }, 500);
+}
+
+
+/**
+ * Renders the contact menu within the specified container.
+ * @param {HTMLElement} container - The container element to render the menu in.
+ */
+function renderContactMenu(container) {
+  container.innerHTML =/*html*/`
+  <div class='responsive-contact-menu-container'>
+    <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
+      <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
+      <div>Edit</div>
+    </div>
+    <div onclick="deleteContact(selectedContact)" class="responsive-menu" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImageResponsive')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImageResponsive')">
+      <img id="trashImageResponsive" src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
+      <div>Delete</div>
+    </div>
+  </div>`;
 }
