@@ -184,20 +184,6 @@ function closeMenuResponsive() {
   menu.classList.toggle("visible");
 }
 
-function ShowContactMenuResponsive(event) {
-  event.stopPropagation();
-  document.getElementById("overlay-contact").classList.remove("dNone");
-  let menu = document.getElementById("responsive-menu-container");
-  menu.classList.toggle("visible-add-contact-menu-responsive");
-}
-
-function closeContactMenuResponsive(event) {
-  event.stopPropagation();
-  document.getElementById("overlay-contact").classList.add("dNone");
-  let menu = document.getElementById("responsive-menu-container");
-  menu.classList.toggle("visible-add-contact-menu-responsive");
-}
-
 function openSummary() {
   window.location.href = `./summary.html?name=${username}`;
 }
@@ -240,7 +226,7 @@ function disableIcon() {
     container2.classList.add("d-none");
   }
 }
- 
+
 /**
  * This function goes back to the last page.
  */
@@ -270,7 +256,7 @@ function setElementValue(elementId, value) {
   document.getElementById(elementId).value = value;
 }
 
-async function helpInit(){
-  await includeHTML(); 
+async function helpInit() {
+  await includeHTML();
   setUserHeaderInitials()
 }

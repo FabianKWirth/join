@@ -249,3 +249,25 @@ function unsetSelectedContact() {
 //     document.getElementById('addContactButtonResponsive').classList.toggle('dNone');
 //     document.getElementById('ContactMenuButtonResponsive').classList.toggle('dNone');
 // }
+
+
+function toggleEditContactMenu() {
+  let container = document.getElementById("responsiveMenuContainer");
+  if (container.innerHTML == "") {
+    container.innerHTML =/*html*/`
+    <div class='responsive-contact-menu-container'>
+    <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
+      <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
+        <div>Edit</div>
+    </div>
+    <div onclick="deleteContact(selectedContact)" class="responsive-menu" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImageResponsive')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImageResponsive')">
+      <img id="trashImageResponsive" src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
+        <div>Delete</div>
+    </div></div>`;
+  } else {
+    container.classList.add("let-contact-menu-disappear");
+    setTimeout(() => {
+      container.innerHTML = "";
+    }, 500);
+  }
+}

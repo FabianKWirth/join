@@ -46,22 +46,12 @@
                 <div class="vertical-blue-line"></div>
             </div>
             <img onclick="unsetSelectedContact()" id="goBack" src="assets/image/sidebar/arrow-left-line.svg">
-            <img onclick="ShowContactMenuResponsive(event)" class="menu-button-mobile dNone" src='assets/icons/menuContactOptions.svg'>
+            
             <div class="selected-contact-body" id="selectedContactBody">
             </div>
 
-            <div id="responsive-menu-container" class="responsive-menu-container">
-                <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
-                    <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
-                    <div>Edit</div>
-                </div>
-                <div onclick="deleteContact(selectedContact)" class="responsive-menu" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImageResponsive')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImageResponsive')">
-                    <img id="trashImageResponsive" src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
-                    <div>Delete</div>
-                </div>
-            </div>
-            <div>halloooooooooo</div>
-            <div onclick="closeContactMenuResponsive(event)" id="overlay-contact" class="dNone"></div>
+            <img class="menu-button-mobile dNone" onclick='toggleEditContactMenu()' src='assets/icons/menuContactOptions.svg'>
+            <div id="responsiveMenuContainer" class="responsive-menu-container"></div>
         </div>
     </div>
 
