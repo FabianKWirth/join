@@ -189,7 +189,6 @@ function ShowContactMenuResponsive(event) {
   document.getElementById("overlay-contact").classList.remove("dNone");
   let menu = document.getElementById("responsive-menu-container");
   menu.classList.toggle("visible-add-contact-menu-responsive");
-  menu.classList.toggle("hidden-add-contact-menu-responsive");
 }
 
 function closeContactMenuResponsive(event) {
@@ -197,7 +196,6 @@ function closeContactMenuResponsive(event) {
   document.getElementById("overlay-contact").classList.add("dNone");
   let menu = document.getElementById("responsive-menu-container");
   menu.classList.toggle("visible-add-contact-menu-responsive");
-  menu.classList.toggle("hidden-add-contact-menu-responsive");
 }
 
 function openSummary() {
