@@ -158,3 +158,12 @@ function setSelectContactEventListeners() {
     }
   });
 }
+
+/**
+ * Sets the minimum date to choose.
+ */
+function setMinDate() {
+let today = new Date().toISOString().split('T')[0];
+  
+document.getElementById('newTaskDate').setAttribute('min', today);
+}

@@ -17,6 +17,7 @@ function createSubTask() {
         subTasks.push(subtask);
     }
     renderSubTasksList();
+    resetSubTaskInput();
 }
 
 /**
