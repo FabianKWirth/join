@@ -184,7 +184,8 @@ function closeMenuResponsive() {
   menu.classList.toggle("visible");
 }
 
-function ShowContactMenuResponsive() {
+function ShowContactMenuResponsive(event) {
+  event.stopPropagation();
   document.getElementById("overlay-contact").classList.remove("dNone");
   let menu = document.getElementById("responsive-menu-container");
   menu.classList.toggle("visible-add-contact-menu-responsive");

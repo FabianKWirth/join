@@ -46,12 +46,12 @@
                 <div class="vertical-blue-line"></div>
             </div>
             <img onclick="unsetSelectedContact()" id="goBack" src="assets/image/sidebar/arrow-left-line.svg">
-            <img onclick="ShowContactMenuResponsive()" class="menu-button-mobile dNone" src='assets/icons/menuContactOptions.svg'>
+            <img onclick="ShowContactMenuResponsive(event)" class="menu-button-mobile dNone" src='assets/icons/menuContactOptions.svg'>
             <div class="selected-contact-body" id="selectedContactBody">
             </div>
 
             <div id="responsive-menu-container" class="responsive-menu-container hidden-add-contact-menu-responsive">
-                <div class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
+                <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
                     <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
                     <div>Edit</div>
                 </div>
