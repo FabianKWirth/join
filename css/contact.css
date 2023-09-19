@@ -223,9 +223,8 @@ h4 {
     border-radius: 20px 20px 0px 20px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     width: 96px;
-    /* opacity: 0; */
-    right: 0px;
-    bottom: 198px;
+    right: 16px;
+    bottom: 98px;
     animation: letAppear 0.5s ease-in-out;
 }
 
@@ -567,6 +566,10 @@ h4 {
     }
 
     .hidden-add-contact-menu-responsive {
+        bottom: 170px;
+    }
+
+    .responsive-contact-menu-container {
         bottom: 170px;
     }
 }
