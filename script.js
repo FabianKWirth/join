@@ -61,8 +61,7 @@ async function includeHTML(x) {
       element.innerHTML = await resp.text();
     } else {
       element.innerHTML = "Page not found";
-    }
-  }
+    }}
   bgDark(x);
   bgDarkLegalNotice(x);
   disableIcon();

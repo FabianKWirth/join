@@ -1,4 +1,3 @@
-
 /**
  * Submits a new task by saving the current user entries, checking if the form is submittable,
  * adding the task to the 'tasks' array, rendering a task added element,
@@ -87,7 +86,6 @@ function saveDirectInputFields() {
     }
 }
 
-
 //RESET INPUT VALUES
 
 /**
@@ -157,7 +155,6 @@ function resetPriority() {
         button.checked = false;
     });
 }
-
 
 /**
  * Loads a task with the given taskId and populates the Add Task form with its data for editing.
@@ -346,7 +343,6 @@ async function saveTaskChanges(taskId) {
     }
 }
 
-
 function renderTaskChangesSavedElement() {
     if (document.getElementById("addTaskContainer") != null) {
         document.getElementById("addTaskContainer").innerHTML +=/*html*/`<div class="task-created-notification-container">
@@ -354,7 +350,6 @@ function renderTaskChangesSavedElement() {
     </div>`;
     }
 }
-
 
 function renderTaskDeletedElement() {
     document.body.innerHTML +=/*html*/`
@@ -370,8 +365,6 @@ function renderTaskDeletedElement() {
         document.getElementById("addTaskContainer").remove();
     }, 1500);
 }
-
-
 
 /** 
  * Calls functions to see whether all required input field are set 

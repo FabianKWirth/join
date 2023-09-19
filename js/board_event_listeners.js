@@ -12,7 +12,6 @@ function loadEventListeners() {
   addOnTouchStartEventListeners();
 }
 
-
 /**
  * Adds keydown event listeners to search input elements.
  */
@@ -34,7 +33,6 @@ function addOnkeyDownEventListeners() {
     });
   }
 }
-
 
 /**
  * Adds click event listeners to search elements.
@@ -58,7 +56,6 @@ function addOnClickEventListeners() {
     });
   }
 }
-
 
 /**
  * Adds touchstart event listeners to search elements.

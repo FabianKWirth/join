@@ -414,7 +414,8 @@
 
 /* Hide the radio buttons */
 #addTaskContainer input[type="radio"] {
-    display: none;
+    position: absolute;
+    z-index: -1;
 }
 
 /* Style the label when the radio button is checked */

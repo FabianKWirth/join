@@ -114,21 +114,10 @@ function generateHTML(task, index) {
   const priority = task["priority"];
   const subtaskCount = task["subTasks"] ? task["subTasks"].length : 0;
   const completedSubtaskCount = countCompletedSubtasks(task);
-  const progressBarHTML = generateProgressBarHTML(
-    completedSubtaskCount,
-    subtaskCount
-  );
+  const progressBarHTML = generateProgressBarHTML(completedSubtaskCount,subtaskCount);
   const categoryClass = getCategoryClass(task);
   const priorityImageSrc = getPriorityImageSrc(priority);
-
-  return renderTaskCards(
-    index,
-    task,
-    categoryClass,
-    progressBarHTML,
-    assignedContactsIcons,
-    priorityImageSrc
-  );
+  return renderTaskCards( index, task, categoryClass, progressBarHTML, assignedContactsIcons, priorityImageSrc);
 }
 
 /**
@@ -148,7 +137,6 @@ function countCompletedSubtasks(task) {
       }
     }
   }
-
   return completedSubtaskCount;
 }
 
@@ -170,7 +158,6 @@ function generateProgressBarHTML(completedSubtaskCount, subtaskCount) {
       subtaskCount
     );
   }
-
   return progressBarHTML;
 }
 
@@ -199,32 +186,27 @@ function getCategoryClass(task) {
 function getAssignedContactIcons(assignedContacts) {
   let contactIconHtml = "";
   let firstItem = true;
-  let insertedContacts = 0; // Counter for inserted contacts
+  let insertedContacts = 0;
 
   if (assignedContacts != null) {
     assignedContacts.forEach((assignedContact) => {
       if (insertedContacts < 6) {
         let contactIcon = getContactIconHtml(contacts[assignedContact]);
-
-        if (firstItem == true) {
-          contactIcon = contactIcon.replace(
+        if (firstItem == true) {contactIcon = contactIcon.replace(
             /class="circle"/g,
             'class="circle circle-1"'
           );
           firstItem = false;
-        } else {
-          contactIcon = contactIcon.replace(
+        } else {contactIcon = contactIcon.replace(
             /class="circle"/g,
             'class="circle circle-2"'
           );
         }
-
         contactIconHtml += contactIcon;
         insertedContacts++;
       }
     });
   }
-
   return contactIconHtml;
 }
 
@@ -261,7 +243,6 @@ function startDragging(id) {
   currentDraggedElement = id;
 }
 
-
 /**
  * Prevents the default behavior of a drop event to allow dropping content.
  *
@@ -272,7 +253,6 @@ function startDragging(id) {
 function allowDrop(ev) {
   ev.preventDefault();
 }
-
 
 /**
  * Moves a task to a different category based on the specified event and category data.
@@ -305,7 +285,6 @@ function moveTo(ev) {
     loadTasksHTML();
   }
 }
-
 
 async function deleteTask(taskIndex) {
   tasks.splice([taskIndex], 1);
@@ -617,7 +596,6 @@ function showTaskCard(index) {
     getSubtaskText,
     subtasksHTML
   );
-
   includeEventlistenerToCloseOverlayBoard();
 }
 
@@ -683,7 +661,6 @@ function getPriorityImageSrc(priority) {
       imageSrc = "";
       break;
   }
-
   return imageSrc;
 }
 
@@ -832,10 +809,8 @@ function saveSubtask(subtaskStatus, i, index) {
     tasks[index]["subTasks"][i]["isComplete"] = subtaskStatus;
     setItem("tasks", tasks);
   }
-
   showTaskCard(index);
 }
-
 
 /**
  * Displays the "Move To" dropdown menu in a task card and highlights the current category.
@@ -860,7 +835,6 @@ function showMoveTo(event, index, category) {
   }
 }
 
-
 /**
  * Re-renders the task card to update its content.
  *
@@ -870,7 +844,6 @@ function renderTaskCardAgain(event) {
   event.stopPropagation();
   loadTasksHTML();
 }
-
 
 /**
  * Updates the data category for a task and reloads the task list.

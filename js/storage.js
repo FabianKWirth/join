@@ -11,20 +11,12 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
  * @throws {Error} - If there's an error during the fetch operation or JSON parsing.
  */
 async function setItem(key, value) {
-    /**
-     * Create a payload object.
-     * @type {{key: string, value: JSON, token: string}} payload
-     */
     const payload = { key, value, token: STORAGE_TOKEN };
-
     try {
-        // Perform a fetch request to the storage URL.
         const response = await fetch(STORAGE_URL, {
             method: 'POST',
             body: JSON.stringify(payload),
         })
-
-        // Parse the response as JSON.
         const res = await response.json();
         return res;
 
@@ -32,7 +24,6 @@ async function setItem(key, value) {
         throw new Error(`Error setting item: ${error.message}`);
     }
 }
-
 
 /**
  * Retrieves an item from the storage using a key.
@@ -43,16 +34,10 @@ async function setItem(key, value) {
  * @throws {Error} - If there's an error during the fetch operation or JSON parsing.
  */
 async function getItem(key) {
-    /**
-     * Construct the URL for fetching the item.
-     * @type {string} url
-     */
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
 
     try {
-        // Perform a fetch request to retrieve the item. And parses the response as JSON
         const response = await fetch(url).then(res => res.json());
-
         if (response['status'] == "success") {
             let responseValue=await response['data']['value'];
             return JSON.parse(responseValue);
@@ -63,4 +48,3 @@ async function getItem(key) {
         throw new Error(`Error getting item: ${error.message}`);
     }
 }
-

@@ -1,4 +1,3 @@
-
 /**
  * Renders a notification element for a contact creation event.
  * The notification displays a "Created" message and automatically fades out
@@ -59,25 +58,18 @@ function removeNotificationLayout() {
  */
 function setNotificationValue(input) {
     const notifications = document.getElementsByClassName("change-contact-notification-text");
-
     for (let i = 0; i < notifications.length; i++) {
         const notification = notifications[i];
         console.log(notification);
         switch (input) {
-            case 'Created':
-                notification.innerHTML = "Contact successfully created";
+            case 'Created': notification.innerHTML = "Contact successfully created";
                 break;
-            case 'Changed':
-                notification.innerHTML = "Contact changes saved";
+            case 'Changed': notification.innerHTML = "Contact changes saved";
                 break;
-            case 'Delete':
-                notification.innerHTML = "Contact deleted";
+            case 'Delete': notification.innerHTML = "Contact deleted";
                 break;
-            default:
-                notification.innerHTML = "Error adapting contact";
-        }
-    }
-}
+            default: notification.innerHTML = "Error adapting contact";
+        }}}
 
 /**
  * Renders the notification layout within the selected contact container
@@ -130,14 +122,11 @@ function saveContact() {
         let contactMail = document.getElementById("contactMailInput").value;
         let contactPhone = document.getElementById("contactPhoneInput").value;
         let color = contacts[selectedContact]["color"];
-
         let contact = { "name": contactName, "mail": contactMail, "phone": contactPhone, "color": color };
         contacts[selectedContact] = contact;
         setItem("contacts", contacts);
-
         renderContacts();
         removeElementsByPartialClassName("add-contact");
-
         renderSelectedContactBody();
         renderContactSavedElement();
     }

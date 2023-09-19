@@ -21,7 +21,6 @@ function openAddTaskTemplate(status = null) {
     includeEventlistenerToCloseAddTask();
 }
 
-
 /**
  * Attach an event listener to the "addTaskWrapper" element to close the "Add Task" template
  * when a click occurs on the overlay.
@@ -35,7 +34,6 @@ function includeEventlistenerToCloseAddTask() {
         }
     });
 }
-
 
 /**
  * Attaches an event listener to the "overlayBoard" element to close the overlay board
@@ -55,7 +53,6 @@ function includeEventlistenerToCloseOverlayBoard() {
     });
 }
 
-
 /**
  * Removes or hides the elements related to the "Add Task" template, including the "addTaskWrapper" and "overlayBoard."
  * Additionally, it adds an event listener for search functionality after removing the elements.
@@ -67,7 +64,6 @@ function removeAddTaskElements() {
     if (addTaskWrapper) { addTaskWrapper.remove(); };
     if (overlayBoard) { overlayBoard.remove(); };
 }
-
 
 /**
  * Removes the "overlayBoard" element from the DOM if it exists.
@@ -90,7 +86,6 @@ function addTaskOverlay() {
     </div>`;
 }
 
-
 /**
  * Removes the "addTaskOverlay" element from the DOM if it exists.
  * This function assumes that there is an HTML element with the ID "addTaskOverlay" in the document.
@@ -100,7 +95,6 @@ function removeTaskOverlay() {
     const addTaskOverlay = document.getElementById('addTaskOverlay');
     if (addTaskOverlay) { addTaskOverlay.remove(); };
 }
-
 
 /**
  * Opens an edit task template for a specific task.

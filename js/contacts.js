@@ -32,8 +32,7 @@ function renderContacts() {
     let thisCurrentLetter = contacts[i]["name"].charAt(0).toUpperCase();
     if (currentLetter != thisCurrentLetter) {
       currentLetter = thisCurrentLetter;
-      renderLetterHeader(list, currentLetter);
-    }
+      renderLetterHeader(list, currentLetter);}
     renderContactListItem(list, i);
   }
   if (selectedContactListElement != null) {
@@ -54,41 +53,45 @@ function renderSelectedContactBody() {
   let contactMail = contact["mail"];
   let contactPhone = contact["phone"];
 
-  contactElement.innerHTML = /*html*/ `
-    <div class="contact-detail-area">
-        <div class='contact-name-row'>
-            ${contactIcon}
-            <div class="contacts-detail-container">
-                <h2>  ${contactName}</h2>
-                <div class="contact-menu">
-                    <div id="editField" onclick='includeContactHTML("editContact")'>
-                        <img src="./assets/icons/pen-icon.svg">
-                        Edit
-                    </div>
-                    <div id="deleteField" onclick='deleteContact(selectedContact)'>
-                        <img src="./assets/icons/trashcan-icon.svg">
-                        Delete
-                    </div>
-                </div>
-            </div>
-        </div>
+  contactElement.innerHTML = renderSelectedContactBodyTemplate(contactIcon, contactName, contactMail, contactPhone);
+}
 
-        <div class="contact-information-container">
-            <p>Contact Information</p>
-        </div> 
+function renderSelectedContactBodyTemplate(contactIcon, contactName, contactMail, contactPhone) {
+  return /*html*/ `
+  <div class="contact-detail-area">
+      <div class='contact-name-row'>
+          ${contactIcon}
+          <div class="contacts-detail-container">
+              <h2>  ${contactName}</h2>
+              <div class="contact-menu">
+                  <div id="editField" onclick='includeContactHTML("editContact")'>
+                      <img src="./assets/icons/pen-icon.svg">
+                      Edit
+                  </div>
+                  <div id="deleteField" onclick='deleteContact(selectedContact)'>
+                      <img src="./assets/icons/trashcan-icon.svg">
+                      Delete
+                  </div>
+              </div>
+          </div>
+      </div>
 
-        <div class="contact-details">
-            <div class="mail">
-                <p><b>Email</b></p>
-                <p class="mail-text">${contactMail}</p>
-            </div>
-            <div class="phone">
-                <p><b>Phone</b></p>
-                <p>${contactPhone}</p>
-            </div>
-        </div> 
-    </div>
-    `;
+      <div class="contact-information-container">
+          <p>Contact Information</p>
+      </div> 
+
+      <div class="contact-details">
+          <div class="mail">
+              <p><b>Email</b></p>
+              <p class="mail-text">${contactMail}</p>
+          </div>
+          <div class="phone">
+              <p><b>Phone</b></p>
+              <p>${contactPhone}</p>
+          </div>
+      </div> 
+  </div>
+  `;
 }
 
 /**
@@ -181,16 +184,20 @@ function renderContactListItem(list, contactIndex) {
   contactName = contact["name"];
   contactMail = contact["mail"];
   let userIcon = getContactIconHtml(contact);
-  list.innerHTML += /*html*/ `
-    <div class="contact-element" onclick='selectContact("${contactIndex}");markContactElementAsSelected(this)'>
-        ${userIcon}
-        <div class="contact-info">
-            <p class="contact-name">${contactName}</p>
-            <div class='contact-list-mail-text'>${contactMail}</div>
-        </div>
-    </div>
-    `;
+  list.innerHTML += renderContactListItemTemplate(contactIndex, contactName, contactMail, userIcon);
   getContactIconHtml(contact);
+}
+
+function renderContactListItemTemplate(contactIndex, contactName, contactMail, userIcon) {
+  return /*html*/ `
+  <div class="contact-element" onclick='selectContact("${contactIndex}");markContactElementAsSelected(this)'>
+      ${userIcon}
+      <div class="contact-info">
+          <p class="contact-name">${contactName}</p>
+          <div class='contact-list-mail-text'>${contactMail}</div>
+      </div>
+  </div>
+  `;
 }
 
 /**
@@ -213,7 +220,6 @@ function sortByUserName(contacts) {
   });
 }
 
-
 /**
  * Sets the appropriate CSS class to show or hide contact-related elements on mobile devices.
  * If no contact is selected (selectedContact is null), it hides the selected contact container
@@ -221,18 +227,14 @@ function sortByUserName(contacts) {
  */
 function setCurrentShownMobileClass() {
   if (selectedContact == null) {
-    document
-      .getElementById("selectedContactContainer")
+    document.getElementById("selectedContactContainer")
       .classList.add("contact-hide-on-mobile");
-    document
-      .getElementById("contactListSection")
+    document.getElementById("contactListSection")
       .classList.remove("contact-hide-on-mobile");
   } else {
-    document
-      .getElementById("selectedContactContainer")
+    document.getElementById("selectedContactContainer")
       .classList.remove("contact-hide-on-mobile");
-    document
-      .getElementById("contactListSection")
+    document.getElementById("contactListSection")
       .classList.add("contact-hide-on-mobile");
   }
 }
@@ -246,8 +248,6 @@ function unsetSelectedContact() {
   setCurrentShownMobileClass();
 }
 
-
-
 /**
  * Toggles the mobile responsive contact menu.
  * If the menu is empty, it populates it with edit and delete options.
@@ -256,21 +256,24 @@ function unsetSelectedContact() {
 function toggleEditContactMenu() {
   let container = document.getElementById("responsiveMenuContainer");
   if (container.innerHTML == "") {
-    container.innerHTML =/*html*/`
-    <div class='responsive-contact-menu-container'>
-    <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
-      <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
-        <div>Edit</div>
-    </div>
-    <div onclick="deleteContact(selectedContact)" class="responsive-menu" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImageResponsive')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImageResponsive')">
-      <img id="trashImageResponsive" src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
-        <div>Delete</div>
-    </div></div>`;
+    toggleEditContactMenuTemplate(container);
   } else {
-    removeMobileContactMenu(container)
+    removeMobileContactMenu(container);
   }
 }
 
+function toggleEditContactMenuTemplate(container) {
+  container.innerHTML = /*html*/ `
+  <div class='responsive-contact-menu-container'>
+  <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
+    <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">
+      <div>Edit</div>
+  </div>
+  <div onclick="deleteContact(selectedContact)" class="responsive-menu" onmouseover="changeImage('assets/icons/delete-blue.svg', 'trashImageResponsive')" onmouseout="changeImage('assets/icons/trashcan-icon.svg', 'trashImageResponsive')">
+    <img id="trashImageResponsive" src="assets/icons/trashcan-icon.svg" alt="Delete Icon">
+      <div>Delete</div>
+  </div></div>`;
+}
 
 /**
  * Removes the mobile contact menu with a transition effect.
@@ -283,13 +286,12 @@ function removeMobileContactMenu(container) {
   }, 500);
 }
 
-
 /**
  * Renders the contact menu within the specified container.
  * @param {HTMLElement} container - The container element to render the menu in.
  */
 function renderContactMenu(container) {
-  container.innerHTML =/*html*/`
+  container.innerHTML = /*html*/ `
   <div class='responsive-contact-menu-container'>
     <div onclick='includeContactHTML("editContact")' class="responsive-menu" onmouseover="changeImage('assets/icons/edit-blue.svg', 'editImageResponsive')" onmouseout="changeImage('assets/icons/pen-icon.svg', 'editImageResponsive')">
       <img id="editImageResponsive" src="assets/icons/pen-icon.svg" alt="Edit Icon">

@@ -17,7 +17,6 @@ function renderProgressBar(progressPercentage, completedSubtaskCount, subtaskCou
     `;
 }
 
-
 /**
  * Renders an HTML task card based on the provided data and elements.
  *
@@ -50,8 +49,6 @@ function renderTaskCards(index, task, categoryClass, progressBarHTML, assignedCo
     </div>
     `;
 }
-
-
 
 /**
  * Generates an HTML task card for display in an overlay.
@@ -163,8 +160,6 @@ function getAssignedContactsRenderHTML(contacts, assignedContact) {
     }
 }
 
-
-
 /**
  * Generates the HTML for the "Move To" dropdown menu in a task card.
  *
@@ -187,7 +182,6 @@ function renderMoveToInTaskCards(index) {
         </div>
     `;
 }
-
 
 /**
  * Renders the HTML for a task and appends it to the 'toDo' section.
@@ -218,7 +212,6 @@ function renderTodoTaskHTML(todo, task, index) {
     }
 }
 
-
 /**
  * Renders the HTML for a task in the 'In Progress' category based on the provided task, index, and filter.
  *
@@ -236,7 +229,6 @@ function renderInProgressTaskHTML(inProgress, task, index) {
         document.getElementById('inProgress').innerHTML = renderNoInProgress();
     }
 }
-
          
 /**
  * Renders the HTML for a task in the 'Awaiting Feedback' category based on the provided task, index, and filter.
@@ -255,7 +247,6 @@ function renderAwaitFeedbackTaskHTML(awaitFeedback, task, index) {
         document.getElementById('awaitFeedback').innerHTML = renderNoAwaitFeedback();
     }
 }
-
 
 /**
  * Renders the HTML for a task in the 'Done' category based on the provided task, index, and filter.
