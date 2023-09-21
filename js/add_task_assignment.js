@@ -42,7 +42,6 @@ function showAvailableContacts(input) {
             document.getElementById("assignableContact" + i).classList.remove('hide');
         } else {
             document.getElementById("assignableContact" + i).classList.add('hide');
-
         }
     }
 }

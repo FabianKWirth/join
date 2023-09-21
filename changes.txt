@@ -1,0 +1,9 @@
+Contacts:
+    List gets rendered again after add/edit/delete
+
+Board: 
+    Add/edit Task now shows Contacts to assign
+
+Summary: 
+    Changed page alignment in mobile.
+    Changed Text formation of "Everything in a nutshell!"

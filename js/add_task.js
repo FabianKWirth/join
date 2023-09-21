@@ -80,7 +80,7 @@ async function initAddTasks(status) {
   if (users != []) {
     await getStorageData();
   }
-  loadEventListeners();
+  loadTaskEventListeners();
   renderContactAssignmentDropDown();
   unfinishedTaskData = { status: status };
 }
@@ -92,7 +92,7 @@ async function initAddTasks(status) {
  *
  * @returns {void}
  */
-function loadEventListeners() {
+function loadTaskEventListeners() {
   setSelectContactEventListeners();
   setShowAvailableContactsEventListener();
   setSubTaskEventListeners();
@@ -125,7 +125,7 @@ function setSelectedCategoryEventListeners() {
  */
 function setShowAvailableContactsEventListener() {
   let inputField = document.getElementById("dropDownContactsTextFieldInput");
-  inputField.addEventListener("input", function (event) {
+  inputField.addEventListener("input", function () {
     showAvailableContacts(inputField.value);
   });
 }
@@ -163,7 +163,7 @@ function setSelectContactEventListeners() {
  * Sets the minimum date to choose.
  */
 function setMinDate() {
-let today = new Date().toISOString().split('T')[0];
-  
-document.getElementById('newTaskDate').setAttribute('min', today);
+  let today = new Date().toISOString().split('T')[0];
+
+  document.getElementById('newTaskDate').setAttribute('min', today);
 }

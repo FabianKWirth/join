@@ -1,7 +1,7 @@
 /**
  * Load event listeners for keydown, click, and touch events.
  */
-function loadEventListeners() {
+function loadBoardEventListeners() {
   // Add keydown event listeners for search input elements
   addOnkeyDownEventListeners();
 

@@ -6,6 +6,7 @@
 async function renderContactCreatedElement() {
     await renderNotificationLayout();
     setNotificationValue("Created");
+    renderContacts()
     setTimeout(function () {
         removeNotificationLayout();
     }, 2000);
@@ -19,6 +20,7 @@ async function renderContactCreatedElement() {
 async function renderContactSavedElement() {
     await renderNotificationLayout();
     setNotificationValue("Changed");
+    renderContacts();
     setTimeout(function () {
         removeNotificationLayout();
     }, 2000);
@@ -31,8 +33,9 @@ async function renderContactSavedElement() {
  */
 async function renderContactDeleteElement() {
     await renderNotificationLayout();
+    
     setNotificationValue("Delete");
-
+    renderContacts();
     setTimeout(function () {
         removeNotificationLayout();
     }, 2000);
