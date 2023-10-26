@@ -1,12 +1,10 @@
 .body {
     position: absolute;
     left: 0;
+    right: 0;
     top: 0;
-<<<<<<< Updated upstream
     bottom: 0;
     margin: 96px 0 0 328px;
-=======
->>>>>>> Stashed changes
     font-family: 'Inter', sans-serif;
 }
 
@@ -17,16 +15,11 @@
     margin: 80px 0 0 0px;
     background-color: #F6F7F8;
     margin-bottom: 30px;
-<<<<<<< Updated upstream
-=======
-    margin: 10px;
->>>>>>> Stashed changes
 }
 
-.headline-h1 div {
+.headline-h1 span {
     font-size: 27px;
     padding-right: 3px;
-    margin: 0;
 }
 
 .summary-content {
@@ -221,27 +214,25 @@
         margin-left: 45px;
     }
 
-    .headline-h1 div {
+    .headline-h1 span {
         font-size: 23px;
     }
 }
 
 @media(max-width: 800px) {
-    .summary-wrapper {
-        position: relative;
-        left: 0px;
+    .body {
+        margin: 0 0 70px 0;
         display: flex;
         justify-content: center;
         flex-direction: column;
         align-items: center;
-        width: 100%;
     }
 
     h1 {
         font-size: 50px;
     }
 
-    .headline-h1 div {
+    .headline-h1 span {
         font-size: 20px;
     }
 }
@@ -262,11 +253,10 @@
     }
 
     .seperator-responsiv {
-        display: block;
-        position: relative;
-        transform: rotate(90deg) translateY(-50%);
-        margin-top:-25px;
-        
+        display: inline;
+        position: absolute;
+        top: 100px;
+        left: 35px;
     }
 }
 
@@ -275,7 +265,7 @@
         font-size: 40px;
     }
 
-    .headline-h1 div {
+    .headline-h1 span {
         font-size: 16px;
     }
 
@@ -339,6 +329,11 @@
 
     .headline-h1 {
         margin: 0 0 40px 0;
+    }
+
+    .seperator-responsiv {
+        top: 77px;
+        left: 33px;
     }
 
     .seperator-deadline {
